@@ -31,6 +31,13 @@ void WindowModule::Update()
 		{
 			Engine::GetInstance()->Quit();
 		}
+		else if (event.type == sf::Event::KeyPressed) {
+			pressed[event.key.code] = true;
+		}
+
+		else if (event.type == sf::Event::KeyReleased) {
+			pressed[event.key.code] = false;
+		}
 	}
 }
 
