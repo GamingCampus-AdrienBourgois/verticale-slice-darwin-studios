@@ -41,10 +41,10 @@ Scene* SceneModule::GetScene(const std::string& _scene_name) const
 {
 	for (Scene* scene : scenes)
 	{
-		if (scene->GetName() == _scene_name)
+		/*if (scene->GetName() == _scene_name)
 		{
 			return scene;
-		}
+		}*/
 	}
 	return nullptr;
 }

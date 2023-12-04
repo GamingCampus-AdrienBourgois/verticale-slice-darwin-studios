@@ -2,10 +2,8 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
-Scene::Scene(const std::string& _name)
-{
-	name = _name;
-}
+Scene::Scene(const std::string& _name) : name(_name) {}
+
 
 void Scene::Update(const float _delta_time) const
 {
@@ -23,10 +21,10 @@ void Scene::Render(sf::RenderWindow* _window) const
 	}
 }
 
-std::string Scene::GetName() const
-{
-	return name;
-}
+
+//std::string Scene::GetName() const {
+//	return name;
+//}
 
 GameObject* Scene::CreateGameObject(const std::string& _name)
 {
