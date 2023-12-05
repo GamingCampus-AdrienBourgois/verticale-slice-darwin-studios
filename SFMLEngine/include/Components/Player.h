@@ -25,11 +25,11 @@ public:
 	void Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) override;
 
 private:
-	bool can_jump = true;
+	bool can_jump = false;
 	bool is_jumping = false;
 	sf::Clock jumping_time;
 
-	bool can_switch = true;
+	bool can_switch = false;
 	bool is_switching = false;
 
 

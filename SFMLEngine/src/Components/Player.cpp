@@ -2,6 +2,8 @@
 #include <iostream>
 #include "Components/ObjectName.h"
 
+#include "Components/RectangleShapeRenderer.h"
+
 
 
 
@@ -44,6 +46,8 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 	if (is_switching)
 	{
 		can_switch = false;
+		can_jump = false;
+
 		if (actuall_doll_int == 0)
 		{
 			medium_doll = new Doll;
@@ -52,7 +56,8 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 			delete big_doll;
 			big_doll = nullptr;
 
-			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() - 150));
+			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() - 200));
+			GetOwner()->GetComponent<RectangleShapeRenderer>()->SetColor(sf::Color::Blue);
 			actuall_doll_int++;
 		}
 		else if (actuall_doll_int == 1)
@@ -63,7 +68,8 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 			delete medium_doll;
 			medium_doll = nullptr;
 
-			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() - 150));
+			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() - 200));
+			GetOwner()->GetComponent<RectangleShapeRenderer>()->SetColor(sf::Color::Green);
 			actuall_doll_int++;
 		}
 		is_switching = false;
@@ -88,6 +94,8 @@ void Player::Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key,
 			if (input.first == 57 && input.second == true) {
 				is_jumping = true;
 				jumping_time.restart();
+
+				can_switch = false;
 			}
 		}
 	}
@@ -121,7 +129,7 @@ void Player::Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key,
 	if (GetOwner()->GetPosition().GetY() + 200 <= sizeWindow.y && !is_jumping) {
 		GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() + (200 * _delta_time)));
 	}
-	
+
 }
 
 
@@ -130,7 +138,7 @@ void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Ke
 	Jump(_delta_time, pressed_input);
 	SwitchDoll(pressed_input);
 	if (GetOwner()->GetPosition().GetY() + 200 <= sizeWindow.y) {
-		GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() + (100 * _delta_time)));
+		GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() + (actual_doll->GetGravity() * _delta_time)));
 	}
 	else {
 		can_jump = true;
