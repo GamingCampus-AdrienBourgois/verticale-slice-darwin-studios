@@ -4,6 +4,9 @@
 
 #include "Component.h"
 #include "Maths/Vector2.h"
+#include <unordered_map>
+#include <SFML/Window/Event.hpp>
+#include "Components/ObjectName.h"
 
 class Component;
 
@@ -13,12 +16,12 @@ public:
 	GameObject() = default;
 	~GameObject();
 
-	std::string GetName() const { return name; }
+	ObjectName GetName() const { return name; }
 	Maths::Vector2<float> GetPosition() const { return position; }
 	float GetRotation() const { return rotation; }
 	Maths::Vector2<float> GetScale() const { return scale; }
 
-	void SetName(const std::string& _name) { name = _name; }
+	void SetName(const ObjectName& _name) { name = _name; }
 	void SetPosition(const Maths::Vector2<float>& _position) { position = _position; }
 	void SetRotation(const float _rotation) { rotation = _rotation; }
 	void SetScale(const Maths::Vector2<float>& _scale) { scale = _scale; }
@@ -32,11 +35,11 @@ public:
 	void AddComponent(Component* _component);
 	void RemoveComponent(Component* _component);
 
-	void Update(float _delta_time) const;
+	void Update(float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) const;
 	void Render(sf::RenderWindow* _window) const;
 
 private:
-	std::string name = "GameObject";
+	ObjectName name = ObjectName::GameObjectName;
 
 	Maths::Vector2<float> position = Maths::Vector2f::Zero;
 	float rotation = 0.0f;

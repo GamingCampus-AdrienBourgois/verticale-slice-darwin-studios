@@ -173,6 +173,20 @@
     <ClInclude Include="Scenes\DefaultScene.h" />
     <ClInclude Include="Scenes\SpawnWall.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="imgui.ini" />
+    <None Include="x64\Debug\Game.exe.recipe" />
+    <None Include="x64\Debug\Game.tlog\CL.command.1.tlog" />
+    <None Include="x64\Debug\Game.tlog\Game.lastbuildstate" />
+    <None Include="x64\Debug\Game.tlog\unsuccessfulbuild" />
+    <None Include="x64\Debug\vc143.idb" />
+    <None Include="x64\Debug\vc143.pdb" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="x64\Debug\Game.Build.CppClean.log" />
+    <Text Include="x64\Debug\Game.log" />
+    <Text Include="x64\Debug\Game.vcxproj.FileListAbsolute.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

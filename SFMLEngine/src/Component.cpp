@@ -5,6 +5,6 @@ Component::Component(GameObject* _owner)
 	this->owner = _owner;
 }
 
-void Component::Update(float _delta_time) {}
+void Component::Update(float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) {}
 
 void Component::Render(sf::RenderWindow* _window) {}

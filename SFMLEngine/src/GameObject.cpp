@@ -1,5 +1,6 @@
 #include "GameObject.h"
 
+
 GameObject::~GameObject()
 {
 	for (Component*& component : components)
@@ -19,11 +20,11 @@ void GameObject::RemoveComponent(Component* _component)
 	components.erase(std::remove(components.begin(), components.end(), _component), components.end());
 }
 
-void GameObject::Update(const float _delta_time) const
+void GameObject::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) const
 {
 	for (Component* const& component : components)
 	{
-		component->Update(_delta_time);
+		component->Update(_delta_time, pressed_input);
 	}
 }
 

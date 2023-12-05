@@ -151,5 +151,34 @@
     <None Include="include\Maths\Vector2.inl">
       <Filter>Header Files</Filter>
     </None>
+    <None Include="x64\Debug\SFMLEngine.lib.recipe" />
+    <None Include="x64\Debug\SFMLEngine.tlog\CL.command.1.tlog" />
+    <None Include="x64\Debug\SFMLEngine.tlog\SFMLEngine.lastbuildstate" />
+    <None Include="x64\Debug\SFMLEngine.tlog\unsuccessfulbuild" />
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="x64\Debug\ARendererComponent.obj" />
+    <Object Include="x64\Debug\Vector2.obj" />
+    <Object Include="x64\Debug\TimeModule.obj" />
+    <Object Include="x64\Debug\SquareCollider.obj" />
+    <Object Include="x64\Debug\Component.obj" />
+    <Object Include="x64\Debug\Doll.obj" />
+    <Object Include="x64\Debug\Engine.obj" />
+    <Object Include="x64\Debug\GameObject.obj" />
+    <Object Include="x64\Debug\imgui.obj" />
+    <Object Include="x64\Debug\imgui_demo.obj" />
+    <Object Include="x64\Debug\imgui_draw.obj" />
+    <Object Include="x64\Debug\imgui_tables.obj" />
+    <Object Include="x64\Debug\imgui_widgets.obj" />
+    <Object Include="x64\Debug\imgui-SFML.obj" />
+    <Object Include="x64\Debug\Module.obj" />
+    <Object Include="x64\Debug\RectangleShapeRenderer.obj" />
+    <Object Include="x64\Debug\Scene.obj" />
+    <Object Include="x64\Debug\SpriteRenderer.obj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="x64\Debug\SFMLEngine.Build.CppClean.log" />
+    <Text Include="x64\Debug\SFMLEngine.log" />
+    <Text Include="x64\Debug\SFMLEngine.vcxproj.FileListAbsolute.txt" />
   </ItemGroup>
 </Project>

@@ -1,13 +1,16 @@
 #pragma once
 
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <unordered_map>
+#include <SFML/Window/Event.hpp>
 
 #include "Module.h"
 
 class WindowModule final : public Module
 {
 public:
-	sf::RenderWindow* GetWindow() const { return window; }
+	
+	std::unordered_map<sf::Keyboard::Key, bool>* GetPressed() { return &pressed; }
 
 	void Init() override;
 	void Start() override;
@@ -17,6 +20,10 @@ public:
 	void PostRender() override;
 	void Release() override;
 
+	sf::RenderWindow* GetWindow() const { return window; }
+	sf::Vector2u GetWindowSize() const { return window->getSize(); };
+
 private:
 	sf::RenderWindow* window = nullptr;
+	std::unordered_map<sf::Keyboard::Key, bool> pressed;
 };

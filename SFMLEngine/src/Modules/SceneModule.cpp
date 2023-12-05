@@ -1,6 +1,8 @@
 #include "Modules/SceneModule.h"
-
 #include "ModuleManager.h"
+
+#include <unordered_map>
+
 
 SceneModule::SceneModule(): Module()
 {
@@ -30,10 +32,11 @@ void SceneModule::Render()
 void SceneModule::Update()
 {
 	Module::Update();
+	std::unordered_map<sf::Keyboard::Key, bool>* pressed_input = moduleManager->GetModule<WindowModule>()->GetPressed();
 
 	for (const Scene* scene : scenes)
 	{
-		scene->Update(timeModule->GetDeltaTime());
+		scene->Update(timeModule->GetDeltaTime(), pressed_input);
 	}
 }
 

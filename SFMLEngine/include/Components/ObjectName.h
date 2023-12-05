@@ -2,5 +2,9 @@
 
 enum ObjectName
 {
+
 	WallName,
+	GameObjectName,
+	PlayerName,
+
 };
