@@ -1,7 +1,8 @@
 #pragma once
 #include "GameObject.h"
 #include "Doll.h"
-#include "ModuleManager.h"
+#include "Engine.h"
+#include "Modules/WindowModule.h"
 
 class Player : public Component
 {
@@ -32,6 +33,9 @@ private:
 	bool is_switching = false;
 
 
+	Engine* engine = Engine::GetInstance();
+	ModuleManager* moduleManager = engine->GetModuleManager();
+	WindowModule* windowModule = moduleManager->GetModule<WindowModule>();
 
-	sf::Vector2u sizeWindow = sf::Vector2u(0, 0);
+	sf::Vector2u sizeWindow = windowModule->GetWindowSize();
 };

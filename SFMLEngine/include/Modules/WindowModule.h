@@ -21,7 +21,7 @@ public:
 	void Release() override;
 
 	sf::RenderWindow* GetWindow() const { return window; }
-	sf::Vector2u GetWindowSize();
+	sf::Vector2u GetWindowSize() const { return window->getSize(); };
 
 private:
 	sf::RenderWindow* window = nullptr;

@@ -69,15 +69,3 @@ void WindowModule::Release()
 	window->close();
 }
 
-
-sf::Vector2u WindowModule::GetWindowSize() {
-	try
-	{
-		return window->getSize();
-	}
-	catch (const std::exception&)
-	{
-		return sf::Vector2u(0, 0);
-	}
-	
-}
