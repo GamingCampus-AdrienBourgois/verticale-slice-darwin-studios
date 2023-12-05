@@ -13,12 +13,11 @@ public:
 	void SetName(std::string new_name);
 	void SetDescription(std::string new_description);
 	void SetEffect(float new_effect);
-	void Data();
+	//void Data();
 
 private:
 	std::string name;
 	std::string description;
 	float effect;
-	std::vector<std::string> capacity;
 };
 
