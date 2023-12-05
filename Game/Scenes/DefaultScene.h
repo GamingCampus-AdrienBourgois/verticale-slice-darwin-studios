@@ -2,6 +2,7 @@
 #include "RectangleShapeRenderer.h"
 #include "Scene.h"
 #include "SquareCollider.h"
+#include "SpawnWall.h"
 
 class DefaultScene final : public Scene
 {
@@ -13,10 +14,7 @@ public:
 		GameObject* enemy = CreateDummyGameObject("Enemy", 400.f, sf::Color::Blue);
 		GameObject* enemy2 = CreateDummyGameObject("Enemy2", 0.f, sf::Color::Green);
 
-		float sizeWall = 50.f;
-		CreateWallObject("Wall1", 4 * sizeWall, 1 * sizeWall); // Crée un mur aux coordonnées
-		CreateWallObject("Wall1", 5 * sizeWall, 2 * sizeWall);
-		CreateWallObject("Wall1", 6 * sizeWall, 3 * sizeWall);
+		CreateWalls();
 	}
 
 	GameObject* CreateDummyGameObject(const std::string& _name, const float _position, const sf::Color _color)
@@ -34,20 +32,7 @@ public:
 		return game_object;
 	}
 
-
-	void CreateWallObject(const std::string & _name, const float _x, const float _y)
-	{
-		GameObject* wall = CreateGameObject(_name);
-		wall->SetPosition(Maths::Vector2f(_x, _y));
-
-		SquareCollider* squareCollider = wall->CreateComponent<SquareCollider>();
-		squareCollider->SetWidth(50.f);
-		squareCollider->SetHeight(50.f);
-
-		RectangleShapeRenderer* shapeRenderer = wall->CreateComponent<RectangleShapeRenderer>();
-		shapeRenderer->SetColor(sf::Color::White); // Couleur du mur
-		shapeRenderer->SetSize(Maths::Vector2f(50.f, 50.f)); // Taille du mur
-	}
-
+private:
+	void CreateWalls();
 	
 };

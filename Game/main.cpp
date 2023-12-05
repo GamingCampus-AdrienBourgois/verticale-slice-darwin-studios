@@ -1,6 +1,8 @@
 #include "Engine.h"
+#include "Scenes/SpawnWall.h"
 #include "SceneModule.h"
 #include "Scenes/DefaultScene.h"
+
 
 int main()
 {
@@ -12,6 +14,7 @@ int main()
 	scene_module->SetScene<DefaultScene>();
 
 	engine->Run();
+
 
 	return 0;
 }
