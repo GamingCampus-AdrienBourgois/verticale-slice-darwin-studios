@@ -2,14 +2,20 @@
 #include "RectangleShapeRenderer.h"
 #include "Scene.h"
 #include "SquareCollider.h"
+#include "SpawnWall.h"
 #include "Player.h"
+
 
 class DefaultScene final : public Scene
 {
 public:
 	DefaultScene() : Scene("DefaultScene")
 	{
+
+		CreateWalls();
+
 		GameObject* player = CreatePlayer(PlayerName, 200.f, sf::Color::Red);
+
 	}
 
 	GameObject* CreateDummyGameObject(const ObjectName& _name, const float _position, const sf::Color _color)
@@ -24,9 +30,13 @@ public:
 		RectangleShapeRenderer* shape_renderer = game_object->CreateComponent<RectangleShapeRenderer>();
 		shape_renderer->SetColor(_color);
 		shape_renderer->SetSize(Maths::Vector2f(200.f, 200.f));
-
 		return game_object;
 	}
+
+
+private:
+	void CreateWalls();
+	
 
 	GameObject* CreatePlayer(const ObjectName& _name, const float _position, const sf::Color _color) {
 		GameObject* game_object = CreateGameObject(_name);

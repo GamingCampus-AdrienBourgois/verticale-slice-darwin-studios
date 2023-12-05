@@ -4,10 +4,8 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
-Scene::Scene(const std::string& _name)
-{
-	name = _name;
-}
+Scene::Scene(const std::string& _name) : name(_name) {}
+
 
 void Scene::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) const
 {
@@ -25,10 +23,10 @@ void Scene::Render(sf::RenderWindow* _window) const
 	}
 }
 
-std::string Scene::GetName() const
-{
-	return name;
-}
+
+//std::string Scene::GetName() const {
+//	return name;
+//}
 
 GameObject* Scene::CreateGameObject(const ObjectName& _name)
 {
