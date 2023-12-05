@@ -13,7 +13,10 @@ public:
 		GameObject* enemy = CreateDummyGameObject("Enemy", 400.f, sf::Color::Blue);
 		GameObject* enemy2 = CreateDummyGameObject("Enemy2", 0.f, sf::Color::Green);
 
-		CreateWallObject("Wall1", 300.f, 100.f); // Crée un mur aux coordonnées (300, 100)
+		float sizeWall = 50.f;
+		CreateWallObject("Wall1", 4 * sizeWall, 1 * sizeWall); // Crée un mur aux coordonnées
+		CreateWallObject("Wall1", 5 * sizeWall, 2 * sizeWall);
+		CreateWallObject("Wall1", 6 * sizeWall, 3 * sizeWall);
 	}
 
 	GameObject* CreateDummyGameObject(const std::string& _name, const float _position, const sf::Color _color)
@@ -38,12 +41,12 @@ public:
 		wall->SetPosition(Maths::Vector2f(_x, _y));
 
 		SquareCollider* squareCollider = wall->CreateComponent<SquareCollider>();
-		squareCollider->SetWidth(20.f);
-		squareCollider->SetHeight(20.f);
+		squareCollider->SetWidth(50.f);
+		squareCollider->SetHeight(50.f);
 
 		RectangleShapeRenderer* shapeRenderer = wall->CreateComponent<RectangleShapeRenderer>();
 		shapeRenderer->SetColor(sf::Color::White); // Couleur du mur
-		shapeRenderer->SetSize(Maths::Vector2f(50.f, 50.f)); // Taille du mur (50x50 par exemple)
+		shapeRenderer->SetSize(Maths::Vector2f(50.f, 50.f)); // Taille du mur
 	}
 
 	
