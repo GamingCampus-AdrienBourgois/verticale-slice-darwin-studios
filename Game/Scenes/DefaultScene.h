@@ -10,6 +10,7 @@ public:
 	DefaultScene() : Scene("DefaultScene")
 	{
 		GameObject* player = CreatePlayer(PlayerName, 200.f, sf::Color::Red);
+
 	}
 
 	GameObject* CreateDummyGameObject(const ObjectName& _name, const float _position, const sf::Color _color)

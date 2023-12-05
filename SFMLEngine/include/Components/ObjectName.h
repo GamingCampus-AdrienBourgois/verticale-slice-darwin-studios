@@ -3,5 +3,6 @@
 enum ObjectName
 {
 	GameObjectName,
-	PlayerName
+	PlayerName,
+	ButtonName
 };

@@ -14,6 +14,7 @@ public:
 	void Render(sf::RenderWindow* _window) const;
 
 	std::string GetName() const;
+	std::vector<GameObject*>* GetGameObjects() { return &gameObjects; }
 
 	GameObject* CreateGameObject(const ObjectName& _name);
 	void DestroyGameObject(const GameObject* _game_object);
