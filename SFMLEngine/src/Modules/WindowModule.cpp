@@ -6,11 +6,13 @@
 
 #include "Engine.h"
 
+#include <Windows.h>
+
 void WindowModule::Init()
 {
 	Module::Init();
 
-	window = new sf::RenderWindow(sf::VideoMode(600, 600), "SFML Engine");
+	window = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "SFML Engine", sf::Style::Fullscreen);
 }
 
 void WindowModule::Start()
@@ -30,6 +32,13 @@ void WindowModule::Update()
 		if (event.type == sf::Event::Closed)
 		{
 			Engine::GetInstance()->Quit();
+		}
+		else if (event.type == sf::Event::KeyPressed) {
+			pressed[event.key.code] = true;
+		}
+
+		else if (event.type == sf::Event::KeyReleased) {
+			pressed[event.key.code] = false;
 		}
 	}
 }
@@ -59,3 +68,4 @@ void WindowModule::Release()
 
 	window->close();
 }
+
