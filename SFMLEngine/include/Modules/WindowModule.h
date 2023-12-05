@@ -9,7 +9,7 @@
 class WindowModule final : public Module
 {
 public:
-	sf::RenderWindow* GetWindow() const { return window; }
+	
 	std::unordered_map<sf::Keyboard::Key, bool>* GetPressed() { return &pressed; }
 
 	void Init() override;
@@ -19,6 +19,9 @@ public:
 	void Render() override;
 	void PostRender() override;
 	void Release() override;
+
+	sf::RenderWindow* GetWindow() const { return window; }
+	sf::Vector2u GetWindowSize();
 
 private:
 	sf::RenderWindow* window = nullptr;

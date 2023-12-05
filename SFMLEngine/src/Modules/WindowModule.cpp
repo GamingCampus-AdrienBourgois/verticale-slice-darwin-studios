@@ -6,11 +6,13 @@
 
 #include "Engine.h"
 
+#include <Windows.h>
+
 void WindowModule::Init()
 {
 	Module::Init();
 
-	window = new sf::RenderWindow(sf::VideoMode(600, 600), "SFML Engine");
+	window = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "SFML Engine", sf::Style::Fullscreen);
 }
 
 void WindowModule::Start()
@@ -65,4 +67,17 @@ void WindowModule::Release()
 	Module::Release();
 
 	window->close();
+}
+
+
+sf::Vector2u WindowModule::GetWindowSize() {
+	try
+	{
+		return window->getSize();
+	}
+	catch (const std::exception&)
+	{
+		return sf::Vector2u(0, 0);
+	}
+	
 }

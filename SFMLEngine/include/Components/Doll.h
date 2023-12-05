@@ -3,9 +3,6 @@
 class Doll
 {
 public:
-	Doll();
-	~Doll();
-
 	void SetHp(int new_hp) { hp = new_hp; }
 	void SetSpeed(int new_speed) { speed = new_speed; }
 
@@ -14,7 +11,6 @@ public:
 
 private:
 	int hp = 0;
-	int speed = 0;
-
+	int speed = 100;
 };
 
