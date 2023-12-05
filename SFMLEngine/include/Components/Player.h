@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "Doll.h"
-#include "Modules/WindowModule.h"
+#include "ModuleManager.h"
 
 class Player : public Component
 {
@@ -31,7 +31,7 @@ private:
 	bool can_switch = true;
 	bool is_switching = false;
 
-	WindowModule windowModule;
-	sf::Vector2u sizeWindow = windowModule.GetWindowSize();
-	//sf::Vector2u sizeWindow = sf::Vector2u(0, 0);
+
+
+	sf::Vector2u sizeWindow = sf::Vector2u(0, 0);
 };
