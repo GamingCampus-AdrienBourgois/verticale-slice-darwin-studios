@@ -3,6 +3,7 @@
 class Doll
 {
 public:
+
 	void SetHp(int new_hp) { hp = new_hp; }
 	void SetSpeed(int new_speed) { speed = new_speed; }
 
