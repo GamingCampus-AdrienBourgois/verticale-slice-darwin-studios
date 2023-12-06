@@ -5,7 +5,42 @@
 
 bool SquareCollider::IsColliding(const SquareCollider& _collider_a, const SquareCollider& _collider_b)
 {
-	const Maths::Vector2f position_a = _collider_a.GetOwner()->GetPosition();
-	const Maths::Vector2f position_b = _collider_b.GetOwner()->GetPosition();
-	return position_a.x < position_b.x + _collider_b.GetWidth() && position_a.x + _collider_a.GetWidth() > position_b.x && position_a.y < position_b.y + _collider_b.GetHeight() && position_a.y + _collider_a.GetHeight() > position_b.y;
+	sf::RectangleShape rPlayer;
+	sf::RectangleShape rObject;
+
+	rPlayer.setPosition(sf::Vector2f(_collider_a.GetOwner()->GetPosition().GetX(), _collider_a.GetOwner()->GetPosition().GetY()));
+	rPlayer.setSize(sf::Vector2f(_collider_a.GetWidth(), _collider_a.GetHeight()));
+	rObject.setPosition(sf::Vector2f(_collider_b.GetOwner()->GetPosition().GetX(), _collider_b.GetOwner()->GetPosition().GetY()));
+	rObject.setSize(sf::Vector2f(_collider_b.GetWidth(), _collider_b.GetHeight()));
+
+	sf::FloatRect playerBounds = _collider_a.GetOwner()->getBounds(rPlayer);
+	sf::FloatRect objectBounds = _collider_b.GetOwner()->getBounds(rObject);
+
+	if (playerBounds.intersects(objectBounds))
+	{
+		int collisionWidth = std::min(playerBounds.left + playerBounds.width, objectBounds.left + objectBounds.width) - std::max(playerBounds.left, objectBounds.left);
+		int collisionHeight = std::min(playerBounds.top + playerBounds.height, objectBounds.top + objectBounds.height) - std::max(playerBounds.top, objectBounds.top);
+		// top collision
+		if (playerBounds.top > objectBounds.top && playerBounds.top <= objectBounds.top + objectBounds.height && ((playerBounds.left <= objectBounds.left && playerBounds.left + playerBounds.width >= objectBounds.left) || (playerBounds.left >= objectBounds.left && playerBounds.left <= objectBounds.left + objectBounds.width)) && (collisionWidth > collisionHeight && collisionWidth > 5))
+		{
+			_collider_a.GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("up", false);
+		}
+		// bottom collision
+		if (playerBounds.top <= objectBounds.top && playerBounds.top + playerBounds.height >= objectBounds.top && ((playerBounds.left <= objectBounds.left && playerBounds.left + playerBounds.width >= objectBounds.left) || (playerBounds.left >= objectBounds.left && playerBounds.left <= objectBounds.left + objectBounds.width)) && (collisionWidth > collisionHeight && collisionWidth > 5))
+		{
+			_collider_a.GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("down", false);
+		}
+		//left collision
+		if (playerBounds.left >= objectBounds.left && playerBounds.left + playerBounds.width >= objectBounds.left + objectBounds.width && ((playerBounds.top <= objectBounds.top && playerBounds.top + playerBounds.height >= objectBounds.top) || (playerBounds.top >= objectBounds.top && playerBounds.top <= objectBounds.top + objectBounds.height)) && (collisionWidth < collisionHeight && collisionHeight > 5))
+		{
+			_collider_a.GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("left", false);
+		}
+		//right collision
+		if (playerBounds.left <= objectBounds.left && playerBounds.left + playerBounds.width <= objectBounds.left + objectBounds.width && ((playerBounds.top <= objectBounds.top && playerBounds.top + playerBounds.height >= objectBounds.top) || (playerBounds.top >= objectBounds.top && playerBounds.top <= objectBounds.top + objectBounds.height)) && (collisionWidth < collisionHeight && collisionHeight > 5))
+		{
+			_collider_a.GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("right", false);
+		}
+		return true;
+	}
+	return false;
 }
