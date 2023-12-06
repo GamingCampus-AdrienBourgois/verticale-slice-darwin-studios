@@ -1,19 +1,21 @@
 #pragma once
+#include "GameObject.h"
 
-class Doll
+class DollOff : public Component
 {
 public:
+	Maths::Vector2f getSize() { return size; }
+	void setSize(Maths::Vector2f _size) { size = _size; }
 
-	void SetHp(int new_hp) { hp = new_hp; }
-	void SetSpeed(int new_speed) { speed = new_speed; }
+	sf::Color getColor() { return color; }
+	void setColor(sf::Color _color) { color = _color; }
 
-	int GetHp() { return hp; }
-	int GetSpeed() { return speed; }
-	int GetGravity() { return gravity; }
+	Maths::Vector2f getPosition() { return size; }
+	void setPosition(Maths::Vector2f _position) { position = _position; }
 
 private:
-	int hp = 0;
-	int speed = 100;
-	int gravity = 100;
+	Maths::Vector2f size = Maths::Vector2f(200, 200);
+	sf::Color color = sf::Color::Transparent;
+	Maths::Vector2f position = Maths::Vector2f(0, 0);
 };
 
