@@ -52,6 +52,6 @@ private:
 	void Move(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input);
 	void Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input);
 
-	GameObject* CreateDollOff(const ObjectName& _name, const float _positionX, const float _positionY, const sf::Color _color);
+	GameObject* CreateDollOff(const ObjectName& _name, Maths::Vector2f _position, const sf::Color _color);
 	void SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_input);
 };
