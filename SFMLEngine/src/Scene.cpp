@@ -17,7 +17,7 @@ void Scene::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key
 	}
 }
 
-void Scene::Render(sf::RenderWindow* _window) const
+void Scene::Render(sf::RenderWindow* _window) const	
 {
 	for (GameObject* const& game_object : gameObjects)
 	{

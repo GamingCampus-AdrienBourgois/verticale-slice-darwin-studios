@@ -1,6 +1,6 @@
 #pragma once
 
-#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics.hpp>
 
 #include "ARendererComponent.h"
 
@@ -19,4 +19,5 @@ private:
 	sf::Color color = sf::Color::White;
 
 	sf::RectangleShape* shape = nullptr;
+	sf::Text* text;
 };

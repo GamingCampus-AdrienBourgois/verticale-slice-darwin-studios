@@ -14,7 +14,7 @@ void WindowModule::Init()
 {
 	Module::Init();
 
-	window = new sf::RenderWindow(sf::VideoMode(1920, 1080), "SFML Engine");
+	window = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "SFML Engine", sf::Style::Fullscreen);
 }
 
 void WindowModule::Start()

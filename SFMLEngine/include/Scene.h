@@ -1,5 +1,5 @@
 #pragma once
-#include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics.hpp>
 
 #include "GameObject.h"
 
@@ -15,6 +15,7 @@ public:
 
 	std::string GetName() const;
 	std::vector<GameObject*>* GetGameObjects() { return &gameObjects; }
+	sf::Font* GetFont() { return &font; }
 
 	GameObject* CreateGameObject(const ObjectName& _name);
 	void DestroyGameObject(const GameObject* _game_object);
@@ -23,4 +24,5 @@ public:
 private:
 	std::string name;
 	std::vector<GameObject*> gameObjects;
+	sf::Font font;
 };
