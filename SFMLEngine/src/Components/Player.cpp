@@ -59,11 +59,11 @@ void Player::Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key,
 
 }
 
-GameObject* Player::CreateDollOff(const ObjectName& _name, const float _positionX, const float _positionY, const sf::Color _color) {
+GameObject* Player::CreateDollOff(const ObjectName& _name, Maths::Vector2f _position, const sf::Color _color) {
 	Scene* scene = sceneModule->GetScene("DefaultScene");
 
 	GameObject* game_object = scene->CreateGameObject(_name);
-	game_object->SetPosition(Maths::Vector2f(_positionX, _positionY));
+	game_object->SetPosition(_position);
 
 	SquareCollider* square_collider = game_object->CreateComponent<SquareCollider>();
 	square_collider->SetWidth(20.f);
@@ -75,7 +75,7 @@ GameObject* Player::CreateDollOff(const ObjectName& _name, const float _position
 
 	DollOff* dollOff = game_object->CreateComponent<DollOff>();
 	dollOff->setColor(_color);
-	dollOff->setPosition(Maths::Vector2f(_positionX, _positionY));
+	dollOff->setPosition(_position);
 
 	return game_object;
 }
@@ -100,7 +100,7 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 
 		if (actuall_doll_int == 0)
 		{
-			big_dollOff = CreateDollOff(DollOffName, position.GetX(), position.GetY(), actuall_color);
+			big_dollOff = CreateDollOff(DollOffName, position, actuall_color);
 
 			GetOwner()->SetPosition(Maths::Vector2f(position.GetX(), position.GetY() - 200));
 			GetOwner()->GetComponent<RectangleShapeRenderer>()->SetColor(sf::Color::Blue);
@@ -109,7 +109,7 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 		else if (actuall_doll_int == 1)
 		{
 			big_dollOff = nullptr;
-			mid_dollOff = CreateDollOff(DollOffName, position.GetX(), position.GetY(), actuall_color);
+			mid_dollOff = CreateDollOff(DollOffName, position, actuall_color);
 
 			GetOwner()->SetPosition(Maths::Vector2f(position.GetX(), position.GetY() - 200));
 			GetOwner()->GetComponent<RectangleShapeRenderer>()->SetColor(sf::Color::Green);
