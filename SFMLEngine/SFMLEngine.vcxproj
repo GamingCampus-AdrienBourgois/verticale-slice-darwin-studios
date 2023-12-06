@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="src\Components\Doll.cpp" />
     <ClCompile Include="src\Components\Player.cpp" />
+    <ClCompile Include="src\Components\Switch.cpp" />
     <ClCompile Include="src\Modules\ImGuiModule.cpp" />
     <ClCompile Include="ImGui\imgui-SFML.cpp" />
     <ClCompile Include="ImGui\imgui.cpp" />
@@ -36,6 +37,7 @@
     <ClInclude Include="include\Components\Doll.h" />
     <ClInclude Include="include\Components\ObjectName.h" />
     <ClInclude Include="include\Components\Player.h" />
+    <ClInclude Include="include\Components\Switch.h" />
     <ClInclude Include="include\Modules\ImGuiModule.h" />
     <ClInclude Include="include\Engine.h" />
     <ClInclude Include="include\Components\ARendererComponent.h" />
