@@ -22,6 +22,8 @@ public:
 	void DestroyGameObject(const GameObject* _game_object);
 	GameObject* FindGameObject(const ObjectName& _name) const;
 
+    std::string GetName() const;
+
 
 private:
     std::string name;

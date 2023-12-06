@@ -6,5 +6,5 @@ enum ObjectName
 	WallName,
 	GameObjectName,
 	PlayerName,
-
+	DollOffName,
 };
