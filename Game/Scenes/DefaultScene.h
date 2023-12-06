@@ -4,6 +4,7 @@
 #include "SquareCollider.h"
 #include "SpawnWall.h"
 #include "Player.h"
+#include "Switch.h"
 
 
 class DefaultScene final : public Scene
@@ -13,7 +14,7 @@ public:
 	{
 
 		CreateWalls();
-
+		CreateSwitch();
 		GameObject* player = CreatePlayer(PlayerName, 200.f, sf::Color::Red);
 
 	}
@@ -36,6 +37,7 @@ public:
 
 private:
 	void CreateWalls();
+	void CreateSwitch();
 	
 
 	GameObject* CreatePlayer(const ObjectName& _name, const float _position, const sf::Color _color) {

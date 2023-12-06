@@ -6,3 +6,8 @@ void DefaultScene::CreateWalls() {
     SpawnWall::CreateWallObject(this, WallName, 5 * sizeWall, 2 * sizeWall);
     SpawnWall::CreateWallObject(this, WallName, 6 * sizeWall, 3 * sizeWall);
 }
+
+void DefaultScene::CreateSwitch() {
+    float sizeSwitch = 50.f;
+    Switch::CreateSwitchObject(this, SwitchName, 600, 1000);
+}
