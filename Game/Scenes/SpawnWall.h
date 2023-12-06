@@ -3,5 +3,5 @@
 
 class SpawnWall {
 public:
-    static void CreateWallObject(Scene* scene, const std::string& _name, const float _x, const float _y);
+    static void CreateWallObject(Scene* scene, const ObjectName& _name, const float _x, const float _y);
 };

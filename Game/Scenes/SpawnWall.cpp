@@ -2,7 +2,7 @@
 #include "SquareCollider.h"
 #include "RectangleShapeRenderer.h"
 
-void SpawnWall::CreateWallObject(Scene* scene, const std::string& _name, const float _x, const float _y) {
+void SpawnWall::CreateWallObject(Scene* scene, const ObjectName& _name, const float _x, const float _y) {
     GameObject* wall = scene->CreateGameObject(_name);
     wall->SetPosition(Maths::Vector2f(_x, _y));
 
