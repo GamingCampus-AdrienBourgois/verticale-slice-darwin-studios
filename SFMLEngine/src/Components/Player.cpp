@@ -53,7 +53,7 @@ void Player::Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key,
 			can_jump = false;
 		}
 	}
-	if (GetOwner()->GetPosition().GetY() + 200 <= sizeWindow.y && !is_jumping) {
+	if (GetOwner()->GetPosition().GetY() +100 <= sizeWindow.y && !is_jumping) {
 		GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() + (200 * _delta_time)));
 	}
 
