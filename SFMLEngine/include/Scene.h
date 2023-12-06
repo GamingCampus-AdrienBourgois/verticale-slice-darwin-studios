@@ -3,6 +3,9 @@
 
 #include "GameObject.h"
 
+#include "Components/RectangleShapeRenderer.h"
+#include "Components/SquareCollider.h"
+
 class Scene
 {
 public:
@@ -15,7 +18,10 @@ public:
 
 	std::string GetName() const;
 	std::vector<GameObject*>* GetGameObjects() { return &gameObjects; }
-	sf::Font* GetFont() { return &font; }
+
+
+	sf::Font* GetFont() { return &font_scene; }
+	void SetFont(std::string chemin_font) { font_scene.loadFromFile(chemin_font); }
 
 	GameObject* CreateGameObject(const ObjectName& _name);
 	void DestroyGameObject(const GameObject* _game_object);
@@ -24,5 +30,8 @@ public:
 private:
 	std::string name;
 	std::vector<GameObject*> gameObjects;
-	sf::Font font;
+	sf::Font font_scene;
+
+protected:
+	GameObject* CreateButton(const ObjectName& _name, Maths::Vector2f _position, const sf::Color _color, Maths::Vector2u size, std::string button_name, std::string button_text);
 };

@@ -22,12 +22,16 @@ public:
 	Scene* GetMainScene() const { return mainScene; }
 	Scene* GetScene(const std::string& _scene_name) const;
 
+	sf::Font GetFont() { return font; }
+
 private:
 	std::vector<Scene*> scenes;
 	Scene* mainScene = nullptr;
 
 	WindowModule* windowModule = nullptr;
 	TimeModule* timeModule = nullptr;
+
+	sf::Font font;
 };
 
 template<typename T>

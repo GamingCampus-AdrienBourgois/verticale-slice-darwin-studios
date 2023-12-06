@@ -4,11 +4,13 @@
 #include <unordered_map>
 
 
+
 SceneModule::SceneModule(): Module()
 {
-	Scene* main_scene = new Scene("MainScene");
-	scenes.push_back(main_scene);
-	mainScene = main_scene;
+	font.loadFromFile("Font/arial.ttf");
+	//Scene* main_scene = new Scene("MainScene");
+	//scenes.push_back(main_scene);
+	//mainScene = main_scene;
 }
 
 void SceneModule::Start()
