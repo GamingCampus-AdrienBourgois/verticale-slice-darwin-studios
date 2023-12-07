@@ -85,11 +85,27 @@ GameObject* Player::CreateDollOff(const ObjectName& _name, Maths::Vector2f _posi
 void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) {
 	if (can_switch && !is_switching)
 	{
-		for (const auto& input : *pressed_input) {
+		auto it = pressed_input->begin();
+
+		while (it != pressed_input->end()) {
+			const auto& input = *it;
+
+			if (input.first == 0 && input.second == true) {
+				is_switching = true;
+				// Effacer l'élément du vecteur
+				it = pressed_input->erase(it);
+			}
+			else {
+				++it;
+			}
+		}
+
+
+		/*for (const auto& input : *pressed_input) {
 			if (input.first == 0 && input.second == true) {
 				is_switching = true;
 			}
-		}
+		}*/
 	}
 
 	if (is_switching)
@@ -110,7 +126,6 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 		}
 		else if (actuall_doll_int == 1)
 		{
-			big_dollOff = nullptr;
 			mid_dollOff = CreateDollOff(DollOffName, position, actuall_color);
 
 			GetOwner()->SetPosition(Maths::Vector2f(position.GetX(), position.GetY() - 200));
@@ -118,6 +133,8 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 			actuall_doll_int++;
 		}
 		is_switching = false;
+
+
 		std::cout << actuall_doll_int;
 	}
 }
@@ -139,10 +156,12 @@ void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Ke
 	Jump(_delta_time, pressed_input, scene->GetGameObjects());
 	SwitchDoll(pressed_input);
 
-  int taille_perso = sizeWindow.y / 22;
+	int taille_perso = sizeWindow.y / 22;
   
 	if (GetOwner()->GetPosition().GetY() + taille_perso <= sizeWindow.y && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["down"]) {
 		GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() + (gravity * _delta_time)));
+		can_jump = false;
+		can_switch = false;	
 	}
 	else {
 		can_jump = true;
