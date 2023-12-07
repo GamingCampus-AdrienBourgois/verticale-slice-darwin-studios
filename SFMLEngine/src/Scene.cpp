@@ -3,9 +3,6 @@
 #include "Modules/SceneModule.h" 
 #include "Engine.h"
 
-
-#include "Components/Button.h"
-
 #include <unordered_map>
 #include <SFML/Window/Event.hpp>
 
@@ -43,9 +40,10 @@ std::string Scene::GetName() const
 	return name;
 }
 
-GameObject* Scene::CreateGameObject(const ObjectName& _name)
+GameObject* Scene::CreateGameObject(const ObjectType& _type, std::string _name)
 {
 	GameObject* const game_object = new GameObject();
+	game_object->SetType(_type);
 	game_object->SetName(_name);
 	gameObjects.push_back(game_object);
 	return game_object;
@@ -64,7 +62,7 @@ void Scene::DestroyGameObject(const GameObject* _game_object)
 	}
 }
 
-GameObject* Scene::FindGameObject(const ObjectName& _name) const
+GameObject* Scene::FindGameObject(const std::string& _name) const
 {
 	for (GameObject* const& game_object : gameObjects)
 	{
@@ -77,9 +75,9 @@ GameObject* Scene::FindGameObject(const ObjectName& _name) const
 }
 
 
-GameObject* Scene::CreateButton(const ObjectName& _name, Maths::Vector2f _position, const sf::Color _color, Maths::Vector2u size, std::string button_name, std::string button_text)
+GameObject* Scene::CreateButton(const ObjectType& _type, std::string _name, Maths::Vector2f _position, const sf::Color _color, Maths::Vector2u size, std::string button_text, Capacity* _object)
 {
-	GameObject* game_object = CreateGameObject(_name);
+	GameObject* game_object = CreateGameObject(_type, _name);
 	game_object->SetPosition(_position);
 
 	SquareCollider* square_collider = game_object->CreateComponent<SquareCollider>();
@@ -91,8 +89,21 @@ GameObject* Scene::CreateButton(const ObjectName& _name, Maths::Vector2f _positi
 	shape_renderer->SetSize(Maths::Vector2f(size.x, size.y));
 
 	Button* button = game_object->CreateComponent<Button>();
-	button->SetName(button_name);
 	button->SetText(button_text);
+	button->SetObject(_object);
 
 	return game_object;
 }
+
+GameObject* Scene::CreateText(const ObjectType& _type, std::string _name, Maths::Vector2f _position, const sf::Color _color, Maths::Vector2u size, int _caractere_size) {
+	GameObject* game_object = CreateGameObject(_type, _name);
+	game_object->SetPosition(_position);
+
+	TextRenderer* text_renderer = game_object->CreateComponent<TextRenderer>();
+	text_renderer->SetColor(_color);
+	text_renderer->SetSize(Maths::Vector2f(size.x, size.y));
+	text_renderer->SetCaracterSize(_caractere_size);
+
+	return game_object;
+}
+

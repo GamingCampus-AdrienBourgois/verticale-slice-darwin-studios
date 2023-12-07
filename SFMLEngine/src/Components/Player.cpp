@@ -1,6 +1,6 @@
 #include "Components/Player.h"
 #include <iostream>
-#include "Components/ObjectName.h"
+#include "Components/ObjectType.h"
 
 
 void Player::Move(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input){

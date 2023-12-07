@@ -8,7 +8,7 @@
 
 #include "Engine.h"
 #include "Modules/SceneModule.h"
-#include "Components/RectangleShapeRenderer.h"
+#include "Scene.h"
 
 void WindowModule::Init()
 {
@@ -52,13 +52,26 @@ void WindowModule::Update()
 				Scene* scene = moduleManager->GetModule<SceneModule>()->GetMainScene();
 
 				for (GameObject* const& button : *scene->GetGameObjects()){
-					// Vérification si le clic de souris est dans la zone du bouton
-					if (button->GetComponent<RectangleShapeRenderer>()->GetShape()->getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
-					{
-						std::cout << "Bouton clique !" << std::endl;
-						// Ajoutez ici le code que vous souhaitez exécuter lorsque le bouton est cliqué
+					if (button->GetType() == ButtonType) {
+						if (button->GetComponent<RectangleShapeRenderer>()->GetShape()->getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+						{
+							if (button->GetComponent<Button>()->is_clicked) {
+								button->GetComponent<Button>()->is_clicked = false;
+							}
+							else {
+								button->GetComponent<Button>()->is_clicked = true;
+							}
+							for (GameObject* const& gameObject : *scene->GetGameObjects()) {
+								if (gameObject->GetType() == ButtonType && gameObject->GetName() == "capacity_button" && button != gameObject) {
+									gameObject->GetComponent<Button>()->is_clicked = false;
+								}
+							}
+						}
 					}
 				}
+			}if (event.mouseButton.button == sf::Mouse::Right) {
+				sf::Vector2i mousePos = sf::Mouse::getPosition(*window);
+				std::cout << mousePos.x << " " << mousePos.y << std::endl;
 			}
 		}
 	}

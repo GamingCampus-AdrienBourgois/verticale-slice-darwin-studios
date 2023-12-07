@@ -9,13 +9,13 @@ class DefaultScene final : public Scene
 public:
 	DefaultScene() : Scene("DefaultScene")
 	{
-		GameObject* player = CreatePlayer(PlayerName, 200.f, sf::Color::Red);
+		GameObject* player = CreatePlayer(PlayerType, "Player", 200.f, sf::Color::Red);
 
 	}
 
-	GameObject* CreateDummyGameObject(const ObjectName& _name, const float _position, const sf::Color _color)
+	GameObject* CreateDummyGameObject(const ObjectType& _type, std::string _name, const float _position, const sf::Color _color)
 	{
-		GameObject* game_object = CreateGameObject(_name);
+		GameObject* game_object = CreateGameObject(_type, _name);
 		game_object->SetPosition(Maths::Vector2f(_position, _position));
 
 		SquareCollider* square_collider = game_object->CreateComponent<SquareCollider>();
@@ -29,8 +29,8 @@ public:
 		return game_object;
 	}
 
-	GameObject* CreatePlayer(const ObjectName& _name, const float _position, const sf::Color _color) {
-		GameObject* game_object = CreateGameObject(_name);
+	GameObject* CreatePlayer(const ObjectType& _type, std::string _name, const float _position, const sf::Color _color) {
+		GameObject* game_object = CreateGameObject(_type, _name);
 		game_object->SetPosition(Maths::Vector2f(_position, _position));
 
 		SquareCollider* square_collider = game_object->CreateComponent<SquareCollider>();

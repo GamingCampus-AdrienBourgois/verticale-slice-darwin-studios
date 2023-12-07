@@ -2,9 +2,13 @@
 #include <SFML/Graphics.hpp>
 
 #include "GameObject.h"
+#include "Components/Capacity.h"
+#include "Components/Button.h"
 
 #include "Components/RectangleShapeRenderer.h"
+#include "Components/TextRenderer.h"
 #include "Components/SquareCollider.h"
+
 
 class Scene
 {
@@ -23,9 +27,9 @@ public:
 	sf::Font* GetFont() { return &font_scene; }
 	void SetFont(std::string chemin_font) { font_scene.loadFromFile(chemin_font); }
 
-	GameObject* CreateGameObject(const ObjectName& _name);
+	GameObject* CreateGameObject(const ObjectType& _type, const std::string _name);
 	void DestroyGameObject(const GameObject* _game_object);
-	GameObject* FindGameObject(const ObjectName& _name) const;
+	GameObject* FindGameObject(const std::string& _name) const;
 
 private:
 	std::string name;
@@ -33,5 +37,6 @@ private:
 	sf::Font font_scene;
 
 protected:
-	GameObject* CreateButton(const ObjectName& _name, Maths::Vector2f _position, const sf::Color _color, Maths::Vector2u size, std::string button_name, std::string button_text);
+	GameObject* CreateButton(const ObjectType& _type, std::string _name, Maths::Vector2f _position, const sf::Color _color, Maths::Vector2u size, std::string button_text, Capacity* _object);
+	GameObject* CreateText(const ObjectType& _type, std::string _name, Maths::Vector2f _position, const sf::Color _color, Maths::Vector2u size, int _caractere_size);
 };

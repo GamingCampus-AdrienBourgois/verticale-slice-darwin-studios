@@ -6,7 +6,7 @@
 #include "Maths/Vector2.h"
 #include <unordered_map>
 #include <SFML/Window/Event.hpp>
-#include "Components/ObjectName.h"
+#include "Components/ObjectType.h"
 
 class Component;
 
@@ -16,12 +16,14 @@ public:
 	GameObject() = default;
 	~GameObject();
 
-	ObjectName GetName() const { return name; }
+	ObjectType GetType() const { return type; }
+	std::string GetName() const { return name; }
 	Maths::Vector2<float> GetPosition() const { return position; }
 	float GetRotation() const { return rotation; }
 	Maths::Vector2<float> GetScale() const { return scale; }
 
-	void SetName(const ObjectName& _name) { name = _name; }
+	void SetType(const ObjectType& _type) { type = _type; }
+	void SetName(const std::string& _name) { name = _name; }
 	void SetPosition(const Maths::Vector2<float>& _position) { position = _position; }
 	void SetRotation(const float _rotation) { rotation = _rotation; }
 	void SetScale(const Maths::Vector2<float>& _scale) { scale = _scale; }
@@ -39,13 +41,16 @@ public:
 	void Render(sf::RenderWindow* _window) const;
 
 private:
-	ObjectName name = ObjectName::GameObjectName;
+	ObjectType type = ObjectType::GameObjectType;
+	std::string name = "GameObject";
 
 	Maths::Vector2<float> position = Maths::Vector2f::Zero;
 	float rotation = 0.0f;
 	Maths::Vector2<float> scale = Maths::Vector2f::One;
 
 	std::vector<Component*> components;
+
+	bool is_rendering = true;
 };
 
 template<typename T>

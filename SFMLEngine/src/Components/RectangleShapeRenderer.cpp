@@ -33,7 +33,7 @@ void RectangleShapeRenderer::Render(sf::RenderWindow* _window)
 
 	_window->draw(*shape);
 
-	if (owner->GetName() == ButtonName) {
+	if (owner->GetType() == ButtonType) {
 		std::string button_text = owner->GetComponent<Button>()->GetText();
 		if (button_text != "") {
 			Scene* scene = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetMainScene();
