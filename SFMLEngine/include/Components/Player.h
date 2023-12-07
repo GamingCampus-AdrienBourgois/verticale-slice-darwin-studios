@@ -9,6 +9,8 @@
 class Player : public Component
 {
 public:
+	Player();
+	~Player();
 	void SetHp(int new_hp) { hp = new_hp; }
 	void SetSpeed(int new_speed) { speed = new_speed; }
 	void SetGravity(int _gravity) { gravity = _gravity; }
@@ -16,6 +18,7 @@ public:
 	int GetHp() { return hp; }
 	int GetSpeed() { return speed; }
 	int GetGravity() { return gravity; }
+
 
 	void Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) override;
 
@@ -49,8 +52,8 @@ private:
 	SceneModule* sceneModule = moduleManager->GetModule<SceneModule>();
 
 	// Functions
-	void Move(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input);
-	void Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input);
+	void Move(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, std::vector<GameObject*>* gameObjects );
+	void Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, std::vector<GameObject*>* gameObjects );
 
 	GameObject* CreateDollOff(const ObjectName& _name, Maths::Vector2f _position, const sf::Color _color);
 	void SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_input);

@@ -218,5 +218,4 @@ void DefaultScene::CreateWalls() {
 void DefaultScene::CreateSwitch() {
     float sizeSwitch = 50.f;
     Switch::CreateSwitchObject(this, SwitchName, 600, 1000);
-
 }

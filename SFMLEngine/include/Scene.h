@@ -10,6 +10,8 @@ public:
     explicit Scene(const std::string& _name);
     virtual ~Scene() = default;
 
+    
+    std::vector<GameObject*>* GetGameObjects() { return &gameObjects; }
 
 	void Update(float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) const;
 

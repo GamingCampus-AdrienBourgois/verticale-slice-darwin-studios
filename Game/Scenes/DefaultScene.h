@@ -8,7 +8,6 @@
 #include "WindowModule.h"
 
 
-
 class DefaultScene final : public Scene
 {
 public:
@@ -50,8 +49,8 @@ private:
 		game_object->SetPosition(Maths::Vector2f(_position, _position));
 
 		SquareCollider* square_collider = game_object->CreateComponent<SquareCollider>();
-		square_collider->SetWidth(20.f);
-		square_collider->SetHeight(20.f);
+		square_collider->SetWidth(200.f);
+		square_collider->SetHeight(200.f);
 
 
 		int taille_persoX = window_size.x / 33;
@@ -60,7 +59,7 @@ private:
 		shape_renderer->SetColor(_color);
 		shape_renderer->SetSize(Maths::Vector2f(taille_persoX, taille_persoY));
 
-		Player* player = game_object->CreateComponent<Player>();
+		Player* player = game_object->CreateComponent<Player>()
 
 
 		return game_object;

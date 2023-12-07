@@ -7,6 +7,7 @@
 #include <unordered_map>
 #include <SFML/Window/Event.hpp>
 #include "Components/ObjectName.h"
+#include <SFML/Graphics/RectangleShape.hpp>
 
 class Component;
 
@@ -37,6 +38,7 @@ public:
 
 	void Update(float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) const;
 	void Render(sf::RenderWindow* _window) const;
+	sf::FloatRect getBounds(sf::RectangleShape object) const;
 
 private:
 	ObjectName name = ObjectName::GameObjectName;
