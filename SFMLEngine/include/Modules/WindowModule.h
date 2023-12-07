@@ -5,12 +5,14 @@
 #include <SFML/Window/Event.hpp>
 
 #include "Module.h"
+#include "GameObject.h"
 
 class WindowModule final : public Module
 {
 public:
 	sf::RenderWindow* GetWindow() const { return window; }
 	std::unordered_map<sf::Keyboard::Key, bool>* GetPressed() { return &pressed; }
+	void ResetButton(GameObject* button, std::vector<std::string> _name);
 
 	void Init() override;
 	void Start() override;

@@ -61,10 +61,12 @@ void WindowModule::Update()
 							else {
 								button->GetComponent<Button>()->is_clicked = true;
 							}
-							for (GameObject* const& gameObject : *scene->GetGameObjects()) {
-								if (gameObject->GetType() == ButtonType && gameObject->GetName() == "capacity_button" && button != gameObject) {
-									gameObject->GetComponent<Button>()->is_clicked = false;
-								}
+							if (button->GetName() == "capacity_button") {
+								ResetButton(button, { "capacity_button" });
+							}
+							else if (button->GetName() == "doll_button1" || button->GetName() == "doll_button2" || button->GetName() == "doll_button3") {
+								std::vector<std::string> _name = { "doll_button1", "doll_button2", "doll_button3" };
+								ResetButton(button, _name);
 							}
 						}
 					}
@@ -101,4 +103,15 @@ void WindowModule::Release()
 	Module::Release();
 
 	window->close();
+}
+
+void WindowModule::ResetButton(GameObject* button, std::vector<std::string> _name) {
+	Scene* scene = moduleManager->GetModule<SceneModule>()->GetMainScene();
+	for (GameObject* const& gameObject : *scene->GetGameObjects()) {
+		for (std::string button_name : _name) {
+			if (gameObject->GetType() == ButtonType && gameObject->GetName() == button_name && button != gameObject) {
+				gameObject->GetComponent<Button>()->is_clicked = false;
+			}
+		}
+	}
 }
