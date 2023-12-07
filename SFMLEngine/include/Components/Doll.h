@@ -21,7 +21,7 @@ public:
 	Maths::Vector2f getPosition() { return size; }
 	void setPosition(Maths::Vector2f _position) { position = _position; }
 
-	Doll() {
+	int Doll() {
 		sf::Vector2u window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize();
 		speed = window_size.x / 11;
 	}
