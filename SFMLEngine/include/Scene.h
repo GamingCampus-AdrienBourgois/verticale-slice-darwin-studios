@@ -31,12 +31,12 @@ public:
 	void DestroyGameObject(const GameObject* _game_object);
 	GameObject* FindGameObject(const std::string& _name) const;
 
+	GameObject* CreateButton(const ObjectType& _type, std::string _name, Maths::Vector2f _position, const sf::Color _color, Maths::Vector2u size, std::string button_text, Capacity* _object);
+	GameObject* CreateText(const ObjectType& _type, std::string _name, Maths::Vector2f _position, const sf::Color _color, Maths::Vector2u size, int _caractere_size);
+
 private:
 	std::string name;
 	std::vector<GameObject*> gameObjects;
 	sf::Font font_scene;
 
-protected:
-	GameObject* CreateButton(const ObjectType& _type, std::string _name, Maths::Vector2f _position, const sf::Color _color, Maths::Vector2u size, std::string button_text, Capacity* _object);
-	GameObject* CreateText(const ObjectType& _type, std::string _name, Maths::Vector2f _position, const sf::Color _color, Maths::Vector2u size, int _caractere_size);
 };

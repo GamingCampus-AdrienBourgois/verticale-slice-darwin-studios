@@ -21,9 +21,9 @@ Scene::Scene(const std::string& _name)
 
 void Scene::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) const
 {
-	for (GameObject* const& game_object : gameObjects)
+	for (int i = 0; i < gameObjects.size(); i++)
 	{
-		game_object->Update(_delta_time, pressed_input);
+		gameObjects[i]->Update(_delta_time, pressed_input);
 	}
 }
 

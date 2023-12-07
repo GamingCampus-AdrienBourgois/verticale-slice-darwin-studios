@@ -22,9 +22,9 @@ void GameObject::RemoveComponent(Component* _component)
 
 void GameObject::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) const
 {
-	for (Component* const& component : components)
+	for (int i = 0; i < components.size(); i++)
 	{
-		component->Update(_delta_time, pressed_input);
+		components[i]->Update(_delta_time, pressed_input);
 	}
 }
 
