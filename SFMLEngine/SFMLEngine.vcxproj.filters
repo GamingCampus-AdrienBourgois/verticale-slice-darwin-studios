@@ -73,6 +73,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Components\Capacity.h">
+       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Components\Switch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -150,6 +153,9 @@
       <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Components\Capacity.cpp">
+       <Filter>Resource Files\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Components\Switch.cpp">
       <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
   </ItemGroup>

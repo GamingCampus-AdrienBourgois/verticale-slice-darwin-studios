@@ -24,9 +24,9 @@ void Scene::Render(sf::RenderWindow* _window) const
 }
 
 
-//std::string Scene::GetName() const {
-//	return name;
-//}
+std::string Scene::GetName() const {
+	return name;
+}
 
 GameObject* Scene::CreateGameObject(const ObjectName& _name)
 {

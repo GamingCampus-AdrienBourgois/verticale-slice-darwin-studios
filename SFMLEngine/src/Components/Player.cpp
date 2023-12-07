@@ -1,7 +1,6 @@
 #include "Components/Player.h"
 #include <iostream>
 #include "Components/ObjectName.h"
-
 #include "Components/RectangleShapeRenderer.h"
 #include <Components/SquareCollider.h>
 #include <Scene.h>
@@ -80,7 +79,6 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 	}
 }
 
-
 void Player::Move(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, std::vector<GameObject*>* gameObjects){
 	for (const auto& input : *pressed_input) {
 		if (input.first == 3 && input.second == true && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["right"]) {
@@ -129,10 +127,72 @@ void Player::Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key,
 			can_jump = false;
 		}
 	}
+  int taille_perso = sizeWindow.y / 22;
 	if (GetOwner()->GetPosition().GetY() + 200 <= sizeWindow.y && !is_jumping && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["down"]) {
 		GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() + (200 * _delta_time)));
 	}
 
+}
+
+GameObject* Player::CreateDollOff(const ObjectName& _name, Maths::Vector2f _position, const sf::Color _color) {
+	Scene* scene = sceneModule->GetScene("DefaultScene");
+
+	GameObject* game_object = scene->CreateGameObject(_name);
+	game_object->SetPosition(_position);
+
+	SquareCollider* square_collider = game_object->CreateComponent<SquareCollider>();
+	square_collider->SetWidth(20.f);
+	square_collider->SetHeight(20.f);
+
+	RectangleShapeRenderer* shape_renderer = game_object->CreateComponent<RectangleShapeRenderer>();
+	shape_renderer->SetColor(_color);
+	shape_renderer->SetSize(Maths::Vector2f(200.f, 200.f));
+
+	DollOff* dollOff = game_object->CreateComponent<DollOff>();
+	dollOff->setColor(_color);
+	dollOff->setPosition(_position);
+
+	return game_object;
+}
+
+void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) {
+	if (can_switch && !is_switching)
+	{
+		for (const auto& input : *pressed_input) {
+			if (input.first == 0 && input.second == true) {
+				is_switching = true;
+			}
+		}
+	}
+
+	if (is_switching)
+	{
+		can_switch = false;
+		can_jump = false;
+
+		Maths::Vector2f position = GetOwner()->GetPosition();
+		sf::Color actuall_color = GetOwner()->GetComponent<RectangleShapeRenderer>()->GetColor();
+
+		if (actuall_doll_int == 0)
+		{
+			big_dollOff = CreateDollOff(DollOffName, position, actuall_color);
+
+			GetOwner()->SetPosition(Maths::Vector2f(position.GetX(), position.GetY() - 200));
+			GetOwner()->GetComponent<RectangleShapeRenderer>()->SetColor(sf::Color::Blue);
+			actuall_doll_int++;
+		}
+		else if (actuall_doll_int == 1)
+		{
+			big_dollOff = nullptr;
+			mid_dollOff = CreateDollOff(DollOffName, position, actuall_color);
+
+			GetOwner()->SetPosition(Maths::Vector2f(position.GetX(), position.GetY() - 200));
+			GetOwner()->GetComponent<RectangleShapeRenderer>()->SetColor(sf::Color::Green);
+			actuall_doll_int++;
+		}
+		is_switching = false;
+		std::cout << actuall_doll_int;
+	}
 }
 
 
@@ -151,7 +211,10 @@ void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Ke
 	Move(_delta_time, pressed_input, scene->GetGameObjects());
 	Jump(_delta_time, pressed_input, scene->GetGameObjects());
 	SwitchDoll(pressed_input);
-	if (GetOwner()->GetPosition().GetY() + 200 <= sizeWindow.y && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["down"]) {
+
+  int taille_perso = sizeWindow.y / 22;
+  
+	if (GetOwner()->GetPosition().GetY() + taille_perso <= sizeWindow.y && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["down"]) {
 		GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() + (actual_doll->GetGravity() * _delta_time)));
 	}
 	else {
