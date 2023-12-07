@@ -1,7 +1,6 @@
 #include "Components/SquareCollider.h"
-
-#include "GameObject.h"
 #include "Maths/Vector2.h"
+#include <iostream>
 
 bool SquareCollider::IsColliding(const SquareCollider& _collider_a, const SquareCollider& _collider_b)
 {
@@ -34,12 +33,13 @@ bool SquareCollider::IsColliding(const SquareCollider& _collider_a, const Square
 		if (playerBounds.left >= objectBounds.left && playerBounds.left + playerBounds.width >= objectBounds.left + objectBounds.width && ((playerBounds.top <= objectBounds.top && playerBounds.top + playerBounds.height >= objectBounds.top) || (playerBounds.top >= objectBounds.top && playerBounds.top <= objectBounds.top + objectBounds.height)) && (collisionWidth < collisionHeight && collisionHeight > 5))
 		{
 			_collider_a.GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("left", false);
+
 		}
 		//right collision
 		if (playerBounds.left <= objectBounds.left && playerBounds.left + playerBounds.width <= objectBounds.left + objectBounds.width && ((playerBounds.top <= objectBounds.top && playerBounds.top + playerBounds.height >= objectBounds.top) || (playerBounds.top >= objectBounds.top && playerBounds.top <= objectBounds.top + objectBounds.height)) && (collisionWidth < collisionHeight && collisionHeight > 5))
-		{
-			_collider_a.GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("right", false);
-		}
+			{
+				_collider_a.GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("right", false);
+			}
 		return true;
 	}
 	return false;

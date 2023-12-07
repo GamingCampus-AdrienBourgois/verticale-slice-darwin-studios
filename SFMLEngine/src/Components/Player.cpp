@@ -4,6 +4,8 @@
 
 #include "Components/RectangleShapeRenderer.h"
 #include <Components/SquareCollider.h>
+#include <Scene.h>
+#include <Modules/SceneModule.h>
 
 
 
@@ -127,28 +129,29 @@ void Player::Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key,
 			can_jump = false;
 		}
 	}
-	if (GetOwner()->GetPosition().GetY() + 200 <= sizeWindow.y && !is_jumping) {
+	if (GetOwner()->GetPosition().GetY() + 200 <= sizeWindow.y && !is_jumping && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["down"]) {
 		GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() + (200 * _delta_time)));
 	}
 
 }
 
 
-void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, std::vector<GameObject*>* gameObjects) {
+void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) {
+	Scene* scene = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetMainScene();
 	GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("up", true);
 	GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("down", true);
 	GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("left", true);
 	GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("right", true);
-	for (GameObject* const& gameObject : *gameObjects)
+	for (GameObject* const& gameObject : *scene->GetGameObjects())
 	{
 		if (gameObject->GetName() != ObjectName::PlayerName) {
 			GetOwner()->GetComponent<SquareCollider>()->IsColliding(*GetOwner()->GetComponent<SquareCollider>(), *gameObject->GetComponent<SquareCollider>());
 		}
 	}
-	Move(_delta_time, pressed_input, gameObjects);
-	Jump(_delta_time, pressed_input, gameObjects);
+	Move(_delta_time, pressed_input, scene->GetGameObjects());
+	Jump(_delta_time, pressed_input, scene->GetGameObjects());
 	SwitchDoll(pressed_input);
-	if (GetOwner()->GetPosition().GetY() + 200 <= sizeWindow.y) {
+	if (GetOwner()->GetPosition().GetY() + 200 <= sizeWindow.y && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["down"]) {
 		GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() + (actual_doll->GetGravity() * _delta_time)));
 	}
 	else {

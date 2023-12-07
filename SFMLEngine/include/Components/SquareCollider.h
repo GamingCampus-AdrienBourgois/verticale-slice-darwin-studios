@@ -1,6 +1,5 @@
 #pragma once
 #include "SFML/Graphics.hpp"
-
 #include "Component.h"
 
 class SquareCollider : public Component
