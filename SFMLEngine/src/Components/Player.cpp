@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Components/ObjectName.h"
 
+
 #include "Components/RectangleShapeRenderer.h"
 
 
@@ -88,6 +89,9 @@ void Player::Move(const float _delta_time, std::unordered_map<sf::Keyboard::Key,
 	}
 }
 
+
+
+
 void Player::Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) {
 	if (can_jump && !is_jumping) {
 		for (const auto& input : *pressed_input) {
@@ -126,7 +130,9 @@ void Player::Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key,
 			can_jump = false;
 		}
 	}
-	if (GetOwner()->GetPosition().GetY() + 200 <= sizeWindow.y && !is_jumping) {
+	int taille_perso = sizeWindow.y / 22;
+	
+	if (GetOwner()->GetPosition().GetY() + taille_perso <= sizeWindow.y && !is_jumping) {
 		GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() + (200 * _delta_time)));
 	}
 
@@ -137,7 +143,10 @@ void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Ke
 	Move(_delta_time, pressed_input);
 	Jump(_delta_time, pressed_input);
 	SwitchDoll(pressed_input);
-	if (GetOwner()->GetPosition().GetY() + 200 <= sizeWindow.y) {
+
+	int taille_perso = sizeWindow.y / 22;
+
+	if (GetOwner()->GetPosition().GetY() + taille_perso <= sizeWindow.y) {
 		GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() + (actual_doll->GetGravity() * _delta_time)));
 	}
 	else {

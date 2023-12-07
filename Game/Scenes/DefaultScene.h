@@ -4,14 +4,18 @@
 #include "SquareCollider.h"
 #include "SpawnWall.h"
 #include "Player.h"
+#include "WindowModule.h"
 
 
 class DefaultScene final : public Scene
 {
 public:
+
+	sf::Vector2u window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize();
+
 	DefaultScene() : Scene("DefaultScene")
 	{
-
+		
 		CreateWalls();
 
 		GameObject* player = CreatePlayer(PlayerName, 200.f, sf::Color::Red);
@@ -46,9 +50,12 @@ private:
 		square_collider->SetWidth(20.f);
 		square_collider->SetHeight(20.f);
 
+
+		int taille_persoX = window_size.x / 33;
+		int taille_persoY = window_size.y / 22;
 		RectangleShapeRenderer* shape_renderer = game_object->CreateComponent<RectangleShapeRenderer>();
 		shape_renderer->SetColor(_color);
-		shape_renderer->SetSize(Maths::Vector2f(200.f, 200.f));
+		shape_renderer->SetSize(Maths::Vector2f(taille_persoX, taille_persoY));
 
 		Player* player = game_object->CreateComponent<Player>();
 

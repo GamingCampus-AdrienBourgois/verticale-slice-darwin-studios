@@ -49,7 +49,7 @@ void DefaultScene::CreateWalls() {
     //Ligne 4
     SpawnWall::CreateWallObject(this, WallName, 2 * sizeWallX, 18 * sizeWallY);
     SpawnWall::CreateWallObject(this, WallName, 24 * sizeWallX, 18 * sizeWallY);
-    SpawnWall::CreateWallObject(this, WallName, 32 * sizeWallX, 19 * sizeWallY);
+    SpawnWall::CreateWallObject(this, WallName, 32 * sizeWallX, 18 * sizeWallY);
 
     //Ligne 5
     SpawnWall::CreateWallObject(this, WallName, 2 * sizeWallX, 17 * sizeWallY);
