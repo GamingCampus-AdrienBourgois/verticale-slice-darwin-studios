@@ -23,7 +23,7 @@ public:
 
 	int Doll() {
 		sf::Vector2u window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize();
-		speed = window_size.x / 11;
+		speed = window_size.x / 15;
 	}
 
 private:
