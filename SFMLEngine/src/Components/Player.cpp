@@ -3,6 +3,7 @@
 #include "Components/ObjectName.h"
 
 #include "Components/RectangleShapeRenderer.h"
+#include <Components/SquareCollider.h>
 
 
 
@@ -78,17 +79,17 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 }
 
 
-void Player::Move(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input){
+void Player::Move(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, std::vector<GameObject*>* gameObjects){
 	for (const auto& input : *pressed_input) {
-		if (input.first == 3 && input.second == true) {
+		if (input.first == 3 && input.second == true && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["right"]) {
 			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX() + (actual_doll->GetSpeed() * _delta_time), GetOwner()->GetPosition().GetY()));
-		}else if (input.first == 16 && input.second == true) {
+		}else if (input.first == 16 && input.second == true && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["left"]) {
 			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX() - (actual_doll->GetSpeed() * _delta_time), GetOwner()->GetPosition().GetY()));
 		}
 	}
 }
 
-void Player::Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) {
+void Player::Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, std::vector<GameObject*>* gameObjects) {
 	if (can_jump && !is_jumping) {
 		for (const auto& input : *pressed_input) {
 			if (input.first == 57 && input.second == true) {
@@ -99,7 +100,7 @@ void Player::Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key,
 			}
 		}
 	}
-	if (is_jumping) {
+	if (is_jumping && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["up"]) {
 		if (jumping_time.getElapsedTime().asSeconds() <= 0.4) {
 			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() - (500 * _delta_time)));
 		}
@@ -133,9 +134,19 @@ void Player::Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key,
 }
 
 
-void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) {
-	Move(_delta_time, pressed_input);
-	Jump(_delta_time, pressed_input);
+void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, std::vector<GameObject*>* gameObjects) {
+	GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("up", true);
+	GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("down", true);
+	GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("left", true);
+	GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("right", true);
+	for (GameObject* const& gameObject : *gameObjects)
+	{
+		if (gameObject->GetName() != ObjectName::PlayerName) {
+			GetOwner()->GetComponent<SquareCollider>()->IsColliding(*GetOwner()->GetComponent<SquareCollider>(), *gameObject->GetComponent<SquareCollider>());
+		}
+	}
+	Move(_delta_time, pressed_input, gameObjects);
+	Jump(_delta_time, pressed_input, gameObjects);
 	SwitchDoll(pressed_input);
 	if (GetOwner()->GetPosition().GetY() + 200 <= sizeWindow.y) {
 		GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() + (actual_doll->GetGravity() * _delta_time)));
