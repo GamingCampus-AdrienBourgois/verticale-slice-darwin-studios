@@ -19,7 +19,7 @@ public:
 		
 		CreateWalls();
 		CreateSwitch();
-		GameObject* player = CreatePlayer(PlayerName, 200.f, sf::Color::Red);
+		GameObject* player = CreatePlayer(PlayerName, Maths::Vector2f(100, 240), sf::Color::Red);
 
 	}
 
@@ -44,22 +44,22 @@ private:
 	void CreateSwitch();
 	
 
-	GameObject* CreatePlayer(const ObjectName& _name, const float _position, const sf::Color _color) {
+	GameObject* CreatePlayer(const ObjectName& _name, Maths::Vector2f _position, const sf::Color _color) {
 		GameObject* game_object = CreateGameObject(_name);
-		game_object->SetPosition(Maths::Vector2f(_position, _position));
-
-		SquareCollider* square_collider = game_object->CreateComponent<SquareCollider>();
-		square_collider->SetWidth(200.f);
-		square_collider->SetHeight(200.f);
-
+		game_object->SetPosition(_position);
 
 		int taille_persoX = window_size.x / 33;
 		int taille_persoY = window_size.y / 22;
+
+		SquareCollider* square_collider = game_object->CreateComponent<SquareCollider>();
+		square_collider->SetWidth(taille_persoX);
+		square_collider->SetHeight(taille_persoY);
+
 		RectangleShapeRenderer* shape_renderer = game_object->CreateComponent<RectangleShapeRenderer>();
 		shape_renderer->SetColor(_color);
 		shape_renderer->SetSize(Maths::Vector2f(taille_persoX, taille_persoY));
 
-		Player* player = game_object->CreateComponent<Player>()
+		Player* player = game_object->CreateComponent<Player>();
 
 
 		return game_object;

@@ -6,85 +6,12 @@
 #include <Scene.h>
 #include <Modules/SceneModule.h>
 
-
-
-
-Player::Player() {
-	big_doll = new Doll;
-
-	actual_doll = big_doll;
-}
-
-Player::~Player() {
-	actual_doll = nullptr;
-
-	if (actuall_doll_int == 0)
-	{
-		delete big_doll;
-		big_doll = nullptr;
-	}
-	else if (actuall_doll_int == 1)
-	{
-		delete medium_doll;
-		medium_doll = nullptr;
-	}
-	else if (actuall_doll_int == 2)
-	{
-		delete small_doll;
-		small_doll = nullptr;
-	}
-}
-
-void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) {
-	if (can_switch && !is_switching)
-	{
-		for (const auto& input : *pressed_input) {
-			if (input.first == 0 && input.second == true) {
-				is_switching = true;
-			}
-		}
-	}
-
-	if (is_switching)
-	{
-		can_switch = false;
-		can_jump = false;
-
-		if (actuall_doll_int == 0)
-		{
-			medium_doll = new Doll;
-			actual_doll = medium_doll;
-
-			delete big_doll;
-			big_doll = nullptr;
-
-			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() - 200));
-			GetOwner()->GetComponent<RectangleShapeRenderer>()->SetColor(sf::Color::Blue);
-			actuall_doll_int++;
-		}
-		else if (actuall_doll_int == 1)
-		{
-			small_doll = new Doll;
-			actual_doll = small_doll;
-
-			delete medium_doll;
-			medium_doll = nullptr;
-
-			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() - 200));
-			GetOwner()->GetComponent<RectangleShapeRenderer>()->SetColor(sf::Color::Green);
-			actuall_doll_int++;
-		}
-		is_switching = false;
-		std::cout << actuall_doll_int;
-	}
-}
-
 void Player::Move(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, std::vector<GameObject*>* gameObjects){
 	for (const auto& input : *pressed_input) {
 		if (input.first == 3 && input.second == true && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["right"]) {
-			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX() + (actual_doll->GetSpeed() * _delta_time), GetOwner()->GetPosition().GetY()));
+			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX() + (speed * _delta_time), GetOwner()->GetPosition().GetY()));
 		}else if (input.first == 16 && input.second == true && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["left"]) {
-			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX() - (actual_doll->GetSpeed() * _delta_time), GetOwner()->GetPosition().GetY()));
+			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX() - (speed * _delta_time), GetOwner()->GetPosition().GetY()));
 		}
 	}
 }
@@ -215,7 +142,7 @@ void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Ke
   int taille_perso = sizeWindow.y / 22;
   
 	if (GetOwner()->GetPosition().GetY() + taille_perso <= sizeWindow.y && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["down"]) {
-		GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() + (actual_doll->GetGravity() * _delta_time)));
+		GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() + (gravity * _delta_time)));
 	}
 	else {
 		can_jump = true;

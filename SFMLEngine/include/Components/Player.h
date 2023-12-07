@@ -9,8 +9,6 @@
 class Player : public Component
 {
 public:
-	Player();
-	~Player();
 	void SetHp(int new_hp) { hp = new_hp; }
 	void SetSpeed(int new_speed) { speed = new_speed; }
 	void SetGravity(int _gravity) { gravity = _gravity; }
