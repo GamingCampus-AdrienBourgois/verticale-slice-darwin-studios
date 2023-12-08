@@ -27,6 +27,11 @@ void Player::Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key,
 			}
 		}
 	}
+
+	if (!GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["up"]) {
+		is_jumping = false;
+	}
+
 	if (is_jumping && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["up"]) {
 		if (jumping_time.getElapsedTime().asSeconds() <= 0.4) {
 			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() - (500 * _delta_time)));

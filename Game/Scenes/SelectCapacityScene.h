@@ -9,6 +9,9 @@ class SelectCapacityScene final : public Scene
 public:
 	SelectCapacityScene() : Scene("SelectCapacityScene")
 	{
+		SetTexture("background", "Assets/background.png");
+		SetBackground("background");
+
 		sf::Vector2u window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindow()->getSize();
 
 		GameObject* doll_button1 = CreateButton(ButtonType, "doll_button1", Maths::Vector2f(window_size.x / 6, (window_size.y / 2)), sf::Color::Blue, Maths::Vector2u(window_size.x / 6, window_size.y / 3), nullptr);
