@@ -11,7 +11,9 @@ int main()
 	engine->Init();
 
 	SceneModule* scene_module = engine->GetModuleManager()->GetModule<SceneModule>();
-	scene_module->SetScene<SelectCapacityScene>();
+	scene_module->SetScene<MainMenuScene>();
+	scene_module->SetScene<SelectCapacityScene>(false);
+	scene_module->SetScene<DefaultScene>(false);
 
 	engine->Run();
 

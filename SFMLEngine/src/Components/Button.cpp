@@ -8,7 +8,14 @@
 void Button::Execute() {
 	if (is_clicked) {
 		Scene* scene = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetMainScene();
-		if (GetOwner()->GetName() == "doll_button1" || GetOwner()->GetName() == "doll_button2" || GetOwner()->GetName() == "doll_button3") {
+		if (GetOwner()->GetName() == "main_menu_play_button") {
+			Scene* scene = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetScene("SelectCapacityScene");
+			Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->SetNextScene(scene);
+		}
+		else if (GetOwner()->GetName() == "main_menu_quit_button") {
+			Engine::GetInstance()->Quit();
+		}
+		else if (GetOwner()->GetName() == "doll_button1" || GetOwner()->GetName() == "doll_button2" || GetOwner()->GetName() == "doll_button3") {
 			bool have_capacity_button = false;
 			for (GameObject* const& gameObject : *scene->GetGameObjects()) {
 				if (gameObject->GetName() == "capacity_button") {
@@ -44,7 +51,7 @@ void Button::Execute() {
 						capacity->SetName(ligne.substr(position, position_delimiter - 1));
 						capacity->SetDescription(ligne.substr(position_delimiter + 2, ligne.find(std::string::npos)));
 						scene->CreateButton(ButtonType, "capacity_button", Maths::Vector2f((window_size.x / (nb_ligne * 2 + nb_ligne - 1 + 16) * capacity_position), (window_size.y / 100 * 10)), sf::Color::Green,
-							Maths::Vector2u(window_size.x / (nb_ligne * 2 + nb_ligne - 1 + 16) * 2, window_size.x / (nb_ligne * 2 + nb_ligne - 1 + 16) * 2), "", capacity);
+							Maths::Vector2u(window_size.x / (nb_ligne * 2 + nb_ligne - 1 + 16) * 2, window_size.x / (nb_ligne * 2 + nb_ligne - 1 + 16) * 2), capacity);
 						capacity_position += 3;
 					}
 					ifstrm.close();
@@ -61,6 +68,10 @@ void Button::Execute() {
 		else if (GetOwner()->GetName() == "capacity_button") {
 			scene->FindGameObject("text_for_capacity_name")->GetComponent<TextRenderer>()->SetString(GetObject()->GetName());
 			scene->FindGameObject("text_for_capacity_description")->GetComponent<TextRenderer>()->SetString(GetObject()->GetDescription());
+		}
+		else if (GetOwner()->GetName() == "launch_game_button") {
+			Scene* scene = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetScene("DefaultScene");
+			Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->SetNextScene(scene);
 		}
 	}
 }

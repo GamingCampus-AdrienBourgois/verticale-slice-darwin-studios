@@ -8,15 +8,12 @@
 RectangleShapeRenderer::RectangleShapeRenderer()
 {
 	shape = new sf::RectangleShape();
-	text = new sf::Text();
 }
 
 RectangleShapeRenderer::~RectangleShapeRenderer()
 {
 	delete shape;
 	shape = nullptr;
-	delete text;
-	text = nullptr;
 }
 
 void RectangleShapeRenderer::Render(sf::RenderWindow* _window)
@@ -33,7 +30,7 @@ void RectangleShapeRenderer::Render(sf::RenderWindow* _window)
 
 	_window->draw(*shape);
 
-	if (owner->GetType() == ButtonType) {
+	/*if (owner->GetType() == ButtonType) {
 		std::string button_text = owner->GetComponent<Button>()->GetText();
 		if (button_text != "") {
 			Scene* scene = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetMainScene();
@@ -44,5 +41,5 @@ void RectangleShapeRenderer::Render(sf::RenderWindow* _window)
 			text->setFillColor(sf::Color::White);
 			_window->draw(*text);
 		}
-	}
+	}*/
 }

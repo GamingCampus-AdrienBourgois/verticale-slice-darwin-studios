@@ -19,5 +19,4 @@ private:
 	sf::Color color = sf::Color::White;
 
 	sf::RectangleShape* shape = nullptr;
-	sf::Text* text;
 };

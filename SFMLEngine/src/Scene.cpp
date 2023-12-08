@@ -75,7 +75,7 @@ GameObject* Scene::FindGameObject(const std::string& _name) const
 }
 
 
-GameObject* Scene::CreateButton(const ObjectType& _type, std::string _name, Maths::Vector2f _position, const sf::Color _color, Maths::Vector2u size, std::string button_text, Capacity* _object)
+GameObject* Scene::CreateButton(const ObjectType& _type, std::string _name, Maths::Vector2f _position, const sf::Color _color, Maths::Vector2u size, Capacity* _object)
 {
 	GameObject* game_object = CreateGameObject(_type, _name);
 	game_object->SetPosition(_position);
@@ -89,7 +89,31 @@ GameObject* Scene::CreateButton(const ObjectType& _type, std::string _name, Math
 	shape_renderer->SetSize(Maths::Vector2f(size.x, size.y));
 
 	Button* button = game_object->CreateComponent<Button>();
-	button->SetText(button_text);
+	button->SetObject(_object);
+
+	return game_object;
+}
+
+GameObject* Scene::CreateButton(const ObjectType& _type, std::string _name, Maths::Vector2f _position, const sf::Color _color, Maths::Vector2u size, Capacity* _object, std::string button_text, sf::Color button_color, int _caractere_size)
+{
+	GameObject* game_object = CreateGameObject(_type, _name);
+	game_object->SetPosition(_position);
+
+	SquareCollider* square_collider = game_object->CreateComponent<SquareCollider>();
+	square_collider->SetWidth(20.f);
+	square_collider->SetHeight(20.f);
+
+	RectangleShapeRenderer* shape_renderer = game_object->CreateComponent<RectangleShapeRenderer>();
+	shape_renderer->SetColor(_color);
+	shape_renderer->SetSize(Maths::Vector2f(size.x, size.y));
+
+	TextRenderer* text_renderer = game_object->CreateComponent<TextRenderer>();
+	text_renderer->SetString(button_text);
+	text_renderer->SetColor(button_color);
+	text_renderer->SetSize(Maths::Vector2f(size.x, size.y));
+	text_renderer->SetCaracterSize(_caractere_size);
+
+	Button* button = game_object->CreateComponent<Button>();
 	button->SetObject(_object);
 
 	return game_object;

@@ -19,6 +19,8 @@ public:
 	template<typename T>
 	Scene* SetScene(bool _replace_scenes = true);
 
+	void SetNextScene(Scene* _next_scene) { nextScene = _next_scene; }
+
 	Scene* GetMainScene() const { return mainScene; }
 	Scene* GetScene(const std::string& _scene_name) const;
 
@@ -27,6 +29,7 @@ public:
 private:
 	std::vector<Scene*> scenes;
 	Scene* mainScene = nullptr;
+	Scene* nextScene = nullptr;
 
 	WindowModule* windowModule = nullptr;
 	TimeModule* timeModule = nullptr;
