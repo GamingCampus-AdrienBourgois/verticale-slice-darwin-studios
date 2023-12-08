@@ -3,6 +3,15 @@
 void DefaultScene::SpawnObjectLevel3() {
     sf::Vector2u window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize();
 
+    SetTexture("background", "Assets/background.png");
+    SetBackground("background");
+    //sf::Texture background;
+    //background.loadFromFile("Assets/background.png");
+    //sf::Sprite sprite(background);
+    //// Redimensionner le sprite pour qu'il remplisse la fen?tre
+    //sprite.setScale((float)window_size.x / sprite.getTexture()->getSize().x, (float)window_size.y / sprite.getTexture()->getSize().y);
+    //SetBackground(&sprite);
+
     int sizeWallX = window_size.x / 33;
     int sizeWallY = window_size.y / 22;
 

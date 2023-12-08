@@ -1,6 +1,10 @@
 #include "Scene.h"
 #include <unordered_map>
 #include <SFML/Window/Event.hpp>
+#include "Engine.h"
+#include "Modules/WindowModule.h"
+
+
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
@@ -17,10 +21,15 @@ void Scene::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key
 
 void Scene::Render(sf::RenderWindow* _window) const
 {
-	for (GameObject* const& game_object : gameObjects)
+	_window->draw(*background);
+	for (int i = 0; i < gameObjects.size(); i++)
 	{
-		game_object->Render(_window);
+		gameObjects[i]->Render(_window);
 	}
+	//for (GameObject* const& game_object : gameObjects)
+	//{
+	//	game_object->Render(_window);
+	//}
 }
 
 
@@ -59,4 +68,27 @@ GameObject* Scene::FindGameObject(const ObjectName& _name) const
 		}
 	}
 	return nullptr;
+}
+
+int Scene::SetTexture(std::string nom_texture, std::string chemin_fichier)
+{
+	sf::Texture new_texture;
+
+	if (!new_texture.loadFromFile(chemin_fichier))
+	{
+		return EXIT_FAILURE;
+	}
+	new_texture.setSmooth(true);
+	texture[nom_texture] = new_texture;
+
+	return EXIT_SUCCESS;
+}
+
+void Scene::SetBackground(std::string nom_texture) {
+	sf::Vector2u window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize();
+
+	background = new sf::Sprite();
+	// Redimensionner le sprite pour qu'il remplisse la fen?tre
+	background->setTexture(texture[nom_texture]);
+	background->setScale((float)window_size.x / background->getTexture()->getSize().x, (float)window_size.y / background->getTexture()->getSize().y);
 }
