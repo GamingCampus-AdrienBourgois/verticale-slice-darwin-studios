@@ -57,7 +57,6 @@ public:
 private:
 	void SpawnObjectLevel3();
 	void CreateSwitch();
-	
 
 	GameObject* CreatePlayer(const ObjectName& _name, Maths::Vector2f _position, const sf::Color _color) {
 		GameObject* game_object = CreateGameObject(_name);
