@@ -144,6 +144,7 @@ void DefaultScene::SpawnObjectLevel3() {
     //Ligne 15
     CreateWallObject(this, WallName, 0 * sizeWallX, 7 * sizeWallY);
     CreateWallObject(this, WallName, 8 * sizeWallX, 7 * sizeWallY);
+    CreateWallObject(this, WallName, 27 * sizeWallX, 7 * sizeWallY);
     CreateWallObject(this, WallName, 28 * sizeWallX, 7 * sizeWallY);
     CreateWallObject(this, WallName, 29 * sizeWallX, 7 * sizeWallY);
     CreateWallObject(this, WallName, 32 * sizeWallX, 7 * sizeWallY);
@@ -159,6 +160,7 @@ void DefaultScene::SpawnObjectLevel3() {
     CreateWallObject(this, WallName, 10 * sizeWallX, 6 * sizeWallY);
     CreateWallObject(this, WallName, 11 * sizeWallX, 6 * sizeWallY);
     CreateWallObject(this, WallName, 12 * sizeWallX, 6 * sizeWallY);
+    CreateWallObject(this, WallName, 27 * sizeWallX, 6 * sizeWallY);
     CreateWallObject(this, WallName, 32 * sizeWallX, 6 * sizeWallY);
 
     //Ligne 17
@@ -168,6 +170,8 @@ void DefaultScene::SpawnObjectLevel3() {
     CreateWallObject(this, WallName, 14 * sizeWallX, 5 * sizeWallY);
     CreateWallObject(this, WallName, 15 * sizeWallX, 5 * sizeWallY);
     CreateWallObject(this, WallName, 16 * sizeWallX, 5 * sizeWallY);
+    CreateWallObject(this, WallName, 17 * sizeWallX, 5 * sizeWallY);
+    CreateWallObject(this, WallName, 27 * sizeWallX, 5 * sizeWallY);
     CreateWallObject(this, WallName, 32 * sizeWallX, 5 * sizeWallY);
 
     //Ligne 18
@@ -178,6 +182,11 @@ void DefaultScene::SpawnObjectLevel3() {
     CreateWallObject(this, WallName, 4 * sizeWallX, 4 * sizeWallY);
     CreateWallObject(this, WallName, 5 * sizeWallX, 4 * sizeWallY);
     CreateWallObject(this, WallName, 6 * sizeWallX, 4 * sizeWallY);
+    CreateWallObject(this, WallName, 17 * sizeWallX, 4 * sizeWallY);
+    CreateWallObject(this, WallName, 24 * sizeWallX, 4 * sizeWallY);
+    CreateWallObject(this, WallName, 25 * sizeWallX, 4 * sizeWallY);
+    CreateWallObject(this, WallName, 26 * sizeWallX, 4 * sizeWallY);
+    CreateWallObject(this, WallName, 27 * sizeWallX, 4 * sizeWallY);
     CreateWallObject(this, WallName, 32 * sizeWallX, 4 * sizeWallY);
 
     //Ligne 19
@@ -185,6 +194,9 @@ void DefaultScene::SpawnObjectLevel3() {
     CreateWallObject(this, WallName, 7 * sizeWallX, 3 * sizeWallY);
     CreateWallObject(this, WallName, 8 * sizeWallX, 3 * sizeWallY);
     CreateWallObject(this, WallName, 9 * sizeWallX, 3 * sizeWallY);
+    CreateWallObject(this, WallName, 17 * sizeWallX, 3 * sizeWallY);
+    CreateWallObject(this, WallName, 20 * sizeWallX, 3 * sizeWallY);
+    CreateWallObject(this, WallName, 27 * sizeWallX, 3 * sizeWallY); 
     CreateWallObject(this, WallName, 32 * sizeWallX, 3 * sizeWallY);
 
     //Ligne 20
@@ -193,6 +205,7 @@ void DefaultScene::SpawnObjectLevel3() {
     CreateWallObject(this, WallName, 12 * sizeWallX, 2 * sizeWallY);
     CreateWallObject(this, WallName, 13 * sizeWallX, 2 * sizeWallY);
     CreateWallObject(this, WallName, 14 * sizeWallX, 2 * sizeWallY);
+    CreateWallObject(this, WallName, 27 * sizeWallX, 2 * sizeWallY);
     CreateWallObject(this, WallName, 28 * sizeWallX, 2 * sizeWallY);
     CreateWallObject(this, WallName, 29 * sizeWallX, 2 * sizeWallY);
     CreateWallObject(this, WallName, 30 * sizeWallX, 2 * sizeWallY);
@@ -202,6 +215,7 @@ void DefaultScene::SpawnObjectLevel3() {
     //Ligne 21
     CreateWallObject(this, WallName, 0 * sizeWallX, 1 * sizeWallY);
     CreateWallObject(this, WallName, 12 * sizeWallX, 1 * sizeWallY);
+    CreateWallObject(this, WallName, 27 * sizeWallX, 1 * sizeWallY);
 
     //Ligne 22
     CreateWallObject(this, WallName, 0 * sizeWallX, 0 * sizeWallY);
@@ -213,6 +227,10 @@ void DefaultScene::SpawnObjectLevel3() {
     CreateWallObject(this, WallName, 10 * sizeWallX, 0 * sizeWallY);
     CreateWallObject(this, WallName, 11 * sizeWallX, 0 * sizeWallY);
     CreateWallObject(this, WallName, 12 * sizeWallX, 0 * sizeWallY);
+    CreateWallObject(this, WallName, 27 * sizeWallX, 0 * sizeWallY);
+
+    //Ligne 23 (Hors Map)
+    CreateWallObject(this, WallName, 12 * sizeWallX, -1 * sizeWallY);
 }
 
 void DefaultScene::CreateSwitch() {
