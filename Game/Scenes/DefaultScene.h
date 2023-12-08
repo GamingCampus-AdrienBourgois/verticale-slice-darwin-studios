@@ -2,7 +2,6 @@
 #include "RectangleShapeRenderer.h"
 #include "Scene.h"
 #include "SquareCollider.h"
-#include "SpawnWall.h"
 #include "Player.h"
 #include "Switch.h"
 #include "WindowModule.h"
@@ -16,8 +15,7 @@ public:
 
 	DefaultScene() : Scene("DefaultScene")
 	{
-		
-		CreateWalls();
+		SpawnObjectLevel3();
 		CreateSwitch();
 		GameObject* player = CreatePlayer(PlayerName, Maths::Vector2f(100, 240), sf::Color::Red);
 
@@ -38,9 +36,26 @@ public:
 		return game_object;
 	}
 
+	GameObject* CreateWallObject(Scene* scene, const ObjectName& _name, const float _x, const float _y) {
+		GameObject* game_object = scene->CreateGameObject(_name);
+		game_object->SetPosition(Maths::Vector2f(_x, _y));
+
+		sf::Vector2u window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize();
+
+		SquareCollider* squareCollider = game_object->CreateComponent<SquareCollider>();
+		squareCollider->SetWidth(window_size.x / 33);
+		squareCollider->SetHeight(window_size.y / 22);
+
+		RectangleShapeRenderer* shapeRenderer = game_object->CreateComponent<RectangleShapeRenderer>();
+		shapeRenderer->SetColor(sf::Color::White); // Couleur du mur
+		shapeRenderer->SetSize(Maths::Vector2f(window_size.x / 33, window_size.y / 22)); // Taille du mur
+
+		return game_object;
+	}
+
 
 private:
-	void CreateWalls();
+	void SpawnObjectLevel3();
 	void CreateSwitch();
 	
 

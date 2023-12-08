@@ -160,9 +160,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Scenes\SpawnWall.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Scenes\DefaultScene.cpp" />
+    <ClCompile Include="Scenes\Level3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SFMLEngine\SFMLEngine.vcxproj">
@@ -171,7 +170,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scenes\DefaultScene.h" />
-    <ClInclude Include="Scenes\SpawnWall.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="imgui.ini" />

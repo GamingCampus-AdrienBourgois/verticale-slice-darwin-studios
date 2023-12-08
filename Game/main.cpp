@@ -1,5 +1,4 @@
 #include "Engine.h"
-#include "Scenes/SpawnWall.h"
 #include "SceneModule.h"
 #include "Scenes/DefaultScene.h"
 
