@@ -35,3 +35,11 @@ void GameObject::Render(sf::RenderWindow* _window) const
 		component->Render(_window);
 	}
 }
+
+sf::FloatRect GameObject::getBounds(sf::RectangleShape object) const
+{
+	sf::Vector2f position = object.getPosition();
+	sf::Vector2f size = object.getSize();
+
+	return sf::FloatRect(position.x, position.y, size.x, size.y);
+}

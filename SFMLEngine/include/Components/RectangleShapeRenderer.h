@@ -11,6 +11,7 @@ public:
 	~RectangleShapeRenderer() override;
 
 	void SetColor(const sf::Color& _color) { color = _color; }
+	sf::Color GetColor() { return color; }
 	sf::RectangleShape* GetShape() { return shape; }
 
 	void Render(sf::RenderWindow* _window) override;

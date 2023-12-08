@@ -6,6 +6,7 @@
 #include "Maths/Vector2.h"
 #include <unordered_map>
 #include <SFML/Window/Event.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
 #include "Components/ObjectType.h"
 
 class Component;
@@ -39,6 +40,7 @@ public:
 
 	void Update(float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) const;
 	void Render(sf::RenderWindow* _window) const;
+	sf::FloatRect getBounds(sf::RectangleShape object) const;
 
 private:
 	ObjectType type = ObjectType::GameObjectType;

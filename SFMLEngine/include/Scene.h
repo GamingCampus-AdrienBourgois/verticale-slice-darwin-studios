@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-
+#include <vector>
 #include "GameObject.h"
 #include "Components/Capacity.h"
 #include "Components/Button.h"
@@ -13,12 +13,16 @@
 class Scene
 {
 public:
-	explicit Scene(const std::string& _name);
-	virtual ~Scene() = default;
+    explicit Scene(const std::string& _name);
+    virtual ~Scene() = default;
+
+    std::unordered_map<std::string, sf::Texture>* GetTexture() {return &texture; }
 
 	void Update(float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) const;
 
-	void Render(sf::RenderWindow* _window) const;
+    void Render(sf::RenderWindow* _window) const;
+
+    void SetBackground(std::string nom_texture);
 
 	std::string GetName() const;
 	std::vector<GameObject*>* GetGameObjects() { return &gameObjects; }
@@ -36,9 +40,14 @@ public:
 	
 	GameObject* CreateText(const ObjectType& _type, std::string _name, Maths::Vector2f _position, const sf::Color _color, Maths::Vector2u size, int _caractere_size);
 
-private:
-	std::string name;
-	std::vector<GameObject*> gameObjects;
-	sf::Font font_scene;
 
+    int SetTexture(std::string nom_texture, std::string chemin_fichier);
+
+
+private:
+    std::string name;
+    std::unordered_map<std::string, sf::Texture> texture;
+    std::vector<GameObject*> gameObjects;
+    sf::Sprite* background;
+	sf::Font font_scene;
 };

@@ -5,5 +5,8 @@ enum ObjectType
 	GameObjectType,
 	PlayerType,
 	ButtonType,
-	TextType
+	TextType, 
+	DollOffType,
+	WallType,
+	SwitchType
 };

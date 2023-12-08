@@ -4,6 +4,7 @@
 #include "Scenes/SelectCapacityScene.h"
 #include "Scenes/MainMenuScene.h"
 
+
 int main()
 {
 	const Engine* engine = Engine::GetInstance();
@@ -16,6 +17,7 @@ int main()
 	scene_module->SetScene<DefaultScene>(false);
 
 	engine->Run();
+
 
 	return 0;
 }

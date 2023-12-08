@@ -18,6 +18,9 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Scenes\Level3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scenes\DefaultScene.h">
@@ -32,5 +35,19 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="imgui.ini" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="imgui.ini" />
+    <None Include="x64\Debug\Game.exe.recipe" />
+    <None Include="x64\Debug\vc143.idb" />
+    <None Include="x64\Debug\vc143.pdb" />
+    <None Include="x64\Debug\Game.tlog\CL.command.1.tlog" />
+    <None Include="x64\Debug\Game.tlog\Game.lastbuildstate" />
+    <None Include="x64\Debug\Game.tlog\unsuccessfulbuild" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="x64\Debug\Game.Build.CppClean.log" />
+    <Text Include="x64\Debug\Game.log" />
+    <Text Include="x64\Debug\Game.vcxproj.FileListAbsolute.txt" />
   </ItemGroup>
 </Project>

@@ -29,17 +29,4 @@ void RectangleShapeRenderer::Render(sf::RenderWindow* _window)
 	shape->setFillColor(color);
 
 	_window->draw(*shape);
-
-	/*if (owner->GetType() == ButtonType) {
-		std::string button_text = owner->GetComponent<Button>()->GetText();
-		if (button_text != "") {
-			Scene* scene = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetMainScene();
-			text->setString(button_text);
-			text->setFont(*scene->GetFont());
-			text->setCharacterSize(20);
-			text->setPosition(position.x, position.y);
-			text->setFillColor(sf::Color::White);
-			_window->draw(*text);
-		}
-	}*/
 }

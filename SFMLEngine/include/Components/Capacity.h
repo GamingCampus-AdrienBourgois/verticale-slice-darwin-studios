@@ -20,3 +20,4 @@ private:
 	std::string description;
 	float effect;
 };
+
