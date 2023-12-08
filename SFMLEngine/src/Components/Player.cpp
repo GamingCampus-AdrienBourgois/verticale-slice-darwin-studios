@@ -67,13 +67,16 @@ GameObject* Player::CreateDollOff(const ObjectName& _name, Maths::Vector2f _posi
 	GameObject* game_object = scene->CreateGameObject(_name);
 	game_object->SetPosition(_position);
 
+	int taille_persoX = sizeWindow.x / 33;
+	int taille_persoY = sizeWindow.y / 22;
+
 	SquareCollider* square_collider = game_object->CreateComponent<SquareCollider>();
-	square_collider->SetWidth(20.f);
-	square_collider->SetHeight(20.f);
+	square_collider->SetWidth(taille_persoX);
+	square_collider->SetHeight(taille_persoY);
 
 	RectangleShapeRenderer* shape_renderer = game_object->CreateComponent<RectangleShapeRenderer>();
 	shape_renderer->SetColor(_color);
-	shape_renderer->SetSize(Maths::Vector2f(200.f, 200.f));
+	shape_renderer->SetSize(Maths::Vector2f(taille_persoX, taille_persoY));
 
 	DollOff* dollOff = game_object->CreateComponent<DollOff>();
 	dollOff->setColor(_color);
