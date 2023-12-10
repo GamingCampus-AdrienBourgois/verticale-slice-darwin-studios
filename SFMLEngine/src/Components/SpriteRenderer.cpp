@@ -18,10 +18,10 @@ SpriteRenderer::~SpriteRenderer()
 void SpriteRenderer::SetSprite(sf::Texture* new_texture, float scale_x, float scale_y)
 {
 	texture = new_texture;
-	width = texture->getSize().x * scale_x;
-	height = texture->getSize().y * scale_y;
+	width = scale_x;
+	height = scale_y;
 	sprite->setTexture(*texture);
-	sprite->setScale(scale_x, scale_y);
+	sprite->setScale(scale_x / texture->getSize().x, scale_y / texture->getSize().y);
 }
 
 void SpriteRenderer::Render(sf::RenderWindow* _window)

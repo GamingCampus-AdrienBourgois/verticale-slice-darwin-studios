@@ -5,12 +5,10 @@
 
 #include <unordered_map>
 #include <SFML/Window/Event.hpp>
-#include "Engine.h"
 #include "Modules/WindowModule.h"
 
-
-
 #include <SFML/Graphics/RenderWindow.hpp>
+
 
 Scene::Scene(const std::string& _name)
 {
@@ -113,10 +111,6 @@ GameObject* Scene::CreateButton(const ObjectType& _type, std::string _name, Math
 	GameObject* game_object = CreateGameObject(_type, _name);
 	game_object->SetPosition(_position);
 
-	SquareCollider* square_collider = game_object->CreateComponent<SquareCollider>();
-	square_collider->SetWidth(20.f);
-	square_collider->SetHeight(20.f);
-
 	RectangleShapeRenderer* shape_renderer = game_object->CreateComponent<RectangleShapeRenderer>();
 	shape_renderer->SetColor(_color);
 	shape_renderer->SetSize(Maths::Vector2f(size.x, size.y));
@@ -127,14 +121,28 @@ GameObject* Scene::CreateButton(const ObjectType& _type, std::string _name, Math
 	return game_object;
 }
 
-GameObject* Scene::CreateButton(const ObjectType& _type, std::string _name, Maths::Vector2f _position, const sf::Color _color, Maths::Vector2u size, Capacity* _object, std::string button_text, sf::Color button_color, int _caractere_size)
+GameObject* Scene::CreateSpriteButton(const ObjectType& _type, std::string _name, Maths::Vector2f _position, const sf::Color _color, Maths::Vector2u size, Capacity* _object, std::string nom_texture)
 {
 	GameObject* game_object = CreateGameObject(_type, _name);
 	game_object->SetPosition(_position);
 
-	SquareCollider* square_collider = game_object->CreateComponent<SquareCollider>();
-	square_collider->SetWidth(20.f);
-	square_collider->SetHeight(20.f);
+	RectangleShapeRenderer* shape_renderer = game_object->CreateComponent<RectangleShapeRenderer>();
+	shape_renderer->SetColor(_color);
+	shape_renderer->SetSize(Maths::Vector2f(size.x, size.y));
+
+	SpriteRenderer* sprite_renderer = game_object->CreateComponent<SpriteRenderer>();
+	sprite_renderer->SetSprite(&texture[nom_texture], size.x, size.y);
+
+	Button* button = game_object->CreateComponent<Button>();
+	button->SetObject(_object);
+
+	return game_object;
+}
+
+GameObject* Scene::CreateButtonWithText(const ObjectType& _type, std::string _name, Maths::Vector2f _position, const sf::Color _color, Maths::Vector2u size, Capacity* _object, std::string button_text, sf::Color button_color, int _caractere_size)
+{
+	GameObject* game_object = CreateGameObject(_type, _name);
+	game_object->SetPosition(_position);
 
 	RectangleShapeRenderer* shape_renderer = game_object->CreateComponent<RectangleShapeRenderer>();
 	shape_renderer->SetColor(_color);

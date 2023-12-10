@@ -3,6 +3,7 @@
 #include <Engine.h>
 #include "Modules/SceneModule.h"
 #include <fstream>
+#include <sstream>
 
 
 void Button::Execute() {
@@ -26,42 +27,44 @@ void Button::Execute() {
 			if (!have_capacity_button) {
 				sf::Vector2u window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindow()->getSize();
 
-				std::string filename = "capacity.txt";
-				std::ifstream ifstrm(filename);
+				std::ifstream file("capacity.csv");
+
+				if (!file.is_open()) {
+					std::cerr << "Error opening file." << std::endl;
+				}
+
 				int nb_ligne = 0;
-				int capacity_position = 8;
+				int num_capacity = 1;
+				std::string line;
 
-				if (ifstrm.is_open())
-				{
-					std::string ligne;
-					while (std::getline(ifstrm, ligne)) {
-						nb_ligne++;
-					}
-					ifstrm.clear();
-					ifstrm.seekg(0, std::ios::beg);
-
-					ligne = "";
-					std::string delimiter = ":";
-
-					while (std::getline(ifstrm, ligne))
-					{
-						size_t position = 0;
-						size_t position_delimiter = ligne.find(delimiter);
-						Capacity* capacity = new Capacity();
-						capacity->SetName(ligne.substr(position, position_delimiter - 1));
-						capacity->SetDescription(ligne.substr(position_delimiter + 2, ligne.find(std::string::npos)));
-						scene->CreateButton(ButtonType, "capacity_button", Maths::Vector2f((window_size.x / (nb_ligne * 2 + nb_ligne - 1 + 16) * capacity_position), (window_size.y / 100 * 10)), sf::Color::Green,
-							Maths::Vector2u(window_size.x / (nb_ligne * 2 + nb_ligne - 1 + 16) * 2, window_size.x / (nb_ligne * 2 + nb_ligne - 1 + 16) * 2), capacity);
-						capacity_position += 3;
-					}
-					ifstrm.close();
-				}
-				else
-				{
-					std::cout << "failed to open the file" << std::endl;
+				while (std::getline(file, line)) {
+					nb_ligne++;
 				}
 
-				GameObject* text_for_capacacity_name = scene->CreateText(TextType, "text_for_capacity_name", Maths::Vector2f(window_size.x / 2 - window_size.x / 4, (window_size.y / 100 * 25)), sf::Color::White, Maths::Vector2u(window_size.x / 4 * 2, (window_size.y / 100 * 5)), 40);
+				file.clear();
+				file.seekg(0, std::ios::beg);
+
+				while (std::getline(file, line)) {
+					std::vector<std::string> row;
+					std::stringstream lineStream(line);
+					std::string cell;
+
+					while (std::getline(lineStream, cell, ',')) {
+						row.push_back(cell);
+					}
+
+					Capacity* capacity = new Capacity();
+					capacity->SetName(row[0]);
+					capacity->SetDescription(row[1]);
+					scene->SetTexture("icon_" + std::to_string(num_capacity),"Assets/icon_capacity/" + row[2]);
+					scene->CreateSpriteButton(ButtonType, "capacity_button", Maths::Vector2f((window_size.x / 2) - (window_size.x / 15 /2 * (nb_ligne%2)) - (window_size.x / 15 * (nb_ligne / 2)) - (((window_size.x / 15) / 2) * (nb_ligne - 1) / 2) + (window_size.x / 15 * (num_capacity - 1)) + ((window_size.x / 15) / 2 * (num_capacity - 1)), (window_size.y / 100 * 10)), sf::Color::Green,
+						Maths::Vector2u(window_size.x / 15, window_size.x / 15), capacity, "icon_" + std::to_string(num_capacity));
+					num_capacity++;
+				}
+
+				file.close();
+
+				GameObject* text_for_capacacity_name = scene->CreateText(TextType, "text_for_capacity_name", Maths::Vector2f(window_size.x / 2 - window_size.x / 4, (window_size.y / 100 * 25)), sf::Color::White, Maths::Vector2u(window_size.x / 4 * 2, (window_size.y / 100 * 10)), 40);
 				GameObject* text_for_capacacity_description = scene->CreateText(TextType, "text_for_capacity_description", Maths::Vector2f(window_size.x / 2 - window_size.x / 4, (window_size.y / 100 * 40)), sf::Color::White, Maths::Vector2u(window_size.x / 4 * 2, (window_size.y / 100 * 5)), 30);
 			}
 		}

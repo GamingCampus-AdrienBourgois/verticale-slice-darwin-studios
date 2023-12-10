@@ -1,5 +1,0 @@
-Inversion de la gravité : Le joueur se retrouve au plafond et inversement
-Invincibilité : Le joueur devient invincible
-Double-saut : Le joueur peut sauter une deuxième fois en l’air
-Dash : Le joueur peut foncer dans une direction
-Force : Le joueur peut déplacer ou casser des objets
