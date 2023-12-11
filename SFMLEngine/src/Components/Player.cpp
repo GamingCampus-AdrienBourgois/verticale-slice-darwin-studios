@@ -112,13 +112,6 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 				++it;
 			}
 		}
-
-
-		/*for (const auto& input : *pressed_input) {
-			if (input.first == 0 && input.second == true) {
-				is_switching = true;
-			}
-		}*/
 	}
 
 	if (is_switching)
