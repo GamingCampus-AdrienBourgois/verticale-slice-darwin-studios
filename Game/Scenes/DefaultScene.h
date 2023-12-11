@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "Switch.h"
 #include "WindowModule.h"
+#include <Force.h>
 
 
 class DefaultScene final : public Scene
@@ -74,6 +75,8 @@ private:
 		shape_renderer->SetSize(Maths::Vector2f(taille_persoX, taille_persoY));
 
 		Player* player = game_object->CreateComponent<Player>();
+
+		Capacity* capacity = game_object->CreateCapacity<Force>();
 
 
 		return game_object;

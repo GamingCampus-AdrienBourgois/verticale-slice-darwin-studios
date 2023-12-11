@@ -2,6 +2,11 @@
 #include <iostream>
 
 
+Capacity::Capacity(GameObject* _owner)
+{
+	this->owner = _owner;
+}
+
 void Capacity::SetName(std::string new_name)
 {
 	name = new_name;
