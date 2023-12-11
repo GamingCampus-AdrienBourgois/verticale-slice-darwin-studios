@@ -5,7 +5,11 @@
 #include <Scene.h>
 #include <Modules/SceneModule.h>
 #include "Components/ObjectType.h"
+
 #include <Capacity/Force.h>
+
+#include "Capacity/Dash.h"
+
 
 void Player::Move(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, std::vector<GameObject*>* gameObjects){
 	for (const auto& input : *pressed_input) {
@@ -101,7 +105,7 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 
 			if (input.first == 0 && input.second == true) {
 				is_switching = true;
-				// Effacer l'élément du vecteur
+				// Effacer l'Ã©lÃ©ment du vecteur
 				it = pressed_input->erase(it);
 			}
 			else {
