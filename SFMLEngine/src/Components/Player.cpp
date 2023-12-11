@@ -5,6 +5,7 @@
 #include <Scene.h>
 #include <Modules/SceneModule.h>
 #include "Components/ObjectType.h"
+#include "Components/Switch.h"
 
 void Player::Move(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, std::vector<GameObject*>* gameObjects){
 	for (const auto& input : *pressed_input) {
@@ -128,7 +129,7 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 		{
 			big_dollOff = CreateDollOff(DollOffType,"big_doll_off", position, actuall_color);
 
-			GetOwner()->SetPosition(Maths::Vector2f(position.GetX(), position.GetY() - 200));
+			GetOwner()->SetPosition(Maths::Vector2f(position.GetX(), position.GetY() - 100));
 			GetOwner()->GetComponent<RectangleShapeRenderer>()->SetColor(sf::Color::Blue);
 			actuall_doll_int++;
 		}
@@ -170,7 +171,12 @@ void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Ke
 	{
 		if (gameObject->GetType() == ObjectType::SwitchType && SquareCollider::IsColliding(*GetOwner()->GetComponent<SquareCollider>(), *gameObject->GetComponent<SquareCollider>()))
 		{
-			std::cout << "switch" << std::endl;
+			GameObject* switchObject = GetOwner();
+			if (switchObject)
+			{
+				switchObject->SetSwitchOn(true);
+				std::cout << switchObject->GetSwitchOn() << std::endl;
+			}
 		}
 	}
 
