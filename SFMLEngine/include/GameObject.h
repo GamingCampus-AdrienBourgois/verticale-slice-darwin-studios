@@ -8,8 +8,10 @@
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 #include "Components/ObjectType.h"
+#include "Capacity.h"
 
 class Component;
+class Capacity;
 
 class GameObject
 {
@@ -38,6 +40,15 @@ public:
 	void AddComponent(Component* _component);
 	void RemoveComponent(Component* _component);
 
+	template<typename T>
+	T* CreateCapacity();
+
+	template<typename T>
+	T* GetCapacity();
+
+	void AddCapacity(Capacity* _capacity);
+	void RemoveCapacity(Capacity* _capacity);
+
 	void Update(float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) const;
 	void Render(sf::RenderWindow* _window) const;
 	sf::FloatRect getBounds(sf::RectangleShape object) const;
@@ -51,6 +62,7 @@ private:
 	Maths::Vector2<float> scale = Maths::Vector2f::One;
 
 	std::vector<Component*> components;
+	std::vector<Capacity*> capacitys;
 
 	bool is_rendering = true;
 };
@@ -70,6 +82,28 @@ T* GameObject::GetComponent()
 	for (Component* component : components)
 	{
 		T* result = dynamic_cast<T*>(component);
+		if (result != nullptr)
+			return result;
+	}
+
+	return nullptr;
+}
+
+template<typename T>
+T* GameObject::CreateCapacity()
+{
+	T* capacity = new T();
+	capacity->SetOwner(this);
+	capacitys.push_back(capacity);
+	return capacity;
+}
+
+template<typename T>
+T* GameObject::GetCapacity()
+{
+	for (Capacity* capacity : capacitys)
+	{
+		T* result = dynamic_cast<T*>(capacity);
 		if (result != nullptr)
 			return result;
 	}

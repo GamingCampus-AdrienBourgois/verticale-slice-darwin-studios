@@ -21,10 +21,9 @@ void Force::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key
 		{
 			player = gameObject;
 		}
-		if (gameObject->GetType() != ObjectType::PlayerType && gameObject->GetType() == MoveType || gameObject->GetType() == DollOffType) {
+		if (gameObject->GetType() != ObjectType::PlayerType && gameObject->GetType() == DollOffType) {
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && player->GetComponent<SquareCollider>()->IsColliding(*player->GetComponent<SquareCollider>(), *gameObject->GetComponent<SquareCollider>()))
 			{
-				std::cout << "ta clique" << std::endl;
 				DeplaceObject(_delta_time, player,gameObject);
 			}
 		}

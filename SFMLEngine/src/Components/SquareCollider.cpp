@@ -15,7 +15,7 @@ bool SquareCollider::IsColliding(const SquareCollider& _collider_a, const Square
 	sf::FloatRect playerBounds = _collider_a.GetOwner()->getBounds(rPlayer);
 	sf::FloatRect objectBounds = _collider_b.GetOwner()->getBounds(rObject);
 
-	if (_collider_b.GetOwner()->GetType() == MoveType) 
+	if (_collider_b.GetOwner()->GetType() == MoveType && _collider_a.GetOwner()->GetType() == PlayerType) 
 	{
 		if (playerBounds.intersects(objectBounds))
 		{
