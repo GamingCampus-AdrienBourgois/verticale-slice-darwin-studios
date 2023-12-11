@@ -20,7 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Components\Button.cpp" />
-    <ClCompile Include="src\Components\Capacity.cpp" />
+    <ClCompile Include="src\Capacity.cpp" />
     <ClCompile Include="src\Components\Doll.cpp" />
     <ClCompile Include="src\Components\TextRenderer.cpp" />
     <ClCompile Include="src\Components\Player.cpp" />
@@ -38,7 +38,7 @@
     <ClCompile Include="src\Modules\TimeModule.cpp" />
     <ClCompile Include="src\Modules\WindowModule.cpp" />
     <ClInclude Include="include\Components\Button.h" />
-    <ClInclude Include="include\Components\Capacity.h" />
+    <ClInclude Include="include\Capacity.h" />
     <ClInclude Include="include\Components\Doll.h" />
     <ClInclude Include="include\Components\ObjectType.h" />
     <ClInclude Include="include\Components\Player.h" />

@@ -78,7 +78,7 @@
     <ClInclude Include="include\Components\TextRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Components\Capacity.h">
+    <ClInclude Include="include\Capacity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Components\Capacity.h">
@@ -161,7 +161,7 @@
     <ClCompile Include="src\Components\Doll.cpp">
       <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Components\Capacity.cpp">
+    <ClCompile Include="src\Capacity.cpp">
       <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Components\Switch.cpp">

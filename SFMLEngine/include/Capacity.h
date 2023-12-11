@@ -3,7 +3,7 @@
 #include <vector>
 #include "GameObject.h"
 
-class Capacity : public Component
+class Capacity
 {
 public:
 	Capacity() = default;

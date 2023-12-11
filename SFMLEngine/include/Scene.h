@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include "GameObject.h"
-#include "Components/Capacity.h"
+#include "Capacity.h"
 #include "Components/Button.h"
 
 #include "Components/RectangleShapeRenderer.h"
