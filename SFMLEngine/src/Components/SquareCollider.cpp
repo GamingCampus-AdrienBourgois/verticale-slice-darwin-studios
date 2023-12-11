@@ -15,7 +15,16 @@ bool SquareCollider::IsColliding(const SquareCollider& _collider_a, const Square
 	sf::FloatRect playerBounds = _collider_a.GetOwner()->getBounds(rPlayer);
 	sf::FloatRect objectBounds = _collider_b.GetOwner()->getBounds(rObject);
 
-	if (playerBounds.intersects(objectBounds))
+	if (_collider_b.GetOwner()->GetType() == MoveType) 
+	{
+		if (playerBounds.intersects(objectBounds))
+		{
+			return true;
+		}
+		return false;
+	}
+
+	else if(playerBounds.intersects(objectBounds))
 	{
 		int collisionWidth = std::min(playerBounds.left + playerBounds.width, objectBounds.left + objectBounds.width) - std::max(playerBounds.left, objectBounds.left);
 		int collisionHeight = std::min(playerBounds.top + playerBounds.height, objectBounds.top + objectBounds.height) - std::max(playerBounds.top, objectBounds.top);
