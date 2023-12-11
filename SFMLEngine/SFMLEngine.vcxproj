@@ -24,7 +24,6 @@
     <ClCompile Include="src\Components\Doll.cpp" />
     <ClCompile Include="src\Components\TextRenderer.cpp" />
     <ClCompile Include="src\Components\Player.cpp" />
-    <ClCompile Include="src\Components\Switch.cpp" />
     <ClCompile Include="src\Modules\ImGuiModule.cpp" />
     <ClCompile Include="ImGui\imgui-SFML.cpp" />
     <ClCompile Include="ImGui\imgui.cpp" />

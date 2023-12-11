@@ -3,7 +3,6 @@
 #include "Scene.h"
 #include "SquareCollider.h"
 #include "Player.h"
-#include "Switch.h"
 #include "WindowModule.h"
 
 
