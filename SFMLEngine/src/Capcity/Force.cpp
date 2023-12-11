@@ -7,7 +7,19 @@
 
 void Force::DeplaceObject(const float _delta_time, GameObject* player, GameObject* gameObjects)
 {
-	gameObjects->SetPosition(Maths::Vector2f(gameObjects->GetPosition().GetX() + (player->GetComponent<Player>()->GetSpeed() * _delta_time), gameObjects->GetPosition().GetY()));
+	gameObjects->GetComponent<SquareCollider>()->SetCanMoving("up", false);
+	gameObjects->GetComponent<SquareCollider>()->SetCanMoving("down", false);
+	gameObjects->GetComponent<SquareCollider>()->SetCanMoving("left", true);
+	gameObjects->GetComponent<SquareCollider>()->SetCanMoving("right", true);
+
+	if (gameObjects->GetComponent< SquareCollider>()->GetCanMoving()["right"])
+	{
+		gameObjects->SetPosition(Maths::Vector2f(gameObjects->GetPosition().GetX() + (player->GetComponent<Player>()->GetSpeed() * _delta_time), gameObjects->GetPosition().GetY()));
+	}
+	else if (gameObjects->GetComponent< SquareCollider>()->GetCanMoving()["left"])
+	{
+		gameObjects->SetPosition(Maths::Vector2f(gameObjects->GetPosition().GetX() - (player->GetComponent<Player>()->GetSpeed() * _delta_time), gameObjects->GetPosition().GetY()));
+	}
 }
 
 void Force::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input)
