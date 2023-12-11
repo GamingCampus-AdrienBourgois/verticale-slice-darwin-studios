@@ -165,7 +165,15 @@ void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Ke
 	SwitchDoll(pressed_input);
 
 	int taille_perso = sizeWindow.y / 22;
-  
+
+	for (GameObject* const& gameObject : *scene->GetGameObjects())
+	{
+		if (gameObject->GetType() == ObjectType::SwitchType && SquareCollider::IsColliding(*GetOwner()->GetComponent<SquareCollider>(), *gameObject->GetComponent<SquareCollider>()))
+		{
+			std::cout << "switch" << std::endl;
+		}
+	}
+
 	if (GetOwner()->GetPosition().GetY() + taille_perso <= sizeWindow.y && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["down"]) {
 		GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() + (gravity * _delta_time)));
 		can_jump = false;
