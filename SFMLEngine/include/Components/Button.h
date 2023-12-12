@@ -26,6 +26,7 @@ public:
 	void SelectCapacity();
 
 	bool is_clicked = false;
+	bool is_disabled = false;
 	GameObject* has_select = nullptr;
 	GameObject* is_selected_by = nullptr;
 

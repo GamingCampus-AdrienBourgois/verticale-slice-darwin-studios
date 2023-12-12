@@ -87,20 +87,35 @@ void Button::DollSelectCapacity() {
 		GameObject* text_for_capacacity_name = scene->CreateText(TextType, "text_for_capacity_name", Maths::Vector2f(window_size.x / 2 - window_size.x / 4, (window_size.y / 100 * 25)), sf::Color::White, Maths::Vector2u(window_size.x / 4 * 2, (window_size.y / 100 * 10)), 40);
 		GameObject* text_for_capacacity_description = scene->CreateText(TextType, "text_for_capacity_description", Maths::Vector2f(window_size.x / 2 - window_size.x / 4, (window_size.y / 100 * 40)), sf::Color::White, Maths::Vector2u(window_size.x / 4 * 2, (window_size.y / 100 * 5)), 30);
 	}
+	else {
+		for (GameObject* const& gameObject : *scene->GetGameObjects()) {
+			if (gameObject->GetName() == "capacity_button") {
+				if(gameObject->GetComponent<Button>()->is_selected_by != GetOwner() && gameObject->GetComponent<Button>()->is_selected_by != nullptr){
+					gameObject->GetComponent<RectangleShapeRenderer>()->SetColor(sf::Color(128, 128, 128, 255));
+					gameObject->GetComponent<Button>()->is_disabled = true;
+				}
+				else {
+					gameObject->GetComponent<RectangleShapeRenderer>()->SetColor(gameObject->GetComponent<RectangleShapeRenderer>()->GetDefaultColor());
+					gameObject->GetComponent<Button>()->is_disabled = false;
+				}
+			}
+		}
+	}
 }
 
 void Button::SelectCapacity() {
-	Scene* scene = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetMainScene();
-	scene->FindGameObject("text_for_capacity_name")->GetComponent<TextRenderer>()->SetString(GetObject()->GetName());
-	scene->FindGameObject("text_for_capacity_description")->GetComponent<TextRenderer>()->SetString(GetObject()->GetDescription());
-	for(GameObject* const& gameObject : *scene->GetGameObjects()){
-		if ((gameObject->GetName() == "doll_button1" || gameObject->GetName() == "doll_button2" || gameObject->GetName() == "doll_button3") && gameObject->GetComponent<Button>()->is_clicked) {
-			if (gameObject->GetComponent<Button>()->has_select != nullptr) {
-
+	if (is_selected_by == nullptr) {
+		/*Scene* scene = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetMainScene();
+		scene->FindGameObject("text_for_capacity_name")->GetComponent<TextRenderer>()->SetString(GetObject()->GetName());
+		scene->FindGameObject("text_for_capacity_description")->GetComponent<TextRenderer>()->SetString(GetObject()->GetDescription());
+		for (GameObject* const& gameObject : *scene->GetGameObjects()) {
+			if ((gameObject->GetName() == "doll_button1" || gameObject->GetName() == "doll_button2" || gameObject->GetName() == "doll_button3") && gameObject->GetComponent<Button>()->is_clicked) {
+				if (gameObject->GetComponent<Button>()->has_select != nullptr) {
+					gameObject->GetComponent<Button>()->has_select->GetComponent<Button>()->is_selected_by = nullptr;
+				}
+				gameObject->GetComponent<Button>()->has_select = GetOwner();
+				is_selected_by = gameObject;
 			}
-			gameObject->GetComponent<Button>()->has_select = GetOwner();
-			has_select = gameObject;
-			std::cout << "r" << std::endl;
-		}
+		}*/
 	}
 }
