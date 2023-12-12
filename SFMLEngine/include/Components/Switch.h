@@ -5,5 +5,11 @@
 class Switch : public Component
 {
 public:
-	static void CreateSwitchObject(Scene* scene, const ObjectType& _type, std::string _name, const float _x, const float _y);
+	static void CreateSwitch(Scene* scene, const ObjectType& _type, const float _x, const float _y);
+	bool GetOn() { return on; }
+	void SetOn(bool value) {
+		on = value;
+	}
+private:
+	bool on;
 };

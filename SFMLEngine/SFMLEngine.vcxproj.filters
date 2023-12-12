@@ -180,6 +180,7 @@
       <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Capcity\Force.cpp">
+    <ClCompile Include="src\Components\Switch.cpp">
       <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -30,7 +30,8 @@ public:
 	void SetPosition(const Maths::Vector2<float>& _position) { position = _position; }
 	void SetRotation(const float _rotation) { rotation = _rotation; }
 	void SetScale(const Maths::Vector2<float>& _scale) { scale = _scale; }
-
+	void SetSwitchOn(bool value) {switchOn = value;}
+	bool GetSwitchOn() { return switchOn; }
 	template<typename T>
 	T* CreateComponent();
 
@@ -65,6 +66,7 @@ private:
 	std::vector<Capacity*> capacitys;
 
 	bool is_rendering = true;
+	bool switchOn = false;
 };
 
 template<typename T>
