@@ -23,7 +23,6 @@ void Force::DeplaceObject(const float _delta_time, GameObject* player, GameObjec
 	{
 		gameObjects->SetPosition(Maths::Vector2f(gameObjects->GetPosition().GetX() - (player->GetComponent<Player>()->GetSpeed() * _delta_time), gameObjects->GetPosition().GetY()));
 	}
-	
 }
 
 void Force::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input)
