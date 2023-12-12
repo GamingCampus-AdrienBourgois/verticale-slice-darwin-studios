@@ -8,5 +8,6 @@ enum ObjectType
 	TextType, 
 	DollOffType,
 	WallType,
-	SwitchType
+	SwitchType,
+	MoveType
 };

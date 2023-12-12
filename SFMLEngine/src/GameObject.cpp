@@ -20,6 +20,17 @@ void GameObject::RemoveComponent(Component* _component)
 	components.erase(std::remove(components.begin(), components.end(), _component), components.end());
 }
 
+void GameObject::AddCapacity(Capacity* _capacity)
+{
+	_capacity->SetOwner(this);
+	capacitys.push_back(_capacity);
+}
+
+void GameObject::RemoveCapacity(Capacity* _capacity)
+{
+	capacitys.erase(std::remove(capacitys.begin(), capacitys.end(), _capacity), capacitys.end());
+}
+
 void GameObject::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) const
 {
 	for (int i = 0; i < components.size(); i++)

@@ -84,6 +84,12 @@
     <ClInclude Include="include\Components\Switch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\Capacity\Dash.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Capacity\Force.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Maths\Vector2.cpp">
@@ -161,12 +167,19 @@
     <ClCompile Include="src\Capacity.cpp">
       <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Components\Switch.cpp">
+      <Filter>Resource Files\Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="src\Components\Button.cpp">
       <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Components\TextRenderer.cpp">
       <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Capcity\Dash.cpp">
+      <Filter>Resource Files\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Capcity\Force.cpp">
     <ClCompile Include="src\Components\Switch.cpp">
       <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
