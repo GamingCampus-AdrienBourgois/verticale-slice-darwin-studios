@@ -55,11 +55,14 @@ void WindowModule::Update()
 					if (button->GetType() == ButtonType) {
 						if (button->GetComponent<RectangleShapeRenderer>()->GetShape()->getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
 						{
+							RectangleShapeRenderer* rectangleShapeRenderer = button->GetComponent<RectangleShapeRenderer>();
 							if (button->GetComponent<Button>()->is_clicked) {
 								button->GetComponent<Button>()->is_clicked = false;
+								rectangleShapeRenderer->SetColor(rectangleShapeRenderer->GetDefaultColor());
 							}
 							else {
 								button->GetComponent<Button>()->is_clicked = true;
+								rectangleShapeRenderer->SetColor(rectangleShapeRenderer->GetClickColor());
 							}
 							if (button->GetName() == "capacity_button") {
 								ResetButton(button, { "capacity_button" });
@@ -111,6 +114,7 @@ void WindowModule::ResetButton(GameObject* button, std::vector<std::string> _nam
 		for (std::string button_name : _name) {
 			if (gameObject->GetType() == ButtonType && gameObject->GetName() == button_name && button != gameObject) {
 				gameObject->GetComponent<Button>()->is_clicked = false;
+				gameObject->GetComponent<RectangleShapeRenderer>()->SetColor(gameObject->GetComponent<RectangleShapeRenderer>()->GetDefaultColor());
 			}
 		}
 	}

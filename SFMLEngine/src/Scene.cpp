@@ -106,28 +106,37 @@ void Scene::SetBackground(std::string nom_texture) {
 }
 
 
-GameObject* Scene::CreateButton(const ObjectType& _type, std::string _name, Maths::Vector2f _position, const sf::Color _color, Maths::Vector2u size, Capacity* _object)
+GameObject* Scene::CreateButton(const ObjectType& _type, std::string _name, Maths::Vector2f _position, const sf::Color _color, sf::Color _outlineColor, sf::Color _hoverColor, sf::Color _clickColor, Maths::Vector2u size, std::function<void()> _callback, Capacity* _object)
 {
 	GameObject* game_object = CreateGameObject(_type, _name);
 	game_object->SetPosition(_position);
 
 	RectangleShapeRenderer* shape_renderer = game_object->CreateComponent<RectangleShapeRenderer>();
 	shape_renderer->SetColor(_color);
+	shape_renderer->SetDefaultColor(_color);
+	shape_renderer->SetOutlineColor(_outlineColor);
+	shape_renderer->SetHoverColor(_hoverColor);
+	shape_renderer->SetClickColor(_clickColor);
 	shape_renderer->SetSize(Maths::Vector2f(size.x, size.y));
 
 	Button* button = game_object->CreateComponent<Button>();
 	button->SetObject(_object);
+	button->SetCallback(_callback);
 
 	return game_object;
 }
 
-GameObject* Scene::CreateSpriteButton(const ObjectType& _type, std::string _name, Maths::Vector2f _position, const sf::Color _color, Maths::Vector2u size, Capacity* _object, std::string nom_texture)
+GameObject* Scene::CreateSpriteButton(const ObjectType& _type, std::string _name, Maths::Vector2f _position, const sf::Color _color, sf::Color _outlineColor, sf::Color _hoverColor, sf::Color _clickColor, Maths::Vector2u size, std::function<void()> _callback, Capacity* _object, std::string nom_texture)
 {
 	GameObject* game_object = CreateGameObject(_type, _name);
 	game_object->SetPosition(_position);
 
 	RectangleShapeRenderer* shape_renderer = game_object->CreateComponent<RectangleShapeRenderer>();
 	shape_renderer->SetColor(_color);
+	shape_renderer->SetDefaultColor(_color);
+	shape_renderer->SetOutlineColor(_outlineColor);
+	shape_renderer->SetHoverColor(_hoverColor);
+	shape_renderer->SetClickColor(_clickColor);
 	shape_renderer->SetSize(Maths::Vector2f(size.x, size.y));
 
 	SpriteRenderer* sprite_renderer = game_object->CreateComponent<SpriteRenderer>();
@@ -135,17 +144,22 @@ GameObject* Scene::CreateSpriteButton(const ObjectType& _type, std::string _name
 
 	Button* button = game_object->CreateComponent<Button>();
 	button->SetObject(_object);
+	button->SetCallback(_callback);
 
 	return game_object;
 }
 
-GameObject* Scene::CreateButtonWithText(const ObjectType& _type, std::string _name, Maths::Vector2f _position, const sf::Color _color, Maths::Vector2u size, Capacity* _object, std::string button_text, sf::Color button_color, int _caractere_size)
+GameObject* Scene::CreateButtonWithText(const ObjectType& _type, std::string _name, Maths::Vector2f _position, const sf::Color _color, sf::Color _outlineColor, sf::Color _hoverColor, sf::Color _clickColor, Maths::Vector2u size, std::function<void()> _callback, Capacity* _object, std::string button_text, sf::Color button_color, int _caractere_size)
 {
 	GameObject* game_object = CreateGameObject(_type, _name);
 	game_object->SetPosition(_position);
 
 	RectangleShapeRenderer* shape_renderer = game_object->CreateComponent<RectangleShapeRenderer>();
 	shape_renderer->SetColor(_color);
+	shape_renderer->SetDefaultColor(_color);
+	shape_renderer->SetOutlineColor(_outlineColor);
+	shape_renderer->SetHoverColor(_hoverColor);
+	shape_renderer->SetClickColor(_clickColor);
 	shape_renderer->SetSize(Maths::Vector2f(size.x, size.y));
 
 	TextRenderer* text_renderer = game_object->CreateComponent<TextRenderer>();
@@ -156,6 +170,7 @@ GameObject* Scene::CreateButtonWithText(const ObjectType& _type, std::string _na
 
 	Button* button = game_object->CreateComponent<Button>();
 	button->SetObject(_object);
+	button->SetCallback(_callback);
 
 	return game_object;
 }
