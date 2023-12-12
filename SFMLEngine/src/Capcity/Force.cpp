@@ -12,14 +12,18 @@ void Force::DeplaceObject(const float _delta_time, GameObject* player, GameObjec
 	gameObjects->GetComponent<SquareCollider>()->SetCanMoving("left", true);
 	gameObjects->GetComponent<SquareCollider>()->SetCanMoving("right", true);
 
-	if (gameObjects->GetComponent< SquareCollider>()->GetCanMoving()["right"])
+	if (player->GetPosition().GetX() < gameObjects->GetPosition().GetX())
 	{
-		gameObjects->SetPosition(Maths::Vector2f(gameObjects->GetPosition().GetX() + (player->GetComponent<Player>()->GetSpeed() * _delta_time), gameObjects->GetPosition().GetY()));
-	}
-	else if (gameObjects->GetComponent< SquareCollider>()->GetCanMoving()["left"])
+		if (gameObjects->GetComponent<SquareCollider>()->GetCanMoving()["right"])
+		{
+			gameObjects->SetPosition(Maths::Vector2f(gameObjects->GetPosition().GetX() + (player->GetComponent<Player>()->GetSpeed() * _delta_time), gameObjects->GetPosition().GetY()));
+		}
+	}	
+	else if (gameObjects->GetComponent<SquareCollider>()->GetCanMoving()["left"])
 	{
 		gameObjects->SetPosition(Maths::Vector2f(gameObjects->GetPosition().GetX() - (player->GetComponent<Player>()->GetSpeed() * _delta_time), gameObjects->GetPosition().GetY()));
 	}
+	
 }
 
 void Force::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input)
