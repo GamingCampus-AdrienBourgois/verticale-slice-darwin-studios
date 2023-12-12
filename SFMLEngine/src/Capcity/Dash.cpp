@@ -1,41 +1,48 @@
 #include "Capacity/Dash.h"
 #include "Components/Player.h"
+#include <iostream>
 
-void Dash::Update(const float _delta_time, sf::RenderWindow& window, std::vector<GameObject*>* gameObjects) {
+void Dash::IsDashing(const float _delta_time, std::vector<GameObject*>* gameObjects) {
     GameObject* player = nullptr;
-    float initialX = 0.0f; 
+    Maths::Vector2f lastValidPosition; // Stocke la dernière position valide du joueur
 
     for (GameObject* const& gameObject : *gameObjects) {
         if (gameObject->GetType() == PlayerType) {
             player = gameObject;
-            break; 
+            break;
         }
     }
 
     if (player != nullptr) {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-            speedMultiplier = 10.0f;
-            initialX = player->GetPosition().GetX();
-
-            player->SetPosition(Maths::Vector2f(initialX + 100, player->GetPosition().GetY()));
-            speedBoostTimer.restart();
+            StartClockDash.restart();
         }
 
-        // Obtenez la vitesse actuelle du joueur
-        float currentSpeed = player->GetComponent<Player>()->GetSpeed();
+        lastValidPosition = player->GetPosition(); // Stocke la position actuelle du joueur
 
-        // Multipliez la vitesse actuelle par speedMultiplier
-        float newSpeed = currentSpeed * speedMultiplier;
+        if (StartClockDash.getElapsedTime().asMilliseconds() < 50 && player->GetComponent<SquareCollider>()->GetCanMoving()["right"]) {
+            float initialX = player->GetPosition().GetX();
+            player->SetPosition(Maths::Vector2f(initialX + 3, player->GetPosition().GetY()));
 
-        // Mettez à jour la vitesse du joueur avec la nouvelle vitesse calculée
-        player->GetComponent<Player>()->SetSpeed(newSpeed);
+            for (GameObject* const& gameObject : *gameObjects) {
+                if (gameObject->GetType() != ObjectType::PlayerType && gameObject != player) {
+                    Maths::Vector2f playerPos = player->GetPosition();
+                    Maths::Vector2f objPos = gameObject->GetPosition();
 
-        float currentX = player->GetPosition().GetX();
-        float distanceTraveled = std::abs(currentX - initialX);
-
-        
-        if (distanceTraveled >= 100.0f) {
-            speedMultiplier = 1.0f; // Revenir à la vitesse normale
+                    // Calcul de la largeur en utilisant l'échelle (scale)
+                    Maths::Vector2f playerSize = player->GetScale();
+                    Maths::Vector2f objSize = gameObject->GetScale();
+                }
+            }
         }
     }
+}
+
+
+
+
+
+
+void Dash::Update(const float _delta_time, std::vector<GameObject*>* gameObjects) {
+    IsDashing(_delta_time, gameObjects);
 }

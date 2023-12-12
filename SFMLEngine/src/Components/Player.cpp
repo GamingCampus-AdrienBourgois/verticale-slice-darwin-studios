@@ -5,6 +5,7 @@
 #include <Scene.h>
 #include <Modules/SceneModule.h>
 #include "Components/ObjectType.h"
+#include "Modules/WindowModule.h"
 
 #include <Capacity/Force.h>
 
@@ -150,6 +151,7 @@ void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Ke
 	Scene* scene = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetMainScene();
 
 	GetOwner()->GetCapacity<Force>()->Update(_delta_time, pressed_input);
+	GetOwner()->GetCapacity<Dash>()->Update(_delta_time, scene->GetGameObjects());
 
 	GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("up", true);
 	GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("down", true);

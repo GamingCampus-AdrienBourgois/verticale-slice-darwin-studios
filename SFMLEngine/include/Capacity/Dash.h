@@ -1,16 +1,16 @@
+// Dash.h
 #pragma once
 #include "Capacity.h"
 #include <SFML/System/Clock.hpp>
 
 class Dash : public Capacity {
 public:
-    
+    void Update(const float _delta_time, std::vector<GameObject*>* gameObjects);
 
 private:
-    float speedMultiplier = 1.0f;
-    sf::Clock speedBoostTimer;
-    const float speedBoostDuration = 1.0f;
+    sf::Clock StartClockDash;
     float initialX = 0.0f;
+    Maths::Vector2f lastValidPosition;
 
-    void Update(const float _delta_time, sf::RenderWindow& window, std::vector<GameObject*>* gameObjects);
+    void IsDashing(const float _delta_time, std::vector<GameObject*>* gameObjects);
 };
