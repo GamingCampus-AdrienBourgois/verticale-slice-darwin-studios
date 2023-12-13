@@ -10,5 +10,6 @@ public:
 
 private:
 	sf::Clock StartClockInvincibilite;
+	bool onOff = false;
 };
 

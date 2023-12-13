@@ -19,7 +19,7 @@ public:
 	void SetHeight(const float _height) { height = _height; }
 	void SetCanMoving(std::string direction, bool move) { CanMoving[direction] = move; }
 
-	static bool IsColliding(const SquareCollider& _collider_a, const SquareCollider& _collider_b);
+	static bool IsColliding(const SquareCollider& _collider_a, const SquareCollider& _collider_b, const float _delta_time);
 
 private:
 	std::unordered_map<std::string, bool> CanMoving = { {"up", true}, {"down", true}, {"left", true}, {"right", true} };

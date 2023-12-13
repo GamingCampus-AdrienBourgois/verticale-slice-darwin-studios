@@ -180,7 +180,7 @@ void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Ke
 	for (GameObject* const& gameObject : *scene->GetGameObjects())
 	{
 		if (gameObject->GetType() != ObjectType::PlayerType) {
-			GetOwner()->GetComponent<SquareCollider>()->IsColliding(*GetOwner()->GetComponent<SquareCollider>(), *gameObject->GetComponent<SquareCollider>());
+			GetOwner()->GetComponent<SquareCollider>()->IsColliding(*GetOwner()->GetComponent<SquareCollider>(), *gameObject->GetComponent<SquareCollider>() , _delta_time);
 		}
 	}
 	Move(_delta_time, pressed_input, scene->GetGameObjects());
@@ -192,7 +192,7 @@ void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Ke
 
 	for (GameObject* const& gameObject : *scene->GetGameObjects())
 	{
-		if (gameObject->GetType() == ObjectType::SwitchType && SquareCollider::IsColliding(*GetOwner()->GetComponent<SquareCollider>(), *gameObject->GetComponent<SquareCollider>()))
+		if (gameObject->GetType() == ObjectType::SwitchType && SquareCollider::IsColliding(*GetOwner()->GetComponent<SquareCollider>(), *gameObject->GetComponent<SquareCollider>(), _delta_time))
 		{
 			GameObject* switchObject = GetOwner();
 			if (switchObject)
