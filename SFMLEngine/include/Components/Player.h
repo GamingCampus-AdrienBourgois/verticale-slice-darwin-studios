@@ -1,6 +1,5 @@
 #pragma once
 #include "Doll.h"
-#include "Checkpoint.h"
 #include "Engine.h"
 
 #include "Modules/WindowModule.h"
@@ -47,10 +46,15 @@ private:
 	GameObject* mid_dollOff = nullptr;
 
 
-	bool copiedSapwn = false;
+	bool copiedSpawn = false;
 	Scene* checkpoint0 = nullptr;
+	std::vector<GameObject*> gameObjectsCheckpoint0;
+
 	Scene* checkpoint1 = nullptr;
+	std::vector<GameObject*> gameObjectsCheckpoint1;
+
 	Scene* checkpoint2 = nullptr;
+	std::vector<GameObject*> gameObjectsCheckpoint2;
 
 	sf::Color colorBig = sf::Color::Red;
 	sf::Color colorMid = sf::Color::Blue;
@@ -71,7 +75,6 @@ private:
 	void Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, std::vector<GameObject*>* gameObjects );
 
 	GameObject* CreateDollOff(const ObjectType& _type, std::string _name, Maths::Vector2f _position, const sf::Color _color);
-	Scene CreateCheckpoint(Scene scene);
-	void SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, Scene scene);
+	void SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, Scene* scene);
 	void ReturnCheckpoint(Scene* scene, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input);
 };

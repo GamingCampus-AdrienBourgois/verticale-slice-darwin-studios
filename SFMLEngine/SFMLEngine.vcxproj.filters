@@ -1,223 +1,90 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Resource Files\Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="include\Maths\Vector2.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\GameObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Component.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Components\SquareCollider.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Scene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Components\RectangleShapeRenderer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Components\ARendererComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Components\SpriteRenderer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Module.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ModuleManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Modules\TimeModule.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Modules\SceneModule.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Modules\WindowModule.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Modules\InputModule.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Engine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Modules\ImGuiModule.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Components\Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Components\Doll.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Components\ObjectType.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Components\Button.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Components\TextRenderer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Capacity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Components\Switch.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Capacity\Dash.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Capacity\Force.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Components\Checkpoint.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="src\Maths\Vector2.cpp">
-      <Filter>Resource Files\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GameObject.cpp">
-      <Filter>Resource Files\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Component.cpp">
-      <Filter>Resource Files\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Components\SquareCollider.cpp">
-      <Filter>Resource Files\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Scene.cpp">
-      <Filter>Resource Files\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Components\RectangleShapeRenderer.cpp">
-      <Filter>Resource Files\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Components\ARendererComponent.cpp">
-      <Filter>Resource Files\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Components\SpriteRenderer.cpp">
-      <Filter>Resource Files\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Module.cpp">
-      <Filter>Resource Files\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ModuleManager.cpp">
-      <Filter>Resource Files\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Modules\TimeModule.cpp">
-      <Filter>Resource Files\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Modules\SceneModule.cpp">
-      <Filter>Resource Files\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Modules\WindowModule.cpp">
-      <Filter>Resource Files\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Modules\InputModule.cpp">
-      <Filter>Resource Files\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Engine.cpp">
-      <Filter>Resource Files\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ImGui\imgui.cpp">
-      <Filter>Resource Files\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ImGui\imgui_demo.cpp">
-      <Filter>Resource Files\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ImGui\imgui_draw.cpp">
-      <Filter>Resource Files\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ImGui\imgui_tables.cpp">
-      <Filter>Resource Files\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ImGui\imgui_widgets.cpp">
-      <Filter>Resource Files\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ImGui\imgui-SFML.cpp">
-      <Filter>Resource Files\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Modules\ImGuiModule.cpp">
-      <Filter>Resource Files\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Components\Player.cpp">
-      <Filter>Resource Files\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Components\Doll.cpp">
-      <Filter>Resource Files\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Capacity.cpp">
-      <Filter>Resource Files\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Components\Switch.cpp">
-      <Filter>Resource Files\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Components\Button.cpp">
-      <Filter>Resource Files\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Components\TextRenderer.cpp">
-      <Filter>Resource Files\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Components\Checkpoint.cpp">
-      <Filter>Resource Files\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Capcity\Dash.cpp">
-      <Filter>Resource Files\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Capcity\Force.cpp">
-    <ClCompile Include="src\Components\Switch.cpp">
-      <Filter>Resource Files\Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="include\Maths\Vector2.inl">
-      <Filter>Header Files</Filter>
-    </None>
-    <None Include="x64\Debug\SFMLEngine.lib.recipe" />
-    <None Include="x64\Debug\SFMLEngine.tlog\CL.command.1.tlog" />
-    <None Include="x64\Debug\SFMLEngine.tlog\SFMLEngine.lastbuildstate" />
-    <None Include="x64\Debug\SFMLEngine.tlog\unsuccessfulbuild" />
-  </ItemGroup>
-  <ItemGroup>
     <Object Include="x64\Debug\ARendererComponent.obj" />
-    <Object Include="x64\Debug\Vector2.obj" />
-    <Object Include="x64\Debug\TimeModule.obj" />
-    <Object Include="x64\Debug\SquareCollider.obj" />
     <Object Include="x64\Debug\Component.obj" />
     <Object Include="x64\Debug\Doll.obj" />
     <Object Include="x64\Debug\Engine.obj" />
     <Object Include="x64\Debug\GameObject.obj" />
+    <Object Include="x64\Debug\imgui-SFML.obj" />
     <Object Include="x64\Debug\imgui.obj" />
     <Object Include="x64\Debug\imgui_demo.obj" />
     <Object Include="x64\Debug\imgui_draw.obj" />
     <Object Include="x64\Debug\imgui_tables.obj" />
     <Object Include="x64\Debug\imgui_widgets.obj" />
-    <Object Include="x64\Debug\imgui-SFML.obj" />
     <Object Include="x64\Debug\Module.obj" />
     <Object Include="x64\Debug\RectangleShapeRenderer.obj" />
     <Object Include="x64\Debug\Scene.obj" />
     <Object Include="x64\Debug\SpriteRenderer.obj" />
+    <Object Include="x64\Debug\SquareCollider.obj" />
+    <Object Include="x64\Debug\TimeModule.obj" />
+    <Object Include="x64\Debug\Vector2.obj" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Capcity\Dash.cpp" />
+    <ClCompile Include="src\Capcity\Force.cpp" />
+    <ClCompile Include="src\Components\Button.cpp" />
+    <ClCompile Include="src\Capacity.cpp" />
+    <ClCompile Include="src\Components\Doll.cpp" />
+    <ClCompile Include="src\Components\Switch.cpp" />
+    <ClCompile Include="src\Components\TextRenderer.cpp" />
+    <ClCompile Include="src\Components\Player.cpp" />
+    <ClCompile Include="src\Modules\ImGuiModule.cpp" />
+    <ClCompile Include="ImGui\imgui-SFML.cpp" />
+    <ClCompile Include="ImGui\imgui.cpp" />
+    <ClCompile Include="ImGui\imgui_demo.cpp" />
+    <ClCompile Include="ImGui\imgui_draw.cpp" />
+    <ClCompile Include="ImGui\imgui_tables.cpp" />
+    <ClCompile Include="ImGui\imgui_widgets.cpp" />
+    <ClCompile Include="src\Engine.cpp" />
+    <ClCompile Include="src\Modules\InputModule.cpp" />
+    <ClCompile Include="src\Modules\SceneModule.cpp" />
+    <ClCompile Include="src\Modules\TimeModule.cpp" />
+    <ClCompile Include="src\Modules\WindowModule.cpp" />
+    <ClCompile Include="src\ModuleManager.cpp" />
+    <ClCompile Include="src\Module.cpp" />
+    <ClCompile Include="src\Components\SpriteRenderer.cpp" />
+    <ClCompile Include="src\Components\ARendererComponent.cpp" />
+    <ClCompile Include="src\Components\RectangleShapeRenderer.cpp" />
+    <ClCompile Include="src\Scene.cpp" />
+    <ClCompile Include="src\Component.cpp" />
+    <ClCompile Include="src\Components\SquareCollider.cpp" />
+    <ClCompile Include="src\GameObject.cpp" />
+    <ClCompile Include="src\Maths\Vector2.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\Capacity\Dash.h" />
+    <ClInclude Include="include\Capacity\Force.h" />
+    <ClInclude Include="include\Components\Button.h" />
+    <ClInclude Include="include\Capacity.h" />
+    <ClInclude Include="include\Components\Doll.h" />
+    <ClInclude Include="include\Components\ObjectType.h" />
+    <ClInclude Include="include\Components\Player.h" />
+    <ClInclude Include="include\Components\Switch.h" />
+    <ClInclude Include="include\Components\TextRenderer.h" />
+    <ClInclude Include="include\Modules\ImGuiModule.h" />
+    <ClInclude Include="include\Engine.h" />
+    <ClInclude Include="include\Components\ARendererComponent.h" />
+    <ClInclude Include="include\Components\RectangleShapeRenderer.h" />
+    <ClInclude Include="include\Components\SquareCollider.h" />
+    <ClInclude Include="include\Component.h" />
+    <ClInclude Include="include\GameObject.h" />
+    <ClInclude Include="include\Scene.h" />
+    <ClInclude Include="include\Maths\Vector2.h" />
+    <ClInclude Include="include\Components\SpriteRenderer.h" />
+    <ClInclude Include="include\Module.h" />
+    <ClInclude Include="include\ModuleManager.h" />
+    <ClInclude Include="include\Modules\TimeModule.h" />
+    <ClInclude Include="include\Modules\SceneModule.h" />
+    <ClInclude Include="include\Modules\WindowModule.h" />
+    <ClInclude Include="include\Modules\InputModule.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="include\Maths\Vector2.inl" />
+    <None Include="x64\Debug\SFMLEngine.lib.recipe" />
+    <None Include="x64\Debug\SFMLEngine.tlog\CL.command.1.tlog" />
+    <None Include="x64\Debug\SFMLEngine.tlog\SFMLEngine.lastbuildstate" />
+    <None Include="x64\Debug\SFMLEngine.tlog\unsuccessfulbuild" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="x64\Debug\SFMLEngine.Build.CppClean.log" />

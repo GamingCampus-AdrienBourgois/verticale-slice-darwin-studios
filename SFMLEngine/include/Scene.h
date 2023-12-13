@@ -36,6 +36,7 @@ public:
 	GameObject* CreateGameObject(const ObjectType& _type, const std::string _name);
 	void DestroyGameObject(const GameObject* _game_object);
 	GameObject* FindGameObject(const std::string& _name) const;
+	void ReplaceListGameObject(std::vector<GameObject*> new_list) { gameObjects = new_list; }
 
 	GameObject* CreateButton(const ObjectType& _type, std::string _name, Maths::Vector2f _position, const sf::Color _color, Maths::Vector2u size, Capacity* _object);
 	GameObject* CreateSpriteButton(const ObjectType& _type, std::string _name, Maths::Vector2f _position, const sf::Color _color, Maths::Vector2u size, Capacity* _object, std::string nom_texture);
