@@ -25,6 +25,7 @@ void WindowModule::Start()
 void WindowModule::Update()
 {
 	Module::Update();
+	Scene* scene = moduleManager->GetModule<SceneModule>()->GetMainScene();
 
 	sf::Event event;
 	while (window->pollEvent(event))
@@ -53,7 +54,7 @@ void WindowModule::Update()
 
 				for (GameObject* const& button : *scene->GetGameObjects()){
 					if (button->GetType() == ButtonType) {
-						if (button->GetComponent<RectangleShapeRenderer>()->GetShape()->getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+						if (button->GetComponent<RectangleShapeRenderer>()->GetShape()->getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)) && !button->GetComponent<Button>()->is_disabled)
 						{
 							RectangleShapeRenderer* rectangleShapeRenderer = button->GetComponent<RectangleShapeRenderer>();
 							if (button->GetComponent<Button>()->is_clicked) {
@@ -112,7 +113,7 @@ void WindowModule::ResetButton(GameObject* button, std::vector<std::string> _nam
 	Scene* scene = moduleManager->GetModule<SceneModule>()->GetMainScene();
 	for (GameObject* const& gameObject : *scene->GetGameObjects()) {
 		for (std::string button_name : _name) {
-			if (gameObject->GetType() == ButtonType && gameObject->GetName() == button_name && button != gameObject) {
+			if (gameObject->GetType() == ButtonType && gameObject->GetName() == button_name && button != gameObject && !gameObject->GetComponent<Button>()->is_disabled) {
 				gameObject->GetComponent<Button>()->is_clicked = false;
 				gameObject->GetComponent<RectangleShapeRenderer>()->SetColor(gameObject->GetComponent<RectangleShapeRenderer>()->GetDefaultColor());
 			}

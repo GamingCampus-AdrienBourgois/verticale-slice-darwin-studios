@@ -22,9 +22,17 @@ public:
 		doll_button3->GetComponent<Button>()->SetCallback(std::bind(&Button::DollSelectCapacity, doll_button3->GetComponent<Button>()));
 		
 		GameObject* launch_game_button = CreateButtonWithText(ButtonType, "launch_game_button", Maths::Vector2f((window_size.x / 2) - (window_size.x / 15), (window_size.y - window_size.y / 100 * 10)), sf::Color::Red, sf::Color::Black, sf::Color::Blue, sf::Color::Cyan, Maths::Vector2u(window_size.x / 15 *2, window_size.y / 100 *6), [this] {LauchGame(); }, nullptr, "Lancer", sf::Color::White, 30);
+		launch_game_button->GetComponent<RectangleShapeRenderer>()->SetColor(sf::Color(128, 128, 128, 255));
+		launch_game_button->GetComponent<Button>()->is_disabled = true;
+		std::cout << launch_game_button->GetComponent<Button>()->is_disabled << std::endl;
 	}
 
 	void LauchGame() {
-		Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->SetScene<DefaultScene>();
+		Scene* scene = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetMainScene();
+		std::vector<Capacity> params;
+		params.push_back(*scene->FindGameObject("doll_button1")->GetComponent<Button>()->has_select->GetComponent<Button>()->GetObject());
+		params.push_back(*scene->FindGameObject("doll_button2")->GetComponent<Button>()->has_select->GetComponent<Button>()->GetObject());
+		params.push_back(*scene->FindGameObject("doll_button3")->GetComponent<Button>()->has_select->GetComponent<Button>()->GetObject());
+		Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->SetSceneWithParams<DefaultScene>(true, params);
 	}
 };

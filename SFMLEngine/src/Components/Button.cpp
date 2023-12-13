@@ -22,7 +22,7 @@ void Button::CheckHover() {
 	sf::Vector2i mousePos = sf::Mouse::getPosition(*Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindow());
 	RectangleShapeRenderer* rectangleShapeRenderer = GetOwner()->GetComponent<RectangleShapeRenderer>();
 
-	if (!is_clicked) {
+	if (!is_clicked && !is_disabled) {
 		if (rectangleShapeRenderer->GetShape()->getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
 			rectangleShapeRenderer->SetColor(rectangleShapeRenderer->GetHoverColor());
 		}
@@ -94,8 +94,12 @@ void Button::DollSelectCapacity() {
 					gameObject->GetComponent<RectangleShapeRenderer>()->SetColor(sf::Color(128, 128, 128, 255));
 					gameObject->GetComponent<Button>()->is_disabled = true;
 				}
+				else if(gameObject->GetComponent<Button>()->is_selected_by == GetOwner()){
+					gameObject->GetComponent<RectangleShapeRenderer>()->SetColor(gameObject->GetComponent<RectangleShapeRenderer>()->GetClickColor());
+					gameObject->GetComponent<Button>()->is_disabled = false;
+				}
 				else {
-					gameObject->GetComponent<RectangleShapeRenderer>()->SetColor(gameObject->GetComponent<RectangleShapeRenderer>()->GetDefaultColor());
+					/*gameObject->GetComponent<RectangleShapeRenderer>()->SetColor(gameObject->GetComponent<RectangleShapeRenderer>()->GetDefaultColor());*/
 					gameObject->GetComponent<Button>()->is_disabled = false;
 				}
 			}
@@ -105,17 +109,26 @@ void Button::DollSelectCapacity() {
 
 void Button::SelectCapacity() {
 	if (is_selected_by == nullptr) {
-		/*Scene* scene = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetMainScene();
+		Scene* scene = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetMainScene();
 		scene->FindGameObject("text_for_capacity_name")->GetComponent<TextRenderer>()->SetString(GetObject()->GetName());
 		scene->FindGameObject("text_for_capacity_description")->GetComponent<TextRenderer>()->SetString(GetObject()->GetDescription());
+		int capacity_selected = 0;
 		for (GameObject* const& gameObject : *scene->GetGameObjects()) {
-			if ((gameObject->GetName() == "doll_button1" || gameObject->GetName() == "doll_button2" || gameObject->GetName() == "doll_button3") && gameObject->GetComponent<Button>()->is_clicked) {
-				if (gameObject->GetComponent<Button>()->has_select != nullptr) {
-					gameObject->GetComponent<Button>()->has_select->GetComponent<Button>()->is_selected_by = nullptr;
+			if ((gameObject->GetName() == "doll_button1" || gameObject->GetName() == "doll_button2" || gameObject->GetName() == "doll_button3")){
+				if (gameObject->GetComponent<Button>()->is_clicked) {
+					if (gameObject->GetComponent<Button>()->has_select != nullptr) {
+						gameObject->GetComponent<Button>()->has_select->GetComponent<Button>()->is_selected_by = nullptr;
+					}
+					gameObject->GetComponent<Button>()->has_select = GetOwner();
+					is_selected_by = gameObject;
 				}
-				gameObject->GetComponent<Button>()->has_select = GetOwner();
-				is_selected_by = gameObject;
+				if (gameObject->GetComponent<Button>()->has_select != nullptr) {
+					capacity_selected++;
+				}
 			}
-		}*/
+		}
+		if (capacity_selected == 3) {
+			scene->FindGameObject("launch_game_button")->GetComponent<Button>()->is_disabled = false;
+		}
 	}
 }

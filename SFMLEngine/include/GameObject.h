@@ -51,8 +51,6 @@ private:
 	Maths::Vector2<float> scale = Maths::Vector2f::One;
 
 	std::vector<Component*> components;
-
-	bool is_rendering = true;
 };
 
 template<typename T>
