@@ -4,7 +4,6 @@
 
 void Dash::IsDashing(const float _delta_time, std::vector<GameObject*>* gameObjects) {
     GameObject* player = nullptr;
-    Maths::Vector2f lastValidPosition; // Stocke la dernière position valide du joueur
 
     for (GameObject* const& gameObject : *gameObjects) {
         if (gameObject->GetType() == PlayerType) {
@@ -14,34 +13,38 @@ void Dash::IsDashing(const float _delta_time, std::vector<GameObject*>* gameObje
     }
 
     if (player != nullptr) {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-            StartClockDash.restart();
+        if ((speed_dash > 0 && !player->GetComponent<SquareCollider>()->GetCanMoving()["right"]) || (speed_dash < 0 && !player->GetComponent<SquareCollider>()->GetCanMoving()["left"]) || (StartClockDurationDash.getElapsedTime().asMilliseconds() >= timeDash && is_dashing))
+        {
+            is_dashing = false;
+            StartClockCooldownDash.restart();
         }
 
-        lastValidPosition = player->GetPosition(); // Stocke la position actuelle du joueur
+        // Si le dash est possible et n'est pas en cours
+        if (StartClockCooldownDash.getElapsedTime().asMilliseconds() >= CooldownDash && !is_dashing) {
+ 
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 
-        if (StartClockDash.getElapsedTime().asMilliseconds() < 50 && player->GetComponent<SquareCollider>()->GetCanMoving()["right"]) {
-            float initialX = player->GetPosition().GetX();
-            player->SetPosition(Maths::Vector2f(initialX + 3, player->GetPosition().GetY()));
-
-            for (GameObject* const& gameObject : *gameObjects) {
-                if (gameObject->GetType() != ObjectType::PlayerType && gameObject != player) {
-                    Maths::Vector2f playerPos = player->GetPosition();
-                    Maths::Vector2f objPos = gameObject->GetPosition();
-
-                    // Calcul de la largeur en utilisant l'échelle (scale)
-                    Maths::Vector2f playerSize = player->GetScale();
-                    Maths::Vector2f objSize = gameObject->GetScale();
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && player->GetComponent<SquareCollider>()->GetCanMoving()["right"]) {
+                    speed_dash = 3;
+                    is_dashing = true;
+                    StartClockDurationDash.restart(); // Redémarre le temps du dash
+                }
+                else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && player->GetComponent<SquareCollider>()->GetCanMoving()["left"]) {
+                    speed_dash = -3;
+                    is_dashing = true;
+                    StartClockDurationDash.restart(); // Redémarre le temps du dash
                 }
             }
         }
+
+        // Si le dash est en cours et le cooldown dépasse 5 secondes
+        if (is_dashing) {
+            player->SetPosition(Maths::Vector2f(player->GetPosition().GetX() + speed_dash, player->GetPosition().GetY()));
+
+
+        }
     }
 }
-
-
-
-
-
 
 void Dash::Update(const float _delta_time, std::vector<GameObject*>* gameObjects) {
     IsDashing(_delta_time, gameObjects);
