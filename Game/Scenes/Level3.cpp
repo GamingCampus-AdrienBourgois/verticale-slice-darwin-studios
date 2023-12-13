@@ -241,5 +241,5 @@ void DefaultScene::SpawnObjectLevel3() {
     //Ligne 23 (Hors Map)
     CreateWallObject(this, WallType, "Wall", 12 * sizeWallX, -1 * sizeWallY);
     
-    CreateSwitch(this, SwitchType, "Switch", 8 * sizeWallX, 8 * sizeWallY);
+    CreateSwitch(this, SwitchType, "Switch", 9 * sizeWallX, 8 * sizeWallY);
 }

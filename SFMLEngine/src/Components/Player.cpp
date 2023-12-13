@@ -5,6 +5,8 @@
 #include <Scene.h>
 #include <Modules/SceneModule.h>
 #include "Components/ObjectType.h"
+#include <Capacity/Force.h>
+#include "Components/Switch.h"
 
 void Player::Move(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, std::vector<GameObject*>* gameObjects){
 	for (const auto& input : *pressed_input) {
@@ -15,6 +17,7 @@ void Player::Move(const float _delta_time, std::unordered_map<sf::Keyboard::Key,
 		}
 	}
 }
+
 
 void Player::Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, std::vector<GameObject*>* gameObjects) {
 	if (can_jump && !is_jumping) {
@@ -100,7 +103,7 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 
 			if (input.first == 0 && input.second == true) {
 				is_switching = true;
-				// Effacer l'élément du vecteur
+				// Effacer l'Ã©lÃ©ment du vecteur
 				it = pressed_input->erase(it);
 			}
 			else {
@@ -160,7 +163,7 @@ void Player::ReturnCheckpoint(Scene* scene, std::unordered_map<sf::Keyboard::Key
 
 			if (input.first == 59 && input.second == true) {
 				is_check = true;
-				// Effacer l'élément du vecteur
+				// Effacer l'Ã©lÃ©ment du vecteur
 				it = pressed_input->erase(it);
 			}
 			else {
@@ -222,6 +225,9 @@ void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Ke
 		copiedSapwn = true;
 	}
 
+
+	GetOwner()->GetCapacity<Force>()->Update(_delta_time, pressed_input);
+
 	GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("up", true);
 	GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("down", true);
 	GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("left", true);
@@ -243,7 +249,12 @@ void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Ke
 	{
 		if (gameObject->GetType() == ObjectType::SwitchType && SquareCollider::IsColliding(*GetOwner()->GetComponent<SquareCollider>(), *gameObject->GetComponent<SquareCollider>()))
 		{
-			std::cout << "switch" << std::endl;
+			GameObject* switchObject = GetOwner();
+			if (switchObject)
+			{
+				switchObject->SetSwitchOn(true);
+				std::cout << switchObject->GetSwitchOn() << std::endl;
+			}
 		}
 	}
 

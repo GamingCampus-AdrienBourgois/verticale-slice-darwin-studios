@@ -25,7 +25,7 @@ public:
 
 private:
 	int hp = 0;
-	int speed = 100;
+	int speed = 300;
 	int gravity = 100;
 
 	// Variables jump & switch
