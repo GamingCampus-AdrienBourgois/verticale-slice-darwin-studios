@@ -78,13 +78,16 @@
     <ClInclude Include="include\Components\TextRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Components\Capacity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Components\Capacity.h">
+    <ClInclude Include="include\Capacity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Components\Switch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Capacity\Dash.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Capacity\Force.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -161,19 +164,23 @@
     <ClCompile Include="src\Components\Doll.cpp">
       <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Components\Capacity.cpp">
+    <ClCompile Include="src\Capacity.cpp">
       <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Components\Switch.cpp">
       <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Components\Capacity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Components\Button.cpp">
       <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Components\TextRenderer.cpp">
+      <Filter>Resource Files\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Capcity\Dash.cpp">
+      <Filter>Resource Files\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Capcity\Force.cpp">
+    <ClCompile Include="src\Components\Switch.cpp">
       <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
   </ItemGroup>

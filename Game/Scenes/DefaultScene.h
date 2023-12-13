@@ -3,8 +3,8 @@
 #include "Scene.h"
 #include "SquareCollider.h"
 #include "Player.h"
-#include "Switch.h"
 #include "WindowModule.h"
+#include <Force.h>
 
 
 class DefaultScene final : public Scene
@@ -19,7 +19,6 @@ public:
 		capacity_for_mid_doll = params[1];
 		capacity_for_small_doll = params[2];
 		SpawnObjectLevel3();
-		CreateSwitch();
 		GameObject* player = CreatePlayer(PlayerType, "Player", Maths::Vector2f(100, 240), sf::Color::Red);
 
 	}
@@ -41,6 +40,22 @@ public:
 		return game_object;
 	}
 
+	GameObject* CreateSwitch(Scene* scene, const ObjectType& _type, std::string _name, const float _x, const float _y) {
+		GameObject* game_object = scene->CreateGameObject(_type, _name);
+		game_object->SetPosition(Maths::Vector2f(_x, _y));
+
+		sf::Vector2u window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize();
+
+		SquareCollider* squareCollider = game_object->CreateComponent<SquareCollider>();
+		squareCollider->SetWidth(window_size.x / 33);
+		squareCollider->SetHeight(window_size.y / 22);
+
+		RectangleShapeRenderer* shapeRenderer = game_object->CreateComponent<RectangleShapeRenderer>();
+		shapeRenderer->SetColor(sf::Color::Red); // Couleur du mur
+		shapeRenderer->SetSize(Maths::Vector2f(window_size.x / 33, window_size.y / 22)); // Taille du mur
+
+		return game_object;
+	}
 
 private:
 	Capacity capacity_for_big_doll;
@@ -48,7 +63,6 @@ private:
 	Capacity capacity_for_small_doll;
 
 	void SpawnObjectLevel3();
-	void CreateSwitch();
 
 	GameObject* CreatePlayer(const ObjectType& _type, std::string _name, Maths::Vector2f _position, const sf::Color _color) {
 		GameObject* game_object = CreateGameObject(_type, _name);
@@ -66,6 +80,8 @@ private:
 		shape_renderer->SetSize(Maths::Vector2f(taille_persoX, taille_persoY));
 
 		Player* player = game_object->CreateComponent<Player>();
+
+		Capacity* capacity = game_object->CreateCapacity<Force>();
 
 
 		return game_object;

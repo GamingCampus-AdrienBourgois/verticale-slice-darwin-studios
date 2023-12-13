@@ -240,9 +240,6 @@ void DefaultScene::SpawnObjectLevel3() {
 
     //Ligne 23 (Hors Map)
     CreateWallObject(this, WallType, "Wall", 12 * sizeWallX, -1 * sizeWallY);
-}
-
-void DefaultScene::CreateSwitch() {
-    float sizeSwitch = 50.f;
-    Switch::CreateSwitchObject(this, SwitchType, "Switch", 600, 1000);
+    
+    CreateSwitch(this, SwitchType, "Switch", 9 * sizeWallX, 8 * sizeWallY);
 }

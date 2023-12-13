@@ -1,6 +1,11 @@
-#include "Components/Capacity.h"
+#include "Capacity.h"
 #include <iostream>
 
+
+Capacity::Capacity(GameObject* _owner)
+{
+	this->owner = _owner;
+}
 
 void Capacity::SetName(std::string new_name)
 {

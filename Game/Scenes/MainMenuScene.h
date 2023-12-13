@@ -11,7 +11,7 @@ class MainMenuScene final : public Scene
 public:
 	MainMenuScene() : Scene("MainMenuScene")
 	{
-		SetTexture("background", "Assets/background.png");
+		SetTexture("background", "Assets/bg_MainMenu.png");
 		SetBackground("background");
 
 		sf::Vector2u window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindow()->getSize();

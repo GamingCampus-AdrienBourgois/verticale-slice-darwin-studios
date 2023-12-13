@@ -9,7 +9,7 @@ class SelectCapacityScene final : public Scene
 public:
 	SelectCapacityScene() : Scene("SelectCapacityScene")
 	{
-		SetTexture("background", "Assets/background.png");
+		SetTexture("background", "Assets/bg_Capacity.png");
 		SetBackground("background");
 
 		sf::Vector2u window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindow()->getSize();

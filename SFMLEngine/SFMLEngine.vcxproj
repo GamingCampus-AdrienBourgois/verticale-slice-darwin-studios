@@ -19,12 +19,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Capcity\Dash.cpp" />
+    <ClCompile Include="src\Capcity\Force.cpp" />
     <ClCompile Include="src\Components\Button.cpp" />
-    <ClCompile Include="src\Components\Capacity.cpp" />
+    <ClCompile Include="src\Capacity.cpp" />
     <ClCompile Include="src\Components\Doll.cpp" />
+    <ClCompile Include="src\Components\Switch.cpp" />
     <ClCompile Include="src\Components\TextRenderer.cpp" />
     <ClCompile Include="src\Components\Player.cpp" />
-    <ClCompile Include="src\Components\Switch.cpp" />
     <ClCompile Include="src\Modules\ImGuiModule.cpp" />
     <ClCompile Include="ImGui\imgui-SFML.cpp" />
     <ClCompile Include="ImGui\imgui.cpp" />
@@ -37,13 +39,15 @@
     <ClCompile Include="src\Modules\SceneModule.cpp" />
     <ClCompile Include="src\Modules\TimeModule.cpp" />
     <ClCompile Include="src\Modules\WindowModule.cpp" />
+    <ClInclude Include="include\Capacity\Dash.h" />
+    <ClInclude Include="include\Capacity\Force.h" />
     <ClInclude Include="include\Components\Button.h" />
-    <ClInclude Include="include\Components\Capacity.h" />
+    <ClInclude Include="include\Capacity.h" />
     <ClInclude Include="include\Components\Doll.h" />
     <ClInclude Include="include\Components\ObjectType.h" />
     <ClInclude Include="include\Components\Player.h" />
-    <ClInclude Include="include\Components\TextRenderer.h" />
     <ClInclude Include="include\Components\Switch.h" />
+    <ClInclude Include="include\Components\TextRenderer.h" />
     <ClInclude Include="include\Modules\ImGuiModule.h" />
     <ClInclude Include="include\Engine.h" />
     <ClInclude Include="include\Components\ARendererComponent.h" />

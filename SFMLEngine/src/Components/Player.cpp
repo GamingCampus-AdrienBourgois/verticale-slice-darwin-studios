@@ -5,6 +5,8 @@
 #include <Scene.h>
 #include <Modules/SceneModule.h>
 #include "Components/ObjectType.h"
+#include <Capacity/Force.h>
+#include "Components/Switch.h"
 
 void Player::Move(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, std::vector<GameObject*>* gameObjects){
 	for (const auto& input : *pressed_input) {
@@ -100,20 +102,13 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 
 			if (input.first == 0 && input.second == true) {
 				is_switching = true;
-				// Effacer l'élément du vecteur
+				// Effacer l'Ã©lÃ©ment du vecteur
 				it = pressed_input->erase(it);
 			}
 			else {
 				++it;
 			}
 		}
-
-
-		/*for (const auto& input : *pressed_input) {
-			if (input.first == 0 && input.second == true) {
-				is_switching = true;
-			}
-		}*/
 	}
 
 	if (is_switching)
@@ -128,7 +123,7 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 		{
 			big_dollOff = CreateDollOff(DollOffType,"big_doll_off", position, actuall_color);
 
-			GetOwner()->SetPosition(Maths::Vector2f(position.GetX(), position.GetY() - 200));
+			GetOwner()->SetPosition(Maths::Vector2f(position.GetX(), position.GetY() - 100));
 			GetOwner()->GetComponent<RectangleShapeRenderer>()->SetColor(sf::Color::Blue);
 			actuall_doll_int++;
 		}
@@ -150,6 +145,9 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 
 void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) {
 	Scene* scene = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetMainScene();
+
+	GetOwner()->GetCapacity<Force>()->Update(_delta_time, pressed_input);
+
 	GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("up", true);
 	GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("down", true);
 	GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("left", true);
@@ -165,7 +163,20 @@ void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Ke
 	SwitchDoll(pressed_input);
 
 	int taille_perso = sizeWindow.y / 22;
-  
+
+	for (GameObject* const& gameObject : *scene->GetGameObjects())
+	{
+		if (gameObject->GetType() == ObjectType::SwitchType && SquareCollider::IsColliding(*GetOwner()->GetComponent<SquareCollider>(), *gameObject->GetComponent<SquareCollider>()))
+		{
+			GameObject* switchObject = GetOwner();
+			if (switchObject)
+			{
+				switchObject->SetSwitchOn(true);
+				std::cout << switchObject->GetSwitchOn() << std::endl;
+			}
+		}
+	}
+
 	if (GetOwner()->GetPosition().GetY() + taille_perso <= sizeWindow.y && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["down"]) {
 		GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() + (gravity * _delta_time)));
 		can_jump = false;
