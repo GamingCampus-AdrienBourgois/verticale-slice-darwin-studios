@@ -11,7 +11,7 @@ void Invincibilite::Immortel(GameObject* player)
 	int immortel = 5 ^ 10;
 	int hp_actuel = player->GetComponent<Player>()->GetHp();
 
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && StartClockInvincibilite.getElapsedTime().asSeconds() < 10)
+	if (StartClockInvincibilite.getElapsedTime().asSeconds() < 10)
 	{
 		player->GetComponent<Player>()->SetHp(immortel);
 		std::cout << "Vie player immortel " << player->GetComponent<Player>()->GetHp() << std::endl;

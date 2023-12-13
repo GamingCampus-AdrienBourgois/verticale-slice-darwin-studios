@@ -143,6 +143,30 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 	}
 }
 
+bool Player::Dead(std::vector<GameObject*>* gameObjects)
+{
+	if (hp <= 0)
+	{
+		std::cout << "T'es mort!!" << std::endl;
+		GetOwner()->RemoveComponent(GetOwner()->GetComponent<Player>());
+		GetOwner()->RemoveComponent(GetOwner()->GetComponent<SpriteRenderer>());
+		GetOwner()->RemoveComponent(GetOwner()->GetComponent<SquareCollider>());
+		for (auto it = gameObjects->begin(); it != gameObjects->end(); ++it)
+		{
+			if (*it == GetOwner())
+			{
+				delete GetOwner();
+				gameObjects->erase(it);
+				return true;
+			}
+		}
+	}
+	else
+	{
+		return false;
+	}
+}
+
 
 void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) {
 	Scene* scene = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetMainScene();
@@ -161,6 +185,7 @@ void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Ke
 	}
 	Move(_delta_time, pressed_input, scene->GetGameObjects());
 	Jump(_delta_time, pressed_input, scene->GetGameObjects());
+	Dead(scene->GetGameObjects());
 	SwitchDoll(pressed_input);
 
 	int taille_perso = sizeWindow.y / 22;
