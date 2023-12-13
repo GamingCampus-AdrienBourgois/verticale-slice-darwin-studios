@@ -171,8 +171,6 @@ bool Player::Dead(std::vector<GameObject*>* gameObjects)
 void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) {
 	Scene* scene = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetMainScene();
 
-	GetOwner()->GetCapacity<Invincibilite>()->Update(_delta_time, pressed_input);
-
 	GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("up", true);
 	GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("down", true);
 	GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("left", true);
