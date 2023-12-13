@@ -11,6 +11,8 @@ public:
 	{
 		SetTexture("background", "Assets/bg_Capacity.png");
 		SetBackground("background");
+		SetFont("Font/UkrainianPrincess.ttf");
+
 
 		sf::Vector2u window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindow()->getSize();
 

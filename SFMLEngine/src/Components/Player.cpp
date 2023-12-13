@@ -90,7 +90,7 @@ GameObject* Player::CreateDollOff(const ObjectType& _type, std::string _name, Ma
 	return game_object;
 }
 
-void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) {
+void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, Scene scene) {
 	if (can_switch && !is_switching)
 	{
 		auto it = pressed_input->begin();
@@ -107,49 +107,121 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 				++it;
 			}
 		}
-
-
-		/*for (const auto& input : *pressed_input) {
-			if (input.first == 0 && input.second == true) {
-				is_switching = true;
-			}
-		}*/
 	}
 
 	if (is_switching)
 	{
 		can_switch = false;
 		can_jump = false;
+		can_check = false;
 
 		Maths::Vector2f position = GetOwner()->GetPosition();
 		sf::Color actuall_color = GetOwner()->GetComponent<RectangleShapeRenderer>()->GetColor();
+		int taille_perso = sizeWindow.y / 22;
 
 		if (actuall_doll_int == 0)
 		{
 			big_dollOff = CreateDollOff(DollOffType,"big_doll_off", position, actuall_color);
+			checkpoint1 = new Scene("Checkpoint1");
+			*checkpoint1 = scene;
+			checkpoint1->SetName("Checkpoint1");
 
-			GetOwner()->SetPosition(Maths::Vector2f(position.GetX(), position.GetY() - 200));
-			GetOwner()->GetComponent<RectangleShapeRenderer>()->SetColor(sf::Color::Blue);
+			GetOwner()->SetPosition(Maths::Vector2f(position.GetX(), position.GetY() - taille_perso * 2));
+			GetOwner()->GetComponent<RectangleShapeRenderer>()->SetColor(colorMid);
+
 			actuall_doll_int++;
+			checkpoint_nbr++;
 		}
 		else if (actuall_doll_int == 1)
 		{
 			mid_dollOff = CreateDollOff(DollOffType,"mid_doll_off", position, actuall_color);
 
-			GetOwner()->SetPosition(Maths::Vector2f(position.GetX(), position.GetY() - 200));
-			GetOwner()->GetComponent<RectangleShapeRenderer>()->SetColor(sf::Color::Green);
+			checkpoint2 = new Scene("Checkpoint2");
+			*checkpoint2 = scene;
+			checkpoint1->SetName("Checkpoint2");
+
+			GetOwner()->SetPosition(Maths::Vector2f(position.GetX(), position.GetY() - taille_perso *2));
+			GetOwner()->GetComponent<RectangleShapeRenderer>()->SetColor(colorSmall);
+
 			actuall_doll_int++;
+			checkpoint_nbr++;
 		}
 		is_switching = false;
+	}
+}
+
+void Player::ReturnCheckpoint(Scene* scene, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) {
+	if (can_check && !is_check)
+	{
+		auto it = pressed_input->begin();
+
+		while (it != pressed_input->end()) {
+			const auto& input = *it;
+
+			if (input.first == 59 && input.second == true) {
+				is_check = true;
+				// Effacer l'élément du vecteur
+				it = pressed_input->erase(it);
+			}
+			else {
+				++it;
+			}
+		}
+	}
+
+	if (is_check)
+	{
+		can_switch = false;
+		can_jump = false;
+		can_check = false;
+
+		Maths::Vector2f position = GetOwner()->GetPosition();
+		sf::Color actuall_color = GetOwner()->GetComponent<RectangleShapeRenderer>()->GetColor();
+		int taille_perso = sizeWindow.y / 22;
+
+		std::string nameScene = scene->GetName();
 
 
-		std::cout << actuall_doll_int;
+		if (checkpoint_nbr == 0)
+		{
+			*scene = *checkpoint0;
+			scene->SetName(nameScene);
+		}
+		else if (checkpoint_nbr == 1)
+		{
+			*scene = *checkpoint1;
+			scene->SetName(nameScene);
+			
+			checkpoint1 = nullptr;
+
+			checkpoint_nbr--;
+		}
+		else if (checkpoint_nbr == 2)
+		{
+			*scene = *checkpoint2;
+			scene->SetName(nameScene);
+
+			checkpoint2 = nullptr;
+
+			checkpoint_nbr--;
+		}
+		is_check = false;
 	}
 }
 
 
 void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) {
 	Scene* scene = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetMainScene();
+
+	if (!copiedSapwn)
+	{
+		checkpoint0 = new Scene("Checkpoint0");
+		*checkpoint0 = *scene;
+		checkpoint0->SetName("Checkpoint0");
+
+		copiedSapwn = true;
+	}
+
 	GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("up", true);
 	GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("down", true);
 	GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("left", true);
@@ -162,7 +234,8 @@ void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Ke
 	}
 	Move(_delta_time, pressed_input, scene->GetGameObjects());
 	Jump(_delta_time, pressed_input, scene->GetGameObjects());
-	SwitchDoll(pressed_input);
+	SwitchDoll(pressed_input, *scene);
+	ReturnCheckpoint(scene, pressed_input);
 
 	int taille_perso = sizeWindow.y / 22;
 
@@ -178,12 +251,17 @@ void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Ke
 		GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() + (gravity * _delta_time)));
 		can_jump = false;
 		can_switch = false;	
+		can_check = false;
 	}
 	else {
 		can_jump = true;
 		if (actuall_doll_int != 2)
 		{
 			can_switch = true;
+		}
+		if (checkpoint_nbr != 0)
+		{
+			can_check = true;
 		}
 	}
 }

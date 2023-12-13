@@ -16,7 +16,6 @@ public:
 	{
 		SpawnObjectLevel3();
 		GameObject* player = CreatePlayer(PlayerType, "Player", Maths::Vector2f(100, 240), sf::Color::Red);
-
 	}
 
 	GameObject* CreateDummyGameObject(const ObjectType& _type, std::string _name, const float _position, const sf::Color _color)

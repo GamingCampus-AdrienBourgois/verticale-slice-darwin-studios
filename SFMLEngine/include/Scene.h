@@ -26,6 +26,7 @@ public:
 	void SetBackground(std::string nom_texture);
 
 	std::string GetName() const;
+	void SetName(std::string _name) { name = _name; }
 	std::vector<GameObject*>* GetGameObjects() { return &gameObjects; }
 
 
