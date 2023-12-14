@@ -9,6 +9,7 @@
 class Player : public Component
 {
 public:
+
 	void SetHp(int new_hp) { hp = new_hp; }
 	void SetSpeed(int new_speed) { speed = new_speed; }
 	void SetGravity(int _gravity) { gravity = _gravity; }
@@ -33,11 +34,22 @@ private:
 	bool can_switch = false;
 	bool is_switching = false;
 
+	bool can_check = false;
+	bool is_check = false;
+
 	// GameObject Doll
 	int actuall_doll_int = 0;
 
 	GameObject* big_dollOff = nullptr;
 	GameObject* mid_dollOff = nullptr;
+
+
+	bool copiedSpawn = false;
+	std::vector<GameObject*> gameObjectsCheckpoint;
+
+	sf::Color colorBig = sf::Color::Red;
+	sf::Color colorMid = sf::Color::Blue;
+	sf::Color colorSmall = sf::Color::Green;
 
 
 	// Get modules
@@ -54,5 +66,6 @@ private:
 	void Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, std::vector<GameObject*>* gameObjects );
 
 	GameObject* CreateDollOff(const ObjectType& _type, std::string _name, Maths::Vector2f _position, const sf::Color _color);
-	void SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_input);
+	void SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, Scene* scene);
+	void ReturnCheckpoint(Scene* scene, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input);
 };
