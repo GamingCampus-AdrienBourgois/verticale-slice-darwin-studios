@@ -21,13 +21,20 @@ void Button::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Ke
 void Button::CheckHover() {
 	sf::Vector2i mousePos = sf::Mouse::getPosition(*Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindow());
 	RectangleShapeRenderer* rectangleShapeRenderer = GetOwner()->GetComponent<RectangleShapeRenderer>();
+	SpriteRenderer* spriteRenderer = GetOwner()->GetComponent<SpriteRenderer>();
 
 	if (!is_clicked && !is_disabled) {
 		if (rectangleShapeRenderer->GetShape()->getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
 			rectangleShapeRenderer->SetColor(rectangleShapeRenderer->GetHoverColor());
+			if (spriteRenderer != nullptr) {
+				spriteRenderer->SetNextSpriteRect(1);
+			}
 		}
 		else {
 			rectangleShapeRenderer->SetColor(rectangleShapeRenderer->GetDefaultColor());
+			if (spriteRenderer != nullptr) {
+				spriteRenderer->SetNextSpriteRect(0);
+			}
 		}
 	}
 }
