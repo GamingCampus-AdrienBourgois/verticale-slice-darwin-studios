@@ -8,14 +8,12 @@
 void InversionGravite::GraviteInversion(GameObject* player, const float _delta_time)
 {
 	gravite = player->GetComponent<Player>()->GetGravity();
-	inversionGravite = inversionGravite - gravite;
-
+	
 	if (StartClockDurationInversion.getElapsedTime().asSeconds() >= timeInversion && inversion && count == 1)
 	{
 		std::cout << "tu tombe" << std::endl;
 		inversion = false;
-		active = false;
-		player->GetComponent<Player>()->SetGravity(gravite);
+		active = false; 
 		player->SetPosition(Maths::Vector2f(player->GetPosition().GetX(), (player->GetPosition().GetY() + (gravite * _delta_time))));
 	}
 	if (count == 0)
@@ -28,8 +26,8 @@ void InversionGravite::GraviteInversion(GameObject* player, const float _delta_t
 				if (!player->GetComponent<SquareCollider>()->GetCanMoving()["down"])
 				{
 					StartClockDurationInversion.restart();
-					player->GetComponent<Player>()->SetGravity(inversionGravite);
 					inversion = true;
+					std::cout << "tu t'es leve" << std::endl;
 				}
 				count = count + 1;
 			}
@@ -40,9 +38,9 @@ void InversionGravite::GraviteInversion(GameObject* player, const float _delta_t
 		inversion = false;
 	}
 	
-	if (inversion == true && !player->GetComponent<SquareCollider>()->GetCanMoving()["up"])
+	if (inversion == true)
 	{
-		player->SetPosition(Maths::Vector2f(player->GetPosition().GetX(), (player->GetPosition().GetY() - inversionGravite)));
+		player->SetPosition(Maths::Vector2f(player->GetPosition().GetX(), (player->GetPosition().GetY() - gravite)));
 	}
 }
 

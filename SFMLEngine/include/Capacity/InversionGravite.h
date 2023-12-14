@@ -12,7 +12,6 @@ private:
 	bool active = false;
 	int count = 0;
 	int gravite = 0;
-	int inversionGravite = 0;
 	sf::Clock StartClockDurationInversion;
 	int timeInversion = 10;
 };
