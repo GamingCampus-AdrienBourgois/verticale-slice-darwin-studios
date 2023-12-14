@@ -8,6 +8,7 @@
 #include <Capacity/Force.h>
 #include "Components/Switch.h"
 #include <Capacity/Invincibilite.h>
+#include <Capacity/InversionGravite.h>
 
 void Player::Move(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, std::vector<GameObject*>* gameObjects){
 	for (const auto& input : *pressed_input) {
@@ -170,6 +171,8 @@ bool Player::Dead(std::vector<GameObject*>* gameObjects)
 
 void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) {
 	Scene* scene = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetMainScene();
+
+	GetOwner()->GetCapacity<InversionGravite>()->Update(_delta_time, pressed_input);
 
 	GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("up", true);
 	GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("down", true);

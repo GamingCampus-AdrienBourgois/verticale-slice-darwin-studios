@@ -6,6 +6,7 @@
 #include "WindowModule.h"
 #include <Force.h>
 #include <Invincibilite.h>
+#include <InversionGravite.h>
 
 
 class DefaultScene final : public Scene
@@ -90,7 +91,7 @@ private:
 
 		Player* player = game_object->CreateComponent<Player>();
 
-		Capacity* capacity = game_object->CreateCapacity<Invincibilite>();
+		Capacity* capacity = game_object->CreateCapacity<InversionGravite>();
 
 
 		return game_object;
