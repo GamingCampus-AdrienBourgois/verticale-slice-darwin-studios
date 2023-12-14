@@ -27,6 +27,8 @@ void RectangleShapeRenderer::Render(sf::RenderWindow* _window)
 	shape->setSize(static_cast<sf::Vector2f>(owner->GetScale() * size));
 	shape->setRotation(owner->GetRotation());
 	shape->setFillColor(color);
+	shape->setOutlineThickness(2);
+	shape->setOutlineColor(outlineColor);
 
 	_window->draw(*shape);
 }

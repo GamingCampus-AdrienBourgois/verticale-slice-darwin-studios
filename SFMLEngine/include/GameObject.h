@@ -64,8 +64,6 @@ private:
 
 	std::vector<Component*> components;
 	std::vector<Capacity*> capacitys;
-
-	bool is_rendering = true;
 	bool switchOn = false;
 };
 

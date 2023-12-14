@@ -51,6 +51,7 @@
     <ClCompile Include="src\Components\SquareCollider.cpp" />
     <ClCompile Include="src\GameObject.cpp" />
     <ClCompile Include="src\Maths\Vector2.cpp" />
+    <ClCompile Include="src\Capcity\Invincibilite.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Capacity\Dash.h" />
@@ -78,6 +79,7 @@
     <ClInclude Include="include\Modules\SceneModule.h" />
     <ClInclude Include="include\Modules\WindowModule.h" />
     <ClInclude Include="include\Modules\InputModule.h" />
+    <ClInclude Include="include\Capacity\Invincibilite.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="include\Maths\Vector2.inl" />

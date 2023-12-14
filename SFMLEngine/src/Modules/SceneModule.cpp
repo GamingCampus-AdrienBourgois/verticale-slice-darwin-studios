@@ -36,11 +36,6 @@ void SceneModule::Update()
 {
 	Module::Update();
 	std::unordered_map<sf::Keyboard::Key, bool>* pressed_input = moduleManager->GetModule<WindowModule>()->GetPressed();
-	if (nextScene != nullptr) {
-		mainScene = nextScene;
-		nextScene = nullptr;
-	}
-
 	mainScene->Update(timeModule->GetDeltaTime(), pressed_input);
 	/*for (const Scene* scene : scenes)
 	{

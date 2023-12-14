@@ -7,6 +7,7 @@
 #include "Components/ObjectType.h"
 #include <Capacity/Force.h>
 #include "Components/Switch.h"
+#include <Capacity/Invincibilite.h>
 
 void Player::Move(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, std::vector<GameObject*>* gameObjects){
 	for (const auto& input : *pressed_input) {
@@ -215,6 +216,30 @@ void Player::ReturnCheckpoint(Scene* scene, std::unordered_map<sf::Keyboard::Key
 	}
 }
 
+bool Player::Dead(std::vector<GameObject*>* gameObjects)
+{
+	if (hp <= 0)
+	{
+		std::cout << "T'es mort!!" << std::endl;
+		GetOwner()->RemoveComponent(GetOwner()->GetComponent<Player>());
+		GetOwner()->RemoveComponent(GetOwner()->GetComponent<SpriteRenderer>());
+		GetOwner()->RemoveComponent(GetOwner()->GetComponent<SquareCollider>());
+		for (auto it = gameObjects->begin(); it != gameObjects->end(); ++it)
+		{
+			if (*it == GetOwner())
+			{
+				delete GetOwner();
+				gameObjects->erase(it);
+				return true;
+			}
+		}
+	}
+	else
+	{
+		return false;
+	}
+}
+
 
 void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) {
 	Scene* scene = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetMainScene();
@@ -240,19 +265,20 @@ void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Ke
 	for (GameObject* const& gameObject : *scene->GetGameObjects())
 	{
 		if (gameObject->GetType() != ObjectType::PlayerType) {
-			GetOwner()->GetComponent<SquareCollider>()->IsColliding(*GetOwner()->GetComponent<SquareCollider>(), *gameObject->GetComponent<SquareCollider>());
+			GetOwner()->GetComponent<SquareCollider>()->IsColliding(*GetOwner()->GetComponent<SquareCollider>(), *gameObject->GetComponent<SquareCollider>() , _delta_time);
 		}
 	}
 	Move(_delta_time, pressed_input, scene->GetGameObjects());
 	Jump(_delta_time, pressed_input, scene->GetGameObjects());
 	SwitchDoll(pressed_input, scene);
 	ReturnCheckpoint(scene, pressed_input);
+	Dead(scene->GetGameObjects());
 
 	int taille_perso = sizeWindow.y / 22;
 
 	for (GameObject* const& gameObject : *scene->GetGameObjects())
 	{
-		if (gameObject->GetType() == ObjectType::SwitchType && SquareCollider::IsColliding(*GetOwner()->GetComponent<SquareCollider>(), *gameObject->GetComponent<SquareCollider>()))
+		if (gameObject->GetType() == ObjectType::SwitchType && SquareCollider::IsColliding(*GetOwner()->GetComponent<SquareCollider>(), *gameObject->GetComponent<SquareCollider>(), _delta_time))
 		{
 			GameObject* switchObject = GetOwner();
 			if (switchObject)

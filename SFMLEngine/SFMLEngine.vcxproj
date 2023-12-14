@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="src\Capcity\Dash.cpp" />
     <ClCompile Include="src\Capcity\Force.cpp" />
+    <ClCompile Include="src\Capcity\Invincibilite.cpp" />
     <ClCompile Include="src\Components\Button.cpp" />
     <ClCompile Include="src\Capacity.cpp" />
     <ClCompile Include="src\Components\Doll.cpp" />
@@ -41,6 +42,7 @@
     <ClCompile Include="src\Modules\WindowModule.cpp" />
     <ClInclude Include="include\Capacity\Dash.h" />
     <ClInclude Include="include\Capacity\Force.h" />
+    <ClInclude Include="include\Capacity\Invincibilite.h" />
     <ClInclude Include="include\Components\Button.h" />
     <ClInclude Include="include\Capacity.h" />
     <ClInclude Include="include\Components\Doll.h" />

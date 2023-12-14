@@ -18,11 +18,11 @@ public:
 	int GetSpeed() { return speed; }
 	int GetGravity() { return gravity; }
 
-
+	bool Dead(std::vector<GameObject*>* gameObjects);
 	void Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) override;
 
 private:
-	int hp = 0;
+	int hp = 1000;
 	int speed = 300;
 	int gravity = 100;
 
