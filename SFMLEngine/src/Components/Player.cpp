@@ -123,55 +123,44 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 
 		if (actuall_doll_int == 0)
 		{
-			big_dollOff = CreateDollOff(DollOffType,"big_doll_off", position, actuall_color);
-
-
-			//// Création du Checkpoint
-			// Copie des GameObjects
-			for (GameObject* const& gameObject : *scene->GetGameObjects())
-			{
-				GameObject* gameObjectTemp = new GameObject(*gameObject);
-				gameObjectsCheckpoint1.push_back(gameObjectTemp);
-			}
-
-			checkpoint1 = new Scene("Checkpoint1");
-			*checkpoint1 = *scene;
-			checkpoint1->SetName("Checkpoint1");
-			checkpoint1->ReplaceListGameObject(gameObjectsCheckpoint1);
-
-			////
-
+			big_dollOff = CreateDollOff(DollOffType, "big_doll_off", position, actuall_color);
 			GetOwner()->SetPosition(Maths::Vector2f(position.GetX(), position.GetY() - taille_perso * 2));
 			GetOwner()->GetComponent<RectangleShapeRenderer>()->SetColor(colorMid);
 
-			actuall_doll_int++;
-			checkpoint_nbr++;
-		}
-		else if (actuall_doll_int == 1)
-		{
-			mid_dollOff = CreateDollOff(DollOffType,"mid_doll_off", position, actuall_color);
-
-
 			//// Création du Checkpoint
 			// Copie des GameObjects
+			gameObjectsCheckpoint.clear();
+
 			for (GameObject* const& gameObject : *scene->GetGameObjects())
 			{
 				GameObject* gameObjectTemp = new GameObject(*gameObject);
-				gameObjectsCheckpoint2.push_back(gameObjectTemp);
+				gameObjectsCheckpoint.push_back(gameObjectTemp);
 			}
-
-			checkpoint2 = new Scene("Checkpoint2");
-			*checkpoint2 = *scene;
-			checkpoint2->SetName("Checkpoint2");
-			checkpoint2->ReplaceListGameObject(gameObjectsCheckpoint2);
 
 			////
 
-			GetOwner()->SetPosition(Maths::Vector2f(position.GetX(), position.GetY() - taille_perso *2));
-			GetOwner()->GetComponent<RectangleShapeRenderer>()->SetColor(colorSmall);
 
 			actuall_doll_int++;
-			checkpoint_nbr++;
+		}
+		else if (actuall_doll_int == 1)
+		{
+			mid_dollOff = CreateDollOff(DollOffType, "mid_doll_off", position, actuall_color);
+			GetOwner()->SetPosition(Maths::Vector2f(position.GetX(), position.GetY() - taille_perso * 2));
+			GetOwner()->GetComponent<RectangleShapeRenderer>()->SetColor(colorSmall);
+
+			//// Création du Checkpoint
+			// Copie des GameObjects
+			gameObjectsCheckpoint.clear();
+
+			for (GameObject* const& gameObject : *scene->GetGameObjects())
+			{
+				GameObject* gameObjectTemp = new GameObject(*gameObject);
+				gameObjectsCheckpoint.push_back(gameObjectTemp);
+			}
+
+			////
+
+			actuall_doll_int++;
 		}
 		is_switching = false;
 	}
@@ -207,46 +196,21 @@ void Player::ReturnCheckpoint(Scene* scene, std::unordered_map<sf::Keyboard::Key
 		int taille_perso = sizeWindow.y / 22;
 
 		std::string nameScene = scene->GetName();
-
-
-		if (checkpoint_nbr == 0)
-		{	
 			
-			std::vector<GameObject*>* gameObjects = scene->GetGameObjects();
+		std::vector<GameObject*>* gameObjects = scene->GetGameObjects();
 
-			/*for (int i = 0; i < gameObjects->size(); i++)
+		for (int i = 0; i < gameObjects->size(); i++)
+		{
+			if (i >= gameObjectsCheckpoint.size())
 			{
-				(*gameObjects)[i] = gameObjectsCheckpoint0[i];
-			}*/
-			/*
-
-			*scene = *checkpoint0;
-			scene->SetName(nameScene);*/
+				scene->DestroyGameObject((*gameObjects)[i]);
+			}
+			else
+			{
+				*(*gameObjects)[i] = *gameObjectsCheckpoint[i];
+			}
 		}
-		else if (checkpoint_nbr == 1)
-		{
-			*scene = *checkpoint1;
-			scene->SetName(nameScene);
-
-
-			delete checkpoint1;
-			checkpoint1 = nullptr;
-			gameObjectsCheckpoint1.clear();
-
-			checkpoint_nbr--;
-		}
-		else if (checkpoint_nbr == 2)
-		{
-			*scene = *checkpoint2;
-			scene->SetName(nameScene);
-
-
-			delete checkpoint2;
-			checkpoint2 = nullptr;
-			gameObjectsCheckpoint2.clear();
-
-			checkpoint_nbr--;
-		}
+		
 		is_check = false;
 	}
 }
@@ -260,13 +224,8 @@ void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Ke
 		for (GameObject* const& gameObject : *scene->GetGameObjects())
 		{
 			GameObject* gameObjectTemp = new GameObject(*gameObject); 
-			gameObjectsCheckpoint0.push_back(gameObjectTemp); 
+			gameObjectsCheckpoint.push_back(gameObjectTemp); 
 		}
-
-		checkpoint0 = new Scene("Checkpoint0");
-		*checkpoint0 = *scene;
-		checkpoint0->SetName("Checkpoint0");
-		checkpoint0->ReplaceListGameObject(gameObjectsCheckpoint0);
 
 		copiedSpawn = true;
 	}
@@ -304,11 +263,13 @@ void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Ke
 		}
 	}
 
+
+	can_check = true;
+
 	if (GetOwner()->GetPosition().GetY() + taille_perso <= sizeWindow.y && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["down"]) {
 		GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() + (gravity * _delta_time)));
 		can_jump = false;
 		can_switch = false;	
-		can_check = false;
 	}
 	else {
 		can_jump = true;
@@ -316,6 +277,5 @@ void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Ke
 		{
 			can_switch = true;
 		}
-		can_check = true;
 	}
 }

@@ -9,7 +9,6 @@
 class Player : public Component
 {
 public:
-	void SetSpawn(Scene spawn) { *checkpoint0 = spawn; }
 
 	void SetHp(int new_hp) { hp = new_hp; }
 	void SetSpeed(int new_speed) { speed = new_speed; }
@@ -40,21 +39,13 @@ private:
 
 	// GameObject Doll
 	int actuall_doll_int = 0;
-	int checkpoint_nbr = 0;
 
 	GameObject* big_dollOff = nullptr;
 	GameObject* mid_dollOff = nullptr;
 
 
 	bool copiedSpawn = false;
-	Scene* checkpoint0 = nullptr;
-	std::vector<GameObject*> gameObjectsCheckpoint0;
-
-	Scene* checkpoint1 = nullptr;
-	std::vector<GameObject*> gameObjectsCheckpoint1;
-
-	Scene* checkpoint2 = nullptr;
-	std::vector<GameObject*> gameObjectsCheckpoint2;
+	std::vector<GameObject*> gameObjectsCheckpoint;
 
 	sf::Color colorBig = sf::Color::Red;
 	sf::Color colorMid = sf::Color::Blue;
