@@ -5,17 +5,19 @@
 #include <Components/Player.h>
 #include <iostream>
 
-void InversionGravite::GraviteInversion(GameObject* player, const float _delta_time, std::vector<GameObject*>* gameObjects)
+void InversionGravite::GraviteInversion(GameObject* player, const float _delta_time)
 {
 	gravite = player->GetComponent<Player>()->GetGravity();
 	inversionGravite = inversionGravite - gravite;
 
 	if (StartClockDurationInversion.getElapsedTime().asSeconds() >= timeInversion && inversion && count == 1)
 	{
+		std::cout << "tu tombe" << std::endl;
 		inversion = false;
 		active = false;
+		player->GetComponent<Player>()->SetGravity(gravite);
+		player->SetPosition(Maths::Vector2f(player->GetPosition().GetX(), (player->GetPosition().GetY() + (gravite * _delta_time))));
 	}
-	std::cout << count << std::endl;
 	if (count == 0)
 	{
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
@@ -23,7 +25,7 @@ void InversionGravite::GraviteInversion(GameObject* player, const float _delta_t
 			active = true;
 			if (active == true)
 			{
-				if (!player->GetComponent<SquareCollider>()->GetCanMoving()["up"] || !player->GetComponent<SquareCollider>()->GetCanMoving()["down"])
+				if (!player->GetComponent<SquareCollider>()->GetCanMoving()["down"])
 				{
 					StartClockDurationInversion.restart();
 					player->GetComponent<Player>()->SetGravity(inversionGravite);
@@ -38,9 +40,9 @@ void InversionGravite::GraviteInversion(GameObject* player, const float _delta_t
 		inversion = false;
 	}
 	
-	if (inversion == true)
+	if (inversion == true && !player->GetComponent<SquareCollider>()->GetCanMoving()["up"])
 	{
-		player->SetPosition(Maths::Vector2f(player->GetPosition().GetX(), (player->GetPosition().GetY() + (inversionGravite * _delta_time))));
+		player->SetPosition(Maths::Vector2f(player->GetPosition().GetX(), (player->GetPosition().GetY() - inversionGravite)));
 	}
 }
 
@@ -57,7 +59,7 @@ void InversionGravite::Update(const float _delta_time, std::unordered_map<sf::Ke
 		}
 		if (player != nullptr)
 		{
-			GraviteInversion(player, _delta_time, scene->GetGameObjects());
+			GraviteInversion(player, _delta_time);
 		}
 	}
 	
