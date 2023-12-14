@@ -10,11 +10,9 @@ public:
 	Button() = default;
 	~Button() = default;
 
-	void SetText(std::string new_text) { text = new_text; }
 	void SetObject(Capacity* _object) { object = _object; }
 	void SetCallback(std::function<void()> _callback) { callback = _callback; }
 
-	std::string GetText() { return text; }
 	Capacity* GetObject() { return object; }
 
 	void CheckHover();
@@ -31,7 +29,6 @@ public:
 	GameObject* is_selected_by = nullptr;
 
 private:
-	std::string text = "";
 
 	std::function<void()> callback;
 	Capacity* object = nullptr;

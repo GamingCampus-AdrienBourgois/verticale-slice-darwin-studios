@@ -77,7 +77,7 @@ void Button::DollSelectCapacity() {
 			scene->SetTexture("icon_" + std::to_string(num_capacity), "Assets/icon_capacity/" + row[2]);
 			GameObject* button = scene->CreateSpriteButton(ButtonType, "capacity_button", Maths::Vector2f((window_size.x / 2) - (window_size.x / 15 / 2 * (nb_ligne % 2)) - (window_size.x / 15 * (nb_ligne / 2)) - (((window_size.x / 15) / 2) * (nb_ligne - 1) / 2) + (window_size.x / 15 * (num_capacity - 1)) + ((window_size.x / 15) / 2 * (num_capacity - 1)), (window_size.y / 100 * 10)),
 				sf::Color::White, sf::Color::Black, sf::Color::Green, sf::Color::Red,
-				Maths::Vector2u(window_size.x / 15, window_size.x / 15), [] {}, capacity, "icon_" + std::to_string(num_capacity));
+				Maths::Vector2f(window_size.x / 15, window_size.x / 15), [] {}, capacity, "icon_" + std::to_string(num_capacity));
 			button->GetComponent<Button>()->SetCallback(std::bind(&Button::SelectCapacity, button->GetComponent<Button>()));
 			num_capacity++;
 		}

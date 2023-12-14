@@ -15,13 +15,23 @@ SpriteRenderer::~SpriteRenderer()
 	texture = nullptr;
 }
 
-void SpriteRenderer::SetSprite(sf::Texture* new_texture, float scale_x, float scale_y)
+void SpriteRenderer::SetSprite(sf::Texture* new_texture, Maths::Vector2f _size)
 {
 	texture = new_texture;
-	width = scale_x;
-	height = scale_y;
+	width = _size.x;
+	height = _size.y;
 	sprite->setTexture(*texture);
-	sprite->setScale(scale_x / texture->getSize().x, scale_y / texture->getSize().y);
+	sprite->setScale(_size.x / texture->getSize().x, _size.y / texture->getSize().y);
+}
+
+void SpriteRenderer::SetSpriteRect(sf::Texture* new_texture, Maths::Vector2f _size, Maths::Vector2f _sprite_size, Maths::Vector2f _position, Maths::Vector2f sprite_space)
+{
+	texture = new_texture;
+	width = _size.x;
+	height = _size.y;
+	sprite->setTexture(*texture);
+	sprite->setTextureRect(sf::IntRect(_position.x, _position.y, _sprite_size.x, _sprite_size.y));
+	sprite->setScale(_size.x / _sprite_size.x, _size.y / _sprite_size.y);
 }
 
 void SpriteRenderer::Render(sf::RenderWindow* _window)

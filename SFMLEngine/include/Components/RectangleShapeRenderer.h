@@ -29,11 +29,11 @@ public:
 
 
 private:
-	sf::Color color = sf::Color::White;
-	sf::Color defaultColor = sf::Color::White;
-	sf::Color outlineColor = sf::Color::Black;
-	sf::Color HoverColor = sf::Color::Red;
-	sf::Color ClickColor = sf::Color::Black;
+	sf::Color color = sf::Color::Transparent;
+	sf::Color defaultColor = sf::Color::Transparent;
+	sf::Color outlineColor = sf::Color::Transparent;
+	sf::Color HoverColor = sf::Color::Transparent;
+	sf::Color ClickColor = sf::Color::Transparent;
 
 	sf::RectangleShape* shape = nullptr;
 };
