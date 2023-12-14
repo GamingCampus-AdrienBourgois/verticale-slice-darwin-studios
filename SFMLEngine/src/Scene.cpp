@@ -149,6 +149,37 @@ GameObject* Scene::CreateSpriteButton(const ObjectType& _type, std::string _name
 	return game_object;
 }
 
+GameObject* Scene::CreateSpriteButton_forMainMenu(const ObjectType& _type, std::string _name, Maths::Vector2f _position, Maths::Vector2f size, std::function<void()> _callback, Capacity* _object, std::string nom_texture, Maths::Vector2f _sprite_size, Maths::Vector2f sprite_space)
+{
+	GameObject* game_object = CreateGameObject(_type, _name);
+	game_object->SetPosition(_position);
+
+	RectangleShapeRenderer* shape_renderer = game_object->CreateComponent<RectangleShapeRenderer>();
+	//shape_renderer->SetColor(_color);
+	//shape_renderer->SetDefaultColor(_color);
+	//shape_renderer->SetOutlineColor(_outlineColor);
+	//shape_renderer->SetHoverColor(_hoverColor);
+	//shape_renderer->SetClickColor(_clickColor);
+	shape_renderer->SetSize(Maths::Vector2f(size.x, size.y));
+
+	//SpriteRenderer* sprite_renderer = game_object->CreateComponent<SpriteRenderer>();
+	//sprite_renderer->SetSprite(&texture[nom_texture], size);
+
+	SpriteRenderer* sprite_renderer = game_object->CreateComponent<SpriteRenderer>();
+	if (sprite_space.x == 0 && sprite_space.y == 0) {
+		sprite_renderer->SetSprite(&texture[nom_texture], size);
+	}
+	else {
+		sprite_renderer->SetSpriteRect(&texture[nom_texture], size, _sprite_size, Maths::Vector2f(0, 0), sprite_space);
+	}
+
+	Button* button = game_object->CreateComponent<Button>();
+	button->SetObject(_object);
+	button->SetCallback(_callback);
+
+	return game_object;
+}
+
 GameObject* Scene::CreateButtonWithText(const ObjectType& _type, std::string _name, Maths::Vector2f _position, const sf::Color _color, sf::Color _outlineColor, sf::Color _hoverColor, sf::Color _clickColor, Maths::Vector2u size, std::function<void()> _callback, Capacity* _object, std::string button_text, sf::Color text_color, int _caractere_size)
 {
 	GameObject* game_object = CreateGameObject(_type, _name);
