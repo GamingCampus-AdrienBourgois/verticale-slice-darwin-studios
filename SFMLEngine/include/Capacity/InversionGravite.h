@@ -9,9 +9,7 @@ public:
 
 private:
 	bool inversion = false;
-	bool active = false;
 	int count = 0;
-	int gravite = 0;
-	sf::Clock StartClockDurationInversion;
+	sf::Clock Inversion;
 	int timeInversion = 10;
 };

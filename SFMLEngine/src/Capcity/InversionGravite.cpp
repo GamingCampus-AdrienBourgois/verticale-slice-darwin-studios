@@ -7,29 +7,21 @@
 
 void InversionGravite::GraviteInversion(GameObject* player, const float _delta_time)
 {
-	gravite = player->GetComponent<Player>()->GetGravity();
-	
-	if (StartClockDurationInversion.getElapsedTime().asSeconds() >= timeInversion && inversion && count == 1)
+
+	if (Inversion.getElapsedTime().asSeconds() >= timeInversion)
 	{
-		std::cout << "tu tombe" << std::endl;
+		std::cout << "tu casse les ..." << std::endl;
 		inversion = false;
-		active = false; 
-		player->SetPosition(Maths::Vector2f(player->GetPosition().GetX(), (player->GetPosition().GetY() + (gravite * _delta_time))));
+		//count = count + 1;
 	}
 	if (count == 0)
 	{
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
 		{
-			active = true;
-			if (active == true)
+			if (!player->GetComponent<SquareCollider>()->GetCanMoving()["down"])
 			{
-				if (!player->GetComponent<SquareCollider>()->GetCanMoving()["down"])
-				{
-					StartClockDurationInversion.restart();
+					Inversion.restart();
 					inversion = true;
-					std::cout << "tu t'es leve" << std::endl;
-				}
-				count = count + 1;
 			}
 		}
 	}
@@ -37,10 +29,38 @@ void InversionGravite::GraviteInversion(GameObject* player, const float _delta_t
 	{
 		inversion = false;
 	}
-	
-	if (inversion == true)
+	if (inversion == true && player->GetComponent<SquareCollider>()->GetCanMoving()["up"])
 	{
-		player->SetPosition(Maths::Vector2f(player->GetPosition().GetX(), (player->GetPosition().GetY() - gravite)));
+		if (Inversion.getElapsedTime().asSeconds() <= 1) {
+			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() - (500 * _delta_time)));
+		}
+		else if (Inversion.getElapsedTime().asSeconds() <= 2) {
+			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() - (400 * _delta_time)));
+		}
+		else if (Inversion.getElapsedTime().asSeconds() <= 3) {
+			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() - (300 * _delta_time)));
+		}
+		else if (Inversion.getElapsedTime().asSeconds() <= 4) {
+			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() - (200 * _delta_time)));
+		}
+		else if (Inversion.getElapsedTime().asSeconds() <= 5) {
+			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() - (150 * _delta_time)));
+		}
+		else if (Inversion.getElapsedTime().asSeconds() <= 6) {
+			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() - (100 * _delta_time)));
+		}
+		else if (Inversion.getElapsedTime().asSeconds() <= 7) {
+			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() - (75 * _delta_time)));
+		}
+		else if (Inversion.getElapsedTime().asSeconds() <= 8) {
+			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() - (35 * _delta_time)));
+		}
+		else if (Inversion.getElapsedTime().asSeconds() <= 9) {
+			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() - (0 * _delta_time)));
+		}
+		else if (Inversion.getElapsedTime().asSeconds() <= 10) {
+			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() - (0 * _delta_time)));
+		}
 	}
 }
 
