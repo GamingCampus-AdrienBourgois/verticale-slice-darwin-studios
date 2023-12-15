@@ -292,7 +292,7 @@ void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Ke
 
 	can_check = true;
 
-	if (GetOwner()->GetPosition().GetY() + taille_perso <= sizeWindow.y && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["down"]) {
+	if (GetOwner()->GetPosition().GetY() + taille_perso <= sizeWindow.y - 100 && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["down"]) {
 		GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() + (gravity * _delta_time)));
 		can_jump = false;
 		can_switch = false;	

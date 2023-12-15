@@ -89,6 +89,7 @@ void WindowModule::Update()
 				std::cout << "r = "<<  mousePos.size() <<std::endl;
 				if(mousePos.size() % 2 == 0){
 					std::cout << mousePos[0].x / sizeX << " " << mousePos[0].y / sizeY << " " << (mousePos[1].x - mousePos[0].x) / sizeX << " " << (mousePos[1].y - mousePos[0].y) / sizeY << std::endl;
+					mousePos.clear();
 				}
 			}
 		}
