@@ -9,7 +9,7 @@ class SelectCapacityScene final : public Scene
 public:
 	SelectCapacityScene() : Scene("SelectCapacityScene")
 	{
-		SetTexture("background", "Assets/bg_Capacity.png");
+		SetTexture("background", "Assets/background/capacity_background.png");
 		SetBackground("background");
 		SetFont("Font/UkrainianPrincess.ttf");
 
