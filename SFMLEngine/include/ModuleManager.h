@@ -28,8 +28,6 @@ public:
 	template<class T>
 	T* GetModule();
 
-	void ResetButton(GameObject* button, std::vector<std::string> _name);
-
 private:
 	std::vector<Module*> modules;
 };

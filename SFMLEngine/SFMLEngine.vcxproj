@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Capcity\Dash.cpp" />
     <ClCompile Include="src\Capcity\Force.cpp" />
     <ClCompile Include="src\Capcity\InversionGravite.cpp" />
     <ClCompile Include="src\Capcity\Invincibilite.cpp" />
@@ -29,6 +28,7 @@
     <ClCompile Include="src\Components\Switch.cpp" />
     <ClCompile Include="src\Components\TextRenderer.cpp" />
     <ClCompile Include="src\Components\Player.cpp" />
+    <ClCompile Include="src\Capcity\Dash.cpp" />
     <ClCompile Include="src\Modules\ImGuiModule.cpp" />
     <ClCompile Include="ImGui\imgui-SFML.cpp" />
     <ClCompile Include="ImGui\imgui.cpp" />

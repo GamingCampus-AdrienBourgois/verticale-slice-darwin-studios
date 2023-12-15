@@ -7,7 +7,7 @@ enum ObjectType
 	ButtonType,
 	TextType, 
 	DollOffType,
-	WallType,
+	ColliderType,
 	SwitchType,
 	MoveType
 };

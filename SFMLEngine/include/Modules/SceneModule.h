@@ -19,7 +19,8 @@ public:
 	template<typename T>
 	Scene* SetScene(bool _replace_scenes = true);
 
-	void SetNextScene(Scene* _next_scene) { nextScene = _next_scene; }
+	template<typename T, typename U>
+	Scene* SetSceneWithParams(const bool _replace_scenes, std::vector<U> params);
 
 	Scene* GetMainScene() const { return mainScene; }
 	Scene* GetScene(const std::string& _scene_name) const;
@@ -29,7 +30,6 @@ public:
 private:
 	std::vector<Scene*> scenes;
 	Scene* mainScene = nullptr;
-	Scene* nextScene = nullptr;
 
 	WindowModule* windowModule = nullptr;
 	TimeModule* timeModule = nullptr;
@@ -50,6 +50,27 @@ Scene* SceneModule::SetScene(const bool _replace_scenes)
 	}
 
 	Scene* scene = static_cast<Scene*>(new T());
+	scenes.push_back(scene);
+
+	if (_replace_scenes)
+		mainScene = scene;
+
+	return scene;
+}
+
+template<typename T, typename U>
+Scene* SceneModule::SetSceneWithParams(const bool _replace_scenes, std::vector<U> params)
+{
+	if (_replace_scenes)
+	{
+		for (const Scene* scene : scenes)
+		{
+			delete scene;
+		}
+		scenes.clear();
+	}
+
+	Scene* scene = static_cast<Scene*>(new T(params));
 	scenes.push_back(scene);
 
 	if (_replace_scenes)

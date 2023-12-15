@@ -24,8 +24,10 @@ public:
 
 	sf::RenderWindow* GetWindow() const { return window; }
 	sf::Vector2u GetWindowSize() const { return window->getSize(); };
+	std::vector<sf::Vector2i> mousePos;
 
 private:
 	sf::RenderWindow* window = nullptr;
 	std::unordered_map<sf::Keyboard::Key, bool> pressed;
+
 };
