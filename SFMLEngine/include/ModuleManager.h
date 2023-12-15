@@ -2,6 +2,8 @@
 
 #include <vector>
 #include "Module.h"
+#include "GameObject.h"
+
 
 class ModuleManager
 {
