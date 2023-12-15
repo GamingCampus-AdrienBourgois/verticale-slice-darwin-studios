@@ -7,13 +7,6 @@
 
 void InversionGravite::GraviteInversion(GameObject* player, const float _delta_time)
 {
-
-	if (Inversion.getElapsedTime().asSeconds() >= timeInversion)
-	{
-		std::cout << "tu casse les ..." << std::endl;
-		inversion = false;
-		//count = count + 1;
-	}
 	if (count == 0)
 	{
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
@@ -60,7 +53,9 @@ void InversionGravite::GraviteInversion(GameObject* player, const float _delta_t
 		}
 		else if (Inversion.getElapsedTime().asSeconds() <= 10) {
 			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() - (0 * _delta_time)));
+			count = count + 1;
 		}
+		
 	}
 }
 
