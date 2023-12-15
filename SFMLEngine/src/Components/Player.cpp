@@ -10,6 +10,7 @@
 #include <Capacity/Force.h>
 #include "Components/Switch.h"
 #include <Capacity/Invincibilite.h>
+#include <Capacity/InversionGravite.h>
 
 #include "Capacity/Dash.h"
 
@@ -233,29 +234,29 @@ void Player::ReturnCheckpoint(Scene* scene, std::unordered_map<sf::Keyboard::Key
 	}
 }
 
-bool Player::Dead(std::vector<GameObject*>* gameObjects)
-{
-	if (hp <= 0)
-	{
-		std::cout << "T'es mort!!" << std::endl;
-		GetOwner()->RemoveComponent(GetOwner()->GetComponent<Player>());
-		GetOwner()->RemoveComponent(GetOwner()->GetComponent<SpriteRenderer>());
-		GetOwner()->RemoveComponent(GetOwner()->GetComponent<SquareCollider>());
-		for (auto it = gameObjects->begin(); it != gameObjects->end(); ++it)
-		{
-			if (*it == GetOwner())
-			{
-				delete GetOwner();
-				gameObjects->erase(it);
-				return true;
-			}
-		}
-	}
-	else
-	{
-		return false;
-	}
-}
+//bool Player::Dead(std::vector<GameObject*>* gameObjects)
+//{
+	//if (hp <= 0)
+	//{
+	//	std::cout << "T'es mort!!" << std::endl;
+	//	GetOwner()->RemoveComponent(GetOwner()->GetComponent<Player>());
+	//	GetOwner()->RemoveComponent(GetOwner()->GetComponent<SpriteRenderer>());
+	//	GetOwner()->RemoveComponent(GetOwner()->GetComponent<SquareCollider>());
+	//	for (auto it = gameObjects->begin(); it != gameObjects->end(); ++it)
+	//	{
+	//		if (*it == GetOwner())
+	//		{
+	//			delete GetOwner();
+	//			gameObjects->erase(it);
+	//			return true;
+	//		}
+	//	}
+	//}
+	//else
+	//{
+	//	return false;
+	//}
+//}
 
 
 void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) {
@@ -290,7 +291,7 @@ void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Ke
 	Jump(_delta_time, pressed_input, scene->GetGameObjects());
 	SwitchDoll(pressed_input, scene);
 	ReturnCheckpoint(scene, pressed_input);
-	Dead(scene->GetGameObjects());
+	//Dead(scene->GetGameObjects());
 
 	for (GameObject* const& gameObject : *scene->GetGameObjects())
 	{
@@ -307,11 +308,16 @@ void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Ke
 
 
 	can_check = true;
+	if (GetOwner()->GetPosition().GetX() <= 0) {
+	GetOwner()->SetPosition(Maths::Vector2f(0, GetOwner()->GetPosition().GetY()));
+	}
+	if (GetOwner()->GetPosition().GetX() + sizePlayer >= sizeWindow.x) {
+	GetOwner()->SetPosition(Maths::Vector2f(sizeWindow.x - sizePlayer, GetOwner()->GetPosition().GetY()));
+	}
 
+	bool temp = GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["down"];
 
-
-	if (GetOwner()->GetPosition().GetY() + sizePlayer <= sizeWindow.y && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["down"]) {
-
+	if (GetOwner()->GetPosition().GetY() + sizePlayer <= sizeWindow.y - 100 && temp) {
 		GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() + (gravity * _delta_time)));
 		can_switch = false;	
 		can_jump = false;

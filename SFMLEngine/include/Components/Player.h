@@ -23,7 +23,7 @@ public:
 	int GetGravity() { return gravity; }
 	int GetSize() { return sizePlayer; }
 
-	bool Dead(std::vector<GameObject*>* gameObjects);
+	//bool Dead(std::vector<GameObject*>* gameObjects);
 	void Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) override;
 
 private:
