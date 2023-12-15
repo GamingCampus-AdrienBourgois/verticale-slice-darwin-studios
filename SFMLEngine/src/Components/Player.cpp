@@ -262,7 +262,7 @@ void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Ke
 	}
 
 	/*GetOwner()->GetCapacity<Force>()->Update(_delta_time, pressed_input);*/
-	GetOwner()->GetCapacity<Dash>()->Update(_delta_time, scene->GetGameObjects());
+	/*GetOwner()->GetCapacity<Dash>()->Update(_delta_time, scene->GetGameObjects());*/
 
 	GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("up", true);
 	GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("down", true);

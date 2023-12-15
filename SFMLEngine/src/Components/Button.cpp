@@ -81,10 +81,9 @@ void Button::DollSelectCapacity() {
 			Capacity* capacity = new Capacity();
 			capacity->SetName(row[0]);
 			capacity->SetDescription(row[1]);
-			scene->SetTexture("icon_" + std::to_string(num_capacity), "Assets/icon_capacity/" + row[2]);
-			GameObject* button = scene->CreateSpriteButton(ButtonType, "capacity_button", Maths::Vector2f((window_size.x / 2) - (window_size.x / 15 / 2 * (nb_ligne % 2)) - (window_size.x / 15 * (nb_ligne / 2)) - (((window_size.x / 15) / 2) * (nb_ligne - 1) / 2) + (window_size.x / 15 * (num_capacity - 1)) + ((window_size.x / 15) / 2 * (num_capacity - 1)), (window_size.y / 100 * 10)),
-				sf::Color::White, sf::Color::Black, sf::Color::Green, sf::Color::Red,
-				Maths::Vector2f(window_size.x / 15, window_size.x / 15), [] {}, capacity, "icon_" + std::to_string(num_capacity));
+			scene->SetTexture("texture_capacity_button_" + std::to_string(num_capacity), "Assets/button/" + row[2]);
+			GameObject* button = scene->CreateSpriteButton_forMainMenu(ButtonType, "capacity_button", Maths::Vector2f((window_size.x / 2) - (window_size.x / 15 / 2 * (nb_ligne % 2)) - (window_size.x / 15 * (nb_ligne / 2)) - (((window_size.x / 15) / 2) * (nb_ligne - 1) / 2) + (window_size.x / 15 * (num_capacity - 1)) + ((window_size.x / 15) / 2 * (num_capacity - 1)), (window_size.y / 100 * 10)),
+				Maths::Vector2f(window_size.x / 15, window_size.x / 15), [] {}, capacity, "texture_capacity_button_" + std::to_string(num_capacity), Maths::Vector2f(144,161), Maths::Vector2f(0,15));
 			button->GetComponent<Button>()->SetCallback(std::bind(&Button::SelectCapacity, button->GetComponent<Button>()));
 			num_capacity++;
 		}
@@ -98,16 +97,25 @@ void Button::DollSelectCapacity() {
 		for (GameObject* const& gameObject : *scene->GetGameObjects()) {
 			if (gameObject->GetName() == "capacity_button") {
 				if(gameObject->GetComponent<Button>()->is_selected_by != GetOwner() && gameObject->GetComponent<Button>()->is_selected_by != nullptr){
-					gameObject->GetComponent<RectangleShapeRenderer>()->SetColor(sf::Color(128, 128, 128, 255));
+					gameObject->GetComponent<RectangleShapeRenderer>()->SetColor(gameObject->GetComponent<RectangleShapeRenderer>()->GetDisabledColor());
 					gameObject->GetComponent<Button>()->is_disabled = true;
+					if (gameObject->GetComponent<SpriteRenderer>() != nullptr) {
+						gameObject->GetComponent<SpriteRenderer>()->SetNextSpriteRect(3);
+					}
 				}
 				else if(gameObject->GetComponent<Button>()->is_selected_by == GetOwner()){
 					gameObject->GetComponent<RectangleShapeRenderer>()->SetColor(gameObject->GetComponent<RectangleShapeRenderer>()->GetClickColor());
 					gameObject->GetComponent<Button>()->is_disabled = false;
+					if (gameObject->GetComponent<SpriteRenderer>() != nullptr) {
+						gameObject->GetComponent<SpriteRenderer>()->SetNextSpriteRect(2);
+					}
 				}
 				else {
-					/*gameObject->GetComponent<RectangleShapeRenderer>()->SetColor(gameObject->GetComponent<RectangleShapeRenderer>()->GetDefaultColor());*/
+					gameObject->GetComponent<RectangleShapeRenderer>()->SetColor(gameObject->GetComponent<RectangleShapeRenderer>()->GetDefaultColor());
 					gameObject->GetComponent<Button>()->is_disabled = false;
+					if (gameObject->GetComponent<SpriteRenderer>() != nullptr) {
+						gameObject->GetComponent<SpriteRenderer>()->SetNextSpriteRect(0);
+					}
 				}
 			}
 		}
@@ -136,6 +144,9 @@ void Button::SelectCapacity() {
 		}
 		if (capacity_selected == 3) {
 			scene->FindGameObject("launch_game_button")->GetComponent<Button>()->is_disabled = false;
+			if (scene->FindGameObject("launch_game_button")->GetComponent<SpriteRenderer>() != nullptr) {
+				scene->FindGameObject("launch_game_button")->GetComponent<SpriteRenderer>()->SetNextSpriteRect(0);
+			}
 		}
 	}
 }
