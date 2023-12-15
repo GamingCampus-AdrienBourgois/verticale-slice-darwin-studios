@@ -4,10 +4,10 @@
 #include "SquareCollider.h"
 #include "Player.h"
 #include "WindowModule.h"
+#include <InversionGravite.h>
 #include "Invincibilite.h"
 #include "Force.h"
 #include "Dash.h"
-
 
 
 class DefaultScene final : public Scene
@@ -83,11 +83,15 @@ private:
 
 		Player* player = game_object->CreateComponent<Player>();
 
+
+		//Capacity* capacity = game_object->CreateCapacity<InversionGravite>();
+
 		/*Capacity* capacity = game_object->CreateCapacity<Invincibilite>();*/
 
 		//Capacity* capacity = game_object->CreateCapacity<Force>();
 
-		Capacity* capacity = game_object->CreateCapacity<Dash>();
+		//Capacity* capacity = game_object->CreateCapacity<Dash>();
+
 
 
 		return game_object;

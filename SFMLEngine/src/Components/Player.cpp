@@ -10,6 +10,7 @@
 #include <Capacity/Force.h>
 #include "Components/Switch.h"
 #include <Capacity/Invincibilite.h>
+#include <Capacity/InversionGravite.h>
 
 #include "Capacity/Dash.h"
 
@@ -259,7 +260,6 @@ void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Ke
 
 		copiedSpawn = true;
 	}
-
 
 	/*GetOwner()->GetCapacity<Force>()->Update(_delta_time, pressed_input);*/
 	GetOwner()->GetCapacity<Dash>()->Update(_delta_time, scene->GetGameObjects());
