@@ -149,25 +149,35 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 			Capacity* capacity_for_mid_doll = scene->GetMidCapacity();
 
 			if (capacity_for_mid_doll->GetName() == "INVERSION DE LA GRaVITE") {
-				InversionGravite* capacity = SetCapacity<InversionGravite>();
-				capacity->SetName("InversionGravite");
+				InversionGravite* new_capacity = SetCapacity<InversionGravite>();
+				new_capacity->SetName("InversionGravite");
+				new_capacity->SetCapacityOwner(GetOwner());
+				capacity = new_capacity;
 			}
 			else if (capacity_for_mid_doll->GetName() == "INVINCIbILITE") {
-				Invincibilite* capacity = SetCapacity<Invincibilite>();
-				capacity->SetName("Invincibilite");
+				Invincibilite* new_capacity = SetCapacity<Invincibilite>();
+				new_capacity->SetName("Invincibilite");
+				new_capacity->SetCapacityOwner(GetOwner());
+				capacity = new_capacity;
 			}
 			else if (capacity_for_mid_doll->GetName() == "DOUbLE-SaUT") {
-				DoubleJump* capacity = SetCapacity<DoubleJump>();
-				capacity->SetName("DoubleJump");
-				capacity->SetDoubleJump(true);
+				DoubleJump* new_capacity = SetCapacity<DoubleJump>();
+				new_capacity->SetName("DoubleJump");
+				new_capacity->SetCapacityOwner(GetOwner());
+				new_capacity->SetDoubleJump(true);
+				capacity = new_capacity;
 			}
 			else if (capacity_for_mid_doll->GetName() == "DaSH") {
-				Dash* capacity = SetCapacity<Dash>();
-				capacity->SetName("Dash");
+				Dash* new_capacity = SetCapacity<Dash>();
+				new_capacity->SetName("Dash");
+				new_capacity->SetCapacityOwner(GetOwner());
+				capacity = new_capacity;
 			}
 			else if (capacity_for_mid_doll->GetName() == "fORCE") {
-				Force* capacity = SetCapacity<Force>();
-				capacity->SetName("Force");
+				Force* new_capacity = SetCapacity<Force>();
+				new_capacity->SetName("Force");
+				new_capacity->SetCapacityOwner(GetOwner());
+				capacity = new_capacity;
 			}
 
 			//// Création du Checkpoint
@@ -197,23 +207,28 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 			if (capacity_for_small_doll->GetName() == "INVERSION DE LA GRaVITE") {
 				InversionGravite* capacity = SetCapacity<InversionGravite>();
 				capacity->SetName("InversionGravite");
+				capacity->SetCapacityOwner(GetOwner());
 			}
 			else if (capacity_for_small_doll->GetName() == "INVINCIbILITE") {
 				Invincibilite* capacity = SetCapacity<Invincibilite>();
 				capacity->SetName("Invincibilite");
+				capacity->SetCapacityOwner(GetOwner());
 			}
 			else if (capacity_for_small_doll->GetName() == "DOUbLE-SaUT") {
 				DoubleJump* capacity = SetCapacity<DoubleJump>();
 				capacity->SetName("DoubleJump");
+				capacity->SetCapacityOwner(GetOwner());
 				capacity->SetDoubleJump(true);
 			}
 			else if (capacity_for_small_doll->GetName() == "DaSH") {
 				Dash* capacity = SetCapacity<Dash>();
 				capacity->SetName("Dash");
+				capacity->SetCapacityOwner(GetOwner());
 			}
 			else if (capacity_for_small_doll->GetName() == "fORCE") {
 				Force* capacity = SetCapacity<Force>();
 				capacity->SetName("Force");
+				capacity->SetCapacityOwner(GetOwner());
 			}
 
 			//// Création du Checkpoint
@@ -382,7 +397,6 @@ template<typename T>
 T* Player::SetCapacity()
 {
 	T* _capacity = new T();
-	_capacity->SetOwner(this);
 	capacity = _capacity;
 	return _capacity;
 }

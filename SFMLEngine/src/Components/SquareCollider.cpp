@@ -2,7 +2,6 @@
 #include "Maths/Vector2.h"
 #include <iostream>
 #include <Components/Player.h>
-#include <Capacity/Invincibilite.h>
 
 bool SquareCollider::IsColliding(const SquareCollider& _collider_a, const SquareCollider& _collider_b, const float _delta_time)
 {
@@ -24,7 +23,7 @@ bool SquareCollider::IsColliding(const SquareCollider& _collider_a, const Square
 		// top collision with loss of life
 		if (playerBounds.top > objectBounds.top && playerBounds.top <= objectBounds.top + objectBounds.height && ((playerBounds.left <= objectBounds.left && playerBounds.left + playerBounds.width >= objectBounds.left) || (playerBounds.left >= objectBounds.left && playerBounds.left <= objectBounds.left + objectBounds.width)) && (collisionWidth > collisionHeight && collisionWidth > 5) && _collider_b.GetOwner()->GetType() == DollOffType)
 		{
-			if (_collider_a.GetOwner()->GetComponent<Player>()->GetOwner()->GetCapacity<Invincibilite>())
+			if (_collider_a.GetOwner()->GetComponent<Player>()->GetCapacity()->GetName() == "Invincibilite")
 			{
 				_collider_a.GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("up", false);
 			}
@@ -42,7 +41,7 @@ bool SquareCollider::IsColliding(const SquareCollider& _collider_a, const Square
 		// bottom collision with loss of life
 		if (playerBounds.top <= objectBounds.top && playerBounds.top + playerBounds.height >= objectBounds.top && ((playerBounds.left <= objectBounds.left && playerBounds.left + playerBounds.width >= objectBounds.left) || (playerBounds.left >= objectBounds.left && playerBounds.left <= objectBounds.left + objectBounds.width)) && (collisionWidth > collisionHeight && collisionWidth > 5) && _collider_b.GetOwner()->GetType() == DollOffType)
 		{
-			if (_collider_a.GetOwner()->GetComponent<Player>()->GetOwner()->GetCapacity<Invincibilite>())
+			if (_collider_a.GetOwner()->GetComponent<Player>()->GetCapacity()->GetName() == "Invincibilite")
 			{
 				_collider_a.GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("down", false);
 			}
@@ -60,7 +59,7 @@ bool SquareCollider::IsColliding(const SquareCollider& _collider_a, const Square
 		//left collision with loss of life
 		if (playerBounds.left >= objectBounds.left && playerBounds.left + playerBounds.width >= objectBounds.left + objectBounds.width && ((playerBounds.top <= objectBounds.top && playerBounds.top + playerBounds.height >= objectBounds.top) || (playerBounds.top >= objectBounds.top && playerBounds.top <= objectBounds.top + objectBounds.height)) && (collisionWidth < collisionHeight && collisionHeight > 5) && _collider_b.GetOwner()->GetType() == DollOffType)
 		{
-			if (_collider_a.GetOwner()->GetComponent<Player>()->GetOwner()->GetCapacity<Invincibilite>())
+			if (_collider_a.GetOwner()->GetComponent<Player>()->GetCapacity()->GetName() == "Invincibilite")
 			{
 				_collider_a.GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("left", false);
 			}
@@ -79,7 +78,7 @@ bool SquareCollider::IsColliding(const SquareCollider& _collider_a, const Square
 		//right collision with loss of life
 		if (playerBounds.left <= objectBounds.left && playerBounds.left + playerBounds.width <= objectBounds.left + objectBounds.width && ((playerBounds.top <= objectBounds.top && playerBounds.top + playerBounds.height >= objectBounds.top) || (playerBounds.top >= objectBounds.top && playerBounds.top <= objectBounds.top + objectBounds.height)) && (collisionWidth < collisionHeight && collisionHeight > 5) && _collider_b.GetOwner()->GetType() == DollOffType)
 		{
-			if (_collider_a.GetOwner()->GetComponent<Player>()->GetOwner()->GetCapacity<Invincibilite>())
+			if (_collider_a.GetOwner()->GetComponent<Player>()->GetCapacity()->GetName() == "Invincibilite")
 			{
 				_collider_a.GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("right", false);
 			}

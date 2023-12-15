@@ -3,6 +3,7 @@
 #include <vector>
 #include "GameObject.h"
 
+class GameObject;
 
 class Capacity
 {
@@ -15,14 +16,14 @@ public:
 	void SetName(std::string new_name);
 	void SetDescription(std::string new_description);
 
-	GameObject* GetOwner() const { return owner; }
-	void SetOwner(GameObject* _owner) { owner = _owner; }
+	GameObject* GetCapacityOwner() { return capacity_owner; }
+	void SetCapacityOwner(GameObject* _owner) { capacity_owner = _owner; }
 
 	virtual void Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input){}
 
 private:
 	std::string name;
 	std::string description;
-	GameObject* owner = nullptr;
+	GameObject* capacity_owner = nullptr;
 };
 

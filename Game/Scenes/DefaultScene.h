@@ -16,11 +16,11 @@ public:
 
 	sf::Vector2u window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize();
 
-	DefaultScene(std::vector<Capacity> params) : Scene("DefaultScene")
+	DefaultScene(std::vector<Capacity>* params) : Scene("DefaultScene")
 	{
-		capacity_for_big_doll = params[0];
-		capacity_for_mid_doll = params[1];
-		capacity_for_small_doll = params[2];
+		GetBigCapacity()->SetName((*params)[0].GetName());
+		GetMidCapacity()->SetName((*params)[1].GetName());
+		GetSmallCapacity()->SetName((*params)[2].GetName());
 		SpawnObjectLevel3();
 		GameObject* player = CreatePlayer(PlayerType, "Player", Maths::Vector2f(100, 40), sf::Color::Red);
 	}
@@ -59,14 +59,7 @@ public:
 		return game_object;
 	}
 
-	Capacity* GetBigCapacity() {return &capacity_for_big_doll;}
-	Capacity* GetMidCapacity() { return &capacity_for_mid_doll; }
-	Capacity* GetSmallCapacity() { return &capacity_for_small_doll; }
-
 private:
-	Capacity capacity_for_big_doll;
-	Capacity capacity_for_mid_doll;
-	Capacity capacity_for_small_doll;
 
 	void SpawnObjectLevel3();
 
@@ -87,31 +80,31 @@ private:
 
 		Player* player = game_object->CreateComponent<Player>();
 
-		if (capacity_for_big_doll.GetName() == "INVERSION DE LA GRaVITE") {
+		if (GetBigCapacity()->GetName() == "INVERSION DE LA GRaVITE") {
 			InversionGravite* capacity = player->SetCapacity<InversionGravite>();
 			capacity->SetName("InversionGravite");
-			capacity->SetOwner(game_object);
+			capacity->SetCapacityOwner(game_object);
 		}
-		else if (capacity_for_big_doll.GetName() == "INVINCIbILITE") {
+		else if (GetBigCapacity()->GetName() == "INVINCIbILITE") {
 			Invincibilite* capacity = player->SetCapacity<Invincibilite>();
 			capacity->SetName("Invincibilite");
-			capacity->SetOwner(game_object);
+			capacity->SetCapacityOwner(game_object);
 		}
-		else if (capacity_for_big_doll.GetName() == "DOUbLE-SaUT") {
+		else if (GetBigCapacity()->GetName() == "DOUbLE-SaUT") {
 			DoubleJump* capacity = player->SetCapacity<DoubleJump>();
 			capacity->SetName("DoubleJump");
+			capacity->SetCapacityOwner(game_object);
 			capacity->SetDoubleJump(true);
-			capacity->SetOwner(game_object);
 		}
-		else if (capacity_for_big_doll.GetName() == "DaSH") {
+		else if (GetBigCapacity()->GetName() == "DaSH") {
 			Dash* capacity = player->SetCapacity<Dash>();
 			capacity->SetName("Dash");
-			capacity->SetOwner(game_object);
+			capacity->SetCapacityOwner(game_object);
 		}
-		else if (capacity_for_big_doll.GetName() == "fORCE") {
+		else if (GetBigCapacity()->GetName() == "fORCE") {
 			Force* capacity = player->SetCapacity<Force>();
 			capacity->SetName("Force");
-			capacity->SetOwner(game_object);
+			capacity->SetCapacityOwner(game_object);
 		}
 
 		return game_object;

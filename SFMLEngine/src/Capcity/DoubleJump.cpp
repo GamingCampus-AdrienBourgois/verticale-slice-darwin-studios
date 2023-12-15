@@ -5,5 +5,5 @@
 #include "Components/Player.h"
 
 void DoubleJump::SetDoubleJump(bool _can_double_jump) {
-	GetOwner()->GetComponent<Player>()->SetCanDoubleJump(_can_double_jump);
+	GetCapacityOwner()->GetComponent<Player>()->SetCanDoubleJump(_can_double_jump);
 }
