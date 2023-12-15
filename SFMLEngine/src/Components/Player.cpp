@@ -5,9 +5,14 @@
 #include <Scene.h>
 #include <Modules/SceneModule.h>
 #include "Components/ObjectType.h"
+#include "Modules/WindowModule.h"
+
 #include <Capacity/Force.h>
 #include "Components/Switch.h"
 #include <Capacity/Invincibilite.h>
+
+#include "Capacity/Dash.h"
+
 
 void Player::Move(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, std::vector<GameObject*>* gameObjects){
 	for (const auto& input : *pressed_input) {
@@ -257,6 +262,7 @@ void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Ke
 
 
 	GetOwner()->GetCapacity<Force>()->Update(_delta_time, pressed_input);
+	GetOwner()->GetCapacity<Dash>()->Update(_delta_time, scene->GetGameObjects());
 
 	GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("up", true);
 	GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("down", true);
