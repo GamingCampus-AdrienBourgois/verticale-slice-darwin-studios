@@ -25,13 +25,26 @@ void Player::Move(const float _delta_time, std::unordered_map<sf::Keyboard::Key,
 }
 
 void Player::Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, std::vector<GameObject*>* gameObjects) {
-	if (can_jump && !is_jumping) {
+	if (is_jumping && can_double_jump && !is_double_jumping) {
 		for (const auto& input : *pressed_input) {
 			if (input.first == 57 && input.second == true) {
+				is_jumping = true;
+				is_double_jumping = true;
+				jumping_time.restart();
+
+				can_switch = false;
+			}
+		}
+	}
+	if (can_jump && !is_jumping) {
+		for (auto& input : *pressed_input) {
+ 			if (input.first == 57 && input.second == true) {
 				is_jumping = true;
 				jumping_time.restart();
 
 				can_switch = false;
+
+				input.second = false;
 			}
 		}
 	}
@@ -41,7 +54,7 @@ void Player::Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key,
 	}
 
 	if (is_jumping && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["up"]) {
-		if (jumping_time.getElapsedTime().asSeconds() <= 0.4) {
+ 		if (jumping_time.getElapsedTime().asSeconds() <= 0.4) {
 			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() - (500 * _delta_time)));
 		}
 		else if (jumping_time.getElapsedTime().asSeconds() <= 0.45) {
@@ -64,10 +77,11 @@ void Player::Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key,
 		}
 		else{
 			is_jumping = false;
+			is_double_jumping = false;
 			can_jump = false;
 		}
 	}
-  int taille_perso = sizeWindow.y / 22;
+
 	if (GetOwner()->GetPosition().GetY() + 200 <= sizeWindow.y && !is_jumping && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["down"]) {
 		GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() + (200 * _delta_time)));
 	}
@@ -125,12 +139,11 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 
 		Maths::Vector2f position = GetOwner()->GetPosition();
 		sf::Color actuall_color = GetOwner()->GetComponent<RectangleShapeRenderer>()->GetColor();
-		int taille_perso = sizeWindow.y / 22;
 
 		if (actuall_doll_int == 0)
 		{
 			big_dollOff = CreateDollOff(DollOffType, "big_doll_off", position, actuall_color);
-			GetOwner()->SetPosition(Maths::Vector2f(position.GetX(), position.GetY() - taille_perso * 2));
+			GetOwner()->SetPosition(Maths::Vector2f(position.GetX(), position.GetY() - sizePlayer * 1.5));
 			GetOwner()->GetComponent<RectangleShapeRenderer>()->SetColor(colorMid);
 
 			//// Création du Checkpoint
@@ -151,7 +164,7 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 		else if (actuall_doll_int == 1)
 		{
 			mid_dollOff = CreateDollOff(DollOffType, "mid_doll_off", position, actuall_color);
-			GetOwner()->SetPosition(Maths::Vector2f(position.GetX(), position.GetY() - taille_perso * 2));
+			GetOwner()->SetPosition(Maths::Vector2f(position.GetX(), position.GetY() - sizePlayer * 1.5));
 			GetOwner()->GetComponent<RectangleShapeRenderer>()->SetColor(colorSmall);
 
 			//// Création du Checkpoint
@@ -199,7 +212,6 @@ void Player::ReturnCheckpoint(Scene* scene, std::unordered_map<sf::Keyboard::Key
 
 		Maths::Vector2f position = GetOwner()->GetPosition();
 		sf::Color actuall_color = GetOwner()->GetComponent<RectangleShapeRenderer>()->GetColor();
-		int taille_perso = sizeWindow.y / 22;
 
 		std::string nameScene = scene->GetName();
 			
@@ -259,10 +271,10 @@ void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Ke
 
 		copiedSpawn = true;
 	}
-
+	
 
 	/*GetOwner()->GetCapacity<Force>()->Update(_delta_time, pressed_input);*/
-	GetOwner()->GetCapacity<Dash>()->Update(_delta_time, scene->GetGameObjects());
+	//GetOwner()->GetCapacity<Dash>()->Update(_delta_time, scene->GetGameObjects());
 
 	GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("up", true);
 	GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("down", true);
@@ -280,8 +292,6 @@ void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Ke
 	ReturnCheckpoint(scene, pressed_input);
 	Dead(scene->GetGameObjects());
 
-	int taille_perso = sizeWindow.y / 22;
-
 	for (GameObject* const& gameObject : *scene->GetGameObjects())
 	{
 		if (gameObject->GetType() == ObjectType::SwitchType && SquareCollider::IsColliding(*GetOwner()->GetComponent<SquareCollider>(), *gameObject->GetComponent<SquareCollider>(), _delta_time))
@@ -298,10 +308,13 @@ void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Ke
 
 	can_check = true;
 
-	if (GetOwner()->GetPosition().GetY() + taille_perso <= sizeWindow.y - 100 && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["down"]) {
+
+
+	if (GetOwner()->GetPosition().GetY() + sizePlayer <= sizeWindow.y && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["down"]) {
+
 		GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() + (gravity * _delta_time)));
-		can_jump = false;
 		can_switch = false;	
+		can_jump = false;
 	}
 	else {
 		can_jump = true;

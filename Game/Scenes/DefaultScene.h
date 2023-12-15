@@ -83,11 +83,15 @@ private:
 
 		Player* player = game_object->CreateComponent<Player>();
 
+		DoubleJump* capacity = game_object->CreateCapacity<DoubleJump>();
+		capacity->SetName("DoubleJump");
+		capacity->SetDoubleJump(true);
+
 		/*Capacity* capacity = game_object->CreateCapacity<Invincibilite>();*/
 
 		//Capacity* capacity = game_object->CreateCapacity<Force>();
 
-		Capacity* capacity = game_object->CreateCapacity<Dash>();
+		//Capacity* capacity = game_object->CreateCapacity<Dash>();
 
 
 		return game_object;
