@@ -19,6 +19,9 @@ public:
 	virtual ~Scene() = default;
 
 	std::unordered_map<std::string, sf::Texture>* GetTexture() {return &texture; }
+	Capacity* GetBigCapacity() { return &capacity_for_big_doll; }
+	Capacity* GetMidCapacity() { return &capacity_for_mid_doll; }
+	Capacity* GetSmallCapacity() { return &capacity_for_small_doll; }
 
 	void Update(float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) const;
 
@@ -52,6 +55,10 @@ public:
 
 
 private:
+	Capacity capacity_for_big_doll;
+	Capacity capacity_for_mid_doll;
+	Capacity capacity_for_small_doll;
+
 	std::string name;
 	std::unordered_map<std::string, sf::Texture> texture;
 	std::vector<GameObject*> gameObjects;

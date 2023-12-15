@@ -4,11 +4,11 @@
 #include "SquareCollider.h"
 #include "Player.h"
 #include "WindowModule.h"
-#include <InversionGravite.h>
-#include "Invincibilite.h"
-#include "Force.h"
-#include "Dash.h"
+#include "Capacity.h"
 
+
+
+class Capacity;
 
 class DefaultScene final : public Scene
 {
@@ -59,6 +59,10 @@ public:
 		return game_object;
 	}
 
+	Capacity* GetBigCapacity() {return &capacity_for_big_doll;}
+	Capacity* GetMidCapacity() { return &capacity_for_mid_doll; }
+	Capacity* GetSmallCapacity() { return &capacity_for_small_doll; }
+
 private:
 	Capacity capacity_for_big_doll;
 	Capacity capacity_for_mid_doll;
@@ -83,20 +87,32 @@ private:
 
 		Player* player = game_object->CreateComponent<Player>();
 
-
-		//Capacity* capacity = game_object->CreateCapacity<InversionGravite>();
-
-		DoubleJump* capacity = game_object->CreateCapacity<DoubleJump>();
-		capacity->SetName("DoubleJump");
-		capacity->SetDoubleJump(true);
-
-		/*Capacity* capacity = game_object->CreateCapacity<Invincibilite>();*/
-
-		//Capacity* capacity = game_object->CreateCapacity<Force>();
-
-		//Capacity* capacity = game_object->CreateCapacity<Dash>();
-
-
+		if (capacity_for_big_doll.GetName() == "INVERSION DE LA GRaVITE") {
+			InversionGravite* capacity = player->SetCapacity<InversionGravite>();
+			capacity->SetName("InversionGravite");
+			capacity->SetOwner(game_object);
+		}
+		else if (capacity_for_big_doll.GetName() == "INVINCIbILITE") {
+			Invincibilite* capacity = player->SetCapacity<Invincibilite>();
+			capacity->SetName("Invincibilite");
+			capacity->SetOwner(game_object);
+		}
+		else if (capacity_for_big_doll.GetName() == "DOUbLE-SaUT") {
+			DoubleJump* capacity = player->SetCapacity<DoubleJump>();
+			capacity->SetName("DoubleJump");
+			capacity->SetDoubleJump(true);
+			capacity->SetOwner(game_object);
+		}
+		else if (capacity_for_big_doll.GetName() == "DaSH") {
+			Dash* capacity = player->SetCapacity<Dash>();
+			capacity->SetName("Dash");
+			capacity->SetOwner(game_object);
+		}
+		else if (capacity_for_big_doll.GetName() == "fORCE") {
+			Force* capacity = player->SetCapacity<Force>();
+			capacity->SetName("Force");
+			capacity->SetOwner(game_object);
+		}
 
 		return game_object;
 	}

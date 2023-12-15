@@ -1,5 +1,5 @@
 #include "Scene.h"
-
+#include "Capacity.h"
 #include "Modules/SceneModule.h" 
 #include "Engine.h"
 
@@ -9,6 +9,8 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
+
+class Capacity;
 
 Scene::Scene(const std::string& _name)
 {

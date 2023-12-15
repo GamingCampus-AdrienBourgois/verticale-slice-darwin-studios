@@ -39,7 +39,7 @@ void Player::Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key,
 	}
 	if (can_jump && !is_jumping) {
 		for (auto& input : *pressed_input) {
- 			if (input.first == 57 && input.second == true) {
+			if (input.first == 57 && input.second == true) {
 				is_jumping = true;
 				jumping_time.restart();
 
@@ -55,7 +55,7 @@ void Player::Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key,
 	}
 
 	if (is_jumping && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["up"]) {
- 		if (jumping_time.getElapsedTime().asSeconds() <= 0.4) {
+		if (jumping_time.getElapsedTime().asSeconds() <= 0.4) {
 			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() - (500 * _delta_time)));
 		}
 		else if (jumping_time.getElapsedTime().asSeconds() <= 0.45) {
@@ -146,6 +146,29 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 			big_dollOff = CreateDollOff(DollOffType, "big_doll_off", position, actuall_color);
 			GetOwner()->SetPosition(Maths::Vector2f(position.GetX(), position.GetY() - sizePlayer * 1.5));
 			GetOwner()->GetComponent<RectangleShapeRenderer>()->SetColor(colorMid);
+			Capacity* capacity_for_mid_doll = scene->GetMidCapacity();
+
+			if (capacity_for_mid_doll->GetName() == "INVERSION DE LA GRaVITE") {
+				InversionGravite* capacity = SetCapacity<InversionGravite>();
+				capacity->SetName("InversionGravite");
+			}
+			else if (capacity_for_mid_doll->GetName() == "INVINCIbILITE") {
+				Invincibilite* capacity = SetCapacity<Invincibilite>();
+				capacity->SetName("Invincibilite");
+			}
+			else if (capacity_for_mid_doll->GetName() == "DOUbLE-SaUT") {
+				DoubleJump* capacity = SetCapacity<DoubleJump>();
+				capacity->SetName("DoubleJump");
+				capacity->SetDoubleJump(true);
+			}
+			else if (capacity_for_mid_doll->GetName() == "DaSH") {
+				Dash* capacity = SetCapacity<Dash>();
+				capacity->SetName("Dash");
+			}
+			else if (capacity_for_mid_doll->GetName() == "fORCE") {
+				Force* capacity = SetCapacity<Force>();
+				capacity->SetName("Force");
+			}
 
 			//// Création du Checkpoint
 			// Copie des GameObjects
@@ -160,6 +183,8 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 			////
 
 
+
+
 			actuall_doll_int++;
 		}
 		else if (actuall_doll_int == 1)
@@ -167,6 +192,29 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 			mid_dollOff = CreateDollOff(DollOffType, "mid_doll_off", position, actuall_color);
 			GetOwner()->SetPosition(Maths::Vector2f(position.GetX(), position.GetY() - sizePlayer * 1.5));
 			GetOwner()->GetComponent<RectangleShapeRenderer>()->SetColor(colorSmall);
+			Capacity* capacity_for_small_doll = scene->GetSmallCapacity();
+
+			if (capacity_for_small_doll->GetName() == "INVERSION DE LA GRaVITE") {
+				InversionGravite* capacity = SetCapacity<InversionGravite>();
+				capacity->SetName("InversionGravite");
+			}
+			else if (capacity_for_small_doll->GetName() == "INVINCIbILITE") {
+				Invincibilite* capacity = SetCapacity<Invincibilite>();
+				capacity->SetName("Invincibilite");
+			}
+			else if (capacity_for_small_doll->GetName() == "DOUbLE-SaUT") {
+				DoubleJump* capacity = SetCapacity<DoubleJump>();
+				capacity->SetName("DoubleJump");
+				capacity->SetDoubleJump(true);
+			}
+			else if (capacity_for_small_doll->GetName() == "DaSH") {
+				Dash* capacity = SetCapacity<Dash>();
+				capacity->SetName("Dash");
+			}
+			else if (capacity_for_small_doll->GetName() == "fORCE") {
+				Force* capacity = SetCapacity<Force>();
+				capacity->SetName("Force");
+			}
 
 			//// Création du Checkpoint
 			// Copie des GameObjects
@@ -274,8 +322,7 @@ void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Ke
 	}
 	
 
-	/*GetOwner()->GetCapacity<Force>()->Update(_delta_time, pressed_input);*/
-	//GetOwner()->GetCapacity<Dash>()->Update(_delta_time, scene->GetGameObjects());
+	GetCapacity()->Update(_delta_time, pressed_input);
 
 	GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("up", true);
 	GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("down", true);
@@ -329,4 +376,13 @@ void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Ke
 			can_switch = true;
 		}
 	}
+}
+
+template<typename T>
+T* Player::SetCapacity()
+{
+	T* _capacity = new T();
+	_capacity->SetOwner(this);
+	capacity = _capacity;
+	return _capacity;
 }

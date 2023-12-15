@@ -63,7 +63,7 @@ private:
 	Maths::Vector2<float> scale = Maths::Vector2f::One;
 
 	std::vector<Component*> components;
-	std::vector<Capacity*> capacitys;
+
 	bool switchOn = false;
 };
 
@@ -82,28 +82,6 @@ T* GameObject::GetComponent()
 	for (Component* component : components)
 	{
 		T* result = dynamic_cast<T*>(component);
-		if (result != nullptr)
-			return result;
-	}
-
-	return nullptr;
-}
-
-template<typename T>
-T* GameObject::CreateCapacity()
-{
-	T* capacity = new T();
-	capacity->SetOwner(this);
-	capacitys.push_back(capacity);
-	return capacity;
-}
-
-template<typename T>
-T* GameObject::GetCapacity()
-{
-	for (Capacity* capacity : capacitys)
-	{
-		T* result = dynamic_cast<T*>(capacity);
 		if (result != nullptr)
 			return result;
 	}
