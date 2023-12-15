@@ -90,7 +90,7 @@ private:
 
 		//Capacity* capacity = game_object->CreateCapacity<Force>();
 
-		//Capacity* capacity = game_object->CreateCapacity<Dash>();
+		Capacity* capacity = game_object->CreateCapacity<Dash>();
 
 
 
