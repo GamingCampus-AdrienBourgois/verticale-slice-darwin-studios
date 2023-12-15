@@ -47,11 +47,11 @@ void DefaultScene::SpawnObjectLevel3() {
 	CreateColliderObject(this, ColliderType, "Lampe", Maths::Vector2f(sizeX * 57.4737, sizeY * 55.6), Maths::Vector2f(sizeX * 0.421053, sizeY * 8.2));
 	CreateColliderObject(this, ColliderType, "Lampe", Maths::Vector2f(sizeX * 58.1579, sizeY * 58.2), Maths::Vector2f(sizeX * 0.631579, sizeY * 5.6));
 
-    //Cadre
-    CreateColliderObject(this, ColliderType, "Cadre", Maths::Vector2f(sizeX * 61.1053, sizeY * 45.8), Maths::Vector2f(sizeX * 10.7368, sizeY * 13));
+    //Cadre_du_bas
+    CreateColliderObject(this, ColliderType, "Cadre_du_bas", Maths::Vector2f(sizeX * 65.5789, sizeY * 45.9), Maths::Vector2f(sizeX * 10.7895, sizeY * 12.9));
 
-	//Cadre2
-	CreateColliderObject(this, ColliderType, "Cadre2", Maths::Vector2f(sizeX * 71.7895, sizeY * 23.7), Maths::Vector2f(sizeX * 11.6316, sizeY * 14));
+	//Cadre_du_haut
+	CreateColliderObject(this, ColliderType, "Cadre_du_haut", Maths::Vector2f(sizeX * 71.7895, sizeY * 23.7), Maths::Vector2f(sizeX * 11.6316, sizeY * 14));
 
 	//Bibliotheque
 	CreateColliderObject(this, ColliderType, "Bibliotheque", Maths::Vector2f(sizeX * 86.3158, sizeY * 10.9), Maths::Vector2f(sizeX * 10.3684, sizeY * 85.7));
