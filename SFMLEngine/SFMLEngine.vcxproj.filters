@@ -33,6 +33,7 @@
     <ClCompile Include="src\Maths\Vector2.cpp" />
     <ClCompile Include="src\Capcity\Invincibilite.cpp" />
     <ClCompile Include="src\Capcity\InversionGravite.cpp" />
+    <ClCompile Include="src\Capcity\DoubleJump.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Capacity\Dash.h" />
@@ -61,6 +62,7 @@
     <ClInclude Include="include\Modules\WindowModule.h" />
     <ClInclude Include="include\Modules\InputModule.h" />
     <ClInclude Include="include\Capacity\Invincibilite.h" />
+    <ClInclude Include="include\Capacity\DoubleJump.h" />
     <ClInclude Include="include\Capacity\InversionGravite.h" />
   </ItemGroup>
   <ItemGroup>
