@@ -86,6 +86,10 @@ private:
 
 		//Capacity* capacity = game_object->CreateCapacity<InversionGravite>();
 
+		DoubleJump* capacity = game_object->CreateCapacity<DoubleJump>();
+		capacity->SetName("DoubleJump");
+		capacity->SetDoubleJump(true);
+
 		/*Capacity* capacity = game_object->CreateCapacity<Invincibilite>();*/
 
 		//Capacity* capacity = game_object->CreateCapacity<Force>();
