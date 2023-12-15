@@ -222,29 +222,29 @@ void Player::ReturnCheckpoint(Scene* scene, std::unordered_map<sf::Keyboard::Key
 	}
 }
 
-bool Player::Dead(std::vector<GameObject*>* gameObjects)
-{
-	if (hp <= 0)
-	{
-		std::cout << "T'es mort!!" << std::endl;
-		GetOwner()->RemoveComponent(GetOwner()->GetComponent<Player>());
-		GetOwner()->RemoveComponent(GetOwner()->GetComponent<SpriteRenderer>());
-		GetOwner()->RemoveComponent(GetOwner()->GetComponent<SquareCollider>());
-		for (auto it = gameObjects->begin(); it != gameObjects->end(); ++it)
-		{
-			if (*it == GetOwner())
-			{
-				delete GetOwner();
-				gameObjects->erase(it);
-				return true;
-			}
-		}
-	}
-	else
-	{
-		return false;
-	}
-}
+//bool Player::Dead(std::vector<GameObject*>* gameObjects)
+//{
+	//if (hp <= 0)
+	//{
+	//	std::cout << "T'es mort!!" << std::endl;
+	//	GetOwner()->RemoveComponent(GetOwner()->GetComponent<Player>());
+	//	GetOwner()->RemoveComponent(GetOwner()->GetComponent<SpriteRenderer>());
+	//	GetOwner()->RemoveComponent(GetOwner()->GetComponent<SquareCollider>());
+	//	for (auto it = gameObjects->begin(); it != gameObjects->end(); ++it)
+	//	{
+	//		if (*it == GetOwner())
+	//		{
+	//			delete GetOwner();
+	//			gameObjects->erase(it);
+	//			return true;
+	//		}
+	//	}
+	//}
+	//else
+	//{
+	//	return false;
+	//}
+//}
 
 
 void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) {
@@ -278,7 +278,7 @@ void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Ke
 	Jump(_delta_time, pressed_input, scene->GetGameObjects());
 	SwitchDoll(pressed_input, scene);
 	ReturnCheckpoint(scene, pressed_input);
-	Dead(scene->GetGameObjects());
+	//Dead(scene->GetGameObjects());
 
 	int taille_perso = sizeWindow.y / 22;
 
@@ -303,7 +303,10 @@ void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Ke
 	if (GetOwner()->GetPosition().GetX() + taille_perso >= sizeWindow.x) {
 	GetOwner()->SetPosition(Maths::Vector2f(sizeWindow.x - taille_perso, GetOwner()->GetPosition().GetY()));
 	}
-	if (GetOwner()->GetPosition().GetY() + taille_perso <= sizeWindow.y - 100 && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["down"]) {
+
+	bool temp = GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["down"];
+
+	if (GetOwner()->GetPosition().GetY() + taille_perso <= sizeWindow.y - 100 && temp) {
 		GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() + (gravity * _delta_time)));
 		can_jump = false;
 		can_switch = false;	
