@@ -80,6 +80,7 @@
     <ClInclude Include="include\Modules\WindowModule.h" />
     <ClInclude Include="include\Modules\InputModule.h" />
     <ClInclude Include="include\Capacity\Invincibilite.h" />
+    <ClInclude Include="include\Capacity\DoubleJump.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="include\Maths\Vector2.inl" />

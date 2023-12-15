@@ -41,6 +41,7 @@
     <ClCompile Include="src\Modules\TimeModule.cpp" />
     <ClCompile Include="src\Modules\WindowModule.cpp" />
     <ClInclude Include="include\Capacity\Dash.h" />
+    <ClInclude Include="include\Capacity\DoubleJump.h" />
     <ClInclude Include="include\Capacity\Force.h" />
     <ClInclude Include="include\Capacity\Invincibilite.h" />
     <ClInclude Include="include\Components\Button.h" />

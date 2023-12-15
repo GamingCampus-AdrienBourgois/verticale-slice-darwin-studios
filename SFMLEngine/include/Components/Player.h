@@ -2,6 +2,8 @@
 #include "Doll.h"
 #include "Engine.h"
 
+#include "Capacity/DoubleJump.h"
+
 #include "Modules/WindowModule.h"
 #include "Modules/SceneModule.h"
 #include "Scene.h"
@@ -13,23 +15,39 @@ public:
 	void SetHp(int new_hp) { hp = new_hp; }
 	void SetSpeed(int new_speed) { speed = new_speed; }
 	void SetGravity(int _gravity) { gravity = _gravity; }
+	void SetSize(int _size) { sizePlayer = _size; }
+	void SetCapacity(Capacity* _capacity) { currentCapacity = _capacity; }
 
 	int GetHp() { return hp; }
 	int GetSpeed() { return speed; }
 	int GetGravity() { return gravity; }
+	int GetSize() { return sizePlayer; }
+	Capacity* GetCapacity() { return currentCapacity; }
 
 	bool Dead(std::vector<GameObject*>* gameObjects);
 	void Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) override;
 
 private:
+	// Get modules
+	Engine* engine = Engine::GetInstance();
+	ModuleManager* moduleManager = engine->GetModuleManager();
+
+	WindowModule* windowModule = moduleManager->GetModule<WindowModule>();
+	sf::Vector2u sizeWindow = windowModule->GetWindowSize();
+
+	SceneModule* sceneModule = moduleManager->GetModule<SceneModule>();
+
+	// // Variables
 	int hp = 1000;
 	int speed = 300;
 	int gravity = 100;
+	int sizePlayer = sizeWindow.y / 22;
 
 	// Variables jump & switch
 	bool can_jump = false;
 	bool is_jumping = false;
 	sf::Clock jumping_time;
+	bool jumpLeft = false;
 
 	bool can_switch = false;
 	bool is_switching = false;
@@ -43,7 +61,7 @@ private:
 	GameObject* big_dollOff = nullptr;
 	GameObject* mid_dollOff = nullptr;
 
-
+	// Checkpoint
 	bool copiedSpawn = false;
 	std::vector<GameObject*> gameObjectsCheckpoint;
 
@@ -51,19 +69,19 @@ private:
 	sf::Color colorMid = sf::Color::Blue;
 	sf::Color colorSmall = sf::Color::Green;
 
+	// Power
+	bool setCapacityPlayer = false;
+	Capacity* currentCapacity = nullptr;
 
-	// Get modules
-	Engine* engine = Engine::GetInstance();
-	ModuleManager* moduleManager = engine->GetModuleManager();
+	DoubleJump* capacityJump = nullptr;
 
-	WindowModule* windowModule = moduleManager->GetModule<WindowModule>();
-	sf::Vector2u sizeWindow = windowModule->GetWindowSize();
-	
-	SceneModule* sceneModule = moduleManager->GetModule<SceneModule>();
+
+
+
 
 	// Functions
 	void Move(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, std::vector<GameObject*>* gameObjects );
-	void Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, std::vector<GameObject*>* gameObjects );
+	void Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, std::vector<GameObject*>* gameObjects, DoubleJump* capacityJump);
 
 	GameObject* CreateDollOff(const ObjectType& _type, std::string _name, Maths::Vector2f _position, const sf::Color _color);
 	void SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, Scene* scene);
