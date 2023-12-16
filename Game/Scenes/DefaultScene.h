@@ -16,11 +16,11 @@ public:
 
 	sf::Vector2u window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize();
 
-	DefaultScene(std::vector<Capacity>* params) : Scene("DefaultScene")
+	DefaultScene(std::vector<Capacity> params) : Scene("DefaultScene")
 	{
-		GetBigCapacity()->SetName((*params)[0].GetName());
-		GetMidCapacity()->SetName((*params)[1].GetName());
-		GetSmallCapacity()->SetName((*params)[2].GetName());
+		GetBigCapacity()->SetName(params[0].GetName());
+		GetMidCapacity()->SetName(params[1].GetName());
+		GetSmallCapacity()->SetName(params[2].GetName());
 		SpawnObjectLevel3();
 		GameObject* player = CreatePlayer(PlayerType, "Player", Maths::Vector2f(100, 40), sf::Color::Red);
 	}

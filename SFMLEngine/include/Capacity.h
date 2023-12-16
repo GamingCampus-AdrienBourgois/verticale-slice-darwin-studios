@@ -9,6 +9,7 @@ class Capacity
 {
 public:
 	Capacity() = default;
+	virtual ~Capacity() = default;
 
 	std::string GetName() { return name; }
 	std::string GetDescription() { return description; }

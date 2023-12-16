@@ -41,15 +41,6 @@ public:
 	void AddComponent(Component* _component);
 	void RemoveComponent(Component* _component);
 
-	template<typename T>
-	T* CreateCapacity();
-
-	template<typename T>
-	T* GetCapacity();
-
-	void AddCapacity(Capacity* _capacity);
-	void RemoveCapacity(Capacity* _capacity);
-
 	void Update(float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) const;
 	void Render(sf::RenderWindow* _window) const;
 	sf::FloatRect getBounds(sf::RectangleShape object) const;

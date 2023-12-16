@@ -26,6 +26,10 @@ void Player::Move(const float _delta_time, std::unordered_map<sf::Keyboard::Key,
 }
 
 void Player::Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, std::vector<GameObject*>* gameObjects) {
+	if (!GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["down"] && is_jumping) {
+		is_jumping = false;
+		is_double_jumping = false;
+	}
 	if (is_jumping && can_double_jump && !is_double_jumping) {
 		for (const auto& input : *pressed_input) {
 			if (input.first == 57 && input.second == true) {
@@ -77,8 +81,7 @@ void Player::Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key,
 			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() - (0 * _delta_time)));
 		}
 		else{
-			is_jumping = false;
-			is_double_jumping = false;
+			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() + (200 * _delta_time)));
 			can_jump = false;
 		}
 	}
@@ -148,6 +151,9 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 			GetOwner()->GetComponent<RectangleShapeRenderer>()->SetColor(colorMid);
 			Capacity* capacity_for_mid_doll = scene->GetMidCapacity();
 
+			delete capacity;
+			capacity = nullptr;
+
 			if (capacity_for_mid_doll->GetName() == "INVERSION DE LA GRaVITE") {
 				InversionGravite* new_capacity = SetCapacity<InversionGravite>();
 				new_capacity->SetName("InversionGravite");
@@ -204,31 +210,39 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 			GetOwner()->GetComponent<RectangleShapeRenderer>()->SetColor(colorSmall);
 			Capacity* capacity_for_small_doll = scene->GetSmallCapacity();
 
+			delete capacity;
+			capacity = nullptr;
+
 			if (capacity_for_small_doll->GetName() == "INVERSION DE LA GRaVITE") {
-				InversionGravite* capacity = SetCapacity<InversionGravite>();
-				capacity->SetName("InversionGravite");
-				capacity->SetCapacityOwner(GetOwner());
+				InversionGravite* new_capacity = SetCapacity<InversionGravite>();
+				new_capacity->SetName("InversionGravite");
+				new_capacity->SetCapacityOwner(GetOwner());
+				capacity = new_capacity;
 			}
 			else if (capacity_for_small_doll->GetName() == "INVINCIbILITE") {
-				Invincibilite* capacity = SetCapacity<Invincibilite>();
-				capacity->SetName("Invincibilite");
-				capacity->SetCapacityOwner(GetOwner());
+				Invincibilite* new_capacity = SetCapacity<Invincibilite>();
+				new_capacity->SetName("Invincibilite");
+				new_capacity->SetCapacityOwner(GetOwner());
+				capacity = new_capacity;
 			}
 			else if (capacity_for_small_doll->GetName() == "DOUbLE-SaUT") {
-				DoubleJump* capacity = SetCapacity<DoubleJump>();
-				capacity->SetName("DoubleJump");
-				capacity->SetCapacityOwner(GetOwner());
-				capacity->SetDoubleJump(true);
+				DoubleJump* new_capacity = SetCapacity<DoubleJump>();
+				new_capacity->SetName("DoubleJump");
+				new_capacity->SetCapacityOwner(GetOwner());
+				new_capacity->SetDoubleJump(true);
+				capacity = new_capacity;
 			}
 			else if (capacity_for_small_doll->GetName() == "DaSH") {
-				Dash* capacity = SetCapacity<Dash>();
-				capacity->SetName("Dash");
-				capacity->SetCapacityOwner(GetOwner());
+				Dash* new_capacity = SetCapacity<Dash>();
+				new_capacity->SetName("Dash");
+				new_capacity->SetCapacityOwner(GetOwner());
+				capacity = new_capacity;
 			}
 			else if (capacity_for_small_doll->GetName() == "fORCE") {
-				Force* capacity = SetCapacity<Force>();
-				capacity->SetName("Force");
-				capacity->SetCapacityOwner(GetOwner());
+				Force* new_capacity = SetCapacity<Force>();
+				new_capacity->SetName("Force");
+				new_capacity->SetCapacityOwner(GetOwner());
+				capacity = new_capacity;
 			}
 
 			//// Création du Checkpoint

@@ -25,22 +25,21 @@ void SceneModule::Render()
 {
 	Module::Render();
 
-	mainScene->Render(windowModule->GetWindow());
-	/*for (const Scene* scene : scenes)
+	for (const Scene* scene : scenes)
 	{
 		scene->Render(windowModule->GetWindow());
-	}*/
+	}
 }
 
 void SceneModule::Update()
 {
 	Module::Update();
 	std::unordered_map<sf::Keyboard::Key, bool>* pressed_input = moduleManager->GetModule<WindowModule>()->GetPressed();
-	mainScene->Update(timeModule->GetDeltaTime(), pressed_input);
-	/*for (const Scene* scene : scenes)
+
+	for (const Scene* scene : scenes)
 	{
 		scene->Update(timeModule->GetDeltaTime(), pressed_input);
-	}*/
+	}
 }
 
 Scene* SceneModule::GetScene(const std::string& _scene_name) const

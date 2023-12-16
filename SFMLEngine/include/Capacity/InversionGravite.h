@@ -10,6 +10,6 @@ public:
 private:
 	bool inversion = false;
 	int count = 0;
-	sf::Clock Inversion;
+	sf::Clock inversionClock;
 	int timeInversion = 10;
 };

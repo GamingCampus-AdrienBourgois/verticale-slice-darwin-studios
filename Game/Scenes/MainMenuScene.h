@@ -36,7 +36,8 @@ public:
 	}
 
 	void LaunchCapacityMenu() {
-		Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->SetScene<SelectCapacityScene>();
+		SceneModule* scene_module = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>();
+		scene_module->SetNextScene([scene_module] {scene_module->SetScene<SelectCapacityScene>(); });
 	}
 
 };
