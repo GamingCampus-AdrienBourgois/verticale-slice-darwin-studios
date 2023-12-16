@@ -4,11 +4,11 @@
 #include "SquareCollider.h"
 #include "Player.h"
 #include "WindowModule.h"
-#include <InversionGravite.h>
-#include "Invincibilite.h"
-#include "Force.h"
-#include "Dash.h"
+#include "Capacity.h"
 
+
+
+class Capacity;
 
 class DefaultScene final : public Scene
 {
@@ -18,9 +18,9 @@ public:
 
 	DefaultScene(std::vector<Capacity> params) : Scene("DefaultScene")
 	{
-		capacity_for_big_doll = params[0];
-		capacity_for_mid_doll = params[1];
-		capacity_for_small_doll = params[2];
+		GetBigCapacity()->SetName(params[0].GetName());
+		GetMidCapacity()->SetName(params[1].GetName());
+		GetSmallCapacity()->SetName(params[2].GetName());
 		SpawnObjectLevel3();
 		GameObject* player = CreatePlayer(PlayerType, "Player", Maths::Vector2f(100, 40), sf::Color::Red);
 	}
@@ -60,9 +60,6 @@ public:
 	}
 
 private:
-	Capacity capacity_for_big_doll;
-	Capacity capacity_for_mid_doll;
-	Capacity capacity_for_small_doll;
 
 	void SpawnObjectLevel3();
 
@@ -83,20 +80,32 @@ private:
 
 		Player* player = game_object->CreateComponent<Player>();
 
-
-		//Capacity* capacity = game_object->CreateCapacity<InversionGravite>();
-
-		DoubleJump* capacity = game_object->CreateCapacity<DoubleJump>();
-		capacity->SetName("DoubleJump");
-		capacity->SetDoubleJump(true);
-
-		/*Capacity* capacity = game_object->CreateCapacity<Invincibilite>();*/
-
-		//Capacity* capacity = game_object->CreateCapacity<Force>();
-
-		//Capacity* capacity = game_object->CreateCapacity<Dash>();
-
-
+		if (GetBigCapacity()->GetName() == "INVERSION DE LA GRaVITE") {
+			InversionGravite* capacity = player->SetCapacity<InversionGravite>();
+			capacity->SetName("InversionGravite");
+			capacity->SetCapacityOwner(game_object);
+		}
+		else if (GetBigCapacity()->GetName() == "INVINCIbILITE") {
+			Invincibilite* capacity = player->SetCapacity<Invincibilite>();
+			capacity->SetName("Invincibilite");
+			capacity->SetCapacityOwner(game_object);
+		}
+		else if (GetBigCapacity()->GetName() == "DOUbLE-SaUT") {
+			DoubleJump* capacity = player->SetCapacity<DoubleJump>();
+			capacity->SetName("DoubleJump");
+			capacity->SetCapacityOwner(game_object);
+			capacity->SetDoubleJump(true);
+		}
+		else if (GetBigCapacity()->GetName() == "DaSH") {
+			Dash* capacity = player->SetCapacity<Dash>();
+			capacity->SetName("Dash");
+			capacity->SetCapacityOwner(game_object);
+		}
+		else if (GetBigCapacity()->GetName() == "fORCE") {
+			Force* capacity = player->SetCapacity<Force>();
+			capacity->SetName("Force");
+			capacity->SetCapacityOwner(game_object);
+		}
 
 		return game_object;
 	}

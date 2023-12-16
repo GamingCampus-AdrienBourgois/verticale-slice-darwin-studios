@@ -5,6 +5,7 @@
 #include "Scene.h"
 #include "TimeModule.h"
 #include "WindowModule.h"
+#include <functional>
 
 class SceneModule final : public Module
 {
@@ -16,6 +17,8 @@ public:
 	void Render() override;
 	void Update() override;
 
+	void SetNextScene(std::function<void()> _next_scene) { nextScene = _next_scene; }
+
 	template<typename T>
 	Scene* SetScene(bool _replace_scenes = true);
 
@@ -24,12 +27,14 @@ public:
 
 	Scene* GetMainScene() const { return mainScene; }
 	Scene* GetScene(const std::string& _scene_name) const;
+	std::function<void()> GetNextScene() { return nextScene; }
 
 	sf::Font GetFont() { return font; }
 
 private:
 	std::vector<Scene*> scenes;
 	Scene* mainScene = nullptr;
+	std::function<void()> nextScene;
 
 	WindowModule* windowModule = nullptr;
 	TimeModule* timeModule = nullptr;

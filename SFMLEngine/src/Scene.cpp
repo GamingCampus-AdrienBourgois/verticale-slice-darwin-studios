@@ -1,5 +1,5 @@
 #include "Scene.h"
-
+#include "Capacity.h"
 #include "Modules/SceneModule.h" 
 #include "Engine.h"
 
@@ -9,6 +9,8 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
+
+class Capacity;
 
 Scene::Scene(const std::string& _name)
 {
@@ -20,7 +22,6 @@ Scene::Scene(const std::string& _name)
 	SceneModule* sceneModule = moduleManager->GetModule<SceneModule>();
 	font_scene = sceneModule->GetFont();
 }
-
 
 void Scene::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) const
 {

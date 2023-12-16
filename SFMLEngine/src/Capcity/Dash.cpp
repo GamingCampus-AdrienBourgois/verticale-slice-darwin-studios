@@ -46,6 +46,7 @@ void Dash::IsDashing(const float _delta_time, std::vector<GameObject*>* gameObje
     }
 }
 
-void Dash::Update(const float _delta_time, std::vector<GameObject*>* gameObjects) {
+void Dash::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) {
+    std::vector<GameObject*>* gameObjects = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetMainScene()->GetGameObjects();
     IsDashing(_delta_time, gameObjects);
 }

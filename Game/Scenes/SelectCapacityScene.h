@@ -41,6 +41,7 @@ public:
 		params.push_back(*scene->FindGameObject("doll_button1")->GetComponent<Button>()->has_select->GetComponent<Button>()->GetObject());
 		params.push_back(*scene->FindGameObject("doll_button2")->GetComponent<Button>()->has_select->GetComponent<Button>()->GetObject());
 		params.push_back(*scene->FindGameObject("doll_button3")->GetComponent<Button>()->has_select->GetComponent<Button>()->GetObject());
-		Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->SetSceneWithParams<DefaultScene>(true, params);
+		SceneModule* scene_module = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>();
+		scene_module->SetNextScene([scene_module, params] {scene_module->SetSceneWithParams<DefaultScene>(true, params); });
 	}
 };

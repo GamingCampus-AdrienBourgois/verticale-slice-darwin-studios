@@ -8,9 +8,18 @@
 #include "Modules/SceneModule.h"
 #include "Scene.h"
 
+#include "Capacity/Dash.h"
+#include "Capacity/DoubleJump.h"
+#include "Capacity/Force.h"
+#include "Capacity/InversionGravite.h"
+#include "Capacity/Invincibilite.h"
+
 class Player : public Component
 {
 public:
+
+	template<typename T>
+	T* SetCapacity();
 
 	void SetHp(int new_hp) { hp = new_hp; }
 	void SetSpeed(int new_speed) { speed = new_speed; }
@@ -22,6 +31,7 @@ public:
 	int GetSpeed() { return speed; }
 	int GetGravity() { return gravity; }
 	int GetSize() { return sizePlayer; }
+	Capacity* GetCapacity() { return capacity; }
 
 	//bool Dead(std::vector<GameObject*>* gameObjects);
 	void Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) override;
@@ -60,6 +70,8 @@ private:
 
 	GameObject* big_dollOff = nullptr;
 	GameObject* mid_dollOff = nullptr;
+
+	Capacity* capacity = nullptr;
 
 	// Checkpoint
 	bool copiedSpawn = false;
