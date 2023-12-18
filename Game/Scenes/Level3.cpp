@@ -54,11 +54,14 @@ void DefaultScene::SpawnObjectLevel3() {
 	//Lit
 	CreateColliderObject(this, ColliderType, "lit_pied_gauche", Maths::Vector2f(sizeX * 16.3021, sizeY * 85.2778), Maths::Vector2f(sizeX * 2.29167, sizeY * 8.7963));
 	CreateColliderObject(this, ColliderType, "Lit_pied_droite", Maths::Vector2f(sizeX * 42.7083, sizeY * 85.2778), Maths::Vector2f(sizeX * 1.40625, sizeY * 9.25926));
-	CreateColliderObject(this, ColliderType, "Lit_matelas", Maths::Vector2f(sizeX * 18.75, sizeY * 78.7037), Maths::Vector2f(sizeX * 23.9583, sizeY * 6.38889));
+	CreateColliderObject(this, ColliderType, "Lit_matelas", Maths::Vector2f(sizeX * 18.75, sizeY * 79.1667), Maths::Vector2f(sizeX * 23.9583, sizeY * 6.38889));
 	CreateColliderObject(this, ColliderType, "Lit_appuis_tete", Maths::Vector2f(sizeX * 18.9062, sizeY * 68.4259), Maths::Vector2f(sizeX * 23.2292, sizeY * 1.11111));
 
 	//Bureau
-	CreateColliderObject(this, ColliderType, "Bureau", Maths::Vector2f(sizeX * 62.9687, sizeY * 71.3889), Maths::Vector2f(sizeX * 20.9375, sizeY * 19.0741));
+	CreateColliderObject(this, ColliderType, "Bureau", Maths::Vector2f(sizeX * 63.0729, sizeY * 71.3889), Maths::Vector2f(sizeX * 20.7292, sizeY * 2.7963));
+
+	//Tabouret
+	CreateColliderObject(this, ColliderType, "Tabouret", Maths::Vector2f(sizeX * 71.0938, sizeY * 80.463), Maths::Vector2f(sizeX * 4.53125, sizeY * 1.94444));
 
 	//Trou de souris
 	CreateColliderObject(this, ColliderType, "Trou_de_souris", Maths::Vector2f(sizeX * 96.5104, sizeY * 83.8889), Maths::Vector2f(sizeX * 2.96875, sizeY * 3.33333));
