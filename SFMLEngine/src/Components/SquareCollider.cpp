@@ -16,6 +16,8 @@ bool SquareCollider::IsColliding(const SquareCollider& _collider_a, const Square
 	sf::FloatRect playerBounds = _collider_a.GetOwner()->getBounds(rPlayer);
 	sf::FloatRect objectBounds = _collider_b.GetOwner()->getBounds(rObject);
 
+	bool collison_for_jumping_obj = false;
+
 	if(playerBounds.intersects(objectBounds))
 	{
 		int collisionWidth = std::min(playerBounds.left + playerBounds.width, objectBounds.left + objectBounds.width) - std::max(playerBounds.left, objectBounds.left);
@@ -36,7 +38,12 @@ bool SquareCollider::IsColliding(const SquareCollider& _collider_a, const Square
 		// top collision
 		else if (playerBounds.top > objectBounds.top && playerBounds.top <= objectBounds.top + objectBounds.height && ((playerBounds.left <= objectBounds.left && playerBounds.left + playerBounds.width >= objectBounds.left) || (playerBounds.left >= objectBounds.left && playerBounds.left <= objectBounds.left + objectBounds.width)) && (collisionWidth > collisionHeight && collisionWidth > 5))
 		{
-			_collider_a.GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("up", false);
+			if (_collider_b.GetOwner()->GetName() == "Lit_appuis_tete" || _collider_b.GetOwner()->GetName() == "Bureau") {
+				collison_for_jumping_obj = true;
+			}
+			else {
+				_collider_a.GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("up", false);
+			}
 		}	
 		// bottom collision with loss of life
 		if (playerBounds.top <= objectBounds.top && playerBounds.top + playerBounds.height >= objectBounds.top && ((playerBounds.left <= objectBounds.left && playerBounds.left + playerBounds.width >= objectBounds.left) || (playerBounds.left >= objectBounds.left && playerBounds.left <= objectBounds.left + objectBounds.width)) && (collisionWidth > collisionHeight && collisionWidth > 5) && _collider_b.GetOwner()->GetType() == DollOffType)
@@ -54,9 +61,16 @@ bool SquareCollider::IsColliding(const SquareCollider& _collider_a, const Square
 		// bottom collision
 		else if (playerBounds.top <= objectBounds.top && playerBounds.top + playerBounds.height >= objectBounds.top && ((playerBounds.left <= objectBounds.left && playerBounds.left + playerBounds.width >= objectBounds.left) || (playerBounds.left >= objectBounds.left && playerBounds.left <= objectBounds.left + objectBounds.width)) && (collisionWidth > collisionHeight && collisionWidth > 5))
 		{
-			_collider_a.GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("down", false);
+			if ((_collider_b.GetOwner()->GetName() == "Lit_appuis_tete" || _collider_b.GetOwner()->GetName() == "Bureau")) {
+				if (playerBounds.top + playerBounds.height - 0.25 <= objectBounds.top) {
+					_collider_a.GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("down", false);
+				}
+			}
+			else {
+				_collider_a.GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("down", false);
+			}
 		}
-		//left collision with loss of life
+		//left collision with loss of life 
 		if (playerBounds.left >= objectBounds.left && playerBounds.left + playerBounds.width >= objectBounds.left + objectBounds.width && ((playerBounds.top <= objectBounds.top && playerBounds.top + playerBounds.height >= objectBounds.top) || (playerBounds.top >= objectBounds.top && playerBounds.top <= objectBounds.top + objectBounds.height)) && (collisionWidth < collisionHeight && collisionHeight > 5) && _collider_b.GetOwner()->GetType() == DollOffType)
 		{
 			if (_collider_a.GetOwner()->GetComponent<Player>()->GetCapacity()->GetName() == "Invincibilite")
@@ -92,7 +106,11 @@ bool SquareCollider::IsColliding(const SquareCollider& _collider_a, const Square
 		else if (playerBounds.left <= objectBounds.left && playerBounds.left + playerBounds.width <= objectBounds.left + objectBounds.width && ((playerBounds.top <= objectBounds.top && playerBounds.top + playerBounds.height >= objectBounds.top) || (playerBounds.top >= objectBounds.top && playerBounds.top <= objectBounds.top + objectBounds.height)) && (collisionWidth < collisionHeight && collisionHeight > 5))
 		{
 			_collider_a.GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("right", false);
-		}		
+		}	
+
+		if (collison_for_jumping_obj) {
+			_collider_a.GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("down", true);
+		}
 		return true;
 	}
 	return false;

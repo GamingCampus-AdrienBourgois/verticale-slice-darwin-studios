@@ -32,6 +32,7 @@ public:
 	int GetGravity() { return gravity; }
 	int GetSize() { return sizePlayer; }
 	Capacity* GetCapacity() { return capacity; }
+	bool GetIsJumping() { return is_jumping; }
 
 	//bool Dead(std::vector<GameObject*>* gameObjects);
 	void Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) override;
