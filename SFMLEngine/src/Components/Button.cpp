@@ -7,8 +7,12 @@
 
 
 void Button::Execute() {
-	if (is_clicked) {
+	if (!callback_execute && is_clicked) {
 		callback();
+		callback_execute = true;
+	}
+	if (!is_clicked) {
+		callback_execute = false;
 	}
 }
 
@@ -146,6 +150,12 @@ void Button::SelectCapacity() {
 			scene->FindGameObject("launch_game_button")->GetComponent<Button>()->is_disabled = false;
 			if (scene->FindGameObject("launch_game_button")->GetComponent<SpriteRenderer>() != nullptr) {
 				scene->FindGameObject("launch_game_button")->GetComponent<SpriteRenderer>()->SetNextSpriteRect(0);
+			}
+		}
+		else {
+			scene->FindGameObject("launch_game_button")->GetComponent<Button>()->is_disabled = true;
+			if (scene->FindGameObject("launch_game_button")->GetComponent<SpriteRenderer>() != nullptr) {
+				scene->FindGameObject("launch_game_button")->GetComponent<SpriteRenderer>()->SetNextSpriteRect(3);
 			}
 		}
 	}

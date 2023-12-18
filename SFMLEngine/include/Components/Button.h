@@ -27,6 +27,7 @@ public:
 	bool is_disabled = false;
 	GameObject* has_select = nullptr;
 	GameObject* is_selected_by = nullptr;
+	bool callback_execute = false;
 
 private:
 
