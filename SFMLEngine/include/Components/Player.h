@@ -82,9 +82,6 @@ private:
 	sf::Color colorSmall = sf::Color::Green;
 
 
-
-
-
 	// Functions
 	void Move(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, std::vector<GameObject*>* gameObjects );
 	void Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, std::vector<GameObject*>* gameObjects);
