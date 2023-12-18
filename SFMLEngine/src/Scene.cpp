@@ -248,3 +248,23 @@ GameObject* Scene::CreateText(const ObjectType& _type, std::string _name, Maths:
 	return game_object;
 }
 
+GameObject* Scene::CreateSpriteObject(Scene* scene, const ObjectType& _type, std::string _name, Maths::Vector2f _position, Maths::Vector2f _size, std::string nom_texture) {
+	GameObject* game_object = scene->CreateGameObject(_type, _name);
+	game_object->SetPosition(_position);
+
+	sf::Vector2u window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize();
+
+	SquareCollider* squareCollider = game_object->CreateComponent<SquareCollider>();
+	squareCollider->SetWidth(_size.x);
+	squareCollider->SetHeight(_size.y);
+
+	RectangleShapeRenderer* shapeRenderer = game_object->CreateComponent<RectangleShapeRenderer>();
+	shapeRenderer->SetColor(sf::Color{ 255,255,255,50 }); // Couleur du mur
+	shapeRenderer->SetSize(Maths::Vector2f(_size.x, _size.y)); // Taille du mur
+
+	SpriteRenderer* sprite = game_object->CreateComponent<SpriteRenderer>();
+	sprite->SetSprite(&texture[nom_texture], Maths::Vector2f(_size.x, _size.y));
+
+	return game_object;
+}
+

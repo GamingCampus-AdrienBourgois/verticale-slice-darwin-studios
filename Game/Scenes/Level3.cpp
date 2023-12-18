@@ -3,6 +3,8 @@
 void DefaultScene::SpawnObjectLevel3() {
     sf::Vector2u window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize();
 
+    SetTexture("livre", "Assets/Object/livre.png");
+
     SetTexture("background", "Assets/background/level_3_background.png");
     SetBackground("background");
 
@@ -13,27 +15,26 @@ void DefaultScene::SpawnObjectLevel3() {
 
     //Etagère + livres
     CreateColliderObject(this, ColliderType, "Etagere", Maths::Vector2f(sizeX * 4.6875, sizeY * 49.33), Maths::Vector2f(sizeX * 15.875, sizeY * 1.44));
-    CreateColliderObject(this, MoveType, "Livre1", Maths::Vector2f(sizeX * 15.6316, sizeY * 37.9), Maths::Vector2f(sizeX * 1.73684, sizeY * 10.7));
-    CreateColliderObject(this, MoveType, "Livre2", Maths::Vector2f(sizeX * 17.3158, sizeY * 33.5), Maths::Vector2f(sizeX * 2.47368, sizeY * 15.1));
+    CreateColliderObject(this, ColliderType, "Livre1", Maths::Vector2f(sizeX * 15.6316, sizeY * 37.9), Maths::Vector2f(sizeX * 1.73684, sizeY * 10.7));
+    CreateColliderObject(this, ColliderType, "Livre2", Maths::Vector2f(sizeX * 17.3158, sizeY * 33.5), Maths::Vector2f(sizeX * 2.47368, sizeY * 15.1));
 
     //Table de chevet
     CreateColliderObject(this, ColliderType, "Table_de_chevet", Maths::Vector2f(sizeX * 4, sizeY * 79.8), Maths::Vector2f(sizeX * 10.2632, sizeY * 20.5));
 
     //Ours
     CreateColliderObject(this, ColliderType, "Ours", Maths::Vector2f(sizeX * 25.2105, sizeY * 79.4), Maths::Vector2f(sizeX * 11.6316, sizeY * 8.2));
-    CreateColliderObject(this, ColliderType, "Ours", Maths::Vector2f(sizeX * 26.1053, sizeY * 60.1), Maths::Vector2f(sizeX * 9.89474, sizeY * 6.1));
-                                              
+    CreateColliderObject(this, ColliderType, "Ours", Maths::Vector2f(sizeX * 26.1053, sizeY * 60.1), Maths::Vector2f(sizeX * 9.89474, sizeY * 6.1));                                       
     CreateColliderObject(this, ColliderType, "Ours", Maths::Vector2f(sizeX * 26.9474, sizeY * 66.1), Maths::Vector2f(sizeX * 8.1579, sizeY * 4.8));
-                                              
     CreateColliderObject(this, ColliderType, "Ours", Maths::Vector2f(sizeX * 27.4211, sizeY * 71.3), Maths::Vector2f(sizeX * 7.26316, sizeY * 2.3));
-    CreateColliderObject(this, ColliderType, "Ours", Maths::Vector2f(sizeX * 28.6842, sizeY * 74.2), Maths::Vector2f(sizeX * 5.31579, sizeY * 1.5));
-                                              
+    CreateColliderObject(this, ColliderType, "Ours", Maths::Vector2f(sizeX * 28.6842, sizeY * 74.2), Maths::Vector2f(sizeX * 5.31579, sizeY * 1.5));                                       
     CreateColliderObject(this, ColliderType, "Ours", Maths::Vector2f(sizeX * 27.3158, sizeY * 77.1), Maths::Vector2f(sizeX * 7.63158, sizeY * 2));
     
        
 
     //Fenêtre
     CreateColliderObject(this, ColliderType, "Fenetre", Maths::Vector2f(sizeX * 22.8421, sizeY * 54.7), Maths::Vector2f(sizeX * 19.2105, sizeY * 1.8));
+    //Livre mouvable
+    CreateSpriteObject(this, MoveType, "LivreMove", Maths::Vector2f(sizeX * 39.7412, sizeY * 40.9), Maths::Vector2f(sizeX * 1.73684, sizeY * 13.7), "livre");
 
     //Carton
     CreateColliderObject(this, ColliderType, "Carton", Maths::Vector2f(sizeX * 43.8947, sizeY * 86.6), Maths::Vector2f(sizeX * 4.73158, sizeY * 14.6));
@@ -76,6 +77,7 @@ void DefaultScene::SpawnObjectLevel3() {
 	//Interrupteur
 	CreateColliderObject(this, ColliderType, "Interrupteur", Maths::Vector2f(sizeX * 37.6316, sizeY * 71.6), Maths::Vector2f(sizeX * 2.36842, sizeY * 2));
        
+    
 
     //Bibliothèque
     //CreateColliderObject(this, ColliderType, "Wall", 20 * sizeWallX, 12 * sizeWallY);
