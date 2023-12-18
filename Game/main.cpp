@@ -3,6 +3,7 @@
 #include "Scenes/DefaultScene.h"
 #include "Scenes/SelectCapacityScene.h"
 #include "Scenes/MainMenuScene.h"
+#include "Scenes/CreditsScene.h"
 
 
 int main()
