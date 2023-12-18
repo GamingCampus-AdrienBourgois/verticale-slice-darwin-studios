@@ -14,7 +14,7 @@ class DefaultScene final : public Scene
 {
 public:
 
-	sf::Vector2u window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize();
+	sf::Vector2f window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize();
 
 	DefaultScene(std::vector<Capacity> params) : Scene("DefaultScene")
 	{
@@ -22,14 +22,14 @@ public:
 		GetMidCapacity()->SetName(params[1].GetName());
 		GetSmallCapacity()->SetName(params[2].GetName());
 		SpawnObjectLevel3();
-		GameObject* player = CreatePlayer(PlayerType, "Player", Maths::Vector2f(100, 40), sf::Color::Red);
+		GameObject* player = CreatePlayer(PlayerType, "Player", Maths::Vector2f(window_size.x*0.1, window_size.y*0.68), sf::Color::Red);
 	}
 
 	GameObject* CreateColliderObject(Scene* scene, const ObjectType& _type, std::string _name, Maths::Vector2f _position, Maths::Vector2f _size) {
 		GameObject* game_object = scene->CreateGameObject(_type, _name);
 		game_object->SetPosition(_position);
 
-		sf::Vector2u window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize();
+		sf::Vector2f window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize();
 
 		SquareCollider* squareCollider = game_object->CreateComponent<SquareCollider>();
 		squareCollider->SetWidth(_size.x);
@@ -46,7 +46,7 @@ public:
 		GameObject* game_object = scene->CreateGameObject(_type, _name);
 		game_object->SetPosition(Maths::Vector2f(_x, _y));
 
-		sf::Vector2u window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize();
+		sf::Vector2f window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize();
 
 		SquareCollider* squareCollider = game_object->CreateComponent<SquareCollider>();
 		squareCollider->SetWidth(window_size.x / 33);
