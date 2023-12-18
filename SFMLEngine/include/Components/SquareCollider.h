@@ -20,6 +20,11 @@ public:
 	void SetCanMoving(std::string direction, bool move) { CanMoving[direction] = move; }
 
 	static bool IsColliding(const SquareCollider& _collider_a, const SquareCollider& _collider_b, const float _delta_time);
+	static bool CheckCollisionBottom(const SquareCollider& _collider_a, const SquareCollider& _collider_b);
+	static bool CheckCollisionRight(const SquareCollider& _collider_a, const SquareCollider& _collider_b);
+	static bool CheckCollisionLeft(const SquareCollider& _collider_a, const SquareCollider& _collider_b);
+
+
 
 private:
 	std::unordered_map<std::string, bool> CanMoving = { {"up", true}, {"down", true}, {"left", true}, {"right", true} };

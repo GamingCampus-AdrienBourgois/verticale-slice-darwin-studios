@@ -64,6 +64,15 @@ void WindowModule::Update()
 								if (spriteRenderer != nullptr) {
 									spriteRenderer->SetNextSpriteRect(0);
 								}
+								if (button->GetName() == "capacity_button") {
+									button->GetComponent<Button>()->has_select = nullptr;
+									button->GetComponent<Button>()->is_selected_by = nullptr;
+									button->GetComponent<Button>()->callback_execute = false;
+									scene->FindGameObject("launch_game_button")->GetComponent<Button>()->is_disabled = true;
+									if (scene->FindGameObject("launch_game_button")->GetComponent<SpriteRenderer>() != nullptr) {
+										scene->FindGameObject("launch_game_button")->GetComponent<SpriteRenderer>()->SetNextSpriteRect(3);
+									}
+								}
 							}
 							else {
 								button->GetComponent<Button>()->is_clicked = true;

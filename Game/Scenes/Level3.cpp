@@ -4,8 +4,10 @@
 void DefaultScene::SpawnObjectLevel3() {
 	sf::Vector2f window_size = sf::Vector2f(Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize().x, Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize().y);
 
-	SetTexture("background", "Assets/background/level_3_background.png");
-	SetBackground("background");
+    SetTexture("livre", "Assets/Object/livre.png");
+
+    SetTexture("background", "Assets/background/level_3_background.png");
+    SetBackground("background");
 
 	float sizeX = window_size.x / 100;
 	float sizeY = window_size.y / 100;
@@ -35,13 +37,15 @@ void DefaultScene::SpawnObjectLevel3() {
 
 	//Fenêtre
 	CreateColliderObject(this, ColliderType, "Fenetre", Maths::Vector2f(sizeX * 23.0729, sizeY * 50.463), Maths::Vector2f(sizeX * 18.0729, sizeY * 1.57407));
+	//Livre mouvable
+	CreateSpriteObject(this, MoveType, "LivreMove", Maths::Vector2f(sizeX * 39.7412, sizeY * 40.9), Maths::Vector2f(sizeX * 1.73684, sizeY * 13.7), "livre");
 
 	//Carton
 	CreateColliderObject(this, ColliderType, "Carton", Maths::Vector2f(sizeX * 43.4375, sizeY * 79.1667), Maths::Vector2f(sizeX * 4.63542, sizeY * 14.4444));
 	   
 	//Lampe
-	CreateColliderObject(this, ColliderType, "Lampe", Maths::Vector2f(sizeX * 51.4583, sizeY * 54.3519), Maths::Vector2f(sizeX * 6.875, sizeY * 4.62963));
-	CreateColliderObject(this, ColliderType, "Lampe", Maths::Vector2f(sizeX * 52.2396, sizeY * 50.5556), Maths::Vector2f(sizeX * 5.625, sizeY * 3.61111));
+	CreateColliderObject(this, DeathType, "Lampe", Maths::Vector2f(sizeX * 51.4583, sizeY * 54.3519), Maths::Vector2f(sizeX * 6.875, sizeY * 4.62963));
+	CreateColliderObject(this, DeathType, "Lampe", Maths::Vector2f(sizeX * 52.2396, sizeY * 50.5556), Maths::Vector2f(sizeX * 5.625, sizeY * 3.61111));
 
 	//Cadre_du_bas
 	CreateColliderObject(this, ColliderType, "Cadre_du_bas", Maths::Vector2f(sizeX * 64.8438, sizeY * 42.4074), Maths::Vector2f(sizeX * 10.6771, sizeY * 12.1296));

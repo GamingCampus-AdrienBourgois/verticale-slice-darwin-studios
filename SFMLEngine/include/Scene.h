@@ -51,7 +51,7 @@ public:
 
 
 	GameObject* CreateText(const ObjectType& _type, std::string _name, Maths::Vector2f _position, const sf::Color _color, Maths::Vector2u size, int _caractere_size);
-
+	GameObject* CreateSpriteObject(Scene* scene, const ObjectType& _type, std::string _name, Maths::Vector2f _position, Maths::Vector2f _size, std::string nom_texture);
 
 	int SetTexture(std::string nom_texture, std::string chemin_fichier);
 
