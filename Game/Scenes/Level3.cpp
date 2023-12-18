@@ -9,7 +9,9 @@ void DefaultScene::SpawnObjectLevel3() {
     int sizeX = window_size.x / 100;
     int sizeY = window_size.y / 100;
 
-   /* CreateSwitch(this, SwitchType, "Switch", 13 * sizeWallX, 15 * sizeWallY);*/
+
+    //Sol
+    CreateColliderObject(this, ColliderType, "Etagere", Maths::Vector2f(sizeX * 0, sizeY * 98.1), Maths::Vector2f(sizeX * 101, sizeY * -0.5));
 
     //Etagère + livres
     CreateColliderObject(this, ColliderType, "Etagere", Maths::Vector2f(sizeX * 4.6875, sizeY * 49.33), Maths::Vector2f(sizeX * 15.875, sizeY * 1.44));
@@ -17,7 +19,7 @@ void DefaultScene::SpawnObjectLevel3() {
     CreateColliderObject(this, ColliderType, "Livre2", Maths::Vector2f(sizeX * 17.3158, sizeY * 33.5), Maths::Vector2f(sizeX * 2.47368, sizeY * 15.1));
 
     //Table de chevet
-    CreateColliderObject(this, ColliderType, "Table_de_chevet", Maths::Vector2f(sizeX * 4, sizeY * 79.8), Maths::Vector2f(sizeX * 10.2632, sizeY * 20.5));
+    CreateColliderObject(this, ColliderType, "Table_de_chevet", Maths::Vector2f(sizeX * 1.73684, sizeY * 80.4), Maths::Vector2f(sizeX * 10.2105, sizeY * 17.1));
 
     //Ours
     CreateColliderObject(this, ColliderType, "Ours", Maths::Vector2f(sizeX * 25.2105, sizeY * 79.4), Maths::Vector2f(sizeX * 11.6316, sizeY * 8.2));
