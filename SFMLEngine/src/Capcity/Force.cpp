@@ -52,7 +52,7 @@ void Force::DeplaceObject(const float _delta_time, GameObject* player, GameObjec
 void Force::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input)
 {
 	Scene* scene = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetMainScene();
-	GameObject* player = nullptr;
+	GameObject* player = scene->FindGameObject("Player");
 
 	for (GameObject* const& gameObject : *scene->GetGameObjects())
 	{
@@ -62,7 +62,7 @@ void Force::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key
 		}
 		if (player != nullptr)
 		{
-			if (gameObject->GetType() != ObjectType::PlayerType && gameObject->GetType() == MoveType) {
+			if (gameObject->GetType() != ObjectType::PlayerType && (gameObject->GetType() == MoveType || gameObject->GetType() == DollOffType)){
 				if (player->GetComponent<SquareCollider>()->IsColliding(*player->GetComponent<SquareCollider>(), *gameObject->GetComponent<SquareCollider>(), _delta_time))
 				{
 					DeplaceObject(_delta_time, player, gameObject, scene->GetGameObjects());
