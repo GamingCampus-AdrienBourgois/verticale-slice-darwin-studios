@@ -13,8 +13,8 @@ void DefaultScene::SpawnObjectLevel3() {
 
     //Etagère + livres
     CreateColliderObject(this, ColliderType, "Etagere", Maths::Vector2f(sizeX * 4.6875, sizeY * 49.33), Maths::Vector2f(sizeX * 15.875, sizeY * 1.44));
-    CreateColliderObject(this, ColliderType, "Livre1", Maths::Vector2f(sizeX * 15.6316, sizeY * 37.9), Maths::Vector2f(sizeX * 1.73684, sizeY * 10.7));
-    CreateColliderObject(this, ColliderType, "Livre2", Maths::Vector2f(sizeX * 17.3158, sizeY * 33.5), Maths::Vector2f(sizeX * 2.47368, sizeY * 15.1));
+    CreateColliderObject(this, MoveType, "Livre1", Maths::Vector2f(sizeX * 15.6316, sizeY * 37.9), Maths::Vector2f(sizeX * 1.73684, sizeY * 10.7));
+    CreateColliderObject(this, MoveType, "Livre2", Maths::Vector2f(sizeX * 17.3158, sizeY * 33.5), Maths::Vector2f(sizeX * 2.47368, sizeY * 15.1));
 
     //Table de chevet
     CreateColliderObject(this, ColliderType, "Table_de_chevet", Maths::Vector2f(sizeX * 4, sizeY * 79.8), Maths::Vector2f(sizeX * 10.2632, sizeY * 20.5));
@@ -39,13 +39,13 @@ void DefaultScene::SpawnObjectLevel3() {
     CreateColliderObject(this, ColliderType, "Carton", Maths::Vector2f(sizeX * 43.8947, sizeY * 86.6), Maths::Vector2f(sizeX * 4.73158, sizeY * 14.6));
        
     //Lampe
-    CreateColliderObject(this, ColliderType, "Lampe", Maths::Vector2f(sizeX * 53.7895, sizeY * 54.2), Maths::Vector2f(sizeX * 3.52632, sizeY * 9.5));
-	CreateColliderObject(this, ColliderType, "Lampe", Maths::Vector2f(sizeX * 53.1579, sizeY * 56), Maths::Vector2f(sizeX * 0.631579, sizeY * 7.7));
-	CreateColliderObject(this, ColliderType, "Lampe", Maths::Vector2f(sizeX * 52.4211, sizeY * 56.6), Maths::Vector2f(sizeX * 0.684211, sizeY * 7));
-	CreateColliderObject(this, ColliderType, "Lampe", Maths::Vector2f(sizeX * 52.1053, sizeY * 59.6), Maths::Vector2f(sizeX * 0.526316, sizeY * 4));
-	CreateColliderObject(this, ColliderType, "Lampe", Maths::Vector2f(sizeX * 51.7895, sizeY * 61.3), Maths::Vector2f(sizeX * 0.526316, sizeY * 2.4));
-	CreateColliderObject(this, ColliderType, "Lampe", Maths::Vector2f(sizeX * 57.4737, sizeY * 55.6), Maths::Vector2f(sizeX * 0.421053, sizeY * 8.2));
-	CreateColliderObject(this, ColliderType, "Lampe", Maths::Vector2f(sizeX * 58.1579, sizeY * 58.2), Maths::Vector2f(sizeX * 0.631579, sizeY * 5.6));
+    CreateColliderObject(this, DeathType, "Lampe", Maths::Vector2f(sizeX * 53.7895, sizeY * 54.2), Maths::Vector2f(sizeX * 3.52632, sizeY * 9.5));
+	CreateColliderObject(this, DeathType, "Lampe", Maths::Vector2f(sizeX * 53.1579, sizeY * 56), Maths::Vector2f(sizeX * 0.631579, sizeY * 7.7));
+	CreateColliderObject(this, DeathType, "Lampe", Maths::Vector2f(sizeX * 52.4211, sizeY * 56.6), Maths::Vector2f(sizeX * 0.684211, sizeY * 7));
+	CreateColliderObject(this, DeathType, "Lampe", Maths::Vector2f(sizeX * 52.1053, sizeY * 59.6), Maths::Vector2f(sizeX * 0.526316, sizeY * 4));
+	CreateColliderObject(this, DeathType, "Lampe", Maths::Vector2f(sizeX * 51.7895, sizeY * 61.3), Maths::Vector2f(sizeX * 0.526316, sizeY * 2.4));
+	CreateColliderObject(this, DeathType, "Lampe", Maths::Vector2f(sizeX * 57.4737, sizeY * 55.6), Maths::Vector2f(sizeX * 0.421053, sizeY * 8.2));
+	CreateColliderObject(this, DeathType, "Lampe", Maths::Vector2f(sizeX * 58.1579, sizeY * 58.2), Maths::Vector2f(sizeX * 0.631579, sizeY * 5.6));
 
     //Cadre_du_bas
     CreateColliderObject(this, ColliderType, "Cadre_du_bas", Maths::Vector2f(sizeX * 65.5789, sizeY * 45.9), Maths::Vector2f(sizeX * 10.7895, sizeY * 12.9));

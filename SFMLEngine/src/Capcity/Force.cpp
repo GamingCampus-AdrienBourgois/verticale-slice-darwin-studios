@@ -36,10 +36,13 @@ void Force::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key
 		{
 			player = gameObject;
 		}
-		if (gameObject->GetType() != ObjectType::PlayerType && gameObject->GetType() == DollOffType) {
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && player->GetComponent<SquareCollider>()->IsColliding(*player->GetComponent<SquareCollider>(), *gameObject->GetComponent<SquareCollider>(), _delta_time))
-			{
-				DeplaceObject(_delta_time, player,gameObject);
+		if (player != nullptr)
+		{
+			if (gameObject->GetType() != ObjectType::PlayerType && (gameObject->GetType() == MoveType || gameObject->GetType() == DollOffType)) {
+				if (player->GetComponent<SquareCollider>()->IsColliding(*player->GetComponent<SquareCollider>(), *gameObject->GetComponent<SquareCollider>(), _delta_time))
+				{
+					DeplaceObject(_delta_time, player, gameObject);
+				}
 			}
 		}
 	}

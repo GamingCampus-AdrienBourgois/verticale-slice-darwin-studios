@@ -311,29 +311,29 @@ void Player::ReturnCheckpoint(Scene* scene, std::unordered_map<sf::Keyboard::Key
 	}
 }
 
-//bool Player::Dead(std::vector<GameObject*>* gameObjects)
-//{
-	//if (hp <= 0)
-	//{
-	//	std::cout << "T'es mort!!" << std::endl;
-	//	GetOwner()->RemoveComponent(GetOwner()->GetComponent<Player>());
-	//	GetOwner()->RemoveComponent(GetOwner()->GetComponent<SpriteRenderer>());
-	//	GetOwner()->RemoveComponent(GetOwner()->GetComponent<SquareCollider>());
-	//	for (auto it = gameObjects->begin(); it != gameObjects->end(); ++it)
-	//	{
-	//		if (*it == GetOwner())
-	//		{
-	//			delete GetOwner();
-	//			gameObjects->erase(it);
-	//			return true;
-	//		}
-	//	}
-	//}
-	//else
-	//{
-	//	return false;
-	//}
-//}
+bool Player::Dead(std::vector<GameObject*>* gameObjects)
+{
+	if (hp <= 0)
+	{
+		std::cout << "T'es mort!!" << std::endl;
+		GetOwner()->RemoveComponent(GetOwner()->GetComponent<Player>());
+		GetOwner()->RemoveComponent(GetOwner()->GetComponent<SpriteRenderer>());
+		GetOwner()->RemoveComponent(GetOwner()->GetComponent<SquareCollider>());
+		for (auto it = gameObjects->begin(); it != gameObjects->end(); ++it)
+		{
+			if (*it == GetOwner())
+			{
+				delete GetOwner();
+				gameObjects->erase(it);
+				return true;
+			}
+		}
+	}
+	else
+	{
+		return false;
+	}
+}
 
 
 void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) {
@@ -367,7 +367,7 @@ void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Ke
 	Jump(_delta_time, pressed_input, scene->GetGameObjects());
 	SwitchDoll(pressed_input, scene);
 	ReturnCheckpoint(scene, pressed_input);
-	//Dead(scene->GetGameObjects());
+	Dead(scene->GetGameObjects());
 
 	for (GameObject* const& gameObject : *scene->GetGameObjects())
 	{

@@ -33,7 +33,7 @@ public:
 	int GetSize() { return sizePlayer; }
 	Capacity* GetCapacity() { return capacity; }
 
-	//bool Dead(std::vector<GameObject*>* gameObjects);
+	bool Dead(std::vector<GameObject*>* gameObjects);
 	void Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) override;
 
 private:
@@ -47,7 +47,7 @@ private:
 	SceneModule* sceneModule = moduleManager->GetModule<SceneModule>();
 
 	// // Variables
-	int hp = 1000;
+	int hp = 10000;
 	int speed = 300;
 	int gravity = 100;
 	float sizePlayer = sizeWindow.y / 22;

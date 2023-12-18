@@ -9,5 +9,6 @@ enum ObjectType
 	DollOffType,
 	ColliderType,
 	SwitchType,
-	MoveType
+	MoveType,
+	DeathType
 };
