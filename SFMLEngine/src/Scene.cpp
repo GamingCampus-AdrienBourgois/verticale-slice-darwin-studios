@@ -98,7 +98,7 @@ int Scene::SetTexture(std::string nom_texture, std::string chemin_fichier)
 }
 
 void Scene::SetBackground(std::string nom_texture) {
-	sf::Vector2u window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize();
+	sf::Vector2f window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize();
 
 	background = new sf::Sprite();
 	// Redimensionner le sprite pour qu'il remplisse la fen?tre

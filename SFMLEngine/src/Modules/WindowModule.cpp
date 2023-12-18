@@ -84,9 +84,8 @@ void WindowModule::Update()
 				}
 			}if (event.mouseButton.button == sf::Mouse::Right) {
 				mousePos.push_back(sf::Mouse::getPosition(*window));
-				float sizeX = GetWindowSize().x / 100;
-				float sizeY = GetWindowSize().y / 100;
-				std::cout << "r = "<<  mousePos.size() <<std::endl;
+				float sizeX = (GetWindowSize().x / 100);
+				float sizeY = (GetWindowSize().y / 100);
 				if(mousePos.size() % 2 == 0){
 					std::cout << mousePos[0].x / sizeX << " " << mousePos[0].y / sizeY << " " << (mousePos[1].x - mousePos[0].x) / sizeX << " " << (mousePos[1].y - mousePos[0].y) / sizeY << std::endl;
 					mousePos.clear();

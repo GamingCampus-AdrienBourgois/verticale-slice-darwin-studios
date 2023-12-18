@@ -23,7 +23,7 @@ public:
 	void Release() override;
 
 	sf::RenderWindow* GetWindow() const { return window; }
-	sf::Vector2u GetWindowSize() const { return window->getSize(); };
+	sf::Vector2f GetWindowSize() const { return sf::Vector2f(window->getSize().x, window->getSize().y); };
 	std::vector<sf::Vector2i> mousePos;
 
 private:
