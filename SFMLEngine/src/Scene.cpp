@@ -33,7 +33,12 @@ void Scene::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key
 
 void Scene::Render(sf::RenderWindow* _window) const	
 {
-	_window->draw(*background);
+
+	if (background != nullptr)
+	{
+		_window->draw(*background);
+	}
+	
 	for (int i = 0; i < gameObjects.size(); i++)
 	{
 		gameObjects[i]->Render(_window);
@@ -248,3 +253,13 @@ GameObject* Scene::CreateText(const ObjectType& _type, std::string _name, Maths:
 	return game_object;
 }
 
+GameObject* Scene::CreateShapeAlone(const ObjectType& _type, std::string _name, Maths::Vector2f _position, const sf::Color _color, sf::Vector2f size) {
+	GameObject* game_object = CreateGameObject(_type, _name); 
+	game_object->SetPosition(_position); 
+
+	RectangleShapeRenderer* shape_renderer = game_object->CreateComponent<RectangleShapeRenderer>();
+	shape_renderer->SetColor(_color);
+	shape_renderer->SetSize(Maths::Vector2f(size.x, size.y));
+
+	return game_object;
+}

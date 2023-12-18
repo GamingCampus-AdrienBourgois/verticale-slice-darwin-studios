@@ -174,6 +174,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scenes\DefaultScene.h" />
+    <ClInclude Include="Scenes\EndLevelScene.h" />
     <ClInclude Include="Scenes\MainMenuScene.h" />
     <ClInclude Include="Scenes\SelectCapacityScene.h" />
   </ItemGroup>

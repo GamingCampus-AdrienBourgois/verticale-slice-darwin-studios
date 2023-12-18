@@ -1,4 +1,5 @@
 #include "DefaultScene.h"
+#include "EndLevelScene.h"
 
 void DefaultScene::SpawnObjectLevel3() {
 	sf::Vector2f window_size = sf::Vector2f(Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize().x, Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize().y);
@@ -64,7 +65,10 @@ void DefaultScene::SpawnObjectLevel3() {
 	CreateColliderObject(this, ColliderType, "Tabouret", Maths::Vector2f(sizeX * 71.0938, sizeY * 80.463), Maths::Vector2f(sizeX * 4.53125, sizeY * 1.94444));
 
 	//Trou de souris
-	CreateColliderObject(this, ColliderType, "Trou_de_souris", Maths::Vector2f(sizeX * 96.5104, sizeY * 83.8889), Maths::Vector2f(sizeX * 2.96875, sizeY * 3.33333));
+	GameObject* hole = CreateColliderObject(this, ColliderType, "Trou_de_souris", Maths::Vector2f(sizeX * 96.5104, sizeY * 87.3333), Maths::Vector2f(sizeX * 2.96875, sizeY * 0.25));
+	SceneModule* scene_module = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>();
+
+	hole->SetCallback([hole, scene_module] { scene_module->SetNextScene([scene_module] { scene_module->SetScene<EndLevelScene>(false); }); });
 
 	//Interrupteur
 	CreateColliderObject(this, ColliderType, "Interrupteur", Maths::Vector2f(sizeX * 37.6562, sizeY * 65.9259), Maths::Vector2f(sizeX * 2.23958, sizeY * 2.22222));
