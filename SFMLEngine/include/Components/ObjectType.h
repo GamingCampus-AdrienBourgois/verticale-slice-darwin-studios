@@ -10,6 +10,6 @@ enum ObjectType
 	ColliderType,
 	SwitchType,
 	MoveType,
-	DeathType
+	DeathType,
 	ShapeType
 };
