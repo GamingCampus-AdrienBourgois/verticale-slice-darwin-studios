@@ -42,7 +42,7 @@ private:
 	ModuleManager* moduleManager = engine->GetModuleManager();
 
 	WindowModule* windowModule = moduleManager->GetModule<WindowModule>();
-	sf::Vector2u sizeWindow = windowModule->GetWindowSize();
+	sf::Vector2f sizeWindow = windowModule->GetWindowSize();
 
 	SceneModule* sceneModule = moduleManager->GetModule<SceneModule>();
 

@@ -22,7 +22,7 @@ public:
 	void setPosition(Maths::Vector2f _position) { position = _position; }
 
 	int Doll() {
-		sf::Vector2u window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize();
+		sf::Vector2f window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize();
 		speed = window_size.x / 15;
 	}
 
