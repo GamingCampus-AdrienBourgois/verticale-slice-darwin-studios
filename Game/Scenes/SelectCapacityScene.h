@@ -4,6 +4,9 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
+
+class MainMenuScene;
+
 class SelectCapacityScene final : public Scene
 {
 public:
@@ -17,6 +20,7 @@ public:
 		SetTexture("texture_zvezda_button", "Assets/button/zvezda_button.png");
 		SetTexture("texture_zwezda_button", "Assets/button/zwezda_button.png");
 		SetTexture("texture_map_button", "Assets/button/map_button.png");
+		SetTexture("texture_return_button", "Assets/button/return_button.png");
 
 		sf::Vector2u window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindow()->getSize();
 
@@ -35,7 +39,7 @@ public:
 		}
 
 		GameObject* map_button = CreateSpriteButton_forMainMenu(ButtonType, "map_button", Maths::Vector2f(window_size.x /50, window_size.y / 50), Maths::Vector2f(window_size.x / 20 , ((((window_size.x / 20) * 161) / 144))), [] {}, nullptr, "texture_map_button", Maths::Vector2f(144, 161), Maths::Vector2f(0, 15));
-
+		GameObject* return_button = CreateSpriteButton_forMainMenu(ButtonType, "return_button", Maths::Vector2f(window_size.x / 50 , window_size.y - window_size.y / 50- 144), Maths::Vector2f(window_size.x / 20, ((((window_size.x / 20) * 161) / 144))), [this] {LaunchMainMenu(); }, nullptr, "texture_return_button", Maths::Vector2f(144, 161), Maths::Vector2f(0, 15));
 	}
 
 	void LauchGame() {
@@ -46,5 +50,10 @@ public:
 		params.push_back(*scene->FindGameObject("doll_button3")->GetComponent<Button>()->has_select->GetComponent<Button>()->GetObject());
 		SceneModule* scene_module = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>();
 		scene_module->SetNextScene([scene_module, params] {scene_module->SetSceneWithParams<DefaultScene>(true, params); });
+	}
+
+	void LaunchMainMenu() {
+		SceneModule* scene_module = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>();
+		scene_module->SetNextScene([scene_module] {scene_module->SetScene<MainMenuScene>(); });
 	}
 };
