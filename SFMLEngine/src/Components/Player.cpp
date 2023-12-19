@@ -8,7 +8,6 @@
 #include "Modules/WindowModule.h"
 
 #include <Capacity/Force.h>
-#include "Components/Switch.h"
 #include <Capacity/Invincibilite.h>
 #include <Capacity/InversionGravite.h>
 
@@ -359,7 +358,7 @@ void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Ke
 	GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("right", true);
 	for (GameObject* const& gameObject : *scene->GetGameObjects())
 	{
-		if (gameObject->GetType() != ObjectType::PlayerType) {
+		if (gameObject->GetType() != ObjectType::PlayerType && gameObject->GetType() != ObjectType::GameObjectType) {
 			GetOwner()->GetComponent<SquareCollider>()->IsColliding(*GetOwner()->GetComponent<SquareCollider>(), *gameObject->GetComponent<SquareCollider>() , _delta_time);
 		}
 	}

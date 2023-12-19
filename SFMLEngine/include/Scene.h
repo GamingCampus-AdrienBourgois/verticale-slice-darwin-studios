@@ -10,6 +10,7 @@
 #include "Components/TextRenderer.h"
 #include "Components/SquareCollider.h"
 #include "Components/SpriteRenderer.h"
+#include "Components/Interactive.h"
 
 
 class Scene
@@ -50,6 +51,8 @@ public:
 
 	GameObject* CreateText(const ObjectType& _type, std::string _name, Maths::Vector2f _position, const sf::Color _color, Maths::Vector2u size, int _caractere_size);
 	GameObject* CreateSpriteObject(Scene* scene, const ObjectType& _type, std::string _name, Maths::Vector2f _position, Maths::Vector2f _size, std::string nom_texture, Maths::Vector2f _sprite_size, Maths::Vector2f sprite_space);
+	GameObject* CreateInteractiveObject(Scene* scene, const ObjectType& _type, std::string _name, Maths::Vector2f _position, Maths::Vector2f _size, std::string nom_texture, Maths::Vector2f _sprite_size, Maths::Vector2f sprite_space);
+	GameObject* CreateOnlySprite(Scene* scene, const ObjectType& _type, std::string _name, Maths::Vector2f _position, Maths::Vector2f _size, std::string nom_texture, Maths::Vector2f _sprite_size, Maths::Vector2f sprite_space);
 
 	int SetTexture(std::string nom_texture, std::string chemin_fichier);
 

@@ -8,6 +8,7 @@ void DefaultScene::SpawnObjectLevel3() {
     SetBackground("background");
 	SetTexture("texture_livre", "Assets/Object/livre.png");
 	SetTexture("texture_interrupteur", "Assets/Object/interrupteur.png");
+	SetTexture("texture_lampe", "Assets/Object/lamp.png");
 
 	float sizeX = window_size.x / 100;
 	float sizeY = window_size.y / 100;
@@ -43,6 +44,7 @@ void DefaultScene::SpawnObjectLevel3() {
 	CreateColliderObject(this, ColliderType, "Carton", Maths::Vector2f(sizeX * 43.4375, sizeY * 79.1667), Maths::Vector2f(sizeX * 4.63542, sizeY * 14.4444));
 	   
 	//Lampe
+	CreateOnlySprite(this, GameObjectType, "Lampe", Maths::Vector2f(sizeX * 51.4583, sizeY * 54.3519), Maths::Vector2f(sizeX * 6.875, sizeY * 4.62963), "texture_lampe", Maths::Vector2f(122,341), Maths::Vector2f(7,0));
 	CreateColliderObject(this, DeathType, "Lampe", Maths::Vector2f(sizeX * 51.4583, sizeY * 54.3519), Maths::Vector2f(sizeX * 6.875, sizeY * 4.62963));
 	CreateColliderObject(this, DeathType, "Lampe", Maths::Vector2f(sizeX * 52.2396, sizeY * 50.5556), Maths::Vector2f(sizeX * 5.625, sizeY * 3.61111));
 
@@ -71,6 +73,7 @@ void DefaultScene::SpawnObjectLevel3() {
 	CreateColliderObject(this, ColliderType, "Trou_de_souris", Maths::Vector2f(sizeX * 96.5104, sizeY * 83.8889), Maths::Vector2f(sizeX * 2.96875, sizeY * 3.33333));
 
 	//Interrupteur
-	CreateSpriteObject(this, ColliderType, "Interrupteur", Maths::Vector2f(sizeX * 37.6562, sizeY * 65.9259), Maths::Vector2f(sizeX * 2.23958, sizeY * 2.22222), "texture_interrupteur", Maths::Vector2f(189, 294), Maths::Vector2f(0, 13));
+	GameObject* interrupteur = CreateInteractiveObject(this, InteractiveType, "Interrupteur", Maths::Vector2f(sizeX * 36.5104, sizeY * 61.2037), Maths::Vector2f(sizeX * 1.8958, ((sizeX * 1.8958) * 147) / 94.5), "texture_interrupteur", Maths::Vector2f(189, 294), Maths::Vector2f(0, 13));
+	interrupteur->GetComponent<SpriteRenderer>()->SetNextSpriteRect(1);
 
 }

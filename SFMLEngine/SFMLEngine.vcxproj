@@ -26,7 +26,7 @@
     <ClCompile Include="src\Components\Button.cpp" />
     <ClCompile Include="src\Capacity.cpp" />
     <ClCompile Include="src\Components\Doll.cpp" />
-    <ClCompile Include="src\Components\Switch.cpp" />
+    <ClCompile Include="src\Components\Interactive.cpp" />
     <ClCompile Include="src\Components\TextRenderer.cpp" />
     <ClCompile Include="src\Components\Player.cpp" />
     <ClCompile Include="src\Capcity\Dash.cpp" />
@@ -52,7 +52,7 @@
     <ClInclude Include="include\Components\Doll.h" />
     <ClInclude Include="include\Components\ObjectType.h" />
     <ClInclude Include="include\Components\Player.h" />
-    <ClInclude Include="include\Components\Switch.h" />
+    <ClInclude Include="include\Components\Interactive.h" />
     <ClInclude Include="include\Components\TextRenderer.h" />
     <ClInclude Include="include\Modules\ImGuiModule.h" />
     <ClInclude Include="include\Engine.h" />
