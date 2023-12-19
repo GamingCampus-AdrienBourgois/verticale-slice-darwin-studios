@@ -59,26 +59,35 @@ void Player::StopSound() {
 	soundSwitchDoll->stop();
 }
 
-void Player::Move(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, std::vector<GameObject*>* gameObjects){
+void Player::Move(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, std::vector<GameObject*>* gameObjects) {
+	bool isWalking = false;
+
 	for (const auto& input : *pressed_input) {
 		if (input.first == 3 && input.second == true && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["right"]) {
 			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX() + (speed * _delta_time), GetOwner()->GetPosition().GetY()));
-			//Son Déplacement
-			soundWalk->setBuffer(*soundBufferWalk);
-			soundWalk->play();
-		}else if (input.first == 16 && input.second == true && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["left"]) {
-			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX() - (speed * _delta_time), GetOwner()->GetPosition().GetY()));
-			//Son Déplacement
-			soundWalk->setBuffer(*soundBufferWalk);
-			soundWalk->play();
+			isWalking = true; // Activation du son si D est enfoncée
 		}
+		else if (input.first == 16 && input.second == true && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["left"]) {
+			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX() - (speed * _delta_time), GetOwner()->GetPosition().GetY()));
+			isWalking = true; // Activation du son si Q est enfoncée
+		}
+	}
+
+	if (isWalking) {
+		// Son Déplacement en boucle
+		soundWalk->setBuffer(*soundBufferWalk);
+		soundWalk->setLoop(true); // Jouer en boucle
+		soundWalk->setVolume(50);
+		soundWalk->play();
+	}
+	else {
+		// Arrêter le son si aucune touche correspondante n'est pressée
+		soundWalk->stop();
 	}
 }
 
+
 void Player::Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, std::vector<GameObject*>* gameObjects) {
-	//Son Jump
-	soundJump->setBuffer(*soundBufferJump);
-	soundJump->play();
 
 	if (!GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["down"] && is_jumping) {
 		is_jumping = false;
@@ -113,6 +122,12 @@ void Player::Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key,
 	}
 
 	if (is_jumping && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["up"]) {
+		if (jumping_time.getElapsedTime().asSeconds() <= 0.01) {
+			//Son Jump
+			soundJump->setBuffer(*soundBufferJump);
+			soundJump->setVolume(50);
+			soundJump->play();
+		}
 		if (jumping_time.getElapsedTime().asSeconds() <= 0.4) {
 			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() - (500 * _delta_time)));
 		}
@@ -179,9 +194,14 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 			const auto& input = *it;
 
 			if (input.first == 0 && input.second == true) {
+				//Son changement Doll
+				soundSwitchDoll->setBuffer(*soundBufferSwitchDoll);
+				soundSwitchDoll->play();
 				is_switching = true;
 				// Effacer l'élément du vecteur
 				it = pressed_input->erase(it);
+
+				
 			}
 			else {
 				++it;
@@ -200,9 +220,6 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 
 		if (actuall_doll_int == 0)
 		{
-			//Son changement Doll
-			soundSwitchDoll->setBuffer(*soundBufferSwitchDoll);
-			soundSwitchDoll->play();
 
 			big_dollOff = CreateDollOff(DollOffType, "big_doll_off", position, actuall_color);
 			GetOwner()->SetPosition(Maths::Vector2f(position.GetX(), position.GetY() - sizePlayer * 1.5));

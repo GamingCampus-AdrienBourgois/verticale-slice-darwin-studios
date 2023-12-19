@@ -5,7 +5,7 @@
 //Sound
 Dash::Dash() {
     soundBufferDash = new sf::SoundBuffer;
-    if (!soundBufferDash->loadFromFile("Assets/Sons/inversion_gravite.wav")) {
+    if (!soundBufferDash->loadFromFile("Assets/Sons/dash.wav")) {
         std::cout << "erreur de chargement du fichier" << std::endl;
     }
     soundDash = new sf::Sound;
@@ -53,6 +53,7 @@ void Dash::IsDashing(const float _delta_time, std::vector<GameObject*>* gameObje
                     StartClockDurationDash.restart(); // Redémarre le temps du dash
                     if (!soundPlayed) {
                         PlaySound();
+                        soundDash->setVolume(25);
                         soundPlayed = true; // Marquer que le son a été joué
                         std::cout << "truc" << std::endl;
                     }
@@ -63,6 +64,7 @@ void Dash::IsDashing(const float _delta_time, std::vector<GameObject*>* gameObje
                     StartClockDurationDash.restart(); // Redémarre le temps du dash
                     if (!soundPlayed) {
                         PlaySound();
+                        soundDash->setVolume(25);
                         soundPlayed = true; // Marquer que le son a été joué
                     }
                 }
