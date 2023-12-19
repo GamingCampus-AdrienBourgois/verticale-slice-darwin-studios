@@ -11,10 +11,12 @@ public:
 
 	float GetHeight() const { return height; }
 	float GetWidth() const { return width; }
+	sf::Sprite* GetSprite() { return sprite; }
+
 	void SetWidth(const float _width) { width = _width; }
 	void SetHeight(const float _height) { height = _height; }
 	void SetOrigin(float x, float y);
-	sf::Sprite* GetSprite() { return sprite; }
+	void SetSpriteFirstPosition(Maths::Vector2f _sprite_first_position) { sprite_first_position = _sprite_first_position; }
 
 	void SetSprite(sf::Texture* new_texture, Maths::Vector2f _size);
 	void SetSpriteRect(sf::Texture* new_texture, Maths::Vector2f _size, Maths::Vector2f _sprite_size, Maths::Vector2f _position, Maths::Vector2f _sprite_space);
