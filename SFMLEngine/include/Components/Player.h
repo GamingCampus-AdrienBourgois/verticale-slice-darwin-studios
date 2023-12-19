@@ -52,7 +52,7 @@ private:
 	int speed = 300;
 	int gravity = 100;
 	float sizePlayer = sizeWindow.y / 22;
-
+	sf::Vector2u window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindow()->getSize();
 	// Variables jump & switch
 	bool can_jump = false;
 	bool is_jumping = false;
