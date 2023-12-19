@@ -21,24 +21,6 @@ public:
 
 		sf::Vector2u window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindow()->getSize();
 
-		//std::ifstream file("credits.csv");
-		//
-		//if (!file.is_open()) {
-		//	std::cerr << "Error opening file." << std::endl;
-		//}
-		//
-		//int nb_ligne = 0;
-		//std::string line;
-		//
-		//file.clear();
-		//file.seekg(0, std::ios::beg);
-		//
-		//while (std::getline(file, line)) 
-		//{
-		//	GameObject* text_credits = scene->CreateText(TextType, "text_credits", Maths::Vector2f(window_size.x / 2 - window_size.x / 4, (window_size.y / 100 * 25)), sf::Color::White, Maths::Vector2u(window_size.x / 4 * 2, (window_size.y / 100 * 10)), 40);
-		//	text_credits->GetComponent<TextRenderer>()->SetString(line);
-		//}
-		//file.close();
 		std::ifstream file("credits.csv");
 
 		if (!file.is_open()) {
@@ -52,7 +34,7 @@ public:
 		file.clear();
 		file.seekg(0, std::ios::beg);
 
-		while (std::getline(file, line) && nb_ligne < 6) { // Limite à 6 lignes pour l'exemple
+		while (std::getline(file, line) && nb_ligne < 6) { // Limite Ã  6 lignes pour l'exemple
 			GameObject* text_credits = scene->CreateText(TextType, "text_credits", Maths::Vector2f(window_size.x / 2 - window_size.x / 4, (window_size.y / 100 * 25) + (nb_ligne * verticalOffset)), sf::Color::Black, Maths::Vector2u(window_size.x / 4 * 2, (window_size.y / 100 * 10)), 40);
 			text_credits->GetComponent<TextRenderer>()->SetString(line);
 			nb_ligne++;
