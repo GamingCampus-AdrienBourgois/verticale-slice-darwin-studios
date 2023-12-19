@@ -148,12 +148,11 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 		{
 			big_dollOff = CreateDollOff(DollOffType, "big_doll_off", position, actuall_color);
 			GetOwner()->SetPosition(Maths::Vector2f(position.GetX(), position.GetY() - sizePlayer * 1.5));
-			GetOwner()->GetComponent<RectangleShapeRenderer>()->SetColor(colorMid);
+			GetOwner()->GetComponent<SpriteRenderer>()->SetSpriteRect((*scene->GetTexture())["texture_zvezda"], Maths::Vector2f((sizeWindow.x / 33), (((sizeWindow.x / 33) * 654) / 420)), Maths::Vector2f(420, 654), GetOwner()->GetPosition(), Maths::Vector2f(0, 1));
 			Capacity* capacity_for_mid_doll = scene->GetMidCapacity();
 
 			delete capacity;
 			capacity = nullptr;
-
 			if (capacity_for_mid_doll->GetName() == "INVERSION DE LA GRaVITE") {
 				InversionGravite* new_capacity = SetCapacity<InversionGravite>();
 				new_capacity->SetName("InversionGravite");
@@ -207,7 +206,7 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 		{
 			mid_dollOff = CreateDollOff(DollOffType, "mid_doll_off", position, actuall_color);
 			GetOwner()->SetPosition(Maths::Vector2f(position.GetX(), position.GetY() - sizePlayer * 1.5));
-			GetOwner()->GetComponent<RectangleShapeRenderer>()->SetColor(colorSmall);
+			GetOwner()->GetComponent<SpriteRenderer>()->SetSpriteRect((*scene->GetTexture())["texture_zwezda"], Maths::Vector2f((sizeWindow.x / 40), (((sizeWindow.x / 40) * 654) / 420)), Maths::Vector2f(420, 654), GetOwner()->GetPosition(), Maths::Vector2f(0, 1));
 			Capacity* capacity_for_small_doll = scene->GetSmallCapacity();
 
 			delete capacity;

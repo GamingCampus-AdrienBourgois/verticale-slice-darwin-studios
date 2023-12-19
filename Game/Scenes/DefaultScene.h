@@ -18,11 +18,14 @@ public:
 
 	DefaultScene(std::vector<Capacity> params) : Scene("DefaultScene")
 	{
+		SetTexture("texture_zarya", "Assets/Dolls/Zarya-sheet.png");
+		SetTexture("texture_zvezda", "Assets/Dolls/Zvezda-sheet.png");
+		SetTexture("texture_zwezda", "Asserts/Dolls/Zwezda-sheet.png");
 		GetBigCapacity()->SetName(params[0].GetName());
 		GetMidCapacity()->SetName(params[1].GetName());
 		GetSmallCapacity()->SetName(params[2].GetName());
 		SpawnObjectLevel3();
-		GameObject* player = CreatePlayer(PlayerType, "Player", Maths::Vector2f(window_size.x*0.1, window_size.y*0.68), sf::Color::Red);
+		GameObject* player = CreatePlayer(PlayerType, "Player", Maths::Vector2f(300,400/*window_size.x * 0.1, window_size.y * 0.68*/), Maths::Vector2f((window_size.x/25), (((window_size.x /25)*654)/420)), "texture_zarya", Maths::Vector2f(420, 654), Maths::Vector2f(0, 1));
 	}
 
 	GameObject* CreateColliderObject(Scene* scene, const ObjectType& _type, std::string _name, Maths::Vector2f _position, Maths::Vector2f _size) {
@@ -62,53 +65,4 @@ public:
 private:
 
 	void SpawnObjectLevel3();
-
-	GameObject* CreatePlayer(const ObjectType& _type, std::string _name, Maths::Vector2f _position, const sf::Color _color) {
-		GameObject* game_object = CreateGameObject(_type, _name);
-		game_object->SetPosition(_position);
-
-		int taille_persoX = window_size.x / 33;
-		int taille_persoY = window_size.y / 22;
-
-		SquareCollider* square_collider = game_object->CreateComponent<SquareCollider>();
-		square_collider->SetWidth(taille_persoX);
-		square_collider->SetHeight(taille_persoY);
-
-		RectangleShapeRenderer* shape_renderer = game_object->CreateComponent<RectangleShapeRenderer>();
-		shape_renderer->SetColor(_color);
-		shape_renderer->SetSize(Maths::Vector2f(taille_persoX, taille_persoY));
-
-		Player* player = game_object->CreateComponent<Player>();
-
-		if (GetBigCapacity()->GetName() == "INVERSION DE LA GRaVITE") {
-			InversionGravite* capacity = player->SetCapacity<InversionGravite>();
-			capacity->SetName("InversionGravite");
-			capacity->SetCapacityOwner(game_object);
-		}
-		else if (GetBigCapacity()->GetName() == "INVINCIbILITE") {
-			Invincibilite* capacity = player->SetCapacity<Invincibilite>();
-			capacity->SetName("Invincibilite");
-			capacity->SetCapacityOwner(game_object);
-		}
-		else if (GetBigCapacity()->GetName() == "DOUbLE-SaUT") {
-			DoubleJump* capacity = player->SetCapacity<DoubleJump>();
-			capacity->SetName("DoubleJump");
-			capacity->SetCapacityOwner(game_object);
-			capacity->SetDoubleJump(true);
-		}
-		else if (GetBigCapacity()->GetName() == "DaSH") {
-			Dash* capacity = player->SetCapacity<Dash>();
-			capacity->SetName("Dash");
-			capacity->SetCapacityOwner(game_object);
-		}
-		else if (GetBigCapacity()->GetName() == "fORCE") {
-			Force* capacity = player->SetCapacity<Force>();
-			capacity->SetName("Force");
-			capacity->SetCapacityOwner(game_object);
-		}
-
-		return game_object;
-	}
-
-
 };
