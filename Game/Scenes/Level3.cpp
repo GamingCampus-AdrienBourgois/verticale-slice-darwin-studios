@@ -1,7 +1,44 @@
 #include "DefaultScene.h"
+#include <iostream>
+
+//DefaultScene::DefaultScene() {
+//	soundBufferMusic = new sf::SoundBuffer;
+//	if (!soundBufferMusic->loadFromFile("Assets/Sons/le.wav")) {
+//		std::cout << "erreur de chargement du fichier" << std::endl;
+//	}
+//	soundMusic = new sf::Sound;
+//}
+//
+//DefaultScene::~DefaultScene() {
+//	delete soundBufferMusic;
+//	delete soundMusic;
+//}
+//
+//void DefaultScene::PlaySound() {
+//	soundMusic->setBuffer(*soundBufferMusic);
+//	soundMusic->play();
+//}
+//
+//void DefaultScene::StopSound() {
+//	soundMusic->stop();
+//}
 
 void DefaultScene::SpawnObjectLevel3() {
 	sf::Vector2f window_size = sf::Vector2f(Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize().x, Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize().y);
+
+
+
+	sf::Music music;
+	if (!music.openFromFile("Assets/Sons/musique_level_3.wav")) {
+		std::cout << "La musique ne charge pas" << std::endl;
+	}
+	music.setLoop(true);
+	music.setVolume(100);
+	music.play();
+
+	
+
+
 
     SetTexture("livre", "Assets/Object/livre.png");
 

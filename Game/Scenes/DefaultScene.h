@@ -14,6 +14,12 @@ class DefaultScene final : public Scene
 {
 public:
 
+	/*DefaultScene();
+	~DefaultScene();
+
+	void PlaySound();
+	void StopSound();*/
+
 	sf::Vector2f window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize();
 
 	DefaultScene(std::vector<Capacity> params) : Scene("DefaultScene")
@@ -60,6 +66,9 @@ public:
 	}
 
 private:
+
+	/*sf::SoundBuffer* soundBufferMusic;
+	sf::Sound* soundMusic;*/
 
 	void SpawnObjectLevel3();
 

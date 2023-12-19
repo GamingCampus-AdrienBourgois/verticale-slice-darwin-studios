@@ -29,7 +29,7 @@ Player::Player() {
 	soundWalk = new sf::Sound;
 
 	soundBufferSwitchDoll = new sf::SoundBuffer;
-	if (!soundBufferSwitchDoll->loadFromFile("Assets/Sons/changement_poupée.wav")) {
+	if (!soundBufferSwitchDoll->loadFromFile("Assets/Sons/changement_poupee.wav")) {
 		std::cout << "erreur de chargement du fichier" << std::endl;
 	}
 	soundSwitchDoll = new sf::Sound;
@@ -186,6 +186,9 @@ GameObject* Player::CreateDollOff(const ObjectType& _type, std::string _name, Ma
 }
 
 void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, Scene* scene) {
+
+	
+
 	if (can_switch && !is_switching)
 	{
 		auto it = pressed_input->begin();
@@ -194,12 +197,13 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 			const auto& input = *it;
 
 			if (input.first == 0 && input.second == true) {
-				//Son changement Doll
-				soundSwitchDoll->setBuffer(*soundBufferSwitchDoll);
-				soundSwitchDoll->play();
 				is_switching = true;
 				// Effacer l'élément du vecteur
 				it = pressed_input->erase(it);
+
+				soundSwitchDoll->setBuffer(*soundBufferSwitchDoll);
+				soundSwitchDoll->setVolume(100);
+				soundSwitchDoll->play();
 
 				
 			}
@@ -274,15 +278,10 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 			////
 
 
-
-
 			actuall_doll_int++;
 		}
 		else if (actuall_doll_int == 1)
 		{
-			//Son changement Doll
-			soundSwitchDoll->setBuffer(*soundBufferSwitchDoll);
-			soundSwitchDoll->play();
 
 			mid_dollOff = CreateDollOff(DollOffType, "mid_doll_off", position, actuall_color);
 			GetOwner()->SetPosition(Maths::Vector2f(position.GetX(), position.GetY() - sizePlayer * 1.5));

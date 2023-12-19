@@ -55,7 +55,6 @@ void Dash::IsDashing(const float _delta_time, std::vector<GameObject*>* gameObje
                         PlaySound();
                         soundDash->setVolume(25);
                         soundPlayed = true; // Marquer que le son a été joué
-                        std::cout << "truc" << std::endl;
                     }
                 }
                 else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && player->GetComponent<SquareCollider>()->GetCanMoving()["left"]) {
