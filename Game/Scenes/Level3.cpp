@@ -3,14 +3,14 @@
 void DefaultScene::SpawnObjectLevel3() {
 	sf::Vector2f window_size = sf::Vector2f(Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize().x, Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize().y);
 
-    SetTexture("livre", "Assets/Object/livre.png");
 
     SetTexture("background", "Assets/background/level_3_background-transformed.png");
     SetBackground("background");
+	SetTexture("texture_livre", "Assets/Object/livre.png");
+	SetTexture("texture_interrupteur", "Assets/Object/interrupteur.png");
 
 	float sizeX = window_size.x / 100;
 	float sizeY = window_size.y / 100;
-
 
 	//Sol
 	CreateColliderObject(this, ColliderType, "Sol", Maths::Vector2f(sizeX * 0.104167, sizeY * 90.5556), Maths::Vector2f(sizeX * 99.8437, sizeY * 0.462963));
@@ -37,7 +37,7 @@ void DefaultScene::SpawnObjectLevel3() {
 	//Fenêtre
 	CreateColliderObject(this, ColliderType, "Fenetre", Maths::Vector2f(sizeX * 23.0729, sizeY * 50.463), Maths::Vector2f(sizeX * 18.0729, sizeY * 1.57407));
 	//Livre mouvable
-	CreateSpriteObject(this, MoveType, "LivreMove", Maths::Vector2f(sizeX * 39.7412, sizeY * 40.9), Maths::Vector2f(sizeX * 1.73684, sizeY * 13.7), "livre");
+	CreateSpriteObject(this, MoveType, "LivreMove", Maths::Vector2f(sizeX * 39.7412, sizeY * 40.9), Maths::Vector2f(sizeX * 1.73684, sizeY * 13.7), "texture_livre", Maths::Vector2f(0,0), Maths::Vector2f(0,0));
 
 	//Carton
 	CreateColliderObject(this, ColliderType, "Carton", Maths::Vector2f(sizeX * 43.4375, sizeY * 79.1667), Maths::Vector2f(sizeX * 4.63542, sizeY * 14.4444));
@@ -71,9 +71,6 @@ void DefaultScene::SpawnObjectLevel3() {
 	CreateColliderObject(this, ColliderType, "Trou_de_souris", Maths::Vector2f(sizeX * 96.5104, sizeY * 83.8889), Maths::Vector2f(sizeX * 2.96875, sizeY * 3.33333));
 
 	//Interrupteur
-	CreateColliderObject(this, ColliderType, "Interrupteur", Maths::Vector2f(sizeX * 37.6562, sizeY * 65.9259), Maths::Vector2f(sizeX * 2.23958, sizeY * 2.22222));
-	   
+	CreateSpriteObject(this, ColliderType, "Interrupteur", Maths::Vector2f(sizeX * 37.6562, sizeY * 65.9259), Maths::Vector2f(sizeX * 2.23958, sizeY * 2.22222), "texture_interrupteur", Maths::Vector2f(189, 294), Maths::Vector2f(0, 13));
 
-	//Bibliothèque
-	//CreateColliderObject(this, ColliderType, "Wall", 20 * sizeWallX, 12 * sizeWallY);
 }
