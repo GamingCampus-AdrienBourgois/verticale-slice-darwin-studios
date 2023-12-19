@@ -79,5 +79,8 @@ void DefaultScene::SpawnObjectLevel3() {
 	//Interrupteur
 	GameObject* interrupteur = CreateInteractiveObject(this, InteractiveType, "Interrupteur", Maths::Vector2f(sizeX * 36.5104, sizeY * 61.2037), Maths::Vector2f(sizeX * 1.8958, ((sizeX * 1.8958) * 147) / 94.5), "texture_interrupteur", Maths::Vector2f(189, 294), Maths::Vector2f(0, 13), lampe);
 	interrupteur->GetComponent<SpriteRenderer>()->SetNextSpriteRect(1);
-
+	interrupteur->GetComponent<Interactive>()->SetCallback([interrupteur] {interrupteur->GetComponent<Interactive>()->SwitchStateLamp(); });
 }
+
+
+

@@ -9,3 +9,7 @@ void Interactive::Update(const float _delta_time, std::unordered_map<sf::Keyboar
 		
 	}
 }
+
+void Interactive::SwitchStateLamp() {
+	object->GetComponent<SpriteRenderer>()->SetNextSpriteRect(0);
+}
