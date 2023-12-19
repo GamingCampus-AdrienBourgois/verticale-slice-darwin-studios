@@ -56,10 +56,11 @@ void SpriteRenderer::SetNextSpriteRect(int num_sprite_on_sheet) {
 	sprite->setScale(width / sprite_size.x, height / sprite_size.y);
 }
 
-void SpriteRenderer::SetOneSprite(sf::Sprite* new_sprite, Maths::Vector2f(_size))
+void SpriteRenderer::SetOneSprite(sf::Texture* new_texture, sf::Sprite* new_sprite, Maths::Vector2f(_size))
 {
+	texture = new_texture;
 	sprite = new_sprite;
-	sprite->setScale(_size.x, _size.y);
+	sprite->setScale(_size.x / texture->getSize().x, _size.y / texture->getSize().y);
 }
 
 void SpriteRenderer::Render(sf::RenderWindow* _window)
