@@ -263,7 +263,9 @@ GameObject* Scene::CreateShapeAlone(const ObjectType& _type, std::string _name, 
 
 	return game_object;
 }
-GameObject* Scene::CreateSpriteObject(Scene* scene, const ObjectType& _type, std::string _name, Maths::Vector2f _position, Maths::Vector2f _size, std::string nom_texture) {
+
+
+GameObject* Scene::CreateSpriteObject(Scene* scene, const ObjectType& _type, std::string _name, Maths::Vector2f _position, Maths::Vector2f _size, std::string nom_texture, Maths::Vector2f _sprite_size, Maths::Vector2f sprite_space) {
 	GameObject* game_object = scene->CreateGameObject(_type, _name);
 	game_object->SetPosition(_position);
 
@@ -273,12 +275,13 @@ GameObject* Scene::CreateSpriteObject(Scene* scene, const ObjectType& _type, std
 	squareCollider->SetWidth(_size.x);
 	squareCollider->SetHeight(_size.y);
 
-	RectangleShapeRenderer* shapeRenderer = game_object->CreateComponent<RectangleShapeRenderer>();
-	shapeRenderer->SetColor(sf::Color{ 255,255,255,50 }); // Couleur du mur
-	shapeRenderer->SetSize(Maths::Vector2f(_size.x, _size.y)); // Taille du mur
-
-	SpriteRenderer* sprite = game_object->CreateComponent<SpriteRenderer>();
-	sprite->SetSprite(&texture[nom_texture], Maths::Vector2f(_size.x, _size.y));
+	SpriteRenderer* sprite_renderer = game_object->CreateComponent<SpriteRenderer>();
+	if (sprite_space.x == 0 && sprite_space.y == 0) {
+		sprite_renderer->SetSprite(&texture[nom_texture], _size);
+	}
+	else {
+		sprite_renderer->SetSpriteRect(&texture[nom_texture], _size, _sprite_size, Maths::Vector2f(0, 0), sprite_space);
+	}
 
 	return game_object;
 }

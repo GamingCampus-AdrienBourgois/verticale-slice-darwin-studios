@@ -90,4 +90,5 @@ private:
 	GameObject* CreateDollOff(const ObjectType& _type, std::string _name, Maths::Vector2f _position, const sf::Color _color);
 	void SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, Scene* scene);
 	void ReturnCheckpoint(Scene* scene, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input);
+	void TPFinDuLevel(Scene* scene, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input);
 };

@@ -38,7 +38,21 @@ void SpriteRenderer::SetSpriteRect(sf::Texture* new_texture, Maths::Vector2f _si
 }
 
 void SpriteRenderer::SetNextSpriteRect(int num_sprite_on_sheet) {
-	sprite->setTextureRect(sf::IntRect(0+ ( num_sprite_on_sheet * sprite_space.x), 0 + (num_sprite_on_sheet * (sprite_size.y + sprite_space.y)), sprite_size.x, sprite_size.y));
+	float new_pos_x = 0;
+	float new_pos_y = 0;
+	if (sprite_space.x != 0) {
+		new_pos_x = sprite_first_position.x + (num_sprite_on_sheet * (sprite_size.x + sprite_space.x));
+	}
+	else {
+		new_pos_x = sprite_first_position.x + (num_sprite_on_sheet * sprite_space.x);
+	}
+	if (sprite_space.y != 0) {
+		new_pos_y = sprite_first_position.y + (num_sprite_on_sheet * (sprite_size.y + sprite_space.y));
+	}
+	else {
+		new_pos_y = sprite_first_position.y + (num_sprite_on_sheet * sprite_space.y);
+	}
+	sprite->setTextureRect(sf::IntRect(new_pos_x, new_pos_y, sprite_size.x, sprite_size.y));
 	sprite->setScale(width / sprite_size.x, height / sprite_size.y);
 }
 

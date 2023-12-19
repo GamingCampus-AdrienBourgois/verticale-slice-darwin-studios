@@ -60,35 +60,20 @@ void Player::Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key,
 
 	if (is_jumping && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["up"]) {
 		if (jumping_time.getElapsedTime().asSeconds() <= 0.4) {
-			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() - (500 * _delta_time)));
-		}
-		else if (jumping_time.getElapsedTime().asSeconds() <= 0.45) {
-			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() - (400 * _delta_time)));
+		GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() - (sizeWindow.y * 0.3 * _delta_time)));
 		}
 		else if (jumping_time.getElapsedTime().asSeconds() <= 0.5) {
-			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() - (300 * _delta_time)));
-		}
-		else if (jumping_time.getElapsedTime().asSeconds() <= 0.55) {
-			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() - (150 * _delta_time)));
-		}
-		else if (jumping_time.getElapsedTime().asSeconds() <= 0.575) {
-			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() - (75 * _delta_time)));
-		}
-		else if (jumping_time.getElapsedTime().asSeconds() <= 0.585) {
-			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() - (35 * _delta_time)));
-		}
-		else if (jumping_time.getElapsedTime().asSeconds() <= 0.595) {
-			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() - (0 * _delta_time)));
+		GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() - (sizeWindow.y * 0 * _delta_time)));
 		}
 		else{
-			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() + (200 * _delta_time)));
-			can_jump = false;
+		GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() + (sizeWindow.y * 0.3 * _delta_time)));
+		can_jump = false;
 		}
 	}
 
-	if (GetOwner()->GetPosition().GetY() + 200 <= sizeWindow.y && !is_jumping && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["down"]) {
-		GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() + (200 * _delta_time)));
-	}
+if (GetOwner()->GetPosition().GetY() + 200 <= sizeWindow.y && !is_jumping && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["down"]) {
+	GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() + (sizeWindow.y * 0.1 * _delta_time)));
+}
 
 }
 
@@ -263,6 +248,32 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 	}
 }
 
+void Player::TPFinDuLevel(Scene* scene, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) {
+	auto it = pressed_input->begin();
+
+	while (it != pressed_input->end()) {
+		const auto& input = *it;
+
+		if (input.first == 12 && input.second == true) {
+
+			for (GameObject* const& gameObject : *scene->GetGameObjects())
+			{
+				if (gameObject->GetType() == PlayerType)
+				{
+					gameObject->SetPosition(Maths::Vector2f(sizeWindow.x / 100 * 96.5104, sizeWindow.y / 100 * 87.3333));
+				}
+			}
+
+
+			// Effacer l'élément du vecteur
+			it = pressed_input->erase(it);
+		}
+		else {
+			++it;
+		}
+	}
+}
+
 void Player::ReturnCheckpoint(Scene* scene, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) {
 	if (can_check && !is_check)
 	{
@@ -366,7 +377,8 @@ void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Ke
 	Move(_delta_time, pressed_input, scene->GetGameObjects());
 	Jump(_delta_time, pressed_input, scene->GetGameObjects());
 	SwitchDoll(pressed_input, scene);
-	ReturnCheckpoint(scene, pressed_input);
+	ReturnCheckpoint(scene, pressed_input); 
+	TPFinDuLevel(scene, pressed_input);
 	Dead(scene->GetGameObjects());
 
 	for (GameObject* const& gameObject : *scene->GetGameObjects())
