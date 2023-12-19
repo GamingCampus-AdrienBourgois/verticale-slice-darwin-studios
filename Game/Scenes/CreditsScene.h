@@ -8,13 +8,22 @@
 #include <fstream>
 #include <sstream>
 
+#include "LaunchFunction.h"
+
+
 class CreditsScene final : public Scene
 {
 public:
+
+	LaunchFunction* launchFunction;
+
+
 	CreditsScene() : Scene("CreditsScene")
 	{
+		launchFunction = new LaunchFunction();
 		Scene* scene = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetMainScene();
 		SetTexture("background", "Assets/background/main_menu_background.png");
+		SetTexture("texture_return_button", "Assets/button/return_button.png");
 		SetBackground("background");
 
 		SetFont("Font/UkrainianPrincess.ttf");
@@ -37,8 +46,9 @@ public:
 		}
 		file.close();
 
+
+		GameObject* return_button = CreateSpriteButton_forMainMenu(ButtonType, "return_button", Maths::Vector2f(window_size.x / 50, window_size.y - window_size.y / 50), Maths::Vector2f(window_size.x / 20, ((((window_size.x / 20) * 161) / 144))), [this] {launchFunction->LaunchMainMenu(); }, nullptr, "texture_return_button", Maths::Vector2f(144, 161), Maths::Vector2f(0, 15));
 	}
 
-
-
+	~CreditsScene() { delete launchFunction; }
 };

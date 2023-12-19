@@ -4,11 +4,20 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
+
+#include "LaunchFunction.h"
+
+
 class SelectCapacityScene final : public Scene
 {
 public:
+	LaunchFunction* launchFunction;
+
+
 	SelectCapacityScene() : Scene("SelectCapacityScene")
 	{
+		launchFunction = new LaunchFunction();
+
 		SetTexture("background", "Assets/background/capacity_background.png");
 		SetBackground("background");
 		SetFont("Font/UkrainianPrincess.ttf");
@@ -17,6 +26,7 @@ public:
 		SetTexture("texture_zvezda_button", "Assets/button/zvezda_button.png");
 		SetTexture("texture_zwezda_button", "Assets/button/zwezda_button.png");
 		SetTexture("texture_map_button", "Assets/button/map_button.png");
+		SetTexture("texture_return_button", "Assets/button/return_button.png");
 
 		sf::Vector2u window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindow()->getSize();
 
@@ -27,7 +37,7 @@ public:
 		GameObject* doll_button3 = CreateSpriteButton_forMainMenu(ButtonType, "doll_button3", Maths::Vector2f((window_size.x / 2  + (window_size.x / 10 * 1.5)), (window_size.y / 2)), Maths::Vector2f(window_size.x / 10, (((window_size.x / 10) * 161) / 82)), [] {}, nullptr, "texture_zwezda_button", Maths::Vector2f(82, 161), Maths::Vector2f(0, 15));
 		doll_button3->GetComponent<Button>()->SetCallback(std::bind(&Button::DollSelectCapacity, doll_button3->GetComponent<Button>()));
 		
-		GameObject* launch_game_button = CreateSpriteButton_forMainMenu(ButtonType, "launch_game_button", Maths::Vector2f((window_size.x / 2) - (window_size.x / 15), (window_size.y - window_size.y / 100 * 15)), Maths::Vector2f(window_size.x / 15 * 2,((((window_size.x / 15 * 2) * 168 ) / 448 ))), [this] {LauchGame(); }, nullptr, "texture_launch_capacity_button", Maths::Vector2f(448,168), Maths::Vector2f(0,24));
+		GameObject* launch_game_button = CreateSpriteButton_forMainMenu(ButtonType, "launch_game_button", Maths::Vector2f((window_size.x / 2) - (window_size.x / 15), (window_size.y - window_size.y / 100 * 15)), Maths::Vector2f(window_size.x / 15 * 2,((((window_size.x / 15 * 2) * 168 ) / 448 ))), [this] {launchFunction->LauchGame(); }, nullptr, "texture_launch_capacity_button", Maths::Vector2f(448,168), Maths::Vector2f(0,24));
 		launch_game_button->GetComponent<RectangleShapeRenderer>()->SetColor(launch_game_button->GetComponent<RectangleShapeRenderer>()->GetDisabledColor());
 		launch_game_button->GetComponent<Button>()->is_disabled = true;
 		if (launch_game_button->GetComponent<SpriteRenderer>() != nullptr) {
@@ -35,16 +45,8 @@ public:
 		}
 
 		GameObject* map_button = CreateSpriteButton_forMainMenu(ButtonType, "map_button", Maths::Vector2f(window_size.x /50, window_size.y / 50), Maths::Vector2f(window_size.x / 20 , ((((window_size.x / 20) * 161) / 144))), [] {}, nullptr, "texture_map_button", Maths::Vector2f(144, 161), Maths::Vector2f(0, 15));
-
+		GameObject* return_button = CreateSpriteButton_forMainMenu(ButtonType, "return_button", Maths::Vector2f(window_size.x / 50, window_size.y - window_size.y / 50), Maths::Vector2f(window_size.x / 20, ((((window_size.x / 20) * 161) / 144))), [this] { launchFunction->LaunchMainMenu(); }, nullptr, "texture_return_button", Maths::Vector2f(144, 161), Maths::Vector2f(0, 15));
 	}
 
-	void LauchGame() {
-		Scene* scene = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetMainScene();
-		std::vector<Capacity> params;
-		params.push_back(*scene->FindGameObject("doll_button1")->GetComponent<Button>()->has_select->GetComponent<Button>()->GetObject());
-		params.push_back(*scene->FindGameObject("doll_button2")->GetComponent<Button>()->has_select->GetComponent<Button>()->GetObject());
-		params.push_back(*scene->FindGameObject("doll_button3")->GetComponent<Button>()->has_select->GetComponent<Button>()->GetObject());
-		SceneModule* scene_module = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>();
-		scene_module->SetNextScene([scene_module, params] {scene_module->SetSceneWithParams<DefaultScene>(true, params); });
-	}
+	~SelectCapacityScene() { delete launchFunction; }
 };

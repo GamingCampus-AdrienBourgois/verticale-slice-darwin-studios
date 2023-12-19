@@ -11,6 +11,7 @@
 
 class Capacity;
 
+
 class DefaultScene final : public Scene
 {
 public:

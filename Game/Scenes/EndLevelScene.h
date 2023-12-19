@@ -6,14 +6,15 @@
 
 #include <functional>
 
-#include "MainMenuScene.h"
+#include "LaunchFunction.h"
+
 
 
 
 class EndLevelScene final : public Scene
 {
 public:
-
+	LaunchFunction* launchFunction;
 
 
 	sf::Vector2f window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize();
@@ -22,6 +23,7 @@ public:
 
 
 	EndLevelScene() : Scene("EndLevelScene") {
+		launchFunction = new LaunchFunction();
 
 		SetFont("Font/UkrainianPrincess.ttf");
 		SetTexture("texture_button", "Assets/button/button.png"); 
@@ -29,7 +31,7 @@ public:
 		GameObject* shapeBackground = CreateShapeAlone(ShapeType, "BackgroundScene", Maths::Vector2f(0, 0), sf::Color(128, 128, 128, 128), window_size);
 		GameObject* endLevelText = CreateText(TextType, "textEndLevel", Maths::Vector2f(window_size.x / 2 - window_size.x / 4, (window_size.y / 100 * 25)), sf::Color::White, Maths::Vector2u(window_size.x / 4 * 2, (window_size.y / 100 * 10)), 40);
 		GameObject* nextLevelEndScene = CreateSpriteButtonWithText(ButtonType, "NextLevelButton", Maths::Vector2f(((window_size.x / 2) - (button_size_x / 2)), window_size.y * 4 / 6), Maths::Vector2f(button_size_x, button_size_y), [] {}, nullptr, "texture_button", Maths::Vector2f(448, 168), Maths::Vector2f(0, 24), "Prochain niveau", sf::Color::Black, 30);
-		GameObject* menuButtonEndScene = CreateSpriteButtonWithText(ButtonType, "QuitButton", Maths::Vector2f(((window_size.x / 2) - (button_size_x / 2)), window_size.y * 3 / 6), Maths::Vector2f(button_size_x, button_size_y), [this] {LaunchMainMenu(); }, nullptr, "texture_button", Maths::Vector2f(448, 168), Maths::Vector2f(0, 24), "Retour Menu", sf::Color::Black, 30);
+		GameObject* menuButtonEndScene = CreateSpriteButtonWithText(ButtonType, "QuitButton", Maths::Vector2f(((window_size.x / 2) - (button_size_x / 2)), window_size.y * 3 / 6), Maths::Vector2f(button_size_x, button_size_y), [this] {launchFunction->LaunchMainMenu(); }, nullptr, "texture_button", Maths::Vector2f(448, 168), Maths::Vector2f(0, 24), "Retour Menu", sf::Color::Black, 30);
 
 		endLevelText->GetComponent<TextRenderer>()->SetString("Vous avez terminé le niveau 3 !");
 
@@ -40,9 +42,5 @@ public:
 		}
  	}
 
-private:
-	void LaunchMainMenu() {
-		SceneModule* scene_module = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>();
-		scene_module->SetNextScene([scene_module] {scene_module->SetScene<MainMenuScene>(); });
-	}
+	~EndLevelScene() { delete launchFunction; }
 };
