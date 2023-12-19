@@ -14,18 +14,72 @@
 
 #include "Capacity/Dash.h"
 
+//Sound
+Player::Player() {
+	soundBufferJump = new sf::SoundBuffer;
+	if (!soundBufferJump->loadFromFile("Assets/Sons/Saut.wav")) {
+		std::cout << "erreur de chargement du fichier" << std::endl;
+	}
+	soundJump = new sf::Sound;
+
+	soundBufferWalk = new sf::SoundBuffer;
+	if (!soundBufferWalk->loadFromFile("Assets/Sons/deplacement.wav")) {
+		std::cout << "erreur de chargement du fichier" << std::endl;
+	}
+	soundWalk = new sf::Sound;
+
+	soundBufferSwitchDoll = new sf::SoundBuffer;
+	if (!soundBufferSwitchDoll->loadFromFile("Assets/Sons/changement_poupée.wav")) {
+		std::cout << "erreur de chargement du fichier" << std::endl;
+	}
+	soundSwitchDoll = new sf::Sound;
+}
+
+Player::~Player() {
+	delete soundBufferJump;
+	delete soundJump;
+	delete soundBufferWalk;
+	delete soundWalk;
+	delete soundBufferSwitchDoll;
+	delete soundSwitchDoll;
+}
+
+void Player::PlaySound() {
+	soundJump->setBuffer(*soundBufferJump);
+	soundJump->play();
+	soundWalk->setBuffer(*soundBufferWalk);
+	soundWalk->play();
+	soundSwitchDoll->setBuffer(*soundBufferSwitchDoll);
+	soundSwitchDoll->play();
+}
+
+void Player::StopSound() {
+	soundJump->stop();
+	soundWalk->stop();
+	soundSwitchDoll->stop();
+}
 
 void Player::Move(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, std::vector<GameObject*>* gameObjects){
 	for (const auto& input : *pressed_input) {
 		if (input.first == 3 && input.second == true && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["right"]) {
 			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX() + (speed * _delta_time), GetOwner()->GetPosition().GetY()));
+			//Son Déplacement
+			soundWalk->setBuffer(*soundBufferWalk);
+			soundWalk->play();
 		}else if (input.first == 16 && input.second == true && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["left"]) {
 			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX() - (speed * _delta_time), GetOwner()->GetPosition().GetY()));
+			//Son Déplacement
+			soundWalk->setBuffer(*soundBufferWalk);
+			soundWalk->play();
 		}
 	}
 }
 
 void Player::Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, std::vector<GameObject*>* gameObjects) {
+	//Son Jump
+	soundJump->setBuffer(*soundBufferJump);
+	soundJump->play();
+
 	if (!GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["down"] && is_jumping) {
 		is_jumping = false;
 		is_double_jumping = false;
@@ -146,6 +200,10 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 
 		if (actuall_doll_int == 0)
 		{
+			//Son changement Doll
+			soundSwitchDoll->setBuffer(*soundBufferSwitchDoll);
+			soundSwitchDoll->play();
+
 			big_dollOff = CreateDollOff(DollOffType, "big_doll_off", position, actuall_color);
 			GetOwner()->SetPosition(Maths::Vector2f(position.GetX(), position.GetY() - sizePlayer * 1.5));
 			GetOwner()->GetComponent<RectangleShapeRenderer>()->SetColor(colorMid);
@@ -205,6 +263,10 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 		}
 		else if (actuall_doll_int == 1)
 		{
+			//Son changement Doll
+			soundSwitchDoll->setBuffer(*soundBufferSwitchDoll);
+			soundSwitchDoll->play();
+
 			mid_dollOff = CreateDollOff(DollOffType, "mid_doll_off", position, actuall_color);
 			GetOwner()->SetPosition(Maths::Vector2f(position.GetX(), position.GetY() - sizePlayer * 1.5));
 			GetOwner()->GetComponent<RectangleShapeRenderer>()->SetColor(colorSmall);

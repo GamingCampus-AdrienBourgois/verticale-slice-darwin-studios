@@ -2,10 +2,10 @@
 #include "Components/Player.h"
 #include <iostream>
 
-
+//Sound
 Dash::Dash() {
     soundBufferDash = new sf::SoundBuffer;
-    if (!soundBufferDash->loadFromFile("Assets/Sons/dash.wav")) {
+    if (!soundBufferDash->loadFromFile("Assets/Sons/inversion_gravite.wav")) {
         std::cout << "erreur de chargement du fichier" << std::endl;
     }
     soundDash = new sf::Sound;
@@ -34,15 +34,6 @@ void Dash::IsDashing(const float _delta_time, std::vector<GameObject*>* gameObje
             break;
         }
     }
-
-    /*sf::SoundBuffer buffer;
-    if (!buffer.loadFromFile("Assets/Sons/dash.wav")) {
-        std::cout << "erreur de chargement du fichier" << std::endl;
-        sf::Sound sound;
-        sound.setBuffer(buffer);
-        sound.play();
-    }*/
-
 
     if (player != nullptr) {
         if ((speed_dash > 0 && !player->GetComponent<SquareCollider>()->GetCanMoving()["right"]) || (speed_dash < 0 && !player->GetComponent<SquareCollider>()->GetCanMoving()["left"]) || (StartClockDurationDash.getElapsedTime().asMilliseconds() >= timeDash && is_dashing))

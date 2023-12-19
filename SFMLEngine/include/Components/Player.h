@@ -2,6 +2,8 @@
 #include "Doll.h"
 #include "Engine.h"
 
+#include <SFML/Audio.hpp>
+
 #include "Capacity/DoubleJump.h"
 
 #include "Modules/WindowModule.h"
@@ -17,6 +19,8 @@
 class Player : public Component
 {
 public:
+	Player();
+	~Player();
 
 	template<typename T>
 	T* SetCapacity();
@@ -33,6 +37,9 @@ public:
 	int GetSize() { return sizePlayer; }
 	Capacity* GetCapacity() { return capacity; }
 	bool GetIsJumping() { return is_jumping; }
+
+	void PlaySound();
+	void StopSound();
 
 	bool Dead(std::vector<GameObject*>* gameObjects);
 	void Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) override;
@@ -81,6 +88,14 @@ private:
 	sf::Color colorBig = sf::Color::Red;
 	sf::Color colorMid = sf::Color::Blue;
 	sf::Color colorSmall = sf::Color::Green;
+
+	//Sound
+	sf::SoundBuffer* soundBufferJump;
+	sf::Sound* soundJump;
+	sf::SoundBuffer* soundBufferWalk;
+	sf::Sound* soundWalk;
+	sf::SoundBuffer* soundBufferSwitchDoll;
+	sf::Sound* soundSwitchDoll;
 
 
 	// Functions
