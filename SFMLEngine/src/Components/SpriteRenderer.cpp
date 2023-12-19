@@ -60,6 +60,7 @@ void SpriteRenderer::SetOneSprite(sf::Texture* new_texture, sf::Sprite* new_spri
 {
 	texture = new_texture;
 	sprite = new_sprite;
+	sprite->setTexture(*texture);
 	sprite->setScale(_size.x / texture->getSize().x, _size.y / texture->getSize().y);
 }
 
