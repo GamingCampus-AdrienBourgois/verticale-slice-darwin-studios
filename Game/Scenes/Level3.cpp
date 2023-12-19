@@ -5,7 +5,7 @@ void DefaultScene::SpawnObjectLevel3() {
 
     SetTexture("livre", "Assets/Object/livre.png");
 
-    SetTexture("background", "Assets/background/level_3_background.png");
+    SetTexture("background", "Assets/background/level_3_background-transformed.png");
     SetBackground("background");
 
 	float sizeX = window_size.x / 100;
