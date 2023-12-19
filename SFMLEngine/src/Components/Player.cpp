@@ -92,7 +92,7 @@ void Player::Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key,
 
 }
 
-GameObject* Player::CreateDollOff(const ObjectType& _type, std::string _name, Maths::Vector2f _position, const sf::Color _color) {
+GameObject* Player::CreateDollOff(const ObjectType& _type, std::string _name, Maths::Vector2f _position, std::string nom_texture) {
 	Scene* scene = sceneModule->GetScene("DefaultScene");
 
 	GameObject* game_object = scene->CreateGameObject(_type, _name);
@@ -146,6 +146,7 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 
 		Maths::Vector2f position = GetOwner()->GetPosition();
 		sf::Color actuall_color = GetOwner()->GetComponent<RectangleShapeRenderer>()->GetColor();
+		sf::Sprite actuel_texture = GetOwner()->GetComponent<SpriteRenderer>()->GetSprite();
 
 		if (actuall_doll_int == 0)
 		{
