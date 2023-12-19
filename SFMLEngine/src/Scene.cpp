@@ -252,7 +252,7 @@ GameObject* Scene::CreateSpriteObject(Scene* scene, const ObjectType& _type, std
 	GameObject* game_object = scene->CreateGameObject(_type, _name);
 	game_object->SetPosition(_position);
 
-	sf::Vector2u window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize();
+	sf::Vector2f window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize();
 
 	SquareCollider* squareCollider = game_object->CreateComponent<SquareCollider>();
 	squareCollider->SetWidth(_size.x);
