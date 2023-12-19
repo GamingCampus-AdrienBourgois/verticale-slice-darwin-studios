@@ -141,14 +141,18 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 		can_jump = false;
 		can_check = false;
 
+		
+		
+
 		Maths::Vector2f position = GetOwner()->GetPosition();
 		sf::Color actuall_color = GetOwner()->GetComponent<RectangleShapeRenderer>()->GetColor();
 
 		if (actuall_doll_int == 0)
 		{
+			scene->SetTexture("texture_zvezda", "Assets/Dolls/Zvezda-sheet.png");
 			big_dollOff = CreateDollOff(DollOffType, "big_doll_off", position, actuall_color);
 			GetOwner()->SetPosition(Maths::Vector2f(position.GetX(), position.GetY() - sizePlayer * 1.5));
-			GetOwner()->GetComponent<SpriteRenderer>()->SetSpriteRect((*scene->GetTexture())["texture_zvezda"], Maths::Vector2f((sizeWindow.x / 33), (((sizeWindow.x / 33) * 654) / 420)), Maths::Vector2f(420, 654), GetOwner()->GetPosition(), Maths::Vector2f(0, 1));
+			GetOwner()->GetComponent<SpriteRenderer>()->SetSpriteRect(&texture["texture_zvezda"], Maths::Vector2f((sizeWindow.x / 33), (((sizeWindow.x / 33) * 654) / 420)), Maths::Vector2f(420, 654), GetOwner()->GetPosition(), Maths::Vector2f(0, 1));
 			Capacity* capacity_for_mid_doll = scene->GetMidCapacity();
 
 			delete capacity;
@@ -204,9 +208,10 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 		}
 		else if (actuall_doll_int == 1)
 		{
+			scene->SetTexture("texture_zwezda", "Asserts/Dolls/Zwezda-sheet.png");
 			mid_dollOff = CreateDollOff(DollOffType, "mid_doll_off", position, actuall_color);
 			GetOwner()->SetPosition(Maths::Vector2f(position.GetX(), position.GetY() - sizePlayer * 1.5));
-			GetOwner()->GetComponent<SpriteRenderer>()->SetSpriteRect((*scene->GetTexture())["texture_zwezda"], Maths::Vector2f((sizeWindow.x / 40), (((sizeWindow.x / 40) * 654) / 420)), Maths::Vector2f(420, 654), GetOwner()->GetPosition(), Maths::Vector2f(0, 1));
+			GetOwner()->GetComponent<SpriteRenderer>()->SetSpriteRect(&texture["texture_zwezda"], Maths::Vector2f((sizeWindow.x / 40), (((sizeWindow.x / 40) * 654) / 420)), Maths::Vector2f(420, 654), GetOwner()->GetPosition(), Maths::Vector2f(0, 1));
 			Capacity* capacity_for_small_doll = scene->GetSmallCapacity();
 
 			delete capacity;

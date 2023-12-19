@@ -77,6 +77,7 @@ private:
 	// Checkpoint
 	bool copiedSpawn = false;
 	std::vector<GameObject*> gameObjectsCheckpoint;
+	std::unordered_map<std::string, sf::Texture> texture;
 
 	sf::Color colorBig = sf::Color::Red;
 	sf::Color colorMid = sf::Color::Blue;
