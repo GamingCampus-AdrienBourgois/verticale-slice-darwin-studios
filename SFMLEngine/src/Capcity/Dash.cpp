@@ -2,6 +2,29 @@
 #include "Components/Player.h"
 #include <iostream>
 
+
+Dash::Dash() {
+    soundBufferDash = new sf::SoundBuffer;
+    if (!soundBufferDash->loadFromFile("Assets/Sons/dash.wav")) {
+        std::cout << "erreur de chargement du fichier" << std::endl;
+    }
+    soundDash = new sf::Sound;
+}
+
+Dash::~Dash() {
+    delete soundBufferDash;
+    delete soundDash;
+}
+
+void Dash::PlaySound() {
+    soundDash->setBuffer(*soundBufferDash);
+    soundDash->play();
+}
+
+void Dash::StopSound() {
+    soundDash->stop();
+}
+
 void Dash::IsDashing(const float _delta_time, std::vector<GameObject*>* gameObjects) {
     GameObject* player = nullptr;
 
@@ -11,6 +34,15 @@ void Dash::IsDashing(const float _delta_time, std::vector<GameObject*>* gameObje
             break;
         }
     }
+
+    /*sf::SoundBuffer buffer;
+    if (!buffer.loadFromFile("Assets/Sons/dash.wav")) {
+        std::cout << "erreur de chargement du fichier" << std::endl;
+        sf::Sound sound;
+        sound.setBuffer(buffer);
+        sound.play();
+    }*/
+
 
     if (player != nullptr) {
         if ((speed_dash > 0 && !player->GetComponent<SquareCollider>()->GetCanMoving()["right"]) || (speed_dash < 0 && !player->GetComponent<SquareCollider>()->GetCanMoving()["left"]) || (StartClockDurationDash.getElapsedTime().asMilliseconds() >= timeDash && is_dashing))
@@ -28,11 +60,20 @@ void Dash::IsDashing(const float _delta_time, std::vector<GameObject*>* gameObje
                     speed_dash = 3;
                     is_dashing = true;
                     StartClockDurationDash.restart(); // Redémarre le temps du dash
+                    if (!soundPlayed) {
+                        PlaySound();
+                        soundPlayed = true; // Marquer que le son a été joué
+                        std::cout << "truc" << std::endl;
+                    }
                 }
                 else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && player->GetComponent<SquareCollider>()->GetCanMoving()["left"]) {
                     speed_dash = -3;
                     is_dashing = true;
                     StartClockDurationDash.restart(); // Redémarre le temps du dash
+                    if (!soundPlayed) {
+                        PlaySound();
+                        soundPlayed = true; // Marquer que le son a été joué
+                    }
                 }
             }
         }
@@ -47,6 +88,8 @@ void Dash::IsDashing(const float _delta_time, std::vector<GameObject*>* gameObje
 }
 
 void Dash::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) {
+    soundPlayed = false;
+
     std::vector<GameObject*>* gameObjects = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetMainScene()->GetGameObjects();
     IsDashing(_delta_time, gameObjects);
 }
