@@ -5,6 +5,8 @@
 #include "WindowModule.h"
 #include <functional>
 
+#include "SelectCapacityScene.h"
+
 
 class MainMenuScene final : public Scene
 {

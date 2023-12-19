@@ -282,4 +282,3 @@ GameObject* Scene::CreateSpriteObject(Scene* scene, const ObjectType& _type, std
 
 	return game_object;
 }
-

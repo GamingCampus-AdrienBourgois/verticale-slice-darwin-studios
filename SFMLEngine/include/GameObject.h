@@ -35,6 +35,9 @@ public:
 	bool GetSwitchOn() { return switchOn; }
 	void SetCallback(std::function<void()> _callback) { callback = _callback; }
 	std::function<void()> GetCallback() { return callback; }
+	void SetCallbackProc(bool value) { callbackProc = value; }
+	bool GetCallbackProc() { return callbackProc; }
+
 	template<typename T>
 	T* CreateComponent();
 
@@ -59,6 +62,7 @@ private:
 	std::vector<Component*> components;
 
 	std::function<void()> callback;
+	bool callbackProc = false;
 
 	bool switchOn = false;
 };
