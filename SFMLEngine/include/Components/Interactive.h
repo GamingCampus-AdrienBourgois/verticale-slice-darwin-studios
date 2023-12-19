@@ -15,4 +15,6 @@ public:
 private:
 	bool is_activated = false;
 	bool can_be_activated = false;
+
+	GameObject* object;
 };

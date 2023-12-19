@@ -267,7 +267,7 @@ GameObject* Scene::CreateSpriteObject(Scene* scene, const ObjectType& _type, std
 	return game_object;
 }
 
-GameObject* Scene::CreateInteractiveObject(Scene* scene, const ObjectType& _type, std::string _name, Maths::Vector2f _position, Maths::Vector2f _size, std::string nom_texture, Maths::Vector2f _sprite_size, Maths::Vector2f sprite_space) {
+GameObject* Scene::CreateInteractiveObject(Scene* scene, const ObjectType& _type, std::string _name, Maths::Vector2f _position, Maths::Vector2f _size, std::string nom_texture, Maths::Vector2f _sprite_size, Maths::Vector2f sprite_space, GameObject* _object) {
 	GameObject* game_object = scene->CreateGameObject(_type, _name);
 	game_object->SetPosition(_position);
 

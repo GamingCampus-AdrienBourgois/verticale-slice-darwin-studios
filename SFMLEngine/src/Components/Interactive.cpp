@@ -6,6 +6,6 @@ void Interactive::Update(const float _delta_time, std::unordered_map<sf::Keyboar
 		
 	}
 	else {
-		std::cout << "ttttttttttt" << std::endl;
+		
 	}
 }
