@@ -1,8 +1,7 @@
 #include "Components/SquareCollider.h"
+#include <Components/Player.h>
 #include "Engine.h"
 #include "Maths/Vector2.h"
-#include <iostream>
-#include <Components/Player.h>
 
 bool SquareCollider::IsColliding(const SquareCollider& _collider_a, const SquareCollider& _collider_b, const float _delta_time)
 {
@@ -19,7 +18,7 @@ bool SquareCollider::IsColliding(const SquareCollider& _collider_a, const Square
 
 	bool collison_for_jumping_obj = false;
 
-	if(playerBounds.intersects(objectBounds))
+	if (playerBounds.intersects(objectBounds))
 	{
 		int collisionWidth = std::min(playerBounds.left + playerBounds.width, objectBounds.left + objectBounds.width) - std::max(playerBounds.left, objectBounds.left);
 		int collisionHeight = std::min(playerBounds.top + playerBounds.height, objectBounds.top + objectBounds.height) - std::max(playerBounds.top, objectBounds.top);
@@ -39,13 +38,15 @@ bool SquareCollider::IsColliding(const SquareCollider& _collider_a, const Square
 		// top collision
 		else if (playerBounds.top > objectBounds.top && playerBounds.top <= objectBounds.top + objectBounds.height && ((playerBounds.left <= objectBounds.left && playerBounds.left + playerBounds.width >= objectBounds.left) || (playerBounds.left >= objectBounds.left && playerBounds.left <= objectBounds.left + objectBounds.width)) && (collisionWidth > collisionHeight && collisionWidth > 5))
 		{
-			if (_collider_b.GetOwner()->GetName() == "Lit_appuis_tete" || _collider_b.GetOwner()->GetName() == "Bureau") {
+			if (_collider_b.GetOwner()->GetName() == "Lit_appuis_tete" || _collider_b.GetOwner()->GetName() == "Bureau")
+			{
 				collison_for_jumping_obj = true;
 			}
-			else {
+			else
+			{
 				_collider_a.GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("up", false);
 			}
-		}	
+		}
 		// bottom collision with loss of life
 		if (playerBounds.top <= objectBounds.top && playerBounds.top + playerBounds.height >= objectBounds.top && ((playerBounds.left <= objectBounds.left && playerBounds.left + playerBounds.width >= objectBounds.left) || (playerBounds.left >= objectBounds.left && playerBounds.left <= objectBounds.left + objectBounds.width)) && (collisionWidth > collisionHeight && collisionWidth > 5) && _collider_b.GetOwner()->GetType() == DeathType)
 		{
@@ -62,8 +63,10 @@ bool SquareCollider::IsColliding(const SquareCollider& _collider_a, const Square
 		// bottom collision
 		else if (playerBounds.top <= objectBounds.top && playerBounds.top + playerBounds.height >= objectBounds.top && ((playerBounds.left <= objectBounds.left && playerBounds.left + playerBounds.width >= objectBounds.left) || (playerBounds.left >= objectBounds.left && playerBounds.left <= objectBounds.left + objectBounds.width)) && (collisionWidth > collisionHeight && collisionWidth > 5))
 		{
-			if (_collider_b.GetOwner()->GetName() == "Lit_appuis_tete" || _collider_b.GetOwner()->GetName() == "Bureau") {
-				if (playerBounds.top + playerBounds.height - 0.25 <= objectBounds.top) {
+			if (_collider_b.GetOwner()->GetName() == "Lit_appuis_tete" || _collider_b.GetOwner()->GetName() == "Bureau")
+			{
+				if (playerBounds.top + playerBounds.height - 0.25 <= objectBounds.top)
+				{
 					_collider_a.GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("down", false);
 				}
 			}
@@ -77,7 +80,8 @@ bool SquareCollider::IsColliding(const SquareCollider& _collider_a, const Square
 					_collider_b.GetOwner()->SetCallbackProc(true);
 				}
 			}
-			else {
+			else
+			{
 				_collider_a.GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("down", false);
 			}
 		}
@@ -98,7 +102,6 @@ bool SquareCollider::IsColliding(const SquareCollider& _collider_a, const Square
 		else if (playerBounds.left >= objectBounds.left && playerBounds.left + playerBounds.width >= objectBounds.left + objectBounds.width && ((playerBounds.top <= objectBounds.top && playerBounds.top + playerBounds.height >= objectBounds.top) || (playerBounds.top >= objectBounds.top && playerBounds.top <= objectBounds.top + objectBounds.height)) && (collisionWidth < collisionHeight && collisionHeight > 5))
 		{
 			_collider_a.GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("left", false);
-
 		}
 		//right collision with loss of life
 		if (playerBounds.left <= objectBounds.left && playerBounds.left + playerBounds.width <= objectBounds.left + objectBounds.width && ((playerBounds.top <= objectBounds.top && playerBounds.top + playerBounds.height >= objectBounds.top) || (playerBounds.top >= objectBounds.top && playerBounds.top <= objectBounds.top + objectBounds.height)) && (collisionWidth < collisionHeight && collisionHeight > 5) && _collider_b.GetOwner()->GetType() == DeathType)
@@ -117,14 +120,14 @@ bool SquareCollider::IsColliding(const SquareCollider& _collider_a, const Square
 		else if (playerBounds.left <= objectBounds.left && playerBounds.left + playerBounds.width <= objectBounds.left + objectBounds.width && ((playerBounds.top <= objectBounds.top && playerBounds.top + playerBounds.height >= objectBounds.top) || (playerBounds.top >= objectBounds.top && playerBounds.top <= objectBounds.top + objectBounds.height)) && (collisionWidth < collisionHeight && collisionHeight > 5))
 		{
 			_collider_a.GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("right", false);
-		}		
+		}
 		return true;
 	}
 	return false;
 }
 
-
-bool SquareCollider::CheckCollisionBottom(const SquareCollider& _collider_a, const SquareCollider& _collider_b) {
+bool SquareCollider::CheckCollisionBottom(const SquareCollider& _collider_a, const SquareCollider& _collider_b)
+{
 	sf::RectangleShape rPlayer;
 	sf::RectangleShape rObject;
 
@@ -148,8 +151,8 @@ bool SquareCollider::CheckCollisionBottom(const SquareCollider& _collider_a, con
 	return false;
 }
 
-
-bool SquareCollider::CheckCollisionRight(const SquareCollider& _collider_a, const SquareCollider& _collider_b) {
+bool SquareCollider::CheckCollisionRight(const SquareCollider& _collider_a, const SquareCollider& _collider_b)
+{
 	sf::RectangleShape rPlayer;
 	sf::RectangleShape rObject;
 
@@ -173,7 +176,8 @@ bool SquareCollider::CheckCollisionRight(const SquareCollider& _collider_a, cons
 	return false;
 }
 
-bool SquareCollider::CheckCollisionLeft(const SquareCollider& _collider_a, const SquareCollider& _collider_b) {
+bool SquareCollider::CheckCollisionLeft(const SquareCollider& _collider_a, const SquareCollider& _collider_b)
+{
 	sf::RectangleShape rPlayer;
 	sf::RectangleShape rObject;
 

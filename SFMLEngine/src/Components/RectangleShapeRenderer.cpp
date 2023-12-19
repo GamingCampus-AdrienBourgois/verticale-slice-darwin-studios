@@ -1,9 +1,8 @@
 #include "Components/RectangleShapeRenderer.h"
 
-#include "SFML/Graphics/Shape.hpp"
 #include "Components/Button.h"
-#include "Engine.h"
 #include "Modules/SceneModule.h"
+#include "SFML/Graphics/Shape.hpp"
 
 RectangleShapeRenderer::RectangleShapeRenderer()
 {

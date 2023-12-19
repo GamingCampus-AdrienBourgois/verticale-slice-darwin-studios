@@ -1,14 +1,12 @@
 #include "Scene.h"
 #include "Capacity.h"
-#include "Modules/SceneModule.h" 
 #include "Engine.h"
+#include "Modules/SceneModule.h"
 
 #include <unordered_map>
-#include <SFML/Window/Event.hpp>
 #include "Modules/WindowModule.h"
 
 #include <SFML/Graphics/RenderWindow.hpp>
-
 
 class Capacity;
 
@@ -31,14 +29,13 @@ void Scene::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key
 	}
 }
 
-void Scene::Render(sf::RenderWindow* _window) const	
+void Scene::Render(sf::RenderWindow* _window) const
 {
-
 	if (background != nullptr)
 	{
 		_window->draw(*background);
 	}
-	
+
 	for (int i = 0; i < gameObjects.size(); i++)
 	{
 		gameObjects[i]->Render(_window);
@@ -49,8 +46,8 @@ void Scene::Render(sf::RenderWindow* _window) const
 	//}
 }
 
-
-std::string Scene::GetName() const {
+std::string Scene::GetName() const
+{
 	return name;
 }
 
@@ -102,7 +99,8 @@ int Scene::SetTexture(std::string nom_texture, std::string chemin_fichier)
 	return EXIT_SUCCESS;
 }
 
-void Scene::SetBackground(std::string nom_texture) {
+void Scene::SetBackground(std::string nom_texture)
+{
 	sf::Vector2f window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize();
 
 	background = new sf::Sprite();
@@ -110,7 +108,6 @@ void Scene::SetBackground(std::string nom_texture) {
 	background->setTexture(texture[nom_texture]);
 	background->setScale((float)window_size.x / background->getTexture()->getSize().x, (float)window_size.y / background->getTexture()->getSize().y);
 }
-
 
 GameObject* Scene::CreateButton(const ObjectType& _type, std::string _name, Maths::Vector2f _position, const sf::Color _color, sf::Color _outlineColor, sf::Color _hoverColor, sf::Color _clickColor, Maths::Vector2u size, std::function<void()> _callback, Capacity* _object)
 {
@@ -172,10 +169,12 @@ GameObject* Scene::CreateSpriteButton_forMainMenu(const ObjectType& _type, std::
 	//sprite_renderer->SetSprite(&texture[nom_texture], size);
 
 	SpriteRenderer* sprite_renderer = game_object->CreateComponent<SpriteRenderer>();
-	if (sprite_space.x == 0 && sprite_space.y == 0) {
+	if (sprite_space.x == 0 && sprite_space.y == 0)
+	{
 		sprite_renderer->SetSprite(&texture[nom_texture], size);
 	}
-	else {
+	else
+	{
 		sprite_renderer->SetSpriteRect(&texture[nom_texture], size, _sprite_size, Maths::Vector2f(0, 0), sprite_space);
 	}
 
@@ -221,10 +220,12 @@ GameObject* Scene::CreateSpriteButtonWithText(const ObjectType& _type, std::stri
 	shape_renderer->SetSize(Maths::Vector2f(size.x, size.y));
 
 	SpriteRenderer* sprite_renderer = game_object->CreateComponent<SpriteRenderer>();
-	if (sprite_space.x == 0 && sprite_space.y == 0) {
+	if (sprite_space.x == 0 && sprite_space.y == 0)
+	{
 		sprite_renderer->SetSprite(&texture[nom_texture], size);
 	}
-	else {
+	else
+	{
 		sprite_renderer->SetSpriteRect(&texture[nom_texture], size, _sprite_size, Maths::Vector2f(0, 0), sprite_space);
 	}
 
@@ -241,7 +242,8 @@ GameObject* Scene::CreateSpriteButtonWithText(const ObjectType& _type, std::stri
 	return game_object;
 }
 
-GameObject* Scene::CreateText(const ObjectType& _type, std::string _name, Maths::Vector2f _position, const sf::Color _color, Maths::Vector2u size, int _caractere_size) {
+GameObject* Scene::CreateText(const ObjectType& _type, std::string _name, Maths::Vector2f _position, const sf::Color _color, Maths::Vector2u size, int _caractere_size)
+{
 	GameObject* game_object = CreateGameObject(_type, _name);
 	game_object->SetPosition(_position);
 
@@ -253,9 +255,10 @@ GameObject* Scene::CreateText(const ObjectType& _type, std::string _name, Maths:
 	return game_object;
 }
 
-GameObject* Scene::CreateShapeAlone(const ObjectType& _type, std::string _name, Maths::Vector2f _position, const sf::Color _color, sf::Vector2f size) {
-	GameObject* game_object = CreateGameObject(_type, _name); 
-	game_object->SetPosition(_position); 
+GameObject* Scene::CreateShapeAlone(const ObjectType& _type, std::string _name, Maths::Vector2f _position, const sf::Color _color, sf::Vector2f size)
+{
+	GameObject* game_object = CreateGameObject(_type, _name);
+	game_object->SetPosition(_position);
 
 	RectangleShapeRenderer* shape_renderer = game_object->CreateComponent<RectangleShapeRenderer>();
 	shape_renderer->SetColor(_color);
@@ -264,8 +267,8 @@ GameObject* Scene::CreateShapeAlone(const ObjectType& _type, std::string _name, 
 	return game_object;
 }
 
-
-GameObject* Scene::CreateSpriteObject(Scene* scene, const ObjectType& _type, std::string _name, Maths::Vector2f _position, Maths::Vector2f _size, std::string nom_texture, Maths::Vector2f _sprite_size, Maths::Vector2f sprite_space) {
+GameObject* Scene::CreateSpriteObject(Scene* scene, const ObjectType& _type, std::string _name, Maths::Vector2f _position, Maths::Vector2f _size, std::string nom_texture, Maths::Vector2f _sprite_size, Maths::Vector2f sprite_space)
+{
 	GameObject* game_object = scene->CreateGameObject(_type, _name);
 	game_object->SetPosition(_position);
 
@@ -276,10 +279,12 @@ GameObject* Scene::CreateSpriteObject(Scene* scene, const ObjectType& _type, std
 	squareCollider->SetHeight(_size.y);
 
 	SpriteRenderer* sprite_renderer = game_object->CreateComponent<SpriteRenderer>();
-	if (sprite_space.x == 0 && sprite_space.y == 0) {
+	if (sprite_space.x == 0 && sprite_space.y == 0)
+	{
 		sprite_renderer->SetSprite(&texture[nom_texture], _size);
 	}
-	else {
+	else
+	{
 		sprite_renderer->SetSpriteRect(&texture[nom_texture], _size, _sprite_size, Maths::Vector2f(0, 0), sprite_space);
 	}
 

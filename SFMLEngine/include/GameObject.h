@@ -3,13 +3,12 @@
 #include <vector>
 #include "functional"
 
-#include "Component.h"
-#include "Maths/Vector2.h"
 #include <unordered_map>
-#include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Window/Event.hpp>
+#include "Component.h"
 #include "Components/ObjectType.h"
-#include "Capacity.h"
+#include "Maths/Vector2.h"
 
 class Component;
 class Capacity;
@@ -31,7 +30,7 @@ public:
 	void SetPosition(const Maths::Vector2<float>& _position) { position = _position; }
 	void SetRotation(const float _rotation) { rotation = _rotation; }
 	void SetScale(const Maths::Vector2<float>& _scale) { scale = _scale; }
-	void SetSwitchOn(bool value) {switchOn = value;}
+	void SetSwitchOn(bool value) { switchOn = value; }
 	bool GetSwitchOn() { return switchOn; }
 	void SetCallback(std::function<void()> _callback) { callback = _callback; }
 	std::function<void()> GetCallback() { return callback; }

@@ -1,9 +1,8 @@
 #include "Capacity/InversionGravite.h"
-#include <Scene.h>
 #include <Engine.h>
-#include <Modules/SceneModule.h>
+#include <Scene.h>
 #include <Components/Player.h>
-#include <iostream>
+#include <Modules/SceneModule.h>
 
 void InversionGravite::GraviteInversion(GameObject* player, const float _delta_time)
 {
@@ -21,34 +20,42 @@ void InversionGravite::GraviteInversion(GameObject* player, const float _delta_t
 	}
 	if (inversion == true && player->GetComponent<SquareCollider>()->GetCanMoving()["up"])
 	{
-		if (inversionClock.getElapsedTime().asSeconds() <= 1) {
+		if (inversionClock.getElapsedTime().asSeconds() <= 1)
+		{
 			GetCapacityOwner()->SetPosition(Maths::Vector2f(GetCapacityOwner()->GetPosition().GetX(), GetCapacityOwner()->GetPosition().GetY() - (500 * _delta_time)));
 		}
-		else if (inversionClock.getElapsedTime().asSeconds() <= 2) {
+		else if (inversionClock.getElapsedTime().asSeconds() <= 2)
+		{
 			GetCapacityOwner()->SetPosition(Maths::Vector2f(GetCapacityOwner()->GetPosition().GetX(), GetCapacityOwner()->GetPosition().GetY() - (400 * _delta_time)));
 		}
-		else if (inversionClock.getElapsedTime().asSeconds() <= 3) {
+		else if (inversionClock.getElapsedTime().asSeconds() <= 3)
+		{
 			GetCapacityOwner()->SetPosition(Maths::Vector2f(GetCapacityOwner()->GetPosition().GetX(), GetCapacityOwner()->GetPosition().GetY() - (300 * _delta_time)));
 		}
-		else if (inversionClock.getElapsedTime().asSeconds() <= 4) {
+		else if (inversionClock.getElapsedTime().asSeconds() <= 4)
+		{
 			GetCapacityOwner()->SetPosition(Maths::Vector2f(GetCapacityOwner()->GetPosition().GetX(), GetCapacityOwner()->GetPosition().GetY() - (200 * _delta_time)));
 		}
-		else if (inversionClock.getElapsedTime().asSeconds() <= 5) {
+		else if (inversionClock.getElapsedTime().asSeconds() <= 5)
+		{
 			GetCapacityOwner()->SetPosition(Maths::Vector2f(GetCapacityOwner()->GetPosition().GetX(), GetCapacityOwner()->GetPosition().GetY() - (150 * _delta_time)));
 		}
-		else if (inversionClock.getElapsedTime().asSeconds() <= 6) {
+		else if (inversionClock.getElapsedTime().asSeconds() <= 6)
+		{
 			GetCapacityOwner()->SetPosition(Maths::Vector2f(GetCapacityOwner()->GetPosition().GetX(), GetCapacityOwner()->GetPosition().GetY() - (100 * _delta_time)));
 		}
-		else if (inversionClock.getElapsedTime().asSeconds() <= 7) {
+		else if (inversionClock.getElapsedTime().asSeconds() <= 7)
+		{
 			GetCapacityOwner()->SetPosition(Maths::Vector2f(GetCapacityOwner()->GetPosition().GetX(), GetCapacityOwner()->GetPosition().GetY() - (75 * _delta_time)));
 		}
-		else if (inversionClock.getElapsedTime().asSeconds() <= 8) {
+		else if (inversionClock.getElapsedTime().asSeconds() <= 8)
+		{
 			GetCapacityOwner()->SetPosition(Maths::Vector2f(GetCapacityOwner()->GetPosition().GetX(), GetCapacityOwner()->GetPosition().GetY() - (35 * _delta_time)));
 		}
-		else {
+		else
+		{
 			inversion = false;
 		}
-		
 	}
 }
 
@@ -68,5 +75,4 @@ void InversionGravite::Update(const float _delta_time, std::unordered_map<sf::Ke
 			GraviteInversion(player, _delta_time);
 		}
 	}
-	
 }

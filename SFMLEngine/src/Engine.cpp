@@ -1,7 +1,6 @@
 #include "Engine.h"
 
 #include <imgui.h>
-#include <SFML/Graphics/RenderWindow.hpp>
 #include "Modules/SceneModule.h"
 
 Engine* Engine::instance = nullptr;
@@ -30,7 +29,8 @@ void Engine::Run() const
 		moduleManager->PreRender();
 		moduleManager->Render();
 		moduleManager->PostRender();
-		if (moduleManager->GetModule<SceneModule>()->GetNextScene()) {
+		if (moduleManager->GetModule<SceneModule>()->GetNextScene())
+		{
 			moduleManager->GetModule<SceneModule>()->GetNextScene()();
 			moduleManager->GetModule<SceneModule>()->SetNextScene([] {});
 		}

@@ -1,9 +1,8 @@
 #include "Capacity/Force.h"
-#include "Components/Player.h"
-#include <Scene.h>
 #include <Engine.h>
+#include <Scene.h>
 #include <Modules/SceneModule.h>
-#include <iostream>
+#include "Components/Player.h"
 
 void Force::DeplaceObject(const float _delta_time, GameObject* player, GameObject* gameObject, std::vector<GameObject*>* gameObjects)
 {
@@ -18,17 +17,18 @@ void Force::DeplaceObject(const float _delta_time, GameObject* player, GameObjec
 	bool collisionRight = false;
 	bool collisionLeft = false;
 
-
 	for (GameObject* const& gameObjectbis : *gameObjects)
 	{
 		if (gameObjectbis->GetType() != PlayerType && gameObject != gameObjectbis)
 		{
 			bool collisionRighttemp = gameObject->GetComponent<SquareCollider>()->CheckCollisionRight(*gameObject->GetComponent<SquareCollider>(), *gameObjectbis->GetComponent<SquareCollider>());
 			bool collisionLefttemp = gameObject->GetComponent<SquareCollider>()->CheckCollisionLeft(*gameObject->GetComponent<SquareCollider>(), *gameObjectbis->GetComponent<SquareCollider>());
-			if (collisionLefttemp) {
+			if (collisionLefttemp)
+			{
 				collisionLeft = true;
 			}
-			if (collisionRighttemp) {
+			if (collisionRighttemp)
+			{
 				collisionRight = true;
 			}
 		}
@@ -62,7 +62,8 @@ void Force::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key
 		}
 		if (player != nullptr)
 		{
-			if (gameObject->GetType() != ObjectType::PlayerType && (gameObject->GetType() == MoveType || gameObject->GetType() == DollOffType)){
+			if (gameObject->GetType() != ObjectType::PlayerType && (gameObject->GetType() == MoveType || gameObject->GetType() == DollOffType))
+			{
 				if (player->GetComponent<SquareCollider>()->IsColliding(*player->GetComponent<SquareCollider>(), *gameObject->GetComponent<SquareCollider>(), _delta_time))
 				{
 					DeplaceObject(_delta_time, player, gameObject, scene->GetGameObjects());
@@ -70,5 +71,4 @@ void Force::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key
 			}
 		}
 	}
-	
 }

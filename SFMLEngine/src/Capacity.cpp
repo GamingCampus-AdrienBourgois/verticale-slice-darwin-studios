@@ -1,6 +1,4 @@
 #include "Capacity.h"
-#include <iostream>
-
 
 void Capacity::SetName(std::string new_name)
 {
