@@ -92,25 +92,21 @@ void Player::Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key,
 
 }
 
-GameObject* Player::CreateDollOff(const ObjectType& _type, std::string _name, Maths::Vector2f _position, std::string nom_texture) {
+GameObject* Player::CreateDollOff(const ObjectType& _type, std::string _name, Maths::Vector2f _position, sf::Sprite* sprite, Maths::Vector2f _size) {
 	Scene* scene = sceneModule->GetScene("DefaultScene");
 
 	GameObject* game_object = scene->CreateGameObject(_type, _name);
 	game_object->SetPosition(_position);
 
-	int taille_persoX = sizeWindow.x / 33;
-	int taille_persoY = sizeWindow.y / 22;
 
 	SquareCollider* square_collider = game_object->CreateComponent<SquareCollider>();
-	square_collider->SetWidth(taille_persoX);
-	square_collider->SetHeight(taille_persoY);
+	square_collider->SetWidth(_size.x);
+	square_collider->SetHeight(_size.y);
 
-	RectangleShapeRenderer* shape_renderer = game_object->CreateComponent<RectangleShapeRenderer>();
-	shape_renderer->SetColor(_color);
-	shape_renderer->SetSize(Maths::Vector2f(taille_persoX, taille_persoY));
+	SpriteRenderer* spritee = game_object->CreateComponent<SpriteRenderer>();
+	spritee->SetOneSprite(&sprite, _size);
 
 	DollOff* dollOff = game_object->CreateComponent<DollOff>();
-	dollOff->setColor(_color);
 	dollOff->setPosition(_position);
 
 	return game_object;
@@ -145,13 +141,13 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 		
 
 		Maths::Vector2f position = GetOwner()->GetPosition();
-		sf::Color actuall_color = GetOwner()->GetComponent<RectangleShapeRenderer>()->GetColor();
-		sf::Sprite actuel_texture = GetOwner()->GetComponent<SpriteRenderer>()->GetSprite();
+		sf::Sprite* actuall_sprite = GetOwner()->GetComponent<SpriteRenderer>()->GetSprite();
+		Maths::Vector2f size = Maths::Vector2f(GetOwner()->GetComponent<SquareCollider>()->GetHeight(), GetOwner()->GetComponent<SquareCollider>()->GetWidth());
 
 		if (actuall_doll_int == 0)
 		{
 			scene->SetTexture("texture_zvezda", "Assets/Dolls/Zvezda-sheet.png");
-			big_dollOff = CreateDollOff(DollOffType, "big_doll_off", position, actuall_color);
+			big_dollOff = CreateDollOff(DollOffType, "big_doll_off", position, actuall_sprite, size);
 			GetOwner()->SetPosition(Maths::Vector2f(position.GetX(), position.GetY() - sizePlayer * 1.5));
 			GetOwner()->GetComponent<SpriteRenderer>()->SetSpriteRect(&texture["texture_zvezda"], Maths::Vector2f((sizeWindow.x / 33), (((sizeWindow.x / 33) * 654) / 420)), Maths::Vector2f(420, 654), GetOwner()->GetPosition(), Maths::Vector2f(0, 1));
 			Capacity* capacity_for_mid_doll = scene->GetMidCapacity();
@@ -210,7 +206,7 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 		else if (actuall_doll_int == 1)
 		{
 			scene->SetTexture("texture_zwezda", "Asserts/Dolls/Zwezda-sheet.png");
-			mid_dollOff = CreateDollOff(DollOffType, "mid_doll_off", position, actuall_color);
+			mid_dollOff = CreateDollOff(DollOffType, "mid_doll_off", position, actuall_sprite, size);
 			GetOwner()->SetPosition(Maths::Vector2f(position.GetX(), position.GetY() - sizePlayer * 1.5));
 			GetOwner()->GetComponent<SpriteRenderer>()->SetSpriteRect(&texture["texture_zwezda"], Maths::Vector2f((sizeWindow.x / 40), (((sizeWindow.x / 40) * 654) / 420)), Maths::Vector2f(420, 654), GetOwner()->GetPosition(), Maths::Vector2f(0, 1));
 			Capacity* capacity_for_small_doll = scene->GetSmallCapacity();

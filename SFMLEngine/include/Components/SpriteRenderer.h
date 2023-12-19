@@ -21,6 +21,7 @@ public:
 	void SetSprite(sf::Texture* new_texture, Maths::Vector2f _size);
 	void SetSpriteRect(sf::Texture* new_texture, Maths::Vector2f _size, Maths::Vector2f _sprite_size, Maths::Vector2f _position, Maths::Vector2f _sprite_space);
 	void SetNextSpriteRect(int num_sprite_on_sheet);
+	void SetOneSprite(sf::Sprite* new_sprite, Maths::Vector2f(_size));
 
 	void Render(sf::RenderWindow* _window) override;
 
