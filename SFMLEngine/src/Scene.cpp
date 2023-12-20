@@ -28,6 +28,7 @@ void Scene::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key
 {
 	for (int i = 0; i < gameObjects.size(); i++)
 	{
+
 		gameObjects[i]->Update(_delta_time, pressed_input);
 	}
 }
@@ -343,6 +344,7 @@ GameObject* Scene::CreatePlayer(const ObjectType& _type, std::string _name, Math
 	}
 	else {
 		sprite_renderer->SetSpriteRect(&texture[nom_texture], _size, _sprite_size, Maths::Vector2f(0, 0), sprite_space);
+		sprite_renderer->SetSpriteFirstPosition(Maths::Vector2f(841, 0));
 	}
 
 	Player* player = game_object->CreateComponent<Player>();

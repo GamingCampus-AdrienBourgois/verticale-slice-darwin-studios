@@ -52,6 +52,8 @@ private:
 	int speed = sizeWindow.x / 9;
 	int gravity = 100;
 	float sizePlayer = sizeWindow.y / 22;
+	std::string is_moving = "none";
+
 	// Variables jump & switch
 	bool can_jump = false;
 	bool is_jumping = false;
