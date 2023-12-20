@@ -49,10 +49,9 @@ private:
 
 	// // Variables
 	int hp = 10000;
-	int speed = 300;
+	int speed = sizeWindow.x / 9;
 	int gravity = 100;
 	float sizePlayer = sizeWindow.y / 22;
-
 	// Variables jump & switch
 	bool can_jump = false;
 	bool is_jumping = false;
@@ -94,4 +93,5 @@ private:
 	GameObject* CreateDollOff(const ObjectType& _type, std::string _name, Maths::Vector2f _position, sf::Texture* new_texture, Maths::Vector2f _size, Maths::Vector2f _size_sprite);
 	void SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, Scene* scene);
 	void ReturnCheckpoint(Scene* scene, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input);
+	void TPFinDuLevel(Scene* scene, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input);
 };

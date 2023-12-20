@@ -36,10 +36,13 @@ void SceneModule::Update()
 	Module::Update();
 	std::unordered_map<sf::Keyboard::Key, bool>* pressed_input = moduleManager->GetModule<WindowModule>()->GetPressed();
 
-	for (const Scene* scene : scenes)
+	// bloque et update que la derniere scene du vecteur
+	scenes[scenes.size() - 1]->Update(timeModule->GetDeltaTime(), pressed_input);
+
+	/*for (const Scene* scene : scenes)
 	{
 		scene->Update(timeModule->GetDeltaTime(), pressed_input);
-	}
+	}*/
 }
 
 Scene* SceneModule::GetScene(const std::string& _scene_name) const

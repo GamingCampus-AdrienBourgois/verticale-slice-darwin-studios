@@ -1,4 +1,5 @@
 #include "Components/SquareCollider.h"
+#include "Engine.h"
 #include "Maths/Vector2.h"
 #include <iostream>
 #include <Components/Player.h>
@@ -61,9 +62,19 @@ bool SquareCollider::IsColliding(const SquareCollider& _collider_a, const Square
 		// bottom collision
 		else if (playerBounds.top <= objectBounds.top && playerBounds.top + playerBounds.height >= objectBounds.top && ((playerBounds.left <= objectBounds.left && playerBounds.left + playerBounds.width >= objectBounds.left) || (playerBounds.left >= objectBounds.left && playerBounds.left <= objectBounds.left + objectBounds.width)) && (collisionWidth > collisionHeight && collisionWidth > 5))
 		{
-			if ((_collider_b.GetOwner()->GetName() == "Lit_appuis_tete" || _collider_b.GetOwner()->GetName() == "Bureau")) {
+			if (_collider_b.GetOwner()->GetName() == "Lit_appuis_tete" || _collider_b.GetOwner()->GetName() == "Bureau") {
 				if (playerBounds.top + playerBounds.height - 0.25 <= objectBounds.top) {
 					_collider_a.GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("down", false);
+				}
+			}
+			else if (_collider_b.GetOwner()->GetName() == "Trou_de_souris")
+			{
+				_collider_a.GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("down", false);
+
+				if (!_collider_b.GetOwner()->GetCallbackProc())
+				{
+					_collider_b.GetOwner()->GetCallback()();
+					_collider_b.GetOwner()->SetCallbackProc(true);
 				}
 			}
 			else {

@@ -4,6 +4,7 @@
 #include "Scenes/SelectCapacityScene.h"
 #include "Scenes/MainMenuScene.h"
 #include "Scenes/CreditsScene.h"
+#include "Scenes/EndLevelScene.h"
 
 
 int main()

@@ -57,8 +57,8 @@ Scene* SceneModule::SetScene(const bool _replace_scenes)
 	Scene* scene = static_cast<Scene*>(new T());
 	scenes.push_back(scene);
 
-	if (_replace_scenes)
-		mainScene = scene;
+	//if (_replace_scenes)
+	mainScene = scene;
 
 	return scene;
 }
