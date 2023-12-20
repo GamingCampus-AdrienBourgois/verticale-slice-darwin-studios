@@ -53,7 +53,7 @@ void Dash::IsDashing(const float _delta_time, std::vector<GameObject*>* gameObje
                     StartClockDurationDash.restart(); // Redémarre le temps du dash
                     if (!soundPlayed) {
                         PlaySound();
-                        soundDash->setVolume(25);
+                        soundDash->setVolume(100);
                         soundPlayed = true; // Marquer que le son a été joué
                     }
                 }
@@ -63,7 +63,7 @@ void Dash::IsDashing(const float _delta_time, std::vector<GameObject*>* gameObje
                     StartClockDurationDash.restart(); // Redémarre le temps du dash
                     if (!soundPlayed) {
                         PlaySound();
-                        soundDash->setVolume(25);
+                        soundDash->setVolume(100);
                         soundPlayed = true; // Marquer que le son a été joué
                     }
                 }
