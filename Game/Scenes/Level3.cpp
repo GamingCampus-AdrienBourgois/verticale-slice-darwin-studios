@@ -19,6 +19,7 @@ void DefaultScene::SpawnObjectLevel3(std::vector<Capacity> params) {
 	SetTexture("texture_gravity", "Assets/button/gravity_button.png");
 	SetTexture("texture_invincibilite", "Assets/button/invincibility_button.png");
 
+
 	float sizeX = window_size.x / 100;
 	float sizeY = window_size.y / 100;
 

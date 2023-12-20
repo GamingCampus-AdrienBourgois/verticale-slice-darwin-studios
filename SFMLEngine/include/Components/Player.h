@@ -27,6 +27,9 @@ public:
 	void SetSize(int _size) { sizePlayer = _size; }
 	void SetCanDoubleJump(bool _can_double_jump) { can_double_jump = _can_double_jump; }
 
+	void SetPauseEscape(std::function<void()> _function) { pauseEscape = _function; }
+	void SetDeathCallback(std::function<void()> _function) { deathCallback = _function; }
+
 	int GetHp() { return hp; }
 	int GetSpeed() { return speed; }
 	int GetGravity() { return gravity; }
@@ -94,4 +97,9 @@ private:
 	void SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, Scene* scene);
 	void ReturnCheckpoint(Scene* scene, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input);
 	void TPFinDuLevel(Scene* scene, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input);
+
+	void PauseMenu(std::unordered_map<sf::Keyboard::Key, bool>* pressed_input);
+
+	std::function<void()> pauseEscape;
+	std::function<void()> deathCallback;
 };

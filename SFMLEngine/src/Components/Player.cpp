@@ -361,11 +361,6 @@ void Player::ReturnCheckpoint(Scene* scene, std::unordered_map<sf::Keyboard::Key
 		can_switch = false;
 		can_jump = false;
 		can_check = false;
-
-		Maths::Vector2f position = GetOwner()->GetPosition();
-		sf::Color actuall_color = GetOwner()->GetComponent<RectangleShapeRenderer>()->GetColor();
-
-		std::string nameScene = scene->GetName();
 			
 		std::vector<GameObject*>* gameObjects = scene->GetGameObjects();
 
@@ -385,11 +380,30 @@ void Player::ReturnCheckpoint(Scene* scene, std::unordered_map<sf::Keyboard::Key
 	}
 }
 
+void Player::PauseMenu(std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) {
+
+	auto it = pressed_input->begin();
+
+	while (it != pressed_input->end()) {
+		const auto& input = *it;
+
+		if (input.first == 36 && input.second == true) {
+			
+			pauseEscape();
+			// Effacer l'élément du vecteur
+			it = pressed_input->erase(it);
+		}
+		else {
+			++it;
+		}
+	}
+}
+
 bool Player::Dead(std::vector<GameObject*>* gameObjects)
 {
 	if (hp <= 0)
 	{
-		std::cout << "T'es mort!!" << std::endl;
+		/*std::cout << "T'es mort!!" << std::endl;
 		GetOwner()->RemoveComponent(GetOwner()->GetComponent<Player>());
 		GetOwner()->RemoveComponent(GetOwner()->GetComponent<SpriteRenderer>());
 		GetOwner()->RemoveComponent(GetOwner()->GetComponent<SquareCollider>());
@@ -400,6 +414,22 @@ bool Player::Dead(std::vector<GameObject*>* gameObjects)
 				delete GetOwner();
 				gameObjects->erase(it);
 				return true;
+			}
+		}*/
+		deathCallback();
+
+		Scene* scene = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetMainScene();
+		std::vector<GameObject*>* gameObjects = scene->GetGameObjects();
+
+		for (int i = 0; i < gameObjects->size(); i++)
+		{
+			if (i >= gameObjectsCheckpoint.size())
+			{
+				scene->DestroyGameObject((*gameObjects)[i]);
+			}
+			else
+			{
+				*(*gameObjects)[i] = *gameObjectsCheckpoint[i];
 			}
 		}
 	}
@@ -433,7 +463,7 @@ void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Ke
 	GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("right", true);
 	for (GameObject* const& gameObject : *scene->GetGameObjects())
 	{
-		if (gameObject->GetType() != ObjectType::PlayerType && gameObject->GetType() != ObjectType::GameObjectType) {
+		if (gameObject->GetType() != ObjectType::PlayerType && gameObject->GetType() != ObjectType::GameObjectType && gameObject->GetType() != ObjectType::ButtonType) {
 			GetOwner()->GetComponent<SquareCollider>()->IsColliding(*GetOwner()->GetComponent<SquareCollider>(), *gameObject->GetComponent<SquareCollider>() , _delta_time);
 		}
 	}
@@ -442,6 +472,7 @@ void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Ke
 	SwitchDoll(pressed_input, scene);
 	ReturnCheckpoint(scene, pressed_input); 
 	TPFinDuLevel(scene, pressed_input);
+	PauseMenu(pressed_input);
 	Dead(scene->GetGameObjects());
 
 	for (GameObject* const& gameObject : *scene->GetGameObjects())

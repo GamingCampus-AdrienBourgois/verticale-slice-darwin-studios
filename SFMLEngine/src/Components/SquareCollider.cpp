@@ -75,6 +75,16 @@ bool SquareCollider::IsColliding(const SquareCollider& _collider_a, const Square
 						_collider_a.GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("down", false);
 					}
 				}
+				else if (_collider_b.GetOwner()->GetName() == "Trou_de_souris")
+				{
+					_collider_a.GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("down", false);
+
+					if (!_collider_b.GetOwner()->GetCallbackProc())
+					{
+						_collider_b.GetOwner()->GetCallback()();
+						_collider_b.GetOwner()->SetCallbackProc(true);
+					}
+				}
 				else {
 					_collider_a.GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("down", false);
 				}

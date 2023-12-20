@@ -174,9 +174,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scenes\CreditsScene.h" />
+    <ClInclude Include="Scenes\DeathScene.h" />
     <ClInclude Include="Scenes\DefaultScene.h" />
     <ClInclude Include="Scenes\EndLevelScene.h" />
     <ClInclude Include="Scenes\MainMenuScene.h" />
+    <ClInclude Include="Scenes\PauseScene.h" />
     <ClInclude Include="Scenes\SelectCapacityScene.h" />
   </ItemGroup>
   <ItemGroup>
