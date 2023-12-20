@@ -22,6 +22,7 @@ public:
 private:
 	bool is_activated = false;
 	bool can_be_activated = false;
+	sf::Clock can_activate_clock;
 
 	GameObject* object;
 	std::function<void()> callback;

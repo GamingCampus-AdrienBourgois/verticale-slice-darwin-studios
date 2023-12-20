@@ -285,7 +285,7 @@ GameObject* Scene::CreateInteractiveObject(Scene* scene, const ObjectType& _type
 
 	Interactive* interactive = game_object->CreateComponent<Interactive>();
 	interactive->SetObject(_object);
-	
+
 	return game_object;
 }
 

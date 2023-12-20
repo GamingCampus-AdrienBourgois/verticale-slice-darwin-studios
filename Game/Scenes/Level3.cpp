@@ -44,7 +44,7 @@ void DefaultScene::SpawnObjectLevel3() {
 	CreateColliderObject(this, ColliderType, "Carton", Maths::Vector2f(sizeX * 43.4375, sizeY * 79.1667), Maths::Vector2f(sizeX * 4.63542, sizeY * 14.4444));
 	   
 	//Lampe
-	GameObject* lampe = CreateOnlySprite(this, GameObjectType, "Lampe", Maths::Vector2f(sizeX * 51.1979, sizeY * 50.463), Maths::Vector2f(sizeX * 7.70833, sizeY * 37.5926), "texture_lampe", Maths::Vector2f(122,341), Maths::Vector2f(7,0));
+	GameObject* lampe = CreateOnlySprite(this, GameObjectType, "Lampe", Maths::Vector2f(sizeX * 51.1979, sizeY * 50.463), Maths::Vector2f(sizeX * 7.70833, sizeY * 37.5926), "texture_lampe", Maths::Vector2f(122,341), Maths::Vector2f(6,0));
 	CreateColliderObject(this, DeathType, "Lampe", Maths::Vector2f(sizeX * 51.1979, sizeY * 57.2222), Maths::Vector2f(sizeX * 7.70833, sizeY * 2.31481));
 	CreateColliderObject(this, DeathType, "Lampe", Maths::Vector2f(sizeX * 51.5625, sizeY * 55.8333), Maths::Vector2f(sizeX * 7.13542, sizeY * 1.2963));
 	CreateColliderObject(this, DeathType, "Lampe", Maths::Vector2f(sizeX * 51.875, sizeY * 54.2593), Maths::Vector2f(sizeX * 6.45833, sizeY * 1.38889));
