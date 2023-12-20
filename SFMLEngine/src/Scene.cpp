@@ -98,6 +98,10 @@ int Scene::SetTexture(std::string nom_texture, std::string chemin_fichier)
 	return EXIT_SUCCESS;
 }
 
+sf::Texture* Scene::GetTextureByName(std::string _name) {
+	return &texture[_name];
+}
+
 void Scene::SetBackground(std::string nom_texture) {
 	sf::Vector2f window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize();
 

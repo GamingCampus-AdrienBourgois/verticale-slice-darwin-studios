@@ -74,6 +74,9 @@ private:
 
 	Capacity* capacity = nullptr;
 
+	sf::Texture* texture_mid_doll = nullptr;
+	sf::Texture* texture_small_doll = nullptr;
+
 	// Checkpoint
 	bool copiedSpawn = false;
 	std::vector<GameObject*> gameObjectsCheckpoint;
@@ -88,7 +91,7 @@ private:
 	void Move(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, std::vector<GameObject*>* gameObjects );
 	void Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, std::vector<GameObject*>* gameObjects);
 
-	GameObject* CreateDollOff(const ObjectType& _type, std::string _name, Maths::Vector2f _position, sf::Texture* new_texture, sf::Sprite* sprite, Maths::Vector2f _size);
+	GameObject* CreateDollOff(const ObjectType& _type, std::string _name, Maths::Vector2f _position, sf::Texture* new_texture, Maths::Vector2f _size, Maths::Vector2f _size_sprite);
 	void SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, Scene* scene);
 	void ReturnCheckpoint(Scene* scene, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input);
 };

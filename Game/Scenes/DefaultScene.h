@@ -19,6 +19,8 @@ public:
 	DefaultScene(std::vector<Capacity> params) : Scene("DefaultScene")
 	{
 		SetTexture("texture_zarya", "Assets/Dolls/Zarya-sheet.png");
+		SetTexture("texture_zvezda", "Assets/Dolls/Zvezda-sheet.png");
+		SetTexture("texture_zwezda", "Assets/Dolls/Zwezda-sheet.png");
 		GetBigCapacity()->SetName(params[0].GetName());
 		GetMidCapacity()->SetName(params[1].GetName());
 		GetSmallCapacity()->SetName(params[2].GetName());

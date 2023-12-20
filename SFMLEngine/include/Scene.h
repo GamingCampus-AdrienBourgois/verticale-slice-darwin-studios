@@ -19,6 +19,7 @@ public:
 	virtual ~Scene() = default;
 
 	std::unordered_map<std::string, sf::Texture>* GetTexture() {return &texture; }
+	sf::Texture* GetTextureByName(std::string _name);
 	Capacity* GetBigCapacity() { return capacity_for_big_doll; }
 	Capacity* GetMidCapacity() { return capacity_for_mid_doll; }
 	Capacity* GetSmallCapacity() { return capacity_for_small_doll; }
