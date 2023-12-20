@@ -9,6 +9,8 @@ void DefaultScene::SpawnObjectLevel3() {
     SetBackground("background");
 	SetTexture("texture_livre", "Assets/Object/livre.png");
 	SetTexture("texture_interrupteur", "Assets/Object/interrupteur.png");
+	SetTexture("texture_fan", "Assets/Object/fan_gif.png");
+	SetTexture("texture_lampe", "Assets/Object/lamp.png");
 
 	float sizeX = window_size.x / 100;
 	float sizeY = window_size.y / 100;
@@ -26,6 +28,10 @@ void DefaultScene::SpawnObjectLevel3() {
 
 	//Table de chevet
 	CreateColliderObject(this, ColliderType, "Table_de_chevet", Maths::Vector2f(sizeX * 1.66667, sizeY * 72.8333), Maths::Vector2f(sizeX * 10.3125, sizeY * 20.0833));
+
+	//Ceiling fan
+	CreateColliderObject(this, DeathType, "Fan", Maths::Vector2f(sizeX * 3.59375, sizeY * 1.57407), Maths::Vector2f(sizeX * 16.875, sizeY * 6.48148));
+	CreateSpriteObject(this, DeathType, "Fan", Maths::Vector2f(sizeX * 3.59375, sizeY * 1.57407), Maths::Vector2f(sizeX * 16.875, sizeY * 6.48148), "texture_fan", Maths::Vector2f(0, 0), Maths::Vector2f(0, 0));
 
 	//Ours
 	CreateColliderObject(this, ColliderType, "Ours", Maths::Vector2f(sizeX * 25.8333, sizeY * 55.1852), Maths::Vector2f(sizeX * 2.70833, sizeY * 5.09259));
@@ -49,6 +55,8 @@ void DefaultScene::SpawnObjectLevel3() {
 	CreateColliderObject(this, ColliderType, "Carton_Desk", Maths::Vector2f(sizeX * 57.0312, sizeY * 63.6667), Maths::Vector2f(sizeX * 5.52083, sizeY * 9.91667));
 	   
 	//Lampe
+	GameObject* lampe = CreateOnlySprite(this, GameObjectType, "Lampe", Maths::Vector2f(sizeX * 51.1979, sizeY * 50.463), Maths::Vector2f(sizeX * 7.70833, sizeY * 37.5926), "texture_lampe", Maths::Vector2f(122,341), Maths::Vector2f(6,0));
+
 	CreateColliderObject(this, DeathType, "Lampe_Bottom", Maths::Vector2f(sizeX * 50.3646, sizeY * 56.75), Maths::Vector2f(sizeX * 6.875, sizeY * 4.62963));
 	CreateColliderObject(this, DeathType, "Lampe_Top", Maths::Vector2f(sizeX * 51.3542, sizeY * 53.4167), Maths::Vector2f(sizeX * 4.89583, sizeY * 3.25));
 
@@ -82,6 +90,10 @@ void DefaultScene::SpawnObjectLevel3() {
 	hole->SetCallback([hole, scene_module] { scene_module->SetNextScene([scene_module] { scene_module->SetScene<EndLevelScene>(false); }); });
 
 	//Interrupteur
-	CreateSpriteObject(this, ColliderType, "Interrupteur", Maths::Vector2f(sizeX * 37.6562, sizeY * 65.9259), Maths::Vector2f(sizeX * 2.23958, sizeY * 2.22222), "texture_interrupteur", Maths::Vector2f(189, 294), Maths::Vector2f(0, 13));
-
+	GameObject* interrupteur = CreateInteractiveObject(this, InteractiveType, "Interrupteur", Maths::Vector2f(sizeX * 36.5104, sizeY * 61.2037), Maths::Vector2f(sizeX * 1.8958, ((sizeX * 1.8958) * 147) / 94.5), "texture_interrupteur", Maths::Vector2f(189, 294), Maths::Vector2f(0, 13), lampe);
+	interrupteur->GetComponent<SpriteRenderer>()->SetNextSpriteRect(1);
+	interrupteur->GetComponent<Interactive>()->SetCallback([interrupteur] {interrupteur->GetComponent<Interactive>()->SwitchStateLamp(); });
 }
+
+
+

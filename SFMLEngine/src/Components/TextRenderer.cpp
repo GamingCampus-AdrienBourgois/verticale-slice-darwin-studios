@@ -25,7 +25,13 @@ void TextRenderer::Render(sf::RenderWindow* _window)
 	text->setString(string);
 	text->setFont(*scene->GetFont());
 	text->setCharacterSize(caractere_size);
-	text->setPosition(position.x+(GetSize().x/2)-text->getGlobalBounds().width/2, position.y + (GetSize().y / 2) - text->getGlobalBounds().height);
+	if (text_name != "") {
+		text->setPosition(special_position.x, special_position.y);
+	}
+	else {
+		text->setPosition(position.x+(GetSize().x/2)-text->getGlobalBounds().width/2, position.y + (GetSize().y / 2) - text->getGlobalBounds().height);
+	}
+	
 	text->setFillColor(color);
 	_window->draw(*text);
 }

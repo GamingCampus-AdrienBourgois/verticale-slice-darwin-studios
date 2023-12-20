@@ -8,7 +8,6 @@
 #include "Modules/WindowModule.h"
 
 #include <Capacity/Force.h>
-#include "Components/Switch.h"
 #include <Capacity/Invincibilite.h>
 #include <Capacity/InversionGravite.h>
 
@@ -77,25 +76,22 @@ if (GetOwner()->GetPosition().GetY() + 200 <= sizeWindow.y && !is_jumping && Get
 
 }
 
-GameObject* Player::CreateDollOff(const ObjectType& _type, std::string _name, Maths::Vector2f _position, const sf::Color _color) {
+GameObject* Player::CreateDollOff(const ObjectType& _type, std::string _name, Maths::Vector2f _position, sf::Texture* texture, Maths::Vector2f _size, Maths::Vector2f _size_sprite) {
 	Scene* scene = sceneModule->GetScene("DefaultScene");
 
 	GameObject* game_object = scene->CreateGameObject(_type, _name);
 	game_object->SetPosition(_position);
 
-	int taille_persoX = sizeWindow.x / 33;
-	int taille_persoY = sizeWindow.y / 22;
 
 	SquareCollider* square_collider = game_object->CreateComponent<SquareCollider>();
-	square_collider->SetWidth(taille_persoX);
-	square_collider->SetHeight(taille_persoY);
+	square_collider->SetWidth(_size.x);
+	square_collider->SetHeight(_size.y);
 
-	RectangleShapeRenderer* shape_renderer = game_object->CreateComponent<RectangleShapeRenderer>();
-	shape_renderer->SetColor(_color);
-	shape_renderer->SetSize(Maths::Vector2f(taille_persoX, taille_persoY));
+	SpriteRenderer* sprite = game_object->CreateComponent<SpriteRenderer>();
+	sprite->SetSpriteRect(texture, _size, _size_sprite, Maths::Vector2f(0, 0), Maths::Vector2f(0, 1));
+	//sprite->SetSprite(texture, _size);
 
 	DollOff* dollOff = game_object->CreateComponent<DollOff>();
-	dollOff->setColor(_color);
 	dollOff->setPosition(_position);
 
 	return game_object;
@@ -126,19 +122,23 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 		can_jump = false;
 		can_check = false;
 
-		Maths::Vector2f position = GetOwner()->GetPosition();
-		sf::Color actuall_color = GetOwner()->GetComponent<RectangleShapeRenderer>()->GetColor();
+
+		
 
 		if (actuall_doll_int == 0)
 		{
-			big_dollOff = CreateDollOff(DollOffType, "big_doll_off", position, actuall_color);
+			Maths::Vector2f position = GetOwner()->GetPosition();
+			Maths::Vector2f size = Maths::Vector2f(GetOwner()->GetComponent<SquareCollider>()->GetWidth(), GetOwner()->GetComponent<SquareCollider>()->GetHeight());
+
+			big_dollOff = CreateDollOff(DollOffType, "big_doll_off", position, scene->GetTextureByName("texture_zarya"), size, Maths::Vector2f(420, 654));
 			GetOwner()->SetPosition(Maths::Vector2f(position.GetX(), position.GetY() - sizePlayer * 1.5));
-			GetOwner()->GetComponent<RectangleShapeRenderer>()->SetColor(colorMid);
+			GetOwner()->GetComponent<SpriteRenderer>()->SetSpriteRect(scene->GetTextureByName("texture_zvezda"), Maths::Vector2f((sizeWindow.x / 33), (((sizeWindow.x / 33) * 554) / 345)), Maths::Vector2f(345, 554), Maths::Vector2f(0,0), Maths::Vector2f(0, 1));
+			GetOwner()->GetComponent<SquareCollider>()->SetWidth(sizeWindow.x / 33);
+			GetOwner()->GetComponent<SquareCollider>()->SetHeight((((sizeWindow.x / 33) * 554) / 345));
 			Capacity* capacity_for_mid_doll = scene->GetMidCapacity();
 
 			delete capacity;
 			capacity = nullptr;
-
 			if (capacity_for_mid_doll->GetName() == "INVERSION DE LA GRaVITE") {
 				InversionGravite* new_capacity = SetCapacity<InversionGravite>();
 				new_capacity->SetName("InversionGravite");
@@ -190,9 +190,14 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 		}
 		else if (actuall_doll_int == 1)
 		{
-			mid_dollOff = CreateDollOff(DollOffType, "mid_doll_off", position, actuall_color);
+			Maths::Vector2f position = GetOwner()->GetPosition();
+			Maths::Vector2f size = Maths::Vector2f(GetOwner()->GetComponent<SquareCollider>()->GetWidth(), GetOwner()->GetComponent<SquareCollider>()->GetHeight());
+
+			mid_dollOff = CreateDollOff(DollOffType, "mid_doll_off", position, scene->GetTextureByName("texture_zvezda"), size, Maths::Vector2f(345, 554));
 			GetOwner()->SetPosition(Maths::Vector2f(position.GetX(), position.GetY() - sizePlayer * 1.5));
-			GetOwner()->GetComponent<RectangleShapeRenderer>()->SetColor(colorSmall);
+			GetOwner()->GetComponent<SpriteRenderer>()->SetSpriteRect(scene->GetTextureByName("texture_zwezda"), Maths::Vector2f((sizeWindow.x / 40), (((sizeWindow.x / 40) * 411) / 274)), Maths::Vector2f(274, 411), Maths::Vector2f(0, 0), Maths::Vector2f(0, 1));
+			GetOwner()->GetComponent<SquareCollider>()->SetWidth(sizeWindow.x / 40);
+			GetOwner()->GetComponent<SquareCollider>()->SetHeight(((sizeWindow.x / 40) * 411) / 274);
 			Capacity* capacity_for_small_doll = scene->GetSmallCapacity();
 
 			delete capacity;
@@ -370,7 +375,7 @@ void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Ke
 	GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("right", true);
 	for (GameObject* const& gameObject : *scene->GetGameObjects())
 	{
-		if (gameObject->GetType() != ObjectType::PlayerType) {
+		if (gameObject->GetType() != ObjectType::PlayerType && gameObject->GetType() != ObjectType::GameObjectType) {
 			GetOwner()->GetComponent<SquareCollider>()->IsColliding(*GetOwner()->GetComponent<SquareCollider>(), *gameObject->GetComponent<SquareCollider>() , _delta_time);
 		}
 	}

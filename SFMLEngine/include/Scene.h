@@ -10,6 +10,7 @@
 #include "Components/TextRenderer.h"
 #include "Components/SquareCollider.h"
 #include "Components/SpriteRenderer.h"
+#include "Components/Interactive.h"
 
 
 class Scene
@@ -19,6 +20,7 @@ public:
 	virtual ~Scene() = default;
 
 	std::unordered_map<std::string, sf::Texture>* GetTexture() {return &texture; }
+	sf::Texture* GetTextureByName(std::string _name);
 	Capacity* GetBigCapacity() { return capacity_for_big_doll; }
 	Capacity* GetMidCapacity() { return capacity_for_mid_doll; }
 	Capacity* GetSmallCapacity() { return capacity_for_small_doll; }
@@ -52,6 +54,9 @@ public:
 
 	GameObject* CreateText(const ObjectType& _type, std::string _name, Maths::Vector2f _position, const sf::Color _color, Maths::Vector2u size, int _caractere_size);
 	GameObject* CreateSpriteObject(Scene* scene, const ObjectType& _type, std::string _name, Maths::Vector2f _position, Maths::Vector2f _size, std::string nom_texture, Maths::Vector2f _sprite_size, Maths::Vector2f sprite_space);
+	GameObject* CreatePlayer(const ObjectType& _type, std::string _name, Maths::Vector2f _position, Maths::Vector2f _size, std::string nom_texture, Maths::Vector2f _sprite_size, Maths::Vector2f sprite_space);
+	GameObject* CreateInteractiveObject(Scene* scene, const ObjectType& _type, std::string _name, Maths::Vector2f _position, Maths::Vector2f _size, std::string nom_texture, Maths::Vector2f _sprite_size, Maths::Vector2f sprite_space, GameObject* _object);
+	GameObject* CreateOnlySprite(Scene* scene, const ObjectType& _type, std::string _name, Maths::Vector2f _position, Maths::Vector2f _size, std::string nom_texture, Maths::Vector2f _sprite_size, Maths::Vector2f sprite_space);
 
 	int SetTexture(std::string nom_texture, std::string chemin_fichier);
 
