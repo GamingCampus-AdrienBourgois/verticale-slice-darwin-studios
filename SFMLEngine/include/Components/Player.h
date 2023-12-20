@@ -48,7 +48,7 @@ private:
 	SceneModule* sceneModule = moduleManager->GetModule<SceneModule>();
 
 	// // Variables
-	int hp = 10000;
+	int hp = 100;
 	int speed = sizeWindow.x / 9;
 	int gravity = 100;
 	float sizePlayer = sizeWindow.y / 22;

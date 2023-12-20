@@ -7,8 +7,6 @@
 
 void InversionGravite::GraviteInversion(GameObject* player, const float _delta_time)
 {
-	gravity = player->GetComponent<Player>()->GetGravity();
-
 	if (count == 0)
 	{
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
@@ -24,35 +22,18 @@ void InversionGravite::GraviteInversion(GameObject* player, const float _delta_t
 	if (inversion == true && player->GetComponent<SquareCollider>()->GetCanMoving()["up"])
 	{
 		if (inversionClock.getElapsedTime().asSeconds() <= 1) {
-			GetCapacityOwner()->GetComponent<Player>()->SetGravity(-200);
+			GetCapacityOwner()->GetComponent<Player>()->SetGravity(-75);
 		}
 		else if (inversionClock.getElapsedTime().asSeconds() <= 2) {
-			GetCapacityOwner()->GetComponent<Player>()->SetGravity(-200);
+			GetCapacityOwner()->GetComponent<Player>()->SetGravity(-150);
 		}
 		else if (inversionClock.getElapsedTime().asSeconds() <= 3) {
 			GetCapacityOwner()->GetComponent<Player>()->SetGravity(-200);
 		}
-		else if (inversionClock.getElapsedTime().asSeconds() <= 4) {
-			GetCapacityOwner()->GetComponent<Player>()->SetGravity(-300);
-		}
-		else if (inversionClock.getElapsedTime().asSeconds() <= 5) {
-			GetCapacityOwner()->GetComponent<Player>()->SetGravity(-300);
-		}
-		else if (inversionClock.getElapsedTime().asSeconds() <= 6) {
-			GetCapacityOwner()->GetComponent<Player>()->SetGravity(-400);
-		}
-		else if (inversionClock.getElapsedTime().asSeconds() <= 7) {
-			GetCapacityOwner()->GetComponent<Player>()->SetGravity(-400);
-		}
-		else if (inversionClock.getElapsedTime().asSeconds() <= 8) {
-			GetCapacityOwner()->GetComponent<Player>()->SetGravity(-500);
-			std::cout << "te la" << std::endl;
-		}
 		else {
 			inversion = false;
-			GetCapacityOwner()->GetComponent<Player>()->SetGravity(gravity);
+			GetCapacityOwner()->GetComponent<Player>()->SetGravity(100);
 		}
-		
 	}
 }
 
