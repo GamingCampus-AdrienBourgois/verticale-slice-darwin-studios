@@ -8,6 +8,7 @@
 #include "Modules/WindowModule.h"
 
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <Components/Player.h>
 
 
 class Capacity;
@@ -100,6 +101,10 @@ int Scene::SetTexture(std::string nom_texture, std::string chemin_fichier)
 	texture[nom_texture] = new_texture;
 
 	return EXIT_SUCCESS;
+}
+
+sf::Texture* Scene::GetTextureByName(std::string _name) {
+	return &texture[_name];
 }
 
 void Scene::SetBackground(std::string nom_texture) {
@@ -319,6 +324,55 @@ GameObject* Scene::CreateOnlySprite(Scene* scene, const ObjectType& _type, std::
 		sprite_renderer->SetSpriteRect(&texture[nom_texture], _size, _sprite_size, Maths::Vector2f(0, 0), sprite_space);
 	}
 
+
+	return game_object;
+}
+
+GameObject* Scene::CreatePlayer(const ObjectType& _type, std::string _name, Maths::Vector2f _position, Maths::Vector2f _size, std::string nom_texture, Maths::Vector2f _sprite_size, Maths::Vector2f sprite_space) {
+
+	GameObject* game_object = CreateGameObject(_type, _name);
+	game_object->SetPosition(_position);
+
+	SquareCollider* square_collider = game_object->CreateComponent<SquareCollider>();
+	square_collider->SetWidth(_size.x);
+	square_collider->SetHeight(_size.y);
+
+	SpriteRenderer* sprite_renderer = game_object->CreateComponent<SpriteRenderer>();
+	if (sprite_space.x == 0 && sprite_space.y == 0) {
+		sprite_renderer->SetSprite(&texture[nom_texture], _size);
+	}
+	else {
+		sprite_renderer->SetSpriteRect(&texture[nom_texture], _size, _sprite_size, Maths::Vector2f(0, 0), sprite_space);
+	}
+
+	Player* player = game_object->CreateComponent<Player>();
+
+	if (GetBigCapacity()->GetName() == "INVERSION DE LA GRaVITE") {
+		InversionGravite* capacity = player->SetCapacity<InversionGravite>();
+		capacity->SetName("InversionGravite");
+		capacity->SetCapacityOwner(game_object);
+	}
+	else if (GetBigCapacity()->GetName() == "INVINCIbILITE") {
+		Invincibilite* capacity = player->SetCapacity<Invincibilite>();
+		capacity->SetName("Invincibilite");
+		capacity->SetCapacityOwner(game_object);
+	}
+	else if (GetBigCapacity()->GetName() == "DOUbLE-SaUT") {
+		DoubleJump* capacity = player->SetCapacity<DoubleJump>();
+		capacity->SetName("DoubleJump");
+		capacity->SetCapacityOwner(game_object);
+		capacity->SetDoubleJump(true);
+	}
+	else if (GetBigCapacity()->GetName() == "DaSH") {
+		Dash* capacity = player->SetCapacity<Dash>();
+		capacity->SetName("Dash");
+		capacity->SetCapacityOwner(game_object);
+	}
+	else if (GetBigCapacity()->GetName() == "fORCE") {
+		Force* capacity = player->SetCapacity<Force>();
+		capacity->SetName("Force");
+		capacity->SetCapacityOwner(game_object);
+	}
 
 	return game_object;
 }
