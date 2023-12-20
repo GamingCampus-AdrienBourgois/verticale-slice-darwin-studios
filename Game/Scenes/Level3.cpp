@@ -1,4 +1,5 @@
 #include "DefaultScene.h"
+#include "EndLevelScene.h"
 
 void DefaultScene::SpawnObjectLevel3() {
 	sf::Vector2f window_size = sf::Vector2f(Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize().x, Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize().y);
@@ -8,6 +9,7 @@ void DefaultScene::SpawnObjectLevel3() {
     SetBackground("background");
 	SetTexture("texture_livre", "Assets/Object/livre.png");
 	SetTexture("texture_interrupteur", "Assets/Object/interrupteur.png");
+	SetTexture("texture_fan", "Assets/Object/fan_gif.png");
 	SetTexture("texture_lampe", "Assets/Object/lamp.png");
 
 	float sizeX = window_size.x / 100;
@@ -24,6 +26,10 @@ void DefaultScene::SpawnObjectLevel3() {
 	//Table de chevet
 	CreateColliderObject(this, ColliderType, "Table_de_chevet", Maths::Vector2f(sizeX * 1.97917, sizeY * 74.1667), Maths::Vector2f(sizeX * 9.94792, sizeY * 18.6111));
 
+	//Ceiling fan
+	CreateColliderObject(this, DeathType, "Fan", Maths::Vector2f(sizeX * 3.59375, sizeY * 1.57407), Maths::Vector2f(sizeX * 16.875, sizeY * 6.48148));
+	CreateSpriteObject(this, DeathType, "Fan", Maths::Vector2f(sizeX * 3.59375, sizeY * 1.57407), Maths::Vector2f(sizeX * 16.875, sizeY * 6.48148), "texture_fan", Maths::Vector2f(0, 0), Maths::Vector2f(0, 0));
+
 	//Ours
 	CreateColliderObject(this, ColliderType, "Ours", Maths::Vector2f(sizeX * 25.8333, sizeY * 55.1852), Maths::Vector2f(sizeX * 2.70833, sizeY * 5.09259));
 	CreateColliderObject(this, ColliderType, "Ours", Maths::Vector2f(sizeX * 32.5, sizeY * 55.0926), Maths::Vector2f(sizeX * 3.17708, sizeY * 5.83333));
@@ -37,6 +43,7 @@ void DefaultScene::SpawnObjectLevel3() {
 
 	//Fenêtre
 	CreateColliderObject(this, ColliderType, "Fenetre", Maths::Vector2f(sizeX * 23.0729, sizeY * 50.463), Maths::Vector2f(sizeX * 18.0729, sizeY * 1.57407));
+
 	//Livre mouvable
 	CreateSpriteObject(this, MoveType, "LivreMove", Maths::Vector2f(sizeX * 39.7412, sizeY * 40.9), Maths::Vector2f(sizeX * 1.73684, sizeY * 13.7), "texture_livre", Maths::Vector2f(0,0), Maths::Vector2f(0,0));
 
@@ -74,7 +81,10 @@ void DefaultScene::SpawnObjectLevel3() {
 	CreateColliderObject(this, ColliderType, "Tabouret", Maths::Vector2f(sizeX * 71.0938, sizeY * 80.463), Maths::Vector2f(sizeX * 4.53125, sizeY * 1.94444));
 
 	//Trou de souris
-	CreateColliderObject(this, ColliderType, "Trou_de_souris", Maths::Vector2f(sizeX * 96.5104, sizeY * 83.8889), Maths::Vector2f(sizeX * 2.96875, sizeY * 3.33333));
+	GameObject* hole = CreateColliderObject(this, ColliderType, "Trou_de_souris", Maths::Vector2f(sizeX * 96.5104, sizeY * 87.3333), Maths::Vector2f(sizeX * 2.96875, sizeY * 0.25));
+	SceneModule* scene_module = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>();
+
+	hole->SetCallback([hole, scene_module] { scene_module->SetNextScene([scene_module] { scene_module->SetScene<EndLevelScene>(false); }); });
 
 	//Interrupteur
 	GameObject* interrupteur = CreateInteractiveObject(this, InteractiveType, "Interrupteur", Maths::Vector2f(sizeX * 36.5104, sizeY * 61.2037), Maths::Vector2f(sizeX * 1.8958, ((sizeX * 1.8958) * 147) / 94.5), "texture_interrupteur", Maths::Vector2f(189, 294), Maths::Vector2f(0, 13), lampe);

@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include "functional"
 
 #include "Component.h"
 #include "Maths/Vector2.h"
@@ -32,6 +33,11 @@ public:
 	void SetScale(const Maths::Vector2<float>& _scale) { scale = _scale; }
 	void SetSwitchOn(bool value) {switchOn = value;}
 	bool GetSwitchOn() { return switchOn; }
+	void SetCallback(std::function<void()> _callback) { callback = _callback; }
+	std::function<void()> GetCallback() { return callback; }
+	void SetCallbackProc(bool value) { callbackProc = value; }
+	bool GetCallbackProc() { return callbackProc; }
+
 	template<typename T>
 	T* CreateComponent();
 
@@ -54,6 +60,9 @@ private:
 	Maths::Vector2<float> scale = Maths::Vector2f::One;
 
 	std::vector<Component*> components;
+
+	std::function<void()> callback;
+	bool callbackProc = false;
 
 	bool switchOn = false;
 };
