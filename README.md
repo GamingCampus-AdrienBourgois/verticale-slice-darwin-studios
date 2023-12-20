@@ -4,7 +4,7 @@ This game is a school project of ours, we developed it in three weeks. The plan 
 
 # Credits :  
 
-We created this game under our fictitious studio: **Darwin Studios**.
+We created this game under our fictitious studio: **Darwin's Studio**.
 
 Melvin Guellaff - [GitHub](https://github.com/Mguellaff) - [LinkedIn](https://www.linkedin.com/in/melvin-guellaff-353628202/)  
 Yanaël Caillot - [GitHub](https://github.com/Dranemo) - [LinkedIn](https://www.linkedin.com/in/ycaillot/)  
