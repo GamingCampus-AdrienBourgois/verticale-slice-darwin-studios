@@ -5,6 +5,28 @@
 #include <Modules/SceneModule.h>
 #include <iostream>
 
+Force::Force() {
+	soundBufferForce = new sf::SoundBuffer;
+	if (!soundBufferForce->loadFromFile("Assets/Sons/dash.wav")) {
+		std::cout << "erreur de chargement du fichier" << std::endl;
+	}
+	soundForce = new sf::Sound;
+}
+
+Force::~Force() {
+	delete soundBufferForce;
+	delete soundForce;
+}
+
+void Force::PlaySound() {
+	soundForce->setBuffer(*soundBufferForce);
+	soundForce->play();
+}
+
+void Force::StopSound() {
+	soundForce->stop();
+}
+
 void Force::DeplaceObject(const float _delta_time, GameObject* player, GameObject* gameObject, std::vector<GameObject*>* gameObjects)
 {
 	gameObject->GetComponent<SquareCollider>()->SetCanMoving("up", false);
@@ -38,6 +60,11 @@ void Force::DeplaceObject(const float _delta_time, GameObject* player, GameObjec
 		if (gameObject->GetComponent<SquareCollider>()->GetCanMoving()["right"] && !collisionbottom && !collisionRight)
 		{
 			gameObject->SetPosition(Maths::Vector2f(gameObjectX + (player->GetComponent<Player>()->GetSpeed() * _delta_time), gameObjectY));
+			if (!soundPlayed) {
+				PlaySound();
+				soundForce->setVolume(25);
+				soundPlayed = true; // Marquer que le son a été joué
+			}
 		}
 	}
 	else if ((playerX > gameObjectX))
@@ -45,6 +72,11 @@ void Force::DeplaceObject(const float _delta_time, GameObject* player, GameObjec
 		if (gameObject->GetComponent<SquareCollider>()->GetCanMoving()["left"] && !collisionbottom && !collisionLeft)
 		{
 			gameObject->SetPosition(Maths::Vector2f(gameObjectX - (player->GetComponent<Player>()->GetSpeed() * _delta_time), gameObjectY));
+			if (!soundPlayed) {
+				PlaySound();
+				soundForce->setVolume(25);
+				soundPlayed = true; // Marquer que le son a été joué
+			}
 		}
 	}
 }

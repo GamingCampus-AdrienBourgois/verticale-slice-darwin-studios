@@ -71,6 +71,10 @@ void Player::Move(const float _delta_time, std::unordered_map<sf::Keyboard::Key,
 			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX() - (speed * _delta_time), GetOwner()->GetPosition().GetY()));
 			isWalking = true; // Activation du son si Q est enfoncée
 		}
+		else
+		{
+			isWalking = false;
+		}
 	}
 
 	if (isWalking) {
@@ -79,9 +83,10 @@ void Player::Move(const float _delta_time, std::unordered_map<sf::Keyboard::Key,
 		soundWalk->setLoop(true); // Jouer en boucle
 		soundWalk->setVolume(50);
 		soundWalk->play();
+		std::cout << "son de marche" << std::endl;
 	}
-	else {
-		// Arrêter le son si aucune touche correspondante n'est pressée
+	else
+	{
 		soundWalk->stop();
 	}
 }
@@ -201,6 +206,7 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 				// Effacer l'élément du vecteur
 				it = pressed_input->erase(it);
 
+				//Son changement de poupée
 				soundSwitchDoll->setBuffer(*soundBufferSwitchDoll);
 				soundSwitchDoll->setVolume(100);
 				soundSwitchDoll->play();
