@@ -11,5 +11,6 @@ private:
 	bool inversion = false;
 	int count = 0;
 	sf::Clock inversionClock;
-	int timeInversion = 10;
+	int gravity = 0;
+
 };

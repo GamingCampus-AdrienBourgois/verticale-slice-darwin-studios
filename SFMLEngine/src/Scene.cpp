@@ -30,16 +30,21 @@ void Scene::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key
 	{
 		if (gameObjects[i]->GetType() == MoveType || gameObjects[i]->GetType() == DollOffType)
 		{
+			gameObjects[i]->GetComponent<SquareCollider>()->SetCanMoving("up", true);
+			gameObjects[i]->GetComponent<SquareCollider>()->SetCanMoving("down", true);
+			gameObjects[i]->GetComponent<SquareCollider>()->SetCanMoving("left", true);
+			gameObjects[i]->GetComponent<SquareCollider>()->SetCanMoving("right", true);
+
 			for (int j = 0; j < gameObjects.size(); j++)
 			{
-				if (gameObjects[j]->GetType() != GameObjectType)
+				if (gameObjects[i] != gameObjects[j] && gameObjects[j]->GetType() != GameObjectType)
 				{
-					if (gameObjects[i] != gameObjects[j] && !gameObjects[i]->GetComponent<SquareCollider>()->CheckCollisionBottom(*gameObjects[i]->GetComponent<SquareCollider>(), *gameObjects[j]->GetComponent<SquareCollider>()))
-					{
-						gameObjects[i]->SetPosition(Maths::Vector2f(gameObjects[i]->GetPosition().GetX(), gameObjects[i]->GetPosition().GetY() + (gravity * _delta_time)));
-					}
+					gameObjects[i]->GetComponent<SquareCollider>()->IsColliding(*gameObjects[i]->GetComponent<SquareCollider>(), *gameObjects[j]->GetComponent<SquareCollider>(), _delta_time);
 				}
-				gameObjects[j]->Update(_delta_time, pressed_input);
+			}
+			if (gameObjects[i]->GetComponent<SquareCollider>()->GetCanMoving()["down"])
+			{
+				gameObjects[i]->SetPosition(Maths::Vector2f(gameObjects[i]->GetPosition().GetX(), gameObjects[i]->GetPosition().GetY() + (gravity * _delta_time)));
 			}
 		}
 		gameObjects[i]->Update(_delta_time, pressed_input);

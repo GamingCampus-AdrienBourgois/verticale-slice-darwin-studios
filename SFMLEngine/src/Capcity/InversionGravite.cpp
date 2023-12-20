@@ -7,6 +7,8 @@
 
 void InversionGravite::GraviteInversion(GameObject* player, const float _delta_time)
 {
+	gravity = player->GetComponent<Player>()->GetGravity();
+
 	if (count == 0)
 	{
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
@@ -22,31 +24,33 @@ void InversionGravite::GraviteInversion(GameObject* player, const float _delta_t
 	if (inversion == true && player->GetComponent<SquareCollider>()->GetCanMoving()["up"])
 	{
 		if (inversionClock.getElapsedTime().asSeconds() <= 1) {
-			GetCapacityOwner()->SetPosition(Maths::Vector2f(GetCapacityOwner()->GetPosition().GetX(), GetCapacityOwner()->GetPosition().GetY() - (500 * _delta_time)));
+			GetCapacityOwner()->GetComponent<Player>()->SetGravity(-200);
 		}
 		else if (inversionClock.getElapsedTime().asSeconds() <= 2) {
-			GetCapacityOwner()->SetPosition(Maths::Vector2f(GetCapacityOwner()->GetPosition().GetX(), GetCapacityOwner()->GetPosition().GetY() - (400 * _delta_time)));
+			GetCapacityOwner()->GetComponent<Player>()->SetGravity(-200);
 		}
 		else if (inversionClock.getElapsedTime().asSeconds() <= 3) {
-			GetCapacityOwner()->SetPosition(Maths::Vector2f(GetCapacityOwner()->GetPosition().GetX(), GetCapacityOwner()->GetPosition().GetY() - (300 * _delta_time)));
+			GetCapacityOwner()->GetComponent<Player>()->SetGravity(-200);
 		}
 		else if (inversionClock.getElapsedTime().asSeconds() <= 4) {
-			GetCapacityOwner()->SetPosition(Maths::Vector2f(GetCapacityOwner()->GetPosition().GetX(), GetCapacityOwner()->GetPosition().GetY() - (200 * _delta_time)));
+			GetCapacityOwner()->GetComponent<Player>()->SetGravity(-300);
 		}
 		else if (inversionClock.getElapsedTime().asSeconds() <= 5) {
-			GetCapacityOwner()->SetPosition(Maths::Vector2f(GetCapacityOwner()->GetPosition().GetX(), GetCapacityOwner()->GetPosition().GetY() - (150 * _delta_time)));
+			GetCapacityOwner()->GetComponent<Player>()->SetGravity(-300);
 		}
 		else if (inversionClock.getElapsedTime().asSeconds() <= 6) {
-			GetCapacityOwner()->SetPosition(Maths::Vector2f(GetCapacityOwner()->GetPosition().GetX(), GetCapacityOwner()->GetPosition().GetY() - (100 * _delta_time)));
+			GetCapacityOwner()->GetComponent<Player>()->SetGravity(-400);
 		}
 		else if (inversionClock.getElapsedTime().asSeconds() <= 7) {
-			GetCapacityOwner()->SetPosition(Maths::Vector2f(GetCapacityOwner()->GetPosition().GetX(), GetCapacityOwner()->GetPosition().GetY() - (75 * _delta_time)));
+			GetCapacityOwner()->GetComponent<Player>()->SetGravity(-400);
 		}
 		else if (inversionClock.getElapsedTime().asSeconds() <= 8) {
-			GetCapacityOwner()->SetPosition(Maths::Vector2f(GetCapacityOwner()->GetPosition().GetX(), GetCapacityOwner()->GetPosition().GetY() - (35 * _delta_time)));
+			GetCapacityOwner()->GetComponent<Player>()->SetGravity(-500);
+			std::cout << "te la" << std::endl;
 		}
 		else {
 			inversion = false;
+			GetCapacityOwner()->GetComponent<Player>()->SetGravity(gravity);
 		}
 		
 	}
