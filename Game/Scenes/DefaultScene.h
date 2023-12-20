@@ -37,7 +37,7 @@ public:
 		squareCollider->SetHeight(_size.y);
 
 		RectangleShapeRenderer* shapeRenderer = game_object->CreateComponent<RectangleShapeRenderer>();
-		shapeRenderer->SetColor(sf::Color{ 255,255,255,50 }); // Couleur du mur
+		shapeRenderer->SetColor(sf::Color{ 255,0,0,50 }); // Couleur du mur
 		shapeRenderer->SetSize(Maths::Vector2f(_size.x, _size.y)); // Taille du mur
 
 		return game_object;
