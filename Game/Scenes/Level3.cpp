@@ -1,7 +1,7 @@
 #include "DefaultScene.h"
 #include "EndLevelScene.h"
 
-void DefaultScene::SpawnObjectLevel3() {
+void DefaultScene::SpawnObjectLevel3(std::vector<Capacity> params) {
 	sf::Vector2f window_size = sf::Vector2f(Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize().x, Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize().y);
 
 
@@ -11,6 +11,13 @@ void DefaultScene::SpawnObjectLevel3() {
 	SetTexture("texture_interrupteur", "Assets/Object/interrupteur.png");
 	SetTexture("texture_fan", "Assets/Object/fan_gif.png");
 	SetTexture("texture_lampe", "Assets/Object/lamp.png");
+	
+	SetTexture("texture_placeholder", "Assets/button/Placeholder.png");
+	SetTexture("texture_dash", "Assets/button/dash_button.png");
+	SetTexture("texture_double_jump", "Assets/button/double_jump_button.png");
+	SetTexture("texture_force", "Assets/button/force_button.png");
+	SetTexture("texture_gravity", "Assets/button/gravity_button.png");
+	SetTexture("texture_invincibilite", "Assets/button/invincibility_button.png");
 
 	float sizeX = window_size.x / 100;
 	float sizeY = window_size.y / 100;
@@ -95,6 +102,32 @@ void DefaultScene::SpawnObjectLevel3() {
 	GameObject* interrupteur = CreateInteractiveObject(this, InteractiveType, "Interrupteur", Maths::Vector2f(sizeX * 36.5104, sizeY * 61.2037), Maths::Vector2f(sizeX * 1.8958, ((sizeX * 1.8958) * 147) / 94.5), "texture_interrupteur", Maths::Vector2f(189, 294), Maths::Vector2f(0, 13), lampe);
 	interrupteur->GetComponent<SpriteRenderer>()->SetNextSpriteRect(1);
 	interrupteur->GetComponent<Interactive>()->SetCallback([interrupteur] {interrupteur->GetComponent<Interactive>()->SwitchStateLamp(); });
+
+
+	//Affichage du pouvoir en cours
+	GameObject* Pouvoir_en_cours = CreateOnlySprite(this, GameObjectType, "pouvoir en cours", Maths::Vector2f(window_size.x / 50, window_size.y - window_size.y / 50 - 144), Maths::Vector2f(window_size.x / 20, ((((window_size.x / 20) * 144) / 144))), "texture_placeholder", Maths::Vector2f(144, 144), Maths::Vector2f(0, 15));
+	
+	std::string namePower = params[0].GetName();
+	if (namePower == "INVERSION DE LA GRaVITE")
+	{
+		Pouvoir_en_cours->GetComponent<SpriteRenderer>()->SetSpriteRect(GetTextureByName("texture_gravity"), Maths::Vector2f(window_size.x / 20, ((((window_size.x / 20) * 144) / 144))), Maths::Vector2f(144, 144), Maths::Vector2f(0, 369), Maths::Vector2f(0, 32));
+	}
+	else if (namePower == "INVINCIbILITE")
+	{
+		Pouvoir_en_cours->GetComponent<SpriteRenderer>()->SetSpriteRect(GetTextureByName("texture_invincibilite"), Maths::Vector2f(window_size.x / 20, ((((window_size.x / 20) * 144) / 144))), Maths::Vector2f(144, 144), Maths::Vector2f(0, 369), Maths::Vector2f(0, 32));
+	}
+	else if (namePower == "DOUbLE-SaUT")
+	{
+		Pouvoir_en_cours->GetComponent<SpriteRenderer>()->SetSpriteRect(GetTextureByName("texture_double_jump"), Maths::Vector2f(window_size.x / 20, ((((window_size.x / 20) * 144) / 144))), Maths::Vector2f(144, 144), Maths::Vector2f(0, 369), Maths::Vector2f(0, 32));
+	}
+	else if (namePower == "DaSH")
+	{
+		Pouvoir_en_cours->GetComponent<SpriteRenderer>()->SetSpriteRect(GetTextureByName("texture_dash"), Maths::Vector2f(window_size.x / 20, ((((window_size.x / 20) * 144) / 144))), Maths::Vector2f(144, 144), Maths::Vector2f(0, 369), Maths::Vector2f(0, 32));
+	}
+	else if (namePower == "fORCE")
+	{
+		Pouvoir_en_cours->GetComponent<SpriteRenderer>()->SetSpriteRect(GetTextureByName("texture_force"), Maths::Vector2f(window_size.x / 20, ((((window_size.x / 20) * 144) / 144))), Maths::Vector2f(144, 144), Maths::Vector2f(0, 369), Maths::Vector2f(0, 32));
+	}
 }
 
 

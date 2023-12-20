@@ -25,7 +25,7 @@ public:
 		GetBigCapacity()->SetName(params[0].GetName());
 		GetMidCapacity()->SetName(params[1].GetName());
 		GetSmallCapacity()->SetName(params[2].GetName());
-		SpawnObjectLevel3();
+		SpawnObjectLevel3(params);
 		GameObject* player = CreatePlayer(PlayerType, "Player", Maths::Vector2f(300,400/*window_size.x * 0.1, window_size.y * 0.68*/), Maths::Vector2f((window_size.x/25), (((window_size.x /25)*654)/420)), "texture_zarya", Maths::Vector2f(420, 654), Maths::Vector2f(0, 1));
 	}
 
@@ -48,5 +48,5 @@ public:
 
 private:
 
-	void SpawnObjectLevel3();
+	void SpawnObjectLevel3(std::vector<Capacity> params);
 };
