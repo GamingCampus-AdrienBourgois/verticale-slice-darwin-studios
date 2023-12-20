@@ -30,8 +30,8 @@ void DefaultScene::SpawnObjectLevel3() {
 	CreateColliderObject(this, ColliderType, "Table_de_chevet", Maths::Vector2f(sizeX * 1.66667, sizeY * 72.8333), Maths::Vector2f(sizeX * 10.3125, sizeY * 20.0833));
 
 	//Ceiling fan
-	CreateColliderObject(this, DeathType, "Fan", Maths::Vector2f(sizeX * 3.59375, sizeY * 1.57407), Maths::Vector2f(sizeX * 16.875, sizeY * 6.48148));
-	CreateSpriteObject(this, DeathType, "Fan", Maths::Vector2f(sizeX * 3.59375, sizeY * 1.57407), Maths::Vector2f(sizeX * 16.875, sizeY * 6.48148), "texture_fan", Maths::Vector2f(0, 0), Maths::Vector2f(0, 0));
+	CreateColliderObject(this, DeathType, "Fan", Maths::Vector2f(sizeX * 3.59375, sizeY * 1.57407), Maths::Vector2f(sizeX * 31.9271, sizeY * 6.48148));
+	CreateSpriteObject(this, DeathType, "Fan", Maths::Vector2f(sizeX * 3.59375, sizeY * 1.57407), Maths::Vector2f(sizeX * 31.9271, sizeY * 6.48148), "texture_fan", Maths::Vector2f(0, 0), Maths::Vector2f(0, 0));
 
 	//Ours
 	CreateColliderObject(this, ColliderType, "Ours", Maths::Vector2f(sizeX * 25.8333, sizeY * 55.1852), Maths::Vector2f(sizeX * 2.70833, sizeY * 5.09259));
@@ -49,16 +49,18 @@ void DefaultScene::SpawnObjectLevel3() {
 	//Livre mouvable
 	CreateSpriteObject(this, MoveType, "LivreMove", Maths::Vector2f(sizeX * 39.7412, sizeY * 40.9), Maths::Vector2f(sizeX * 1.73684, sizeY * 13.7), "texture_livre", Maths::Vector2f(0,0), Maths::Vector2f(0,0));
 
+	//Lampe
+	GameObject* lampe = CreateOnlySprite(this, GameObjectType, "Lampe", Maths::Vector2f(sizeX * 50.3125, sizeY * 53.1667), Maths::Vector2f(sizeX * 6.875, sizeY * 35.8333), "texture_lampe", Maths::Vector2f(122, 341), Maths::Vector2f(6, 0));
+
+	CreateColliderObject(this, DeathType, "Lampe_Bottom", Maths::Vector2f(sizeX * 50.3646, sizeY * 56.75), Maths::Vector2f(sizeX * 6.875, sizeY * 4.62963));
+	CreateColliderObject(this, DeathType, "Lampe_Top", Maths::Vector2f(sizeX * 51.3542, sizeY * 53.4167), Maths::Vector2f(sizeX * 4.89583, sizeY * 3.25));
+	
+	
 	//Carton
 	CreateColliderObject(this, ColliderType, "Carton_Bed", Maths::Vector2f(sizeX * 42.9688, sizeY * 80.9167), Maths::Vector2f(sizeX * 7.34375, sizeY * 12.3333));
 	CreateColliderObject(this, ColliderType, "Carton_BedLittle", Maths::Vector2f(sizeX * 50.3125, sizeY * 86.75), Maths::Vector2f(sizeX * 1.5625, sizeY * 6.41667));
 	CreateColliderObject(this, ColliderType, "Carton_Desk", Maths::Vector2f(sizeX * 57.0312, sizeY * 63.6667), Maths::Vector2f(sizeX * 5.52083, sizeY * 9.91667));
 	   
-	//Lampe
-	GameObject* lampe = CreateOnlySprite(this, GameObjectType, "Lampe", Maths::Vector2f(sizeX * 51.1979, sizeY * 50.463), Maths::Vector2f(sizeX * 7.70833, sizeY * 37.5926), "texture_lampe", Maths::Vector2f(122,341), Maths::Vector2f(6,0));
-
-	CreateColliderObject(this, DeathType, "Lampe_Bottom", Maths::Vector2f(sizeX * 50.3646, sizeY * 56.75), Maths::Vector2f(sizeX * 6.875, sizeY * 4.62963));
-	CreateColliderObject(this, DeathType, "Lampe_Top", Maths::Vector2f(sizeX * 51.3542, sizeY * 53.4167), Maths::Vector2f(sizeX * 4.89583, sizeY * 3.25));
 
 	//Cadre_du_haut
 	CreateColliderObject(this, ColliderType, "Cadre_du_haut", Maths::Vector2f(sizeX * 69.7917, sizeY * 20.5), Maths::Vector2f(sizeX * 11.5104, sizeY * 12.8704));
