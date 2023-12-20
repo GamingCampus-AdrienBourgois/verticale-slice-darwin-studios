@@ -15,12 +15,28 @@
 
 
 void Player::Move(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, std::vector<GameObject*>* gameObjects){
+	Maths::Vector2f start_position = GetOwner()->GetPosition();
 	for (const auto& input : *pressed_input) {
 		if (input.first == 3 && input.second == true && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["right"]) {
 			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX() + (speed * _delta_time), GetOwner()->GetPosition().GetY()));
 		}else if (input.first == 16 && input.second == true && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["left"]) {
 			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX() - (speed * _delta_time), GetOwner()->GetPosition().GetY()));
 		}
+	}
+
+	if (start_position != GetOwner()->GetPosition()) {
+		if (start_position.x < GetOwner()->GetPosition().x) {
+			GetOwner()->GetComponent<SpriteRenderer>()->SetSpriteFirstPosition(Maths::Vector2f(GetOwner()->GetComponent<SpriteRenderer>()->GetSpriteSize().x * 2 + 1, 0));
+		}
+		else {
+			GetOwner()->GetComponent<SpriteRenderer>()->SetSpriteFirstPosition(Maths::Vector2f(GetOwner()->GetComponent<SpriteRenderer>()->GetSpriteSize().x * 3 + 1, 0));
+		}
+		GetOwner()->SetIsAnimated(true);
+		GetOwner()->SetReverseAnimation(false);
+		GetOwner()->SetNbAnimationSprite(3);
+	}
+	else {
+		GetOwner()->SetReverseAnimation(true);
 	}
 }
 
@@ -87,6 +103,16 @@ void Player::Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key,
 	}
 
 	if (is_jumping && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["up"]) {
+		if (GetOwner()->GetComponent<SpriteRenderer>()->GetActualSpriteInt() != 0 && GetOwner()->GetComponent<SpriteRenderer>()->GetSpriteFirstPosition() != Maths::Vector2f(0,0)) {
+			GetOwner()->SetReverseAnimation(true);
+		}
+		else {
+			GetOwner()->SetReverseAnimation(false);
+			GetOwner()->SetIsAnimated(true);
+			GetOwner()->SetNbAnimationSprite(7);
+			GetOwner()->GetComponent<SpriteRenderer>()->SetSpriteFirstPosition(Maths::Vector2f(0, 0));
+
+		}
 		if (jumping_time.getElapsedTime().asSeconds() <= 0.4) {
 		GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() - (sizeWindow.y * 0.3 * _delta_time)));
 		}
@@ -363,7 +389,6 @@ void Player::ReturnCheckpoint(Scene* scene, std::unordered_map<sf::Keyboard::Key
 		can_check = false;
 
 		Maths::Vector2f position = GetOwner()->GetPosition();
-		sf::Color actuall_color = GetOwner()->GetComponent<RectangleShapeRenderer>()->GetColor();
 
 		std::string nameScene = scene->GetName();
 			

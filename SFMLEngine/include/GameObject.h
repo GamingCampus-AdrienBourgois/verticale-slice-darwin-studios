@@ -25,6 +25,13 @@ public:
 	Maths::Vector2<float> GetPosition() const { return position; }
 	float GetRotation() const { return rotation; }
 	Maths::Vector2<float> GetScale() const { return scale; }
+	bool GetSwitchOn() { return switchOn; }
+	bool GetCallbackProc() { return callbackProc; }
+	std::function<void()> GetCallback() { return callback; }
+	bool GetIsAnimated() { return is_animated; }
+	int GetNbAnimationSprite() { return nb_animation_sprite; }
+	bool GetAnimatedLoop() { return animated_loop; }
+	bool GetReverseAnimation() { return reverse_animation; }
 
 	void SetType(const ObjectType& _type) { type = _type; }
 	void SetName(const std::string& _name) { name = _name; }
@@ -32,11 +39,11 @@ public:
 	void SetRotation(const float _rotation) { rotation = _rotation; }
 	void SetScale(const Maths::Vector2<float>& _scale) { scale = _scale; }
 	void SetSwitchOn(bool value) {switchOn = value;}
-	bool GetSwitchOn() { return switchOn; }
 	void SetCallback(std::function<void()> _callback) { callback = _callback; }
-	std::function<void()> GetCallback() { return callback; }
-	void SetCallbackProc(bool value) { callbackProc = value; }
-	bool GetCallbackProc() { return callbackProc; }
+	void SetIsAnimated(bool _is_animated) { is_animated = _is_animated; }
+	void SetNbAnimationSprite(int _nb_animation_sprite) { nb_animation_sprite = _nb_animation_sprite; }
+	void SetAnimatedLoop(bool _animated_loop) { animated_loop = _animated_loop; }
+	void SetReverseAnimation(bool _reverse_animation) { reverse_animation = _reverse_animation; }
 
 	template<typename T>
 	T* CreateComponent();
@@ -65,6 +72,12 @@ private:
 	bool callbackProc = false;
 
 	bool switchOn = false;
+
+	bool is_animated = false;
+	int nb_animation_sprite = 0;
+	bool animated_loop = false;
+	bool reverse_animation = false;
+
 };
 
 template<typename T>

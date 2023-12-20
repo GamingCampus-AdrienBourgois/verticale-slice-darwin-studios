@@ -37,8 +37,10 @@ void DefaultScene::SpawnObjectLevel3(std::vector<Capacity> params) {
 	CreateColliderObject(this, ColliderType, "Table_de_chevet", Maths::Vector2f(sizeX * 1.66667, sizeY * 72.8333), Maths::Vector2f(sizeX * 10.3125, sizeY * 20.0833));
 
 	//Ceiling fan
-	CreateColliderObject(this, DeathType, "Fan", Maths::Vector2f(sizeX * 3.59375, sizeY * 1.57407), Maths::Vector2f(sizeX * 31.9271, sizeY * 6.48148));
-	CreateSpriteObject(this, DeathType, "Fan", Maths::Vector2f(sizeX * 3.59375, sizeY * 1.57407), Maths::Vector2f(sizeX * 31.9271, sizeY * 6.48148), "texture_fan", Maths::Vector2f(0, 0), Maths::Vector2f(0, 0));
+	GameObject* fan = CreateSpriteObject(this, DeathType, "Fan", Maths::Vector2f(sizeX * 3.59375, sizeY * 1.57407), Maths::Vector2f(sizeX * 16.875, sizeY * 6.48148), "texture_fan", Maths::Vector2f(523, 185), Maths::Vector2f(0, 1));
+	fan->SetIsAnimated(true);
+	fan->SetNbAnimationSprite(10);
+	fan->SetAnimatedLoop(true);
 
 	//Ours
 	CreateColliderObject(this, ColliderType, "Ours", Maths::Vector2f(sizeX * 25.8333, sizeY * 55.1852), Maths::Vector2f(sizeX * 2.70833, sizeY * 5.09259));
