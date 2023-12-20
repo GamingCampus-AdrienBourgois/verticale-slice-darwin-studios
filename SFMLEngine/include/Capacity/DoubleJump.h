@@ -1,6 +1,8 @@
 #pragma once
 #include "Capacity.h"
 
+#include "Scene.h"
+
 class DoubleJump : public Capacity {
 public:
 	~DoubleJump();

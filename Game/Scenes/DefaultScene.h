@@ -25,8 +25,8 @@ public:
 		GetBigCapacity()->SetName(params[0].GetName());
 		GetMidCapacity()->SetName(params[1].GetName());
 		GetSmallCapacity()->SetName(params[2].GetName());
-		SpawnObjectLevel3();
-		GameObject* player = CreatePlayer(PlayerType, "Player", Maths::Vector2f(window_size.x/100 * 6.40625, window_size.y/100 * 65.6481), Maths::Vector2f((window_size.x/25), (((window_size.x /25)*654)/420)), "texture_zarya", Maths::Vector2f(420, 654), Maths::Vector2f(0, 1));
+		SpawnObjectLevel3(params);
+		GameObject* player = CreatePlayer(PlayerType, "Player", Maths::Vector2f(window_size.x / 100 * 6.40625, window_size.y / 100 * 65.6481), Maths::Vector2f((window_size.x / 25), (((window_size.x / 25) * 654) / 420)), "texture_zarya", Maths::Vector2f(420, 654), Maths::Vector2f(0, 1));
 	}
 
 	GameObject* CreateColliderObject(Scene* scene, const ObjectType& _type, std::string _name, Maths::Vector2f _position, Maths::Vector2f _size) {
@@ -40,7 +40,7 @@ public:
 		squareCollider->SetHeight(_size.y);
 
 		RectangleShapeRenderer* shapeRenderer = game_object->CreateComponent<RectangleShapeRenderer>();
-		shapeRenderer->SetColor(sf::Color{ 255,255,255,50 }); // Couleur du mur
+		shapeRenderer->SetColor(sf::Color{ 255,0,0,50 }); // Couleur du mur
 		shapeRenderer->SetSize(Maths::Vector2f(_size.x, _size.y)); // Taille du mur
 
 		return game_object;
@@ -48,5 +48,5 @@ public:
 
 private:
 
-	void SpawnObjectLevel3();
+	void SpawnObjectLevel3(std::vector<Capacity> params);
 };

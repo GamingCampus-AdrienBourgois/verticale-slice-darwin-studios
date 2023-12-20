@@ -71,4 +71,5 @@ private:
 	std::vector<GameObject*> gameObjects;
 	sf::Sprite* background;
 	sf::Font font_scene;
+	float gravity = 100;
 };

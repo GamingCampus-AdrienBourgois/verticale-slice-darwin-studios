@@ -48,7 +48,7 @@ private:
 	SceneModule* sceneModule = moduleManager->GetModule<SceneModule>();
 
 	// // Variables
-	int hp = 10000;
+	int hp = 100;
 	int speed = sizeWindow.x / 9;
 	int gravity = 100;
 	float sizePlayer = sizeWindow.y / 22;
@@ -90,7 +90,7 @@ private:
 
 	// Functions
 	void Move(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, std::vector<GameObject*>* gameObjects );
-	void Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, std::vector<GameObject*>* gameObjects);
+	void Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, std::vector<GameObject*>* gameObjects, Scene* scene);
 
 	GameObject* CreateDollOff(const ObjectType& _type, std::string _name, Maths::Vector2f _position, sf::Texture* new_texture, Maths::Vector2f _size, Maths::Vector2f _size_sprite);
 	void SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, Scene* scene);

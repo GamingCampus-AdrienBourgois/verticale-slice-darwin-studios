@@ -40,10 +40,25 @@ void Player::Move(const float _delta_time, std::unordered_map<sf::Keyboard::Key,
 	}
 }
 
-void Player::Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, std::vector<GameObject*>* gameObjects) {
+void Player::Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, std::vector<GameObject*>* gameObjects, Scene* scene) {
 	if (!GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["down"] && is_jumping) {
 		is_jumping = false;
 		is_double_jumping = false;
+
+
+		// changer le sprite si pouvoir
+		if (capacity->GetName() == "DoubleJump")
+		{
+			SpriteRenderer* spriteRenderer_currentPower = nullptr;
+			for (GameObject* const& gameObject : *scene->GetGameObjects())
+			{
+				if (gameObject->GetName() == "pouvoir en cours")
+				{
+					spriteRenderer_currentPower = gameObject->GetComponent<SpriteRenderer>();
+				}
+			}
+			spriteRenderer_currentPower->SetNextSpriteRect(0);
+		}
 	}
 	if (is_jumping && can_double_jump && !is_double_jumping) {
 		for (const auto& input : *pressed_input) {
@@ -53,6 +68,20 @@ void Player::Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key,
 				jumping_time.restart();
 
 				can_switch = false;
+
+				// changer le sprite si pouvoir
+				if (capacity->GetName() == "DoubleJump")
+				{
+					SpriteRenderer* spriteRenderer_currentPower = nullptr;
+					for (GameObject* const& gameObject : *scene->GetGameObjects())
+					{
+						if (gameObject->GetName() == "pouvoir en cours")
+						{
+							spriteRenderer_currentPower = gameObject->GetComponent<SpriteRenderer>();
+						}
+					}
+					spriteRenderer_currentPower->SetNextSpriteRect(1);
+				}
 			}
 		}
 	}
@@ -96,9 +125,9 @@ void Player::Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key,
 		}
 	}
 
-if (GetOwner()->GetPosition().GetY() + 200 <= sizeWindow.y && !is_jumping && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["down"]) {
-	GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() + (sizeWindow.y * 0.1 * _delta_time)));
-}
+//if (GetOwner()->GetPosition().GetY() + 200 <= sizeWindow.y && !is_jumping && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["down"]) {
+//	GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() + (sizeWindow.y * 0.1 * _delta_time)));
+//}
 
 }
 
@@ -148,6 +177,15 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 		can_jump = false;
 		can_check = false;
 
+		SpriteRenderer* spriteRenderer_currentPower = nullptr;
+		for (GameObject* const& gameObject : *scene->GetGameObjects()) 
+		{ 
+			if (gameObject->GetName() == "pouvoir en cours")
+			{
+				spriteRenderer_currentPower = gameObject->GetComponent<SpriteRenderer>();
+			}
+		} 
+
 
 		
 
@@ -170,12 +208,16 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 				new_capacity->SetName("InversionGravite");
 				new_capacity->SetCapacityOwner(GetOwner());
 				capacity = new_capacity;
+
+				spriteRenderer_currentPower->SetSpriteRect(scene->GetTextureByName("texture_gravity"), Maths::Vector2f(sizeWindow.x / 20, ((((sizeWindow.x / 20) * 144) / 144))), Maths::Vector2f(144, 144), Maths::Vector2f(0, 369), Maths::Vector2f(0, 32));
 			}
 			else if (capacity_for_mid_doll->GetName() == "INVINCIbILITE") {
 				Invincibilite* new_capacity = SetCapacity<Invincibilite>();
 				new_capacity->SetName("Invincibilite");
 				new_capacity->SetCapacityOwner(GetOwner());
 				capacity = new_capacity;
+
+				spriteRenderer_currentPower->SetSpriteRect(scene->GetTextureByName("texture_invincibilite"), Maths::Vector2f(sizeWindow.x / 20, ((((sizeWindow.x / 20) * 144) / 144))), Maths::Vector2f(144, 144), Maths::Vector2f(0, 369), Maths::Vector2f(0, 32));
 			}
 			else if (capacity_for_mid_doll->GetName() == "DOUbLE-SaUT") {
 				DoubleJump* new_capacity = SetCapacity<DoubleJump>();
@@ -183,18 +225,24 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 				new_capacity->SetCapacityOwner(GetOwner());
 				new_capacity->SetDoubleJump(true);
 				capacity = new_capacity;
+
+				spriteRenderer_currentPower->SetSpriteRect(scene->GetTextureByName("texture_double_jump"), Maths::Vector2f(sizeWindow.x / 20, ((((sizeWindow.x / 20) * 144) / 144))), Maths::Vector2f(144, 144), Maths::Vector2f(0, 369), Maths::Vector2f(0, 32));
 			}
 			else if (capacity_for_mid_doll->GetName() == "DaSH") {
 				Dash* new_capacity = SetCapacity<Dash>();
 				new_capacity->SetName("Dash");
 				new_capacity->SetCapacityOwner(GetOwner());
 				capacity = new_capacity;
+
+				spriteRenderer_currentPower->SetSpriteRect(scene->GetTextureByName("texture_dash"), Maths::Vector2f(sizeWindow.x / 20, ((((sizeWindow.x / 20) * 144) / 144))), Maths::Vector2f(144, 144), Maths::Vector2f(0, 369), Maths::Vector2f(0, 32));
 			}
 			else if (capacity_for_mid_doll->GetName() == "fORCE") {
 				Force* new_capacity = SetCapacity<Force>();
 				new_capacity->SetName("Force");
 				new_capacity->SetCapacityOwner(GetOwner());
 				capacity = new_capacity;
+
+				spriteRenderer_currentPower->SetSpriteRect(scene->GetTextureByName("texture_force"), Maths::Vector2f(sizeWindow.x / 20, ((((sizeWindow.x / 20) * 144) / 144))), Maths::Vector2f(144, 144), Maths::Vector2f(0, 369), Maths::Vector2f(0, 32));
 			}
 
 			//// Création du Checkpoint
@@ -234,12 +282,16 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 				new_capacity->SetName("InversionGravite");
 				new_capacity->SetCapacityOwner(GetOwner());
 				capacity = new_capacity;
+
+				spriteRenderer_currentPower->SetSpriteRect(scene->GetTextureByName("texture_gravity"), Maths::Vector2f(sizeWindow.x / 20, ((((sizeWindow.x / 20) * 144) / 144))), Maths::Vector2f(144, 144), Maths::Vector2f(0, 369), Maths::Vector2f(0, 32));
 			}
 			else if (capacity_for_small_doll->GetName() == "INVINCIbILITE") {
 				Invincibilite* new_capacity = SetCapacity<Invincibilite>();
 				new_capacity->SetName("Invincibilite");
 				new_capacity->SetCapacityOwner(GetOwner());
 				capacity = new_capacity;
+
+				spriteRenderer_currentPower->SetSpriteRect(scene->GetTextureByName("texture_invincibilite"), Maths::Vector2f(sizeWindow.x / 20, ((((sizeWindow.x / 20) * 144) / 144))), Maths::Vector2f(144, 144), Maths::Vector2f(0, 369), Maths::Vector2f(0, 32));
 			}
 			else if (capacity_for_small_doll->GetName() == "DOUbLE-SaUT") {
 				DoubleJump* new_capacity = SetCapacity<DoubleJump>();
@@ -247,18 +299,24 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 				new_capacity->SetCapacityOwner(GetOwner());
 				new_capacity->SetDoubleJump(true);
 				capacity = new_capacity;
+
+				spriteRenderer_currentPower->SetSpriteRect(scene->GetTextureByName("texture_double_jump"), Maths::Vector2f(sizeWindow.x / 20, ((((sizeWindow.x / 20) * 144) / 144))), Maths::Vector2f(144, 144), Maths::Vector2f(0, 369), Maths::Vector2f(0, 32));
 			}
 			else if (capacity_for_small_doll->GetName() == "DaSH") {
 				Dash* new_capacity = SetCapacity<Dash>();
 				new_capacity->SetName("Dash");
 				new_capacity->SetCapacityOwner(GetOwner());
 				capacity = new_capacity;
+
+				spriteRenderer_currentPower->SetSpriteRect(scene->GetTextureByName("texture_dash"), Maths::Vector2f(sizeWindow.x / 20, ((((sizeWindow.x / 20) * 144) / 144))), Maths::Vector2f(144, 144), Maths::Vector2f(0, 369), Maths::Vector2f(0, 32));
 			}
 			else if (capacity_for_small_doll->GetName() == "fORCE") {
 				Force* new_capacity = SetCapacity<Force>();
 				new_capacity->SetName("Force");
 				new_capacity->SetCapacityOwner(GetOwner());
 				capacity = new_capacity;
+
+				spriteRenderer_currentPower->SetSpriteRect(scene->GetTextureByName("texture_force"), Maths::Vector2f(sizeWindow.x / 20, ((((sizeWindow.x / 20) * 144) / 144))), Maths::Vector2f(144, 144), Maths::Vector2f(0, 369), Maths::Vector2f(0, 32));
 			}
 
 			//// Création du Checkpoint
@@ -405,7 +463,7 @@ void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Ke
 		}
 	}
 	Move(_delta_time, pressed_input, scene->GetGameObjects());
-	Jump(_delta_time, pressed_input, scene->GetGameObjects());
+	Jump(_delta_time, pressed_input, scene->GetGameObjects(), scene);
 	SwitchDoll(pressed_input, scene);
 	ReturnCheckpoint(scene, pressed_input); 
 	TPFinDuLevel(scene, pressed_input);
@@ -433,18 +491,30 @@ void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Ke
 		GetOwner()->SetPosition(Maths::Vector2f(sizeWindow.x - sizePlayer, GetOwner()->GetPosition().GetY()));
 	}
 
-	bool temp = GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["down"];
-
-	if (GetOwner()->GetPosition().GetY() + sizePlayer <= sizeWindow.y && temp) {
-		GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() + (gravity * _delta_time)));
-		can_switch = false;	
-		can_jump = false;
+	bool temp = false;
+	if (gravity < 0)
+	{
+		temp = GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["up"];
+		if (GetOwner()->GetPosition().GetY() + sizePlayer <= sizeWindow.y && temp) {
+			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() + (gravity * _delta_time)));
+			can_switch = false;
+			can_jump = false;
+		}
 	}
-	else {
-		can_jump = true;
-		if (actuall_doll_int != 2)
-		{
-			can_switch = true;
+	else
+	{
+		temp = GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["down"];
+		if (GetOwner()->GetPosition().GetY() + sizePlayer <= sizeWindow.y && temp) {
+			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() + (gravity * _delta_time)));
+			can_switch = false;
+			can_jump = false;
+		}
+		else {
+			can_jump = true;
+			if (actuall_doll_int != 2)
+			{
+				can_switch = true;
+			}
 		}
 	}
 }

@@ -1,6 +1,5 @@
 #include "Capacity/DoubleJump.h"
 #include "Engine.h"
-#include "Scene.h"
 #include "Modules/SceneModule.h"
 #include "Components/Player.h"
 
