@@ -13,6 +13,8 @@ public:
 	float GetWidth() const { return width; }
 	sf::Sprite* GetSprite() { return sprite; }
 	sf::Texture* GetTextureSprite() { return texture; }
+	Maths::Vector2f GetSpriteSize() { return sprite_size; }
+	Maths::Vector2f GetSpriteFirstPosition() { return sprite_first_position; }
 	int GetActualSpriteInt() { return nb_actual_sprite; }
 
 	void SetWidth(const float _width) { width = _width; }

@@ -5,8 +5,8 @@ void DefaultScene::SpawnObjectLevel3() {
 	sf::Vector2f window_size = sf::Vector2f(Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize().x, Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize().y);
 
 
-    SetTexture("background", "Assets/background/level_3_background.png");
-    SetBackground("background");
+	SetTexture("background", "Assets/background/level_3_background.png");
+	SetBackground("background");
 	SetTexture("texture_livre", "Assets/Object/livre.png");
 	SetTexture("texture_interrupteur", "Assets/Object/interrupteur.png");
 	SetTexture("texture_fan", "Assets/Object/fan_gif.png");
@@ -27,8 +27,10 @@ void DefaultScene::SpawnObjectLevel3() {
 	CreateColliderObject(this, ColliderType, "Table_de_chevet", Maths::Vector2f(sizeX * 1.97917, sizeY * 74.1667), Maths::Vector2f(sizeX * 9.94792, sizeY * 18.6111));
 
 	//Ceiling fan
-	CreateColliderObject(this, DeathType, "Fan", Maths::Vector2f(sizeX * 3.59375, sizeY * 1.57407), Maths::Vector2f(sizeX * 16.875, sizeY * 6.48148));
-	CreateSpriteObject(this, DeathType, "Fan", Maths::Vector2f(sizeX * 3.59375, sizeY * 1.57407), Maths::Vector2f(sizeX * 16.875, sizeY * 6.48148), "texture_fan", Maths::Vector2f(0, 0), Maths::Vector2f(0, 0));
+	GameObject* fan = CreateSpriteObject(this, DeathType, "Fan", Maths::Vector2f(sizeX * 3.59375, sizeY * 1.57407), Maths::Vector2f(sizeX * 16.875, sizeY * 6.48148), "texture_fan", Maths::Vector2f(523, 185), Maths::Vector2f(0, 1));
+	fan->SetIsAnimated(true);
+	fan->SetNbAnimationSprite(10);
+	fan->SetAnimatedLoop(true);
 
 	//Ours
 	CreateColliderObject(this, ColliderType, "Ours", Maths::Vector2f(sizeX * 25.8333, sizeY * 55.1852), Maths::Vector2f(sizeX * 2.70833, sizeY * 5.09259));
