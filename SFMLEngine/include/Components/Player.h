@@ -49,7 +49,7 @@ private:
 
 	// // Variables
 	int hp = 10000;
-	int speed = 300;
+	int speed = sizeWindow.x / 9;
 	int gravity = 100;
 	float sizePlayer = sizeWindow.y / 22;
 	// Variables jump & switch
