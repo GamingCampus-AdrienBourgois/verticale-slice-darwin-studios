@@ -28,6 +28,20 @@ void Scene::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key
 {
 	for (int i = 0; i < gameObjects.size(); i++)
 	{
+		if (gameObjects[i]->GetType() == MoveType || gameObjects[i]->GetType() == DollOffType)
+		{
+			for (int j = 0; j < gameObjects.size(); j++)
+			{
+				if (gameObjects[j]->GetType() != GameObjectType)
+				{
+					if (gameObjects[i] != gameObjects[j] && !gameObjects[i]->GetComponent<SquareCollider>()->CheckCollisionBottom(*gameObjects[i]->GetComponent<SquareCollider>(), *gameObjects[j]->GetComponent<SquareCollider>()))
+					{
+						gameObjects[i]->SetPosition(Maths::Vector2f(gameObjects[i]->GetPosition().GetX(), gameObjects[i]->GetPosition().GetY() + (gravity * _delta_time)));
+					}
+				}
+				gameObjects[j]->Update(_delta_time, pressed_input);
+			}
+		}
 		gameObjects[i]->Update(_delta_time, pressed_input);
 	}
 }
