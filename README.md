@@ -15,4 +15,4 @@ Evan Choquet - [GitHub](https://github.com/Snip2Fou) - [LinkedIn](https://www.li
 David De Oliveira - [GitHub](https://github.com/Vindiss) - [LinkedIn](https://www.linkedin.com/in/david-de-oliveira-bb48941b0/)  
 Axel Gathelier - [GitHub](https://github.com/GolfOcean334) - [LinkedIn](https://www.linkedin.com/in/axel-gathelier-13198b252/)  
 
-Have fun playing it ! ::joy::
+Have fun playing it ! :joy:
