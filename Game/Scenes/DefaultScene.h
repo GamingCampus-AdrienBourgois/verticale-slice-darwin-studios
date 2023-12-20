@@ -46,23 +46,6 @@ public:
 		return game_object;
 	}
 
-	GameObject* CreateSwitch(Scene* scene, const ObjectType& _type, std::string _name, const float _x, const float _y) {
-		GameObject* game_object = scene->CreateGameObject(_type, _name);
-		game_object->SetPosition(Maths::Vector2f(_x, _y));
-
-		sf::Vector2f window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize();
-
-		SquareCollider* squareCollider = game_object->CreateComponent<SquareCollider>();
-		squareCollider->SetWidth(window_size.x / 33);
-		squareCollider->SetHeight(window_size.y / 22);
-
-		RectangleShapeRenderer* shapeRenderer = game_object->CreateComponent<RectangleShapeRenderer>();
-		shapeRenderer->SetColor(sf::Color{255,0,0,50}); 
-		shapeRenderer->SetSize(Maths::Vector2f(window_size.x / 33, window_size.y / 22)); 
-
-		return game_object;
-	}
-
 private:
 
 	void SpawnObjectLevel3();

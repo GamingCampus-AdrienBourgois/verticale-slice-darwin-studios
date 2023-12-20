@@ -5,11 +5,12 @@ void DefaultScene::SpawnObjectLevel3() {
 	sf::Vector2f window_size = sf::Vector2f(Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize().x, Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize().y);
 
 
-    SetTexture("background", "Assets/background/level_3_background-transformed.png");
+    SetTexture("background", "Assets/background/level_3_background.png");
     SetBackground("background");
 	SetTexture("texture_livre", "Assets/Object/livre.png");
 	SetTexture("texture_interrupteur", "Assets/Object/interrupteur.png");
 	SetTexture("texture_fan", "Assets/Object/fan_gif.png");
+	SetTexture("texture_lampe", "Assets/Object/lamp.png");
 
 	float sizeX = window_size.x / 100;
 	float sizeY = window_size.y / 100;
@@ -50,8 +51,13 @@ void DefaultScene::SpawnObjectLevel3() {
 	CreateColliderObject(this, ColliderType, "Carton", Maths::Vector2f(sizeX * 43.4375, sizeY * 79.1667), Maths::Vector2f(sizeX * 4.63542, sizeY * 14.4444));
 	   
 	//Lampe
-	CreateColliderObject(this, DeathType, "Lampe", Maths::Vector2f(sizeX * 51.4583, sizeY * 54.3519), Maths::Vector2f(sizeX * 6.875, sizeY * 4.62963));
-	CreateColliderObject(this, DeathType, "Lampe", Maths::Vector2f(sizeX * 52.2396, sizeY * 50.5556), Maths::Vector2f(sizeX * 5.625, sizeY * 3.61111));
+	GameObject* lampe = CreateOnlySprite(this, GameObjectType, "Lampe", Maths::Vector2f(sizeX * 51.1979, sizeY * 50.463), Maths::Vector2f(sizeX * 7.70833, sizeY * 37.5926), "texture_lampe", Maths::Vector2f(122,341), Maths::Vector2f(6,0));
+	CreateColliderObject(this, DeathType, "Lampe", Maths::Vector2f(sizeX * 51.1979, sizeY * 57.2222), Maths::Vector2f(sizeX * 7.70833, sizeY * 2.31481));
+	CreateColliderObject(this, DeathType, "Lampe", Maths::Vector2f(sizeX * 51.5625, sizeY * 55.8333), Maths::Vector2f(sizeX * 7.13542, sizeY * 1.2963));
+	CreateColliderObject(this, DeathType, "Lampe", Maths::Vector2f(sizeX * 51.875, sizeY * 54.2593), Maths::Vector2f(sizeX * 6.45833, sizeY * 1.38889));
+	CreateColliderObject(this, DeathType, "Lampe", Maths::Vector2f(sizeX * 52.3437, sizeY * 52.7778), Maths::Vector2f(sizeX * 5.625, sizeY * 1.48148));
+	CreateColliderObject(this, DeathType, "Lampe", Maths::Vector2f(sizeX * 53.0729, sizeY * 51.4815), Maths::Vector2f(sizeX * 4.53125, sizeY * 1.2963));
+	CreateColliderObject(this, DeathType, "Lampe", Maths::Vector2f(sizeX * 53.4375, sizeY * 51.0185), Maths::Vector2f(sizeX * 3.33333, sizeY * 0.833333));
 
 	//Cadre_du_bas
 	CreateColliderObject(this, ColliderType, "Cadre_du_bas", Maths::Vector2f(sizeX * 64.8438, sizeY * 42.4074), Maths::Vector2f(sizeX * 10.6771, sizeY * 12.1296));
@@ -81,6 +87,10 @@ void DefaultScene::SpawnObjectLevel3() {
 	hole->SetCallback([hole, scene_module] { scene_module->SetNextScene([scene_module] { scene_module->SetScene<EndLevelScene>(false); }); });
 
 	//Interrupteur
-	CreateSpriteObject(this, ColliderType, "Interrupteur", Maths::Vector2f(sizeX * 37.6562, sizeY * 65.9259), Maths::Vector2f(sizeX * 2.23958, sizeY * 2.22222), "texture_interrupteur", Maths::Vector2f(189, 294), Maths::Vector2f(0, 13));
-
+	GameObject* interrupteur = CreateInteractiveObject(this, InteractiveType, "Interrupteur", Maths::Vector2f(sizeX * 36.5104, sizeY * 61.2037), Maths::Vector2f(sizeX * 1.8958, ((sizeX * 1.8958) * 147) / 94.5), "texture_interrupteur", Maths::Vector2f(189, 294), Maths::Vector2f(0, 13), lampe);
+	interrupteur->GetComponent<SpriteRenderer>()->SetNextSpriteRect(1);
+	interrupteur->GetComponent<Interactive>()->SetCallback([interrupteur] {interrupteur->GetComponent<Interactive>()->SwitchStateLamp(); });
 }
+
+
+

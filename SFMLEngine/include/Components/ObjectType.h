@@ -12,4 +12,5 @@ enum ObjectType
 	MoveType,
 	DeathType,
 	ShapeType
+	InteractiveType
 };
