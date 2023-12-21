@@ -4,6 +4,29 @@
 #include <Components/Player.h>
 #include <iostream>
 
+//Sound
+InversionGravite::InversionGravite() {
+	soundBufferInversionGravite = new sf::SoundBuffer;
+	if (!soundBufferInversionGravite->loadFromFile("Assets/Sons/inversion_gravite.wav")) {
+		std::cout << "erreur de chargement du fichier" << std::endl;
+	}
+	soundInversionGravite = new sf::Sound;
+}
+
+InversionGravite::~InversionGravite() {
+	delete soundBufferInversionGravite;
+	delete soundInversionGravite;
+}
+
+void InversionGravite::PlaySound() {
+	soundInversionGravite->setBuffer(*soundBufferInversionGravite);
+	soundInversionGravite->play();
+}
+
+void InversionGravite::StopSound() {
+	soundInversionGravite->stop();
+}
+
 void InversionGravite::GraviteInversion(GameObject* player, const float _delta_time, Scene* scene)
 {
 	if (count == 0)
@@ -27,6 +50,12 @@ void InversionGravite::GraviteInversion(GameObject* player, const float _delta_t
 				}
 				spriteRenderer_currentPower->SetNextSpriteRect(1);
 			}
+
+			if (!soundPlayed) {
+				PlaySound();
+				soundInversionGravite->setVolume(100);
+				soundPlayed = true; // Marquer que le son a été joué
+			}
 		}
 	}
 	if (inversion == true && player->GetComponent<SquareCollider>()->GetCanMoving()["up"])
@@ -49,6 +78,8 @@ void InversionGravite::GraviteInversion(GameObject* player, const float _delta_t
 
 void InversionGravite::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input)
 {
+	soundPlayed = false;
+
 	Scene* scene = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetMainScene();
 	GameObject* player = nullptr;
 
