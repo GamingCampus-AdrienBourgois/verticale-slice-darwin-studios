@@ -4,7 +4,7 @@
 #include "SelectCapacityScene.h"
 #include "MainMenuScene.h"
 
-DeathScene::DeathScene(std::vector<std::string> params) : Scene("DeathScene") {
+DeathScene::DeathScene() : Scene("DeathScene") {
 	SetFont("Font/UkrainianPrincess.ttf");
 	SetTexture("texture_button", "Assets/button/button.png");
 
@@ -14,7 +14,17 @@ DeathScene::DeathScene(std::vector<std::string> params) : Scene("DeathScene") {
 	GameObject* restartButton = CreateSpriteButtonWithText(ButtonType, "restart_button", Maths::Vector2f(((window_size.x / 2) - (button_size_x / 2)), window_size.y * 4 / 6), Maths::Vector2f(button_size_x, button_size_y), [this] { LaunchFunction::LaunchScene<SelectCapacityScene>(); }, nullptr, "texture_button", Maths::Vector2f(448, 168), Maths::Vector2f(0, 24), "Recommencer la partie", sf::Color::Black, 30);
 	GameObject* quitButton = CreateSpriteButtonWithText(ButtonType, "quit_button", Maths::Vector2f(((window_size.x / 2) - (button_size_x / 2)), window_size.y * 5 / 6), Maths::Vector2f(button_size_x, button_size_y), [this] { LaunchFunction::LaunchScene<MainMenuScene>(); }, nullptr, "texture_button", Maths::Vector2f(448, 168), Maths::Vector2f(0, 24), "Retour au menu", sf::Color::Black, 30);
 
+	SceneModule* sceneModule = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>();
+	std::string killedBy = "";
 
-	deathMessage += " par " + params[0];
+	for (GameObject* const& gameObject : *sceneModule->GetScene("DefaultScene")->GetGameObjects())
+	{
+		if (gameObject->GetName() == "Player")
+		{
+			killedBy = gameObject->GetComponent<Player>()->GetDeathBy();
+		}
+	}
+
+	deathMessage += " par " + killedBy;
 	textPause->GetComponent<TextRenderer>()->SetString(deathMessage);
 }

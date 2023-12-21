@@ -69,6 +69,7 @@ bool SquareCollider::IsColliding(const SquareCollider& _collider_a, const Square
 				{
 					_collider_a.GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("up", false);
 					_collider_a.GetOwner()->GetComponent<Player>()->SetHp(_collider_a.GetOwner()->GetComponent<Player>()->GetHp() - (100));
+					_collider_a.GetOwner()->GetComponent<Player>()->setDeathBy(_collider_b.GetOwner()->GetName());
 				}
 			}
 			// top collision
@@ -92,6 +93,7 @@ bool SquareCollider::IsColliding(const SquareCollider& _collider_a, const Square
 				{
 					_collider_a.GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("down", false);
 					_collider_a.GetOwner()->GetComponent<Player>()->SetHp(_collider_a.GetOwner()->GetComponent<Player>()->GetHp() - (100));
+					_collider_a.GetOwner()->GetComponent<Player>()->setDeathBy(_collider_b.GetOwner()->GetName());
 				}
 			}
 			// bottom collision
@@ -127,7 +129,8 @@ bool SquareCollider::IsColliding(const SquareCollider& _collider_a, const Square
 				else
 				{
 					_collider_a.GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("left", false);
-					_collider_a.GetOwner()->GetComponent<Player>()->SetHp(_collider_a.GetOwner()->GetComponent<Player>()->GetHp() - (1 * _delta_time));
+					_collider_a.GetOwner()->GetComponent<Player>()->SetHp(_collider_a.GetOwner()->GetComponent<Player>()->GetHp() - (100));
+					_collider_a.GetOwner()->GetComponent<Player>()->setDeathBy(_collider_b.GetOwner()->GetName());
 				}
 			}
 			//left collision 
@@ -146,7 +149,8 @@ bool SquareCollider::IsColliding(const SquareCollider& _collider_a, const Square
 				else
 				{
 					_collider_a.GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("right", false);
-					_collider_a.GetOwner()->GetComponent<Player>()->SetHp(_collider_a.GetOwner()->GetComponent<Player>()->GetHp() - (1 * _delta_time));
+					_collider_a.GetOwner()->GetComponent<Player>()->SetHp(_collider_a.GetOwner()->GetComponent<Player>()->GetHp() - (100));
+					_collider_a.GetOwner()->GetComponent<Player>()->setDeathBy(_collider_b.GetOwner()->GetName());
 				}
 			}
 			//right collision

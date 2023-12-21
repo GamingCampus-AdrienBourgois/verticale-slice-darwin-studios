@@ -21,5 +21,5 @@ public:
 	std::string deathMessage = "Vous etes mort";
 
 
-	DeathScene(std::vector<std::string> params);
+	DeathScene();
 };
