@@ -32,33 +32,18 @@ void InversionGravite::GraviteInversion(GameObject* player, const float _delta_t
 	if (inversion == true && player->GetComponent<SquareCollider>()->GetCanMoving()["up"])
 	{
 		if (inversionClock.getElapsedTime().asSeconds() <= 1) {
-			GetCapacityOwner()->SetPosition(Maths::Vector2f(GetCapacityOwner()->GetPosition().GetX(), GetCapacityOwner()->GetPosition().GetY() - (500 * _delta_time)));
+			GetCapacityOwner()->GetComponent<Player>()->SetGravity(-75);
 		}
 		else if (inversionClock.getElapsedTime().asSeconds() <= 2) {
-			GetCapacityOwner()->SetPosition(Maths::Vector2f(GetCapacityOwner()->GetPosition().GetX(), GetCapacityOwner()->GetPosition().GetY() - (400 * _delta_time)));
+			GetCapacityOwner()->GetComponent<Player>()->SetGravity(-150);
 		}
 		else if (inversionClock.getElapsedTime().asSeconds() <= 3) {
-			GetCapacityOwner()->SetPosition(Maths::Vector2f(GetCapacityOwner()->GetPosition().GetX(), GetCapacityOwner()->GetPosition().GetY() - (300 * _delta_time)));
-		}
-		else if (inversionClock.getElapsedTime().asSeconds() <= 4) {
-			GetCapacityOwner()->SetPosition(Maths::Vector2f(GetCapacityOwner()->GetPosition().GetX(), GetCapacityOwner()->GetPosition().GetY() - (200 * _delta_time)));
-		}
-		else if (inversionClock.getElapsedTime().asSeconds() <= 5) {
-			GetCapacityOwner()->SetPosition(Maths::Vector2f(GetCapacityOwner()->GetPosition().GetX(), GetCapacityOwner()->GetPosition().GetY() - (150 * _delta_time)));
-		}
-		else if (inversionClock.getElapsedTime().asSeconds() <= 6) {
-			GetCapacityOwner()->SetPosition(Maths::Vector2f(GetCapacityOwner()->GetPosition().GetX(), GetCapacityOwner()->GetPosition().GetY() - (100 * _delta_time)));
-		}
-		else if (inversionClock.getElapsedTime().asSeconds() <= 7) {
-			GetCapacityOwner()->SetPosition(Maths::Vector2f(GetCapacityOwner()->GetPosition().GetX(), GetCapacityOwner()->GetPosition().GetY() - (75 * _delta_time)));
-		}
-		else if (inversionClock.getElapsedTime().asSeconds() <= 8) {
-			GetCapacityOwner()->SetPosition(Maths::Vector2f(GetCapacityOwner()->GetPosition().GetX(), GetCapacityOwner()->GetPosition().GetY() - (35 * _delta_time)));
+			GetCapacityOwner()->GetComponent<Player>()->SetGravity(-200);
 		}
 		else {
 			inversion = false;
+			GetCapacityOwner()->GetComponent<Player>()->SetGravity(100);
 		}
-		
 	}
 }
 

@@ -38,6 +38,7 @@ void SpriteRenderer::SetSpriteRect(sf::Texture* new_texture, Maths::Vector2f _si
 }
 
 void SpriteRenderer::SetNextSpriteRect(int num_sprite_on_sheet) {
+	nb_actual_sprite = num_sprite_on_sheet;
 	float new_pos_x = 0;
 	float new_pos_y = 0;
 	if (sprite_space.x != 0) {
@@ -62,6 +63,30 @@ void SpriteRenderer::Render(sf::RenderWindow* _window)
 
 	sprite->setPosition(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY());
 	_window->draw(*sprite);
+}
+
+void SpriteRenderer::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) {
+	if (GetOwner()->GetIsAnimated()) {
+		if (animationCooldown.getElapsedTime().asSeconds() >= 0.1) {
+			if (GetOwner()->GetReverseAnimation()) {
+				if (nb_actual_sprite > 0) {
+					SetNextSpriteRect(nb_actual_sprite - 1);
+				}
+				else if (GetOwner()->GetAnimatedLoop()) {
+					SetNextSpriteRect(GetOwner()->GetNbAnimationSprite() - 1);
+				}
+			}
+			else {
+				if (nb_actual_sprite < GetOwner()->GetNbAnimationSprite() - 1) {
+					SetNextSpriteRect(nb_actual_sprite + 1);
+				}
+				else if (GetOwner()->GetAnimatedLoop()) {
+					SetNextSpriteRect(0);
+				}
+			}
+			animationCooldown.restart();
+		}
+	}
 }
 
 void SpriteRenderer::SetOrigin(float x, float y)
