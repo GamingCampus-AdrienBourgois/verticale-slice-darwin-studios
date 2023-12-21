@@ -6,6 +6,7 @@
 #include "WindowModule.h"
 #include <SFML/Audio.hpp>
 
+
 class Capacity;
 
 class DefaultScene final : public Scene
@@ -20,5 +21,6 @@ public:
 
 private:
 	void SpawnObjectLevel3(std::vector<Capacity> params);
+
 	sf::Music music;
 };

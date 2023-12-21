@@ -2,11 +2,15 @@
 
 #include "Engine.h"
 #include "LaunchFunction.h"
-#include "MainMenuScene.h"
 #include "WindowModule.h"
 #include <iostream>
 
-SelectCapacityScene::SelectCapacityScene() : Scene("SelectCapacityScene")
+#include "DefaultScene.h"
+#include "MainMenuScene.h"
+#include "MapScene.h"
+#include "TransitionScene.h"
+
+SelectCapacityScene::SelectCapacityScene() : Scene("SelectCapacityScene", [] {})
 {
 	if (!music.openFromFile("Assets/Sons/musique_level_3.ogg")) {
 		std::cout << "La musique ne charge pas" << std::endl;
@@ -26,7 +30,7 @@ SelectCapacityScene::SelectCapacityScene() : Scene("SelectCapacityScene")
 	SetTexture("texture_map_button", "Assets/button/map_button.png");
 	SetTexture("texture_return_button", "Assets/button/return_button.png");
 
-	sf::Vector2u window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindow()->getSize();
+	sf::Vector2f window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize();
 
 	GameObject* doll_button1 = CreateSpriteButton_forMainMenu(ButtonType, "doll_button1", Maths::Vector2f(window_size.x / 2 - (window_size.x / 10 * 2.5), (window_size.y / 2)), Maths::Vector2f(window_size.x / 10, (((window_size.x / 10) * 161) / 82)), [] {}, nullptr, "texture_zarya_button", Maths::Vector2f(82, 161), Maths::Vector2f(0, 15));
 	doll_button1->GetComponent<Button>()->SetCallback(std::bind(&Button::DollSelectCapacity, doll_button1->GetComponent<Button>()));
@@ -35,18 +39,30 @@ SelectCapacityScene::SelectCapacityScene() : Scene("SelectCapacityScene")
 	GameObject* doll_button3 = CreateSpriteButton_forMainMenu(ButtonType, "doll_button3", Maths::Vector2f((window_size.x / 2 + (window_size.x / 10 * 1.5)), (window_size.y / 2)), Maths::Vector2f(window_size.x / 10, (((window_size.x / 10) * 161) / 82)), [] {}, nullptr, "texture_zwezda_button", Maths::Vector2f(82, 161), Maths::Vector2f(0, 15));
 	doll_button3->GetComponent<Button>()->SetCallback(std::bind(&Button::DollSelectCapacity, doll_button3->GetComponent<Button>()));
 
+
 	GameObject* launch_game_button = CreateSpriteButton_forMainMenu(ButtonType, "launch_game_button", Maths::Vector2f((window_size.x / 2) - (window_size.x / 15), (window_size.y - window_size.y / 100 * 15)), Maths::Vector2f(window_size.x / 15 * 2, ((((window_size.x / 15 * 2) * 168) / 448))), [this] {LaunchFunction::LauchGame(); music.stop(); }, nullptr, "texture_launch_capacity_button", Maths::Vector2f(448, 168), Maths::Vector2f(0, 24));
+
 	launch_game_button->GetComponent<RectangleShapeRenderer>()->SetColor(launch_game_button->GetComponent<RectangleShapeRenderer>()->GetDisabledColor());
 	launch_game_button->GetComponent<Button>()->is_disabled = true;
 	if (launch_game_button->GetComponent<SpriteRenderer>() != nullptr) {
 		launch_game_button->GetComponent<SpriteRenderer>()->SetNextSpriteRect(3);
 	}
 
-	GameObject* map_button = CreateSpriteButton_forMainMenu(ButtonType, "map_button", Maths::Vector2f(window_size.x / 50, window_size.y / 50), Maths::Vector2f(window_size.x / 20, ((((window_size.x / 20) * 161) / 144))), [] {}, nullptr, "texture_map_button", Maths::Vector2f(144, 161), Maths::Vector2f(0, 15));
+	GameObject* map_button = CreateSpriteButton_forMainMenu(ButtonType, "map_button", Maths::Vector2f(window_size.x / 50, window_size.y / 50), Maths::Vector2f(window_size.x / 20, ((((window_size.x / 20) * 161) / 144))), [this] {LaunchFunction::LaunchScene<MapScene>(); }, nullptr, "texture_map_button", Maths::Vector2f(144, 161), Maths::Vector2f(0, 15));
 	GameObject* return_button = CreateSpriteButton_forMainMenu(ButtonType, "return_button", Maths::Vector2f(window_size.x / 50, window_size.y - window_size.y / 50 - 144), Maths::Vector2f(window_size.x / 20, ((((window_size.x / 20) * 161) / 144))), [this] {LaunchFunction::LaunchScene<MainMenuScene>(); }, nullptr, "texture_return_button", Maths::Vector2f(144, 161), Maths::Vector2f(0, 15));
 
-	if (!map_button || !return_button)
+  if (!map_button || !return_button)
 	{
 		music.stop();
 	}
+}
+
+void SelectCapacityScene::callbackPlayButton() {
+
+	std::vector<Capacity> capacities;
+	capacities.push_back(*FindGameObject("doll_button1")->GetComponent<Button>()->has_select->GetComponent<Button>()->GetObject());
+	capacities.push_back(*FindGameObject("doll_button2")->GetComponent<Button>()->has_select->GetComponent<Button>()->GetObject());
+	capacities.push_back(*FindGameObject("doll_button3")->GetComponent<Button>()->has_select->GetComponent<Button>()->GetObject());
+
+	LaunchFunction::LaunchSceneParams<TransitionScene>(capacities);
 }

@@ -9,7 +9,7 @@
 
 
 
-MainMenuScene::MainMenuScene() : Scene("MainMenuScene")
+MainMenuScene::MainMenuScene() : Scene("MainMenuScene", [] {})
 {
 	if (!music.openFromFile("Assets/Sons/musique_level_3.ogg")) {
 		std::cout << "La musique ne charge pas" << std::endl;

@@ -198,7 +198,7 @@ void Player::Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key,
 
 }
 
-GameObject* Player::CreateDollOff(const ObjectType& _type, std::string _name, Maths::Vector2f _position, sf::Texture* texture, Maths::Vector2f _size, Maths::Vector2f _size_sprite) {
+GameObject* Player::CreateDollOff(const ObjectType& _type, std::string _name, Maths::Vector2f _position, sf::Texture* texture, Maths::Vector2f _size, Maths::Vector2f _size_sprite, Maths::Vector2f _collider_size, Maths::Vector2f _collider_special_position) {
 	Scene* scene = sceneModule->GetScene("DefaultScene");
 
 	GameObject* game_object = scene->CreateGameObject(_type, _name);
@@ -206,11 +206,12 @@ GameObject* Player::CreateDollOff(const ObjectType& _type, std::string _name, Ma
 
 
 	SquareCollider* square_collider = game_object->CreateComponent<SquareCollider>();
-	square_collider->SetWidth(_size.x);
-	square_collider->SetHeight(_size.y);
+	square_collider->SetWidth(_collider_size.x);
+	square_collider->SetHeight(_collider_size.y);
+	square_collider->SetSpecialPosition(_collider_special_position);
 
 	SpriteRenderer* sprite = game_object->CreateComponent<SpriteRenderer>();
-	sprite->SetSpriteRect(texture, _size, _size_sprite, Maths::Vector2f(0, 0), Maths::Vector2f(0, 1));
+	sprite->SetSprite(texture, _size);
 	//sprite->SetSprite(texture, _size);
 
 	DollOff* dollOff = game_object->CreateComponent<DollOff>();
@@ -264,13 +265,16 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 		if (actuall_doll_int == 0)
 		{
 			Maths::Vector2f position = GetOwner()->GetPosition();
-			Maths::Vector2f size = Maths::Vector2f(GetOwner()->GetComponent<SquareCollider>()->GetWidth(), GetOwner()->GetComponent<SquareCollider>()->GetHeight());
+			Maths::Vector2f size = Maths::Vector2f(GetOwner()->GetComponent<SpriteRenderer>()->GetWidth(), GetOwner()->GetComponent<SpriteRenderer>()->GetHeight());
+			Maths::Vector2f collider_size = Maths::Vector2f(GetOwner()->GetComponent<SquareCollider>()->GetWidth(), GetOwner()->GetComponent<SquareCollider>()->GetHeight());
+			Maths::Vector2f collider_special_position = GetOwner()->GetComponent<SquareCollider>()->GetSpecialPosition();
 
-			big_dollOff = CreateDollOff(DollOffType, "big_doll_off", position, scene->GetTextureByName("texture_zarya"), size, Maths::Vector2f(420, 654));
+			big_dollOff = CreateDollOff(DollOffType, "big_doll_off", position, scene->GetTextureByName("texture_zarya_gris"), size, Maths::Vector2f(420, 654), collider_size, collider_special_position);
 			GetOwner()->SetPosition(Maths::Vector2f(position.GetX(), position.GetY() - sizePlayer * 1.5));
 			GetOwner()->GetComponent<SpriteRenderer>()->SetSpriteRect(scene->GetTextureByName("texture_zvezda"), Maths::Vector2f((sizeWindow.x / 33), (((sizeWindow.x / 33) * 554) / 345)), Maths::Vector2f(345, 554), Maths::Vector2f(0,0), Maths::Vector2f(0, 1));
-			GetOwner()->GetComponent<SquareCollider>()->SetWidth(sizeWindow.x / 33);
-			GetOwner()->GetComponent<SquareCollider>()->SetHeight((((sizeWindow.x / 33) * 554) / 345));
+			GetOwner()->GetComponent<SquareCollider>()->SetWidth(sizeWindow.x / 33 * 0.75);
+			GetOwner()->GetComponent<SquareCollider>()->SetHeight((((sizeWindow.x / 33) * 554) / 345) * 0.75);
+			GetOwner()->GetComponent<SquareCollider>()->SetSpecialPosition(Maths::Vector2f(sizeWindow.x / 33 * 0.113, (((sizeWindow.x / 33) * 554) / 345) * 0.248));
 			Capacity* capacity_for_mid_doll = scene->GetMidCapacity();
 
 			delete capacity;
@@ -291,7 +295,7 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 
 				spriteRenderer_currentPower->SetSpriteRect(scene->GetTextureByName("texture_invincibilite"), Maths::Vector2f(sizeWindow.x / 20, ((((sizeWindow.x / 20) * 144) / 144))), Maths::Vector2f(144, 144), Maths::Vector2f(0, 369), Maths::Vector2f(0, 32));
 			}
-			else if (capacity_for_mid_doll->GetName() == "DOUbLE-SaUT") {
+			else if (capacity_for_mid_doll->GetName() == "DOUbLE SaUT") {
 				DoubleJump* new_capacity = SetCapacity<DoubleJump>();
 				new_capacity->SetName("DoubleJump");
 				new_capacity->SetCapacityOwner(GetOwner());
@@ -337,13 +341,16 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 		else if (actuall_doll_int == 1)
 		{
 			Maths::Vector2f position = GetOwner()->GetPosition();
-			Maths::Vector2f size = Maths::Vector2f(GetOwner()->GetComponent<SquareCollider>()->GetWidth(), GetOwner()->GetComponent<SquareCollider>()->GetHeight());
+			Maths::Vector2f size = Maths::Vector2f(GetOwner()->GetComponent<SpriteRenderer>()->GetWidth(), GetOwner()->GetComponent<SpriteRenderer>()->GetHeight());
+			Maths::Vector2f collider_size = Maths::Vector2f(GetOwner()->GetComponent<SquareCollider>()->GetWidth(), GetOwner()->GetComponent<SquareCollider>()->GetHeight());
+			Maths::Vector2f collider_special_position = GetOwner()->GetComponent<SquareCollider>()->GetSpecialPosition();
 
-			mid_dollOff = CreateDollOff(DollOffType, "mid_doll_off", position, scene->GetTextureByName("texture_zvezda"), size, Maths::Vector2f(345, 554));
+			mid_dollOff = CreateDollOff(DollOffType, "mid_doll_off", position, scene->GetTextureByName("texture_zvezda_gris"), size, Maths::Vector2f(345, 554), collider_size, collider_special_position);
 			GetOwner()->SetPosition(Maths::Vector2f(position.GetX(), position.GetY() - sizePlayer * 1.5));
 			GetOwner()->GetComponent<SpriteRenderer>()->SetSpriteRect(scene->GetTextureByName("texture_zwezda"), Maths::Vector2f((sizeWindow.x / 40), (((sizeWindow.x / 40) * 411) / 274)), Maths::Vector2f(274, 411), Maths::Vector2f(0, 0), Maths::Vector2f(0, 1));
-			GetOwner()->GetComponent<SquareCollider>()->SetWidth(sizeWindow.x / 40);
-			GetOwner()->GetComponent<SquareCollider>()->SetHeight(((sizeWindow.x / 40) * 411) / 274);
+			GetOwner()->GetComponent<SquareCollider>()->SetWidth(sizeWindow.x / 40 * 0.76);
+			GetOwner()->GetComponent<SquareCollider>()->SetHeight(((sizeWindow.x / 40) * 411) / 274 * 0.79);
+			GetOwner()->GetComponent<SquareCollider>()->SetSpecialPosition(Maths::Vector2f(sizeWindow.x / 33 * 0.102, (((sizeWindow.x / 33) * 554) / 345) * 0.206));
 			Capacity* capacity_for_small_doll = scene->GetSmallCapacity();
 
 			delete capacity;
@@ -365,7 +372,7 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 
 				spriteRenderer_currentPower->SetSpriteRect(scene->GetTextureByName("texture_invincibilite"), Maths::Vector2f(sizeWindow.x / 20, ((((sizeWindow.x / 20) * 144) / 144))), Maths::Vector2f(144, 144), Maths::Vector2f(0, 369), Maths::Vector2f(0, 32));
 			}
-			else if (capacity_for_small_doll->GetName() == "DOUbLE-SaUT") {
+			else if (capacity_for_small_doll->GetName() == "DOUbLE SaUT") {
 				DoubleJump* new_capacity = SetCapacity<DoubleJump>();
 				new_capacity->SetName("DoubleJump");
 				new_capacity->SetCapacityOwner(GetOwner());
@@ -478,7 +485,45 @@ void Player::ReturnCheckpoint(Scene* scene, std::unordered_map<sf::Keyboard::Key
 			}
 		}
 		
+		if (capacity->GetName() == "InversionGravite")
+		{
+			InversionGravite* new_capacity = SetCapacity<InversionGravite>(); 
+			new_capacity->SetName("InversionGravite");
+			new_capacity->SetCapacityOwner(GetOwner());
+			capacity = new_capacity;
+
+			
+
+			SpriteRenderer* spriteRenderer_currentPower = nullptr;
+			for (GameObject* const& gameObject : *scene->GetGameObjects())
+			{
+				if (gameObject->GetName() == "pouvoir en cours")
+				{
+					spriteRenderer_currentPower = gameObject->GetComponent<SpriteRenderer>();
+				}
+			}
+			spriteRenderer_currentPower->SetNextSpriteRect(0);
+		}
 		is_check = false;
+	}
+}
+
+void Player::PauseMenu(std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) {
+
+	auto it = pressed_input->begin();
+
+	while (it != pressed_input->end()) {
+		const auto& input = *it;
+
+		if (input.first == 36 && input.second == true) {
+			
+			pauseEscape();
+			// Effacer l'élément du vecteur
+			it = pressed_input->erase(it);
+		}
+		else {
+			++it;
+		}
 	}
 }
 
@@ -486,7 +531,7 @@ bool Player::Dead(std::vector<GameObject*>* gameObjects)
 {
 	if (hp <= 0)
 	{
-		std::cout << "T'es mort!!" << std::endl;
+		/*std::cout << "T'es mort!!" << std::endl;
 		GetOwner()->RemoveComponent(GetOwner()->GetComponent<Player>());
 		GetOwner()->RemoveComponent(GetOwner()->GetComponent<SpriteRenderer>());
 		GetOwner()->RemoveComponent(GetOwner()->GetComponent<SquareCollider>());
@@ -498,7 +543,9 @@ bool Player::Dead(std::vector<GameObject*>* gameObjects)
 				gameObjects->erase(it);
 				return true;
 			}
-		}
+		}*/
+		deathCallback();
+		deathRespawn = true;
 	}
 	else
 	{
@@ -521,6 +568,29 @@ void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Ke
 
 		copiedSpawn = true;
 	}
+
+	if (deathRespawn)
+	{
+		Scene* scene = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetMainScene();
+		std::vector<GameObject*>* gameObjects = scene->GetGameObjects();
+
+		for (int i = 0; i < gameObjects->size(); i++)
+		{
+			if (i >= gameObjectsCheckpoint.size())
+			{
+				scene->DestroyGameObject((*gameObjects)[i]);
+			}
+			else
+			{
+				*(*gameObjects)[i] = *gameObjectsCheckpoint[i];
+			}
+		}
+
+
+		hp = 100;
+		gravity = 100;
+		deathRespawn = false;
+	}
 	
 
 	GetCapacity()->Update(_delta_time, pressed_input);
@@ -531,7 +601,7 @@ void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Ke
 	GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("right", true);
 	for (GameObject* const& gameObject : *scene->GetGameObjects())
 	{
-		if (gameObject->GetType() != ObjectType::PlayerType && gameObject->GetType() != ObjectType::GameObjectType) {
+		if (gameObject->GetType() != ObjectType::PlayerType && gameObject->GetType() != ObjectType::GameObjectType && gameObject->GetType() != ObjectType::ButtonType) {
 			GetOwner()->GetComponent<SquareCollider>()->IsColliding(*GetOwner()->GetComponent<SquareCollider>(), *gameObject->GetComponent<SquareCollider>() , _delta_time);
 		}
 	}
@@ -540,6 +610,7 @@ void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Ke
 	SwitchDoll(pressed_input, scene);
 	ReturnCheckpoint(scene, pressed_input); 
 	TPFinDuLevel(scene, pressed_input);
+	PauseMenu(pressed_input);
 	Dead(scene->GetGameObjects());
 
 	for (GameObject* const& gameObject : *scene->GetGameObjects())

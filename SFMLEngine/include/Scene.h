@@ -17,7 +17,7 @@
 class Scene
 {
 public:
-	explicit Scene(const std::string& _name);
+	explicit Scene(const std::string& _name, std::function<void()> _callback);
 	~Scene();
 
 	std::unordered_map<std::string, sf::Texture>* GetTexture() {return &texture; }
@@ -26,9 +26,10 @@ public:
 	Capacity* GetMidCapacity() { return capacity_for_mid_doll; }
 	Capacity* GetSmallCapacity() { return capacity_for_small_doll; }
 
-	
 
-	void Update(float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) const;
+	void Update(float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input);
+
+
 
 	void Render(sf::RenderWindow* _window) const;
 
@@ -75,5 +76,9 @@ private:
 	sf::Sprite* background;
 	sf::Font font_scene;
 	float gravity = 100;
+
+	std::function<void()> callBack;
+	bool gameLoaded = false;
+	void SetGameLoaded(bool _new) { gameLoaded = _new; };
 
 };

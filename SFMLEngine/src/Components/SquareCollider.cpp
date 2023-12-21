@@ -9,16 +9,43 @@ bool SquareCollider::IsColliding(const SquareCollider& _collider_a, const Square
 	sf::RectangleShape rPlayer;
 	sf::RectangleShape rObject;
 
-	rPlayer.setPosition(sf::Vector2f(_collider_a.GetOwner()->GetPosition().GetX(), _collider_a.GetOwner()->GetPosition().GetY()));
+	Maths::Vector2f _collider_a_position;
+	if (_collider_a.special_position.x != 0) {
+		_collider_a_position.SetX(_collider_a.GetOwner()->GetPosition().GetX() + _collider_a.special_position.x);
+	}
+	else {
+		_collider_a_position.SetX(_collider_a.GetOwner()->GetPosition().GetX());
+	}
+	if (_collider_a.special_position.y != 0) {
+		_collider_a_position.SetY(_collider_a.GetOwner()->GetPosition().GetY() +  _collider_a.special_position.y);
+	}
+	else {
+		_collider_a_position.SetY(_collider_a.GetOwner()->GetPosition().GetY());
+	}
+	Maths::Vector2f _collider_b_position;
+	if (_collider_b.special_position.x != 0) {
+		_collider_b_position.SetX(_collider_b.GetOwner()->GetPosition().GetX() + _collider_b.special_position.x);
+	}
+	else {
+		_collider_b_position.SetX(_collider_b.GetOwner()->GetPosition().GetX());
+	}
+	if (_collider_b.special_position.y != 0) {
+		_collider_b_position.SetY(_collider_b.GetOwner()->GetPosition().GetY() + _collider_b.special_position.y);
+	}
+	else {
+		_collider_b_position.SetY(_collider_b.GetOwner()->GetPosition().GetY());
+	}
+
+	rPlayer.setPosition(sf::Vector2f(_collider_a_position.x, _collider_a_position.y));
 	rPlayer.setSize(sf::Vector2f(_collider_a.GetWidth(), _collider_a.GetHeight()));
-	rObject.setPosition(sf::Vector2f(_collider_b.GetOwner()->GetPosition().GetX(), _collider_b.GetOwner()->GetPosition().GetY()));
+	rObject.setPosition(sf::Vector2f(_collider_b_position.x, _collider_b_position.y));
 	rObject.setSize(sf::Vector2f(_collider_b.GetWidth(), _collider_b.GetHeight()));
 
 	sf::FloatRect playerBounds = _collider_a.GetOwner()->getBounds(rPlayer);
 	sf::FloatRect objectBounds = _collider_b.GetOwner()->getBounds(rObject);
 
 	bool collison_for_jumping_obj = false;
-	if (_collider_b.GetOwner()->GetType() == InteractiveType) {
+	if (_collider_b.GetOwner()->GetType() == InteractiveType && _collider_a.GetOwner()->GetType() == PlayerType) {
 		if (playerBounds.intersects(objectBounds)) {
 			_collider_b.GetOwner()->GetComponent<Interactive>()->SetCanBeActivated(true);
 		}
@@ -41,7 +68,8 @@ bool SquareCollider::IsColliding(const SquareCollider& _collider_a, const Square
 				else
 				{
 					_collider_a.GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("up", false);
-					_collider_a.GetOwner()->GetComponent<Player>()->SetHp(_collider_a.GetOwner()->GetComponent<Player>()->GetHp() - (1 * _delta_time));
+					_collider_a.GetOwner()->GetComponent<Player>()->SetHp(_collider_a.GetOwner()->GetComponent<Player>()->GetHp() - (100));
+					_collider_a.GetOwner()->GetComponent<Player>()->setDeathBy(_collider_b.GetOwner()->GetName());
 				}
 			}
 			// top collision
@@ -64,7 +92,8 @@ bool SquareCollider::IsColliding(const SquareCollider& _collider_a, const Square
 				else
 				{
 					_collider_a.GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("down", false);
-					_collider_a.GetOwner()->GetComponent<Player>()->SetHp(_collider_a.GetOwner()->GetComponent<Player>()->GetHp() - (1 * _delta_time));
+					_collider_a.GetOwner()->GetComponent<Player>()->SetHp(_collider_a.GetOwner()->GetComponent<Player>()->GetHp() - (100));
+					_collider_a.GetOwner()->GetComponent<Player>()->setDeathBy(_collider_b.GetOwner()->GetName());
 				}
 			}
 			// bottom collision
@@ -75,8 +104,19 @@ bool SquareCollider::IsColliding(const SquareCollider& _collider_a, const Square
 						_collider_a.GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("down", false);
 					}
 				}
+				else if (_collider_b.GetOwner()->GetName() == "Trou_de_souris")
+				{
+					_collider_a.GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("down", false);
+
+					if (!_collider_b.GetOwner()->GetCallbackProc())
+					{
+						_collider_b.GetOwner()->GetCallback()();
+						_collider_b.GetOwner()->SetCallbackProc(true);
+					}
+				}
 				else {
 					_collider_a.GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("down", false);
+					_collider_a.GetOwner()->SetPosition(Maths::Vector2f(_collider_a.GetOwner()->GetPosition().x, _collider_a.GetOwner()->GetPosition().y - collisionHeight));
 				}
 			}
 			//left collision with loss of life 
@@ -89,7 +129,8 @@ bool SquareCollider::IsColliding(const SquareCollider& _collider_a, const Square
 				else
 				{
 					_collider_a.GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("left", false);
-					_collider_a.GetOwner()->GetComponent<Player>()->SetHp(_collider_a.GetOwner()->GetComponent<Player>()->GetHp() - (1 * _delta_time));
+					_collider_a.GetOwner()->GetComponent<Player>()->SetHp(_collider_a.GetOwner()->GetComponent<Player>()->GetHp() - (100));
+					_collider_a.GetOwner()->GetComponent<Player>()->setDeathBy(_collider_b.GetOwner()->GetName());
 				}
 			}
 			//left collision 
@@ -108,7 +149,8 @@ bool SquareCollider::IsColliding(const SquareCollider& _collider_a, const Square
 				else
 				{
 					_collider_a.GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("right", false);
-					_collider_a.GetOwner()->GetComponent<Player>()->SetHp(_collider_a.GetOwner()->GetComponent<Player>()->GetHp() - (1 * _delta_time));
+					_collider_a.GetOwner()->GetComponent<Player>()->SetHp(_collider_a.GetOwner()->GetComponent<Player>()->GetHp() - (100));
+					_collider_a.GetOwner()->GetComponent<Player>()->setDeathBy(_collider_b.GetOwner()->GetName());
 				}
 			}
 			//right collision
@@ -127,9 +169,36 @@ bool SquareCollider::CheckCollisionBottom(const SquareCollider& _collider_a, con
 	sf::RectangleShape rPlayer;
 	sf::RectangleShape rObject;
 
-	rPlayer.setPosition(sf::Vector2f(_collider_a.GetOwner()->GetPosition().GetX(), _collider_a.GetOwner()->GetPosition().GetY()));
+	Maths::Vector2f _collider_a_position;
+	if (_collider_a.special_position.x != 0) {
+		_collider_a_position.SetX(_collider_a.special_position.x);
+	}
+	else {
+		_collider_a_position.SetX(_collider_a.GetOwner()->GetPosition().GetX());
+	}
+	if (_collider_a.special_position.y != 0) {
+		_collider_a_position.SetY(_collider_a.special_position.y);
+	}
+	else {
+		_collider_a_position.SetY(_collider_a.GetOwner()->GetPosition().GetY());
+	}
+	Maths::Vector2f _collider_b_position;
+	if (_collider_b.special_position.x != 0) {
+		_collider_b_position.SetX(_collider_b.special_position.x);
+	}
+	else {
+		_collider_b_position.SetX(_collider_b.GetOwner()->GetPosition().GetX());
+	}
+	if (_collider_b.special_position.y != 0) {
+		_collider_b_position.SetY(_collider_b.special_position.y);
+	}
+	else {
+		_collider_b_position.SetY(_collider_b.GetOwner()->GetPosition().GetY());
+	}
+
+	rPlayer.setPosition(sf::Vector2f(_collider_a_position.x, _collider_a_position.y));
 	rPlayer.setSize(sf::Vector2f(_collider_a.GetWidth(), _collider_a.GetHeight()));
-	rObject.setPosition(sf::Vector2f(_collider_b.GetOwner()->GetPosition().GetX(), _collider_b.GetOwner()->GetPosition().GetY()));
+	rObject.setPosition(sf::Vector2f(_collider_b_position.x, _collider_b_position.y));
 	rObject.setSize(sf::Vector2f(_collider_b.GetWidth(), _collider_b.GetHeight()));
 
 	sf::FloatRect playerBounds = _collider_a.GetOwner()->getBounds(rPlayer);
@@ -152,9 +221,36 @@ bool SquareCollider::CheckCollisionRight(const SquareCollider& _collider_a, cons
 	sf::RectangleShape rPlayer;
 	sf::RectangleShape rObject;
 
-	rPlayer.setPosition(sf::Vector2f(_collider_a.GetOwner()->GetPosition().GetX(), _collider_a.GetOwner()->GetPosition().GetY()));
+	Maths::Vector2f _collider_a_position;
+	if (_collider_a.special_position.x != 0) {
+		_collider_a_position.SetX(_collider_a.special_position.x);
+	}
+	else {
+		_collider_a_position.SetX(_collider_a.GetOwner()->GetPosition().GetX());
+	}
+	if (_collider_a.special_position.y != 0) {
+		_collider_a_position.SetY(_collider_a.special_position.y);
+	}
+	else {
+		_collider_a_position.SetY(_collider_a.GetOwner()->GetPosition().GetY());
+	}
+	Maths::Vector2f _collider_b_position;
+	if (_collider_b.special_position.x != 0) {
+		_collider_b_position.SetX(_collider_b.special_position.x);
+	}
+	else {
+		_collider_b_position.SetX(_collider_b.GetOwner()->GetPosition().GetX());
+	}
+	if (_collider_b.special_position.y != 0) {
+		_collider_b_position.SetY(_collider_b.special_position.y);
+	}
+	else {
+		_collider_b_position.SetY(_collider_b.GetOwner()->GetPosition().GetY());
+	}
+
+	rPlayer.setPosition(sf::Vector2f(_collider_a_position.x, _collider_a_position.y));
 	rPlayer.setSize(sf::Vector2f(_collider_a.GetWidth(), _collider_a.GetHeight()));
-	rObject.setPosition(sf::Vector2f(_collider_b.GetOwner()->GetPosition().GetX(), _collider_b.GetOwner()->GetPosition().GetY()));
+	rObject.setPosition(sf::Vector2f(_collider_b_position.x, _collider_b_position.y));
 	rObject.setSize(sf::Vector2f(_collider_b.GetWidth(), _collider_b.GetHeight()));
 
 	sf::FloatRect playerBounds = _collider_a.GetOwner()->getBounds(rPlayer);
@@ -176,9 +272,36 @@ bool SquareCollider::CheckCollisionLeft(const SquareCollider& _collider_a, const
 	sf::RectangleShape rPlayer;
 	sf::RectangleShape rObject;
 
-	rPlayer.setPosition(sf::Vector2f(_collider_a.GetOwner()->GetPosition().GetX(), _collider_a.GetOwner()->GetPosition().GetY()));
+	Maths::Vector2f _collider_a_position;
+	if (_collider_a.special_position.x != 0) {
+		_collider_a_position.SetX(_collider_a.special_position.x);
+	}
+	else {
+		_collider_a_position.SetX(_collider_a.GetOwner()->GetPosition().GetX());
+	}
+	if (_collider_a.special_position.y != 0) {
+		_collider_a_position.SetY(_collider_a.special_position.y);
+	}
+	else {
+		_collider_a_position.SetY(_collider_a.GetOwner()->GetPosition().GetY());
+	}
+	Maths::Vector2f _collider_b_position;
+	if (_collider_b.special_position.x != 0) {
+		_collider_b_position.SetX(_collider_b.special_position.x);
+	}
+	else {
+		_collider_b_position.SetX(_collider_b.GetOwner()->GetPosition().GetX());
+	}
+	if (_collider_b.special_position.y != 0) {
+		_collider_b_position.SetY(_collider_b.special_position.y);
+	}
+	else {
+		_collider_b_position.SetY(_collider_b.GetOwner()->GetPosition().GetY());
+	}
+
+	rPlayer.setPosition(sf::Vector2f(_collider_a_position.x, _collider_a_position.y));
 	rPlayer.setSize(sf::Vector2f(_collider_a.GetWidth(), _collider_a.GetHeight()));
-	rObject.setPosition(sf::Vector2f(_collider_b.GetOwner()->GetPosition().GetX(), _collider_b.GetOwner()->GetPosition().GetY()));
+	rObject.setPosition(sf::Vector2f(_collider_b_position.x, _collider_b_position.y));
 	rObject.setSize(sf::Vector2f(_collider_b.GetWidth(), _collider_b.GetHeight()));
 
 	sf::FloatRect playerBounds = _collider_a.GetOwner()->getBounds(rPlayer);

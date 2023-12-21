@@ -40,6 +40,7 @@ public:
 	void SetScale(const Maths::Vector2<float>& _scale) { scale = _scale; }
 	void SetSwitchOn(bool value) {switchOn = value;}
 	void SetCallback(std::function<void()> _callback) { callback = _callback; }
+	void SetCallbackProc(bool new_bool) { callbackProc = new_bool; }
 	void SetIsAnimated(bool _is_animated) { is_animated = _is_animated; }
 	void SetNbAnimationSprite(int _nb_animation_sprite) { nb_animation_sprite = _nb_animation_sprite; }
 	void SetAnimatedLoop(bool _animated_loop) { animated_loop = _animated_loop; }
