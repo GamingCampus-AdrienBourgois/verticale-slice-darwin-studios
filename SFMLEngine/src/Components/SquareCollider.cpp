@@ -3,6 +3,7 @@
 #include "Maths/Vector2.h"
 #include <iostream>
 #include <Components/Player.h>
+#include <Components/Interactive.h>
 
 bool SquareCollider::IsColliding(const SquareCollider& _collider_a, const SquareCollider& _collider_b, const float _delta_time)
 {

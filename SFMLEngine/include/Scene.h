@@ -11,7 +11,7 @@
 #include "Components/TextRenderer.h"
 #include "Components/SquareCollider.h"
 #include "Components/SpriteRenderer.h"
-#include "Components/Interactive.h"
+
 
 
 class Scene
