@@ -1,6 +1,5 @@
 #include "DefaultScene.h"
 #include "EndLevelScene.h"
-#include <iostream>
 
 #include "LaunchFunction.h"
 
@@ -9,6 +8,7 @@
 #include "DeathScene.h"
 #include <iostream>
 #include <Interactive.h>
+#include "SelectCapacityScene.h"
 
 
 DefaultScene::DefaultScene(std::vector<Capacity> params) : Scene("DefaultScene", [] {})
@@ -51,6 +51,7 @@ DefaultScene::DefaultScene(std::vector<Capacity> params) : Scene("DefaultScene",
 	SceneModule* scene_module = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>();
 	Scene* transitionScene = scene_module->GetMainScene();
 	transitionScene->CreateSpriteButtonWithText(ButtonType, "resume_button", Maths::Vector2f(((window_size.x / 2) - (button_size_x / 2)), window_size.y * 3 / 6), Maths::Vector2f(button_size_x, button_size_y), [transitionScene] {LaunchFunction::resumeGame(); }, nullptr, "texture_button", Maths::Vector2f(448, 168), Maths::Vector2f(0, 24), "Retour au jeu", sf::Color::Black, 30);
+	player->GetComponent<Player>()->SetCheckpointCallback([this] {LaunchFunction::LaunchSceneFalse<SelectCapacityScene>(); });
 }
 
 GameObject* CreateColliderObject(Scene* scene, const ObjectType& _type, std::string _name, Maths::Vector2f _position, Maths::Vector2f _size) {

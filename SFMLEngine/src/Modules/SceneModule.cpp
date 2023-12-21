@@ -2,12 +2,37 @@
 #include "ModuleManager.h"
 
 #include <unordered_map>
-
+#include <fstream>
+#include <sstream>
+#include <iostream>
 
 
 SceneModule::SceneModule(): Module()
 {
 	font.loadFromFile("Font/arial.ttf");
+
+	std::ifstream file("settings.csv");
+
+	if (!file.is_open()) {
+		std::cerr << "Error opening file." << std::endl;
+	}
+
+	std::string line;
+
+	file.clear();
+	file.seekg(0, std::ios::beg);
+
+	std::getline(file, line);
+	std::vector<std::string> row;
+	std::stringstream lineStream(line);
+	std::string cell;
+
+	while (std::getline(lineStream, cell, ',')) {
+		row.push_back(cell);
+	}
+	sound_volume = stoi(row[1]);
+
+	file.close();
 	//Scene* main_scene = new Scene("MainScene");
 	//scenes.push_back(main_scene);
 	//mainScene = main_scene;

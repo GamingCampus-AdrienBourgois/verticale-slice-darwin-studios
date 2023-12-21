@@ -1,6 +1,9 @@
 #pragma once
 
 #include "ModuleManager.h"
+#include <fstream>
+#include <iostream>
+#include "Modules/InputModule.h"
 
 #include <SFML/Audio.hpp>
 
@@ -24,3 +27,5 @@ private:
 
 	bool shouldQuit = false;
 };
+
+void SetSettingsOnFile();

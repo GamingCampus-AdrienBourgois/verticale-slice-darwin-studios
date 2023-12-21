@@ -2,17 +2,25 @@
 #include <iostream>
 #include <Engine.h>
 #include "Modules/SceneModule.h"
+#include "Modules/InputModule.h"
 #include <fstream>
 #include <sstream>
 
 
 void Button::Execute() {
-	if (!callback_execute && is_clicked) {
-		callback();
-		callback_execute = true;
+	if (GetOwner()->GetType() == SliderButtonType) {
+		if (is_clicked) {
+			callback();
+		}
 	}
-	if (!is_clicked) {
-		callback_execute = false;
+	else {
+		if (!callback_execute && is_clicked) {
+			callback();
+			callback_execute = true;
+		}
+		if (!is_clicked) {
+			callback_execute = false;
+		}
 	}
 }
 
@@ -159,4 +167,88 @@ void Button::SelectCapacity() {
 			}
 		}
 	}
+}
+
+void Button::SoundMenu() {
+	SetSettingsOnFile();
+	sf::Vector2u window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindow()->getSize();
+	Scene* scene = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetMainScene();
+	auto controls = Engine::GetInstance()->GetModuleManager()->GetModule<InputModule>()->GetControls();
+	for (const auto& entry : *controls) {
+		scene->DestroyGameObject(scene->FindGameObject("text_" + entry.first));
+		scene->DestroyGameObject(scene->FindGameObject("button_" + entry.first));
+	}
+
+	GameObject* sound_text = scene->CreateText(TextType, "sound_text", Maths::Vector2f(window_size.x / 100 * 28.6979, window_size.y / 2 - (((window_size.x / 100 * 38.2812) * 49) / 500)), sf::Color::Black, Maths::Vector2u(window_size.x / 100 * 13.4375, (((window_size.x / 100 * 38.2812) * 49) / 500)), 40);
+	sound_text->GetComponent<TextRenderer>()->SetString("VolumE");
+	GameObject* jauge_slider = scene->CreateOnlySprite(scene, GameObjectType, "jauge_slider", Maths::Vector2f(window_size.x / 100 * 42, window_size.y / 2 - (((window_size.x / 100 * 38.2812) * 49) / 500)), Maths::Vector2f(window_size.x / 100 * 38.2812, (((window_size.x / 100 * 38.2812) * 49) / 500)), "texture_jauge_slider", Maths::Vector2f(500, 49), Maths::Vector2f(0, 0));
+	GameObject* sliderButton = scene->CreateSliderButton(SliderButtonType, "sound_slider_button", Maths::Vector2f(jauge_slider->GetPosition().x + 4, window_size.y / 2 - (((window_size.x / 100 * 38.2812) * 49) / 500) + ((((window_size.x / 100 * 38.2812) * 49) / 500) * 0.5) - (window_size.y / 100 * 6.27778 * 0.5)), Maths::Vector2f((((window_size.y / 100 * 6.27778) * 41) / 40), window_size.y / 100 * 6.27778), [] {}, nullptr, "texture_button_slider", Maths::Vector2f(41, 40), Maths::Vector2f(0, 8));
+	
+	float size_x_slider = (jauge_slider->GetPosition().x + jauge_slider->GetComponent<SpriteRenderer>()->GetWidth() - (sliderButton->GetComponent<SpriteRenderer>()->GetWidth()) - 4 - jauge_slider->GetPosition().x + 4);
+	float pos_for_volume = size_x_slider / 100 * Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetSoundVolume();
+	sliderButton->SetPosition(Maths::Vector2f(sliderButton->GetPosition().x + pos_for_volume, sliderButton->GetPosition().y));
+	
+	sliderButton->GetComponent<Button>()->SetCallback(std::bind(&Button::SliderMove, sliderButton->GetComponent<Button>()));
+	GameObject* volume_text = scene->CreateText(TextType, "volume_text", Maths::Vector2f(sliderButton->GetPosition().x, sliderButton->GetPosition().y + (window_size.y / 100 * 6)), sf::Color::Black, Maths::Vector2u((((window_size.y / 100 * 6.27778) * 41) / 40), window_size.y / 100 * 3), 20);
+	volume_text->GetComponent<TextRenderer>()->SetString(std::to_string(Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetSoundVolume()));
+}
+
+void Button::ControlsMenu() {
+	SetSettingsOnFile();
+	sf::Vector2u window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindow()->getSize();
+	Scene* scene = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetMainScene();
+	scene->DestroyGameObject(scene->FindGameObject("sound_slider_button"));
+	scene->DestroyGameObject(scene->FindGameObject("sound_text"));
+	scene->DestroyGameObject(scene->FindGameObject("jauge_slider"));
+	scene->DestroyGameObject(scene->FindGameObject("volume_text"));
+	auto controls = Engine::GetInstance()->GetModuleManager()->GetModule<InputModule>()->GetControls();
+	int nb_entry = 0;
+
+	for (const auto& entry : *controls) {
+		nb_entry++;
+		GameObject* entry_text = scene->CreateText(TextType, "text_" + entry.first, Maths::Vector2f(window_size.x / 100 * 40.5208, (window_size.y / 100 * 22.2222) + (nb_entry * window_size.y / 100 * 3.87037) + (nb_entry * window_size.y / 100 * 5.47037)), sf::Color::Black, Maths::Vector2u(window_size.x / 100 * 22.8646, window_size.y / 100 * 3.87037), 45);
+		entry_text->GetComponent<TextRenderer>()->SetString(entry.first);
+		GameObject* bouton_entry = scene->CreateSpriteButtonWithText(EntryButtonType, "button_" + entry.first, Maths::Vector2f(window_size.x / 100 * 74.5208, (window_size.y / 100 * 22.2222) + (nb_entry * window_size.y / 100 * 3.87037) + (nb_entry * window_size.y / 100 * 5.47037) - window_size.y / 100 * 3.87037 / 2), Maths::Vector2f((window_size.y / 100 * 3.87037 * 2) * 448 / 168, window_size.y / 100 * 3.87037 * 2), [] { }, nullptr, "texture_entry_button", Maths::Vector2f(448, 168), Maths::Vector2f(0, 24), entry.second->GetName(), sf::Color::Black, 45);
+		bouton_entry->GetComponent<Button>()->SetCallback(std::bind(&Button::ChangeEntry, bouton_entry->GetComponent<Button>()));
+		bouton_entry->GetComponent<Button>()->SetTextObject(entry_text);
+		entry.second->GetEntry();
+	}
+}
+
+void Button::SliderMove() {
+	WindowModule* windowModule = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>();
+	sf::Vector2i mousePos = windowModule->GetMousePosition();
+	Scene* scene = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetMainScene();
+
+	if (GetOwner()->GetComponent<RectangleShapeRenderer>()->GetShape()->getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
+		GameObject* jauge_slider = scene->FindGameObject("jauge_slider");
+		if (jauge_slider->GetPosition().x + 4 + (GetOwner()->GetComponent<SpriteRenderer>()->GetWidth() / 2) < mousePos.x && jauge_slider->GetPosition().x + jauge_slider->GetComponent<SpriteRenderer>()->GetWidth() - 4 - (GetOwner()->GetComponent<SpriteRenderer>()->GetWidth() / 2) > mousePos.x) {
+			float size_one_vol = (jauge_slider->GetPosition().x + jauge_slider->GetComponent<SpriteRenderer>()->GetWidth() - (GetOwner()->GetComponent<SpriteRenderer>()->GetWidth()) - 4 - jauge_slider->GetPosition().x + 4) / 100;
+			GetOwner()->SetPosition(Maths::Vector2f(mousePos.x - (GetOwner()->GetComponent<SpriteRenderer>()->GetWidth() / 2), GetOwner()->GetPosition().y));
+			Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->SetSoundVolume((GetOwner()->GetPosition().x - jauge_slider->GetPosition().x + 4) / size_one_vol);
+			scene->FindGameObject("volume_text")->GetComponent<TextRenderer>()->SetString(std::to_string(Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetSoundVolume()));
+			scene->FindGameObject("volume_text")->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().x, scene->FindGameObject("volume_text")->GetPosition().y));
+		}
+		else if (jauge_slider->GetPosition().x + 4 + (GetOwner()->GetComponent<SpriteRenderer>()->GetWidth() / 2) >= mousePos.x) {
+			GetOwner()->SetPosition(Maths::Vector2f(jauge_slider->GetPosition().x + 4, GetOwner()->GetPosition().y));
+			Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->SetSoundVolume(0);
+			scene->FindGameObject("volume_text")->GetComponent<TextRenderer>()->SetString(std::to_string(Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetSoundVolume()));
+			scene->FindGameObject("volume_text")->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().x, scene->FindGameObject("volume_text")->GetPosition().y));
+		}
+		else {
+			GetOwner()->SetPosition(Maths::Vector2f(jauge_slider->GetPosition().x + jauge_slider->GetComponent<SpriteRenderer>()->GetWidth() - (GetOwner()->GetComponent<SpriteRenderer>()->GetWidth()) - 4, GetOwner()->GetPosition().y));
+			Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->SetSoundVolume(100);
+			scene->FindGameObject("volume_text")->GetComponent<TextRenderer>()->SetString(std::to_string(Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetSoundVolume()));
+			scene->FindGameObject("volume_text")->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().x, scene->FindGameObject("volume_text")->GetPosition().y));
+		}
+	}
+	else {
+		is_clicked = false;
+	}
+}
+
+void Button::ChangeEntry() {
+	GetOwner()->GetComponent<TextRenderer>()->SetString("");
+	Input* entry_key = Engine::GetInstance()->GetModuleManager()->GetModule<InputModule>()->GetControls()->at(GetOwner()->GetComponent<Button>()->GetTextObject()->GetComponent<TextRenderer>()->GetString());
+	entry_key->SetName("");
 }

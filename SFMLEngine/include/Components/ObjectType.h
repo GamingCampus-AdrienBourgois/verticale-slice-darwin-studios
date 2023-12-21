@@ -5,6 +5,8 @@ enum ObjectType
 	GameObjectType,
 	PlayerType,
 	ButtonType,
+	SliderButtonType,
+	EntryButtonType,
 	TextType, 
 	DollOffType,
 	ColliderType,

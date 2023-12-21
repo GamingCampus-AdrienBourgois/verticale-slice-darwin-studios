@@ -70,3 +70,26 @@ void Engine::SetMusicState(bool _state) {
 	}
 	
 }
+
+void SetSettingsOnFile() {
+
+	const std::string nomFichier = "settings.csv";
+	SceneModule* scene_module = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>();
+
+	std::ofstream fichierCSV(nomFichier);
+
+	if (!fichierCSV.is_open()) {
+		std::cerr << "Erreur : Impossible d'ouvrir le fichier " << nomFichier << std::endl;
+	}
+
+	fichierCSV << "Volume," << std::to_string(scene_module->GetSoundVolume()) << "," << std::endl;
+	fichierCSV << ",," << std::endl;
+
+	std::map<std::string, Input*>* controls = Engine::GetInstance()->GetModuleManager()->GetModule<InputModule>()->GetControls();
+	for (auto& entry_pair : *controls) {
+		Input* entry = controls->at(entry_pair.first);
+		fichierCSV << entry_pair.first << "," << entry->GetName() << "," << std::to_string(entry->GetEntry()) << std::endl;
+	}
+
+	fichierCSV.close();
+}
