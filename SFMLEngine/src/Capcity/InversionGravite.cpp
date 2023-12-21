@@ -6,6 +6,11 @@
 
 void InversionGravite::GraviteInversion(GameObject* player, const float _delta_time, Scene* scene)
 {
+	if (player->GetComponent<Player>()->GetIsCheck())
+	{
+		inversion = false;
+	}
+
 	if (count == 0)
 	{
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
@@ -44,6 +49,10 @@ void InversionGravite::GraviteInversion(GameObject* player, const float _delta_t
 			inversion = false;
 			GetCapacityOwner()->GetComponent<Player>()->SetGravity(100);
 		}
+	}
+	else if (!inversion)
+	{
+		GetCapacityOwner()->GetComponent<Player>()->SetGravity(100);
 	}
 }
 
