@@ -8,9 +8,8 @@
 #include "DeathScene.h"
 
 
-DefaultScene::DefaultScene(std::vector<Capacity> params) : Scene("DefaultScene")
+DefaultScene::DefaultScene(std::vector<Capacity> params) : Scene("DefaultScene", [] {})
 {
-	//LaunchFunction::LaunchSceneFalse<TransitionScene>();
 
 	SetTexture("texture_zarya", "Assets/Dolls/Zarya-sheet.png");
 	SetTexture("texture_zvezda", "Assets/Dolls/Zvezda-sheet.png");
@@ -27,6 +26,15 @@ DefaultScene::DefaultScene(std::vector<Capacity> params) : Scene("DefaultScene")
 	GameObject* player = CreatePlayer(PlayerType, "Player", Maths::Vector2f(300, 400/*window_size.x * 0.1, window_size.y * 0.68*/), Maths::Vector2f((window_size.x / 25), (((window_size.x / 25) * 654) / 420)), "texture_zarya", Maths::Vector2f(420, 654), Maths::Vector2f(0, 1));
 	player->GetComponent<Player>()->SetPauseEscape([this] { LaunchFunction::LaunchSceneFalse<PauseScene>(); });
 	player->GetComponent<Player>()->SetDeathCallback([this] { LaunchFunction::LaunchSceneFalse<DeathScene>(); });
+
+
+
+	float button_size_x = window_size.x / 15 * 3;
+	float button_size_y = (((window_size.x / 15) * 3) * 168 / 448);
+
+	SceneModule* scene_module = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>();
+	Scene* transitionScene = scene_module->GetMainScene();
+	transitionScene->CreateSpriteButtonWithText(ButtonType, "resume_button", Maths::Vector2f(((window_size.x / 2) - (button_size_x / 2)), window_size.y * 3 / 6), Maths::Vector2f(button_size_x, button_size_y), [transitionScene] {LaunchFunction::resumeGame(); }, nullptr, "texture_button", Maths::Vector2f(448, 168), Maths::Vector2f(0, 24), "Retour au jeu", sf::Color::Black, 30);
 }
 
 GameObject* CreateColliderObject(Scene* scene, const ObjectType& _type, std::string _name, Maths::Vector2f _position, Maths::Vector2f _size) {

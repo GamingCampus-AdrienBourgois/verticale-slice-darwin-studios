@@ -11,4 +11,7 @@ class SelectCapacityScene final : public Scene
 {
 public:
 	SelectCapacityScene();
+
+private:
+	void callbackPlayButton();
 };

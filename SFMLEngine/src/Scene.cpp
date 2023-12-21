@@ -13,9 +13,10 @@
 
 class Capacity;
 
-Scene::Scene(const std::string& _name)
+Scene::Scene(const std::string& _name, std::function<void()> _callback)
 {
 	name = _name;
+	callBack = _callback;
 	//font_scene = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetFont();
 
 	Engine* engine = Engine::GetInstance();
@@ -32,8 +33,14 @@ Scene::~Scene() {
 	texture.clear();
 }
 
-void Scene::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) const
+void Scene::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) 
 {
+	if (name == "TransitionScene" && !gameLoaded)
+	{
+		SetGameLoaded(true);
+		callBack();
+	}
+
 	for (int i = 0; i < gameObjects.size(); i++)
 	{
 		if (gameObjects[i]->GetType() == MoveType || gameObjects[i]->GetType() == DollOffType)

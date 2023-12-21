@@ -12,7 +12,7 @@
 
 #include "MainMenuScene.h"
 
-CreditsScene::CreditsScene() : Scene("CreditsScene")
+CreditsScene::CreditsScene() : Scene("CreditsScene", [] {})
 {
 	SetTexture("background", "Assets/background/main_menu_background.png");
 	SetTexture("texture_return_button", "Assets/button/return_button.png");

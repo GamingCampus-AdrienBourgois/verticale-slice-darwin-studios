@@ -4,7 +4,7 @@
 #include "SelectCapacityScene.h"
 #include "MainMenuScene.h"
 
-DeathScene::DeathScene() : Scene("DeathScene") {
+DeathScene::DeathScene() : Scene("DeathScene", [] {}) {
 	SetFont("Font/UkrainianPrincess.ttf");
 	SetTexture("texture_button", "Assets/button/button.png");
 

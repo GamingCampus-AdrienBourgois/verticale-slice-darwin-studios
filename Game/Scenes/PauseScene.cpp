@@ -4,7 +4,7 @@
 #include "SelectCapacityScene.h"
 #include "MainMenuScene.h"
 
-PauseScene::PauseScene() : Scene("PauseScene") {
+PauseScene::PauseScene() : Scene("PauseScene", [] {}) {
 	SetFont("Font/UkrainianPrincess.ttf");
 	SetTexture("texture_button", "Assets/button/button.png");
 

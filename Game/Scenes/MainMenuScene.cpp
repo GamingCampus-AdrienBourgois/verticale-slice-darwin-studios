@@ -8,7 +8,7 @@
 
 
 
-MainMenuScene::MainMenuScene() : Scene("MainMenuScene")
+MainMenuScene::MainMenuScene() : Scene("MainMenuScene", [] {})
 {
 	SetTexture("background", "Assets/background/main_menu_background.png");
 	SetBackground("background");

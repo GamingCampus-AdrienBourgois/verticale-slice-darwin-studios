@@ -22,9 +22,13 @@ public:
 	template<typename T>
 	Scene* SetScene(bool _replace_scenes = true);
 	void SetMainScene(Scene* _scene) { mainScene = _scene; };
+	template<typename T>
+	Scene* SetSceneBack(bool _replace_scenes = true);
 
 	template<typename T, typename U>
 	Scene* SetSceneWithParams(const bool _replace_scenes, std::vector<U> params);
+	template<typename T, typename U>
+	Scene* SetSceneWithParamsBack(const bool _replace_scenes, std::vector<U> params);
 
 	Scene* GetMainScene() const { return mainScene; }
 	Scene* GetScene(const std::string& _scene_name) const;
@@ -43,6 +47,48 @@ private:
 
 	sf::Font font;
 };
+
+template<typename T>
+Scene* SceneModule::SetSceneBack(const bool _replace_scenes)
+{
+	if (_replace_scenes)
+	{
+		for (const Scene* scene : scenes)
+		{
+			delete scene;
+		}
+		scenes.clear();
+	}
+
+	Scene* scene = static_cast<Scene*>(new T());
+	Scene* temp = scenes[scenes.size() - 1];
+
+	scenes[scenes.size() - 1] = scene;
+	scenes.push_back(temp);
+
+	return scene;
+}
+
+template<typename T, typename U>
+Scene* SceneModule::SetSceneWithParamsBack(const bool _replace_scenes, std::vector<U> params)
+{
+	if (_replace_scenes)
+	{
+		for (const Scene* scene : scenes)
+		{
+			delete scene;
+		}
+		scenes.clear();
+	}
+
+	Scene* scene = static_cast<Scene*>(new T(params));
+	Scene* temp = scenes[scenes.size() - 1];
+
+	scenes[scenes.size() - 1] = scene;
+	scenes.push_back(temp);
+
+	return scene;
+}
 
 template<typename T>
 Scene* SceneModule::SetScene(const bool _replace_scenes)
