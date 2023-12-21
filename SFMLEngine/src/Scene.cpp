@@ -24,6 +24,14 @@ Scene::Scene(const std::string& _name)
 	font_scene = sceneModule->GetFont();
 }
 
+Scene::~Scene() {
+	for (int i = 0; i < gameObjects.size(); i++)
+	{
+		DestroyGameObject(gameObjects[i]);
+	}
+	texture.clear();
+}
+
 void Scene::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) const
 {
 	for (int i = 0; i < gameObjects.size(); i++)
