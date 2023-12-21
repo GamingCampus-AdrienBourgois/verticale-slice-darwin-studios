@@ -1,6 +1,9 @@
 #pragma once
 
 #include "ModuleManager.h"
+#include <fstream>
+#include <iostream>
+#include "Modules/InputModule.h"
 
 class Engine
 {
@@ -20,3 +23,5 @@ private:
 
 	bool shouldQuit = false;
 };
+
+void SetSettingsOnFile();

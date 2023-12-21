@@ -168,6 +168,7 @@ GameObject* Scene::CreateSpriteButton(const ObjectType& _type, std::string _name
 sf::Vector2i GetMousePosition(sf::RenderWindow& window) {
 	return sf::Mouse::getPosition(window);
 }
+
 GameObject* Scene::CreateSliderButton(const ObjectType& _type, std::string _name, Maths::Vector2f _position, Maths::Vector2f size, std::function<void()> _callback, Capacity* _object, std::string nom_texture, Maths::Vector2f _sprite_size, Maths::Vector2f sprite_space)
 {
 	GameObject* game_object = CreateGameObject(_type, _name);

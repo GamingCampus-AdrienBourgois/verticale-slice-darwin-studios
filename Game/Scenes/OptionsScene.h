@@ -11,5 +11,5 @@ class OptionsScene final : public Scene
 {
 public:
 	OptionsScene();
-	std::vector<sf::Vector2i> mousePos;
+
 };

@@ -18,6 +18,7 @@ public:
 	void Update() override;
 
 	void SetNextScene(std::function<void()> _next_scene) { nextScene = _next_scene; }
+	void SetSoundVolume(int _sound_volume) { sound_volume = _sound_volume; }
 
 	template<typename T>
 	Scene* SetScene(bool _replace_scenes = true);
@@ -32,6 +33,7 @@ public:
 	std::vector<Scene*>* GetScenesVector() { return &scenes; }
 
 	sf::Font GetFont() { return font; }
+	int GetSoundVolume() { return sound_volume; }
 
 private:
 	std::vector<Scene*> scenes;
@@ -42,6 +44,7 @@ private:
 	TimeModule* timeModule = nullptr;
 
 	sf::Font font;
+	int sound_volume = 0;
 };
 
 template<typename T>
