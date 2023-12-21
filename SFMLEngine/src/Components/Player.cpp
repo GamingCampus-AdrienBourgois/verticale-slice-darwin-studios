@@ -144,7 +144,7 @@ GameObject* Player::CreateDollOff(const ObjectType& _type, std::string _name, Ma
 	square_collider->SetSpecialPosition(_collider_special_position);
 
 	SpriteRenderer* sprite = game_object->CreateComponent<SpriteRenderer>();
-	sprite->SetSpriteRect(texture, _size, _size_sprite, Maths::Vector2f(0, 0), Maths::Vector2f(0, 1));
+	sprite->SetSprite(texture, _size);
 	//sprite->SetSprite(texture, _size);
 
 	DollOff* dollOff = game_object->CreateComponent<DollOff>();
@@ -197,7 +197,7 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 			Maths::Vector2f collider_size = Maths::Vector2f(GetOwner()->GetComponent<SquareCollider>()->GetWidth(), GetOwner()->GetComponent<SquareCollider>()->GetHeight());
 			Maths::Vector2f collider_special_position = GetOwner()->GetComponent<SquareCollider>()->GetSpecialPosition();
 
-			big_dollOff = CreateDollOff(DollOffType, "big_doll_off", position, scene->GetTextureByName("texture_zarya"), size, Maths::Vector2f(420, 654), collider_size, collider_special_position);
+			big_dollOff = CreateDollOff(DollOffType, "big_doll_off", position, scene->GetTextureByName("texture_zarya_gris"), size, Maths::Vector2f(420, 654), collider_size, collider_special_position);
 			GetOwner()->SetPosition(Maths::Vector2f(position.GetX(), position.GetY() - sizePlayer * 1.5));
 			GetOwner()->GetComponent<SpriteRenderer>()->SetSpriteRect(scene->GetTextureByName("texture_zvezda"), Maths::Vector2f((sizeWindow.x / 33), (((sizeWindow.x / 33) * 554) / 345)), Maths::Vector2f(345, 554), Maths::Vector2f(0,0), Maths::Vector2f(0, 1));
 			GetOwner()->GetComponent<SquareCollider>()->SetWidth(sizeWindow.x / 33 * 0.75);
@@ -273,7 +273,7 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 			Maths::Vector2f collider_size = Maths::Vector2f(GetOwner()->GetComponent<SquareCollider>()->GetWidth(), GetOwner()->GetComponent<SquareCollider>()->GetHeight());
 			Maths::Vector2f collider_special_position = GetOwner()->GetComponent<SquareCollider>()->GetSpecialPosition();
 
-			mid_dollOff = CreateDollOff(DollOffType, "mid_doll_off", position, scene->GetTextureByName("texture_zvezda"), size, Maths::Vector2f(345, 554), collider_size, collider_special_position);
+			mid_dollOff = CreateDollOff(DollOffType, "mid_doll_off", position, scene->GetTextureByName("texture_zvezda_gris"), size, Maths::Vector2f(345, 554), collider_size, collider_special_position);
 			GetOwner()->SetPosition(Maths::Vector2f(position.GetX(), position.GetY() - sizePlayer * 1.5));
 			GetOwner()->GetComponent<SpriteRenderer>()->SetSpriteRect(scene->GetTextureByName("texture_zwezda"), Maths::Vector2f((sizeWindow.x / 40), (((sizeWindow.x / 40) * 411) / 274)), Maths::Vector2f(274, 411), Maths::Vector2f(0, 0), Maths::Vector2f(0, 1));
 			GetOwner()->GetComponent<SquareCollider>()->SetWidth(sizeWindow.x / 40 * 0.76);

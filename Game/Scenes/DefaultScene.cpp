@@ -14,6 +14,9 @@ DefaultScene::DefaultScene(std::vector<Capacity> params) : Scene("DefaultScene",
 	SetTexture("texture_zarya", "Assets/Dolls/Zarya-sheet.png");
 	SetTexture("texture_zvezda", "Assets/Dolls/Zvezda-sheet.png");
 	SetTexture("texture_zwezda", "Assets/Dolls/Zwezda-sheet.png");
+	SetTexture("texture_zarya_gris", "Assets/Dolls/texture_zarya_gris.png");
+	SetTexture("texture_zvezda_gris", "Assets/Dolls/texture_zvezda_gris.png");
+
 
 	GetBigCapacity()->SetName(params[0].GetName());
 	GetMidCapacity()->SetName(params[1].GetName());
@@ -21,7 +24,8 @@ DefaultScene::DefaultScene(std::vector<Capacity> params) : Scene("DefaultScene",
 
 	SpawnObjectLevel3(params);
 	SetTexture("texture_return_button", "Assets/button/return_button.png");
-	GameObject* return_button = CreateSpriteButton_forMainMenu(ButtonType, "button_pause", Maths::Vector2f(window_size.x - window_size.x / 50 - 161, window_size.y / 50), Maths::Vector2f(window_size.x / 20, ((((window_size.x / 20) * 161) / 144))), [this] { LaunchFunction::LaunchSceneFalse<PauseScene>(); }, nullptr, "texture_return_button", Maths::Vector2f(144, 161), Maths::Vector2f(0, 15));
+	SetTexture("texture_pause_button", "Assets/button/pause_button.png");
+	GameObject* return_button = CreateSpriteButton_forMainMenu(ButtonType, "button_pause", Maths::Vector2f(window_size.x - window_size.x / 50 - 161, window_size.y / 50), Maths::Vector2f(window_size.x / 20, ((((window_size.x / 20) * 161) / 144))), [this] { LaunchFunction::LaunchSceneFalse<PauseScene>(); }, nullptr, "texture_pause_button", Maths::Vector2f(144, 161), Maths::Vector2f(0, 15));
 
 	GameObject* player = CreatePlayer(PlayerType, "Player", Maths::Vector2f(window_size.x * 0.1, window_size.y * 0.68), Maths::Vector2f((window_size.x / 25), (((window_size.x / 25) * 654) / 420)), "texture_zarya", Maths::Vector2f(420, 654), Maths::Vector2f(0, 1));
 	player->GetComponent<Player>()->SetPauseEscape([this] { LaunchFunction::LaunchSceneFalse<PauseScene>(); });
