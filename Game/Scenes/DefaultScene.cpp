@@ -1,7 +1,10 @@
 #include "DefaultScene.h"
 #include "EndLevelScene.h"
 
+#include "LaunchFunction.h"
 
+#include "PauseScene.h"
+#include "DeathScene.h"
 
 
 DefaultScene::DefaultScene(std::vector<Capacity> params) : Scene("DefaultScene")
@@ -9,11 +12,35 @@ DefaultScene::DefaultScene(std::vector<Capacity> params) : Scene("DefaultScene")
 	SetTexture("texture_zarya", "Assets/Dolls/Zarya-sheet.png");
 	SetTexture("texture_zvezda", "Assets/Dolls/Zvezda-sheet.png");
 	SetTexture("texture_zwezda", "Assets/Dolls/Zwezda-sheet.png");
+
 	GetBigCapacity()->SetName(params[0].GetName());
 	GetMidCapacity()->SetName(params[1].GetName());
 	GetSmallCapacity()->SetName(params[2].GetName());
+
 	SpawnObjectLevel3(params);
-	GameObject* player = CreatePlayer(PlayerType, "Player", Maths::Vector2f(window_size.x / 100 * 6.40625, window_size.y / 100 * 65.6481), Maths::Vector2f((window_size.x / 25), (((window_size.x / 25) * 654) / 420)), "texture_zarya", Maths::Vector2f(420, 654), Maths::Vector2f(0, 1));
+	SetTexture("texture_return_button", "Assets/button/return_button.png");
+	GameObject* return_button = CreateSpriteButton_forMainMenu(ButtonType, "button_pause", Maths::Vector2f(window_size.x - window_size.x / 50 - 161, window_size.y / 50), Maths::Vector2f(window_size.x / 20, ((((window_size.x / 20) * 161) / 144))), [this] { LaunchFunction::LaunchSceneFalse<PauseScene>(); }, nullptr, "texture_return_button", Maths::Vector2f(144, 161), Maths::Vector2f(0, 15));
+
+	GameObject* player = CreatePlayer(PlayerType, "Player", Maths::Vector2f(300, 400/*window_size.x * 0.1, window_size.y * 0.68*/), Maths::Vector2f((window_size.x / 25), (((window_size.x / 25) * 654) / 420)), "texture_zarya", Maths::Vector2f(420, 654), Maths::Vector2f(0, 1));
+	player->GetComponent<Player>()->SetPauseEscape([this] { LaunchFunction::LaunchSceneFalse<PauseScene>(); });
+	player->GetComponent<Player>()->SetDeathCallback([this] { LaunchFunction::LaunchSceneFalseParams<DeathScene>(""); });
+}
+
+GameObject* CreateColliderObject(Scene* scene, const ObjectType& _type, std::string _name, Maths::Vector2f _position, Maths::Vector2f _size) {
+	GameObject* game_object = scene->CreateGameObject(_type, _name);
+	game_object->SetPosition(_position);
+
+	sf::Vector2f window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize();
+
+	SquareCollider* squareCollider = game_object->CreateComponent<SquareCollider>();
+	squareCollider->SetWidth(_size.x);
+	squareCollider->SetHeight(_size.y);
+
+	RectangleShapeRenderer* shapeRenderer = game_object->CreateComponent<RectangleShapeRenderer>();
+	shapeRenderer->SetColor(sf::Color{ 255,0,0,50 }); // Couleur du mur
+	shapeRenderer->SetSize(Maths::Vector2f(_size.x, _size.y)); // Taille du mur
+
+	return game_object;
 }
 
 GameObject* DefaultScene::CreateColliderObject(Scene* scene, const ObjectType& _type, std::string _name, Maths::Vector2f _position, Maths::Vector2f _size) {
@@ -50,6 +77,7 @@ void DefaultScene::SpawnObjectLevel3(std::vector<Capacity> params) {
 	SetTexture("texture_force", "Assets/button/force_button.png");
 	SetTexture("texture_gravity", "Assets/button/gravity_button.png");
 	SetTexture("texture_invincibilite", "Assets/button/invincibility_button.png");
+
 
 	float sizeX = window_size.x / 100;
 	float sizeY = window_size.y / 100;

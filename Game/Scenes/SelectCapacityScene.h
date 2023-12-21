@@ -2,7 +2,10 @@
 
 #include "Scene.h"
 
-class MainMenuScene;
+
+
+
+//class MainMenuScene;
 
 class SelectCapacityScene final : public Scene
 {

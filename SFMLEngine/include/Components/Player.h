@@ -27,6 +27,9 @@ public:
 	void SetSize(int _size) { sizePlayer = _size; }
 	void SetCanDoubleJump(bool _can_double_jump) { can_double_jump = _can_double_jump; }
 
+	void SetPauseEscape(std::function<void()> _function) { pauseEscape = _function; }
+	void SetDeathCallback(std::function<void()> _function) { deathCallback = _function; }
+
 	int GetHp() { return hp; }
 	int GetSpeed() { return speed; }
 	int GetGravity() { return gravity; }
@@ -49,6 +52,7 @@ private:
 
 	// // Variables
 	int hp = 100;
+	bool deathRespawn = false;
 	int speed = sizeWindow.x / 9;
 	int gravity = 100;
 	float sizePlayer = sizeWindow.y / 22;
@@ -92,8 +96,13 @@ private:
 	void Move(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, std::vector<GameObject*>* gameObjects );
 	void Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, std::vector<GameObject*>* gameObjects, Scene* scene);
 
-	GameObject* CreateDollOff(const ObjectType& _type, std::string _name, Maths::Vector2f _position, sf::Texture* new_texture, Maths::Vector2f _size, Maths::Vector2f _size_sprite);
+	GameObject* CreateDollOff(const ObjectType& _type, std::string _name, Maths::Vector2f _position, sf::Texture* new_texture, Maths::Vector2f _size, Maths::Vector2f _size_sprite, Maths::Vector2f _collider_size, Maths::Vector2f _collider_special_position);
 	void SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, Scene* scene);
 	void ReturnCheckpoint(Scene* scene, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input);
 	void TPFinDuLevel(Scene* scene, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input);
+
+	void PauseMenu(std::unordered_map<sf::Keyboard::Key, bool>* pressed_input);
+
+	std::function<void()> pauseEscape;
+	std::function<void()> deathCallback;
 };

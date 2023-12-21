@@ -5,6 +5,7 @@
 #include "SquareCollider.h"
 #include "WindowModule.h"
 
+
 class Capacity;
 
 class DefaultScene final : public Scene
@@ -18,5 +19,4 @@ public:
 
 private:
 	void SpawnObjectLevel3(std::vector<Capacity> params);
-
 };

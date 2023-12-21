@@ -24,6 +24,14 @@ Scene::Scene(const std::string& _name)
 	font_scene = sceneModule->GetFont();
 }
 
+Scene::~Scene() {
+	for (int i = 0; i < gameObjects.size(); i++)
+	{
+		DestroyGameObject(gameObjects[i]);
+	}
+	texture.clear();
+}
+
 void Scene::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) const
 {
 	for (int i = 0; i < gameObjects.size(); i++)
@@ -37,7 +45,7 @@ void Scene::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key
 
 			for (int j = 0; j < gameObjects.size(); j++)
 			{
-				if (gameObjects[i] != gameObjects[j] && gameObjects[j]->GetType() != GameObjectType)
+				if (gameObjects[i] != gameObjects[j] && gameObjects[j]->GetType() != GameObjectType && gameObjects[j]->GetType() != ButtonType)
 				{
 					gameObjects[i]->GetComponent<SquareCollider>()->IsColliding(*gameObjects[i]->GetComponent<SquareCollider>(), *gameObjects[j]->GetComponent<SquareCollider>(), _delta_time);
 				}
@@ -350,8 +358,9 @@ GameObject* Scene::CreatePlayer(const ObjectType& _type, std::string _name, Math
 	game_object->SetPosition(_position);
 
 	SquareCollider* square_collider = game_object->CreateComponent<SquareCollider>();
-	square_collider->SetWidth(_size.x);
-	square_collider->SetHeight(_size.y);
+	square_collider->SetWidth(_size.x * 0.69);
+	square_collider->SetHeight(_size.y * 0.75);
+	square_collider->SetSpecialPosition(Maths::Vector2f(_size.x * 0.148, _size.y * 0.248));
 
 	SpriteRenderer* sprite_renderer = game_object->CreateComponent<SpriteRenderer>();
 	if (sprite_space.x == 0 && sprite_space.y == 0) {

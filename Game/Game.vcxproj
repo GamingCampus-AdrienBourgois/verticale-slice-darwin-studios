@@ -166,9 +166,11 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Scenes\CreditsScene.cpp" />
+    <ClCompile Include="Scenes\DeathScene.cpp" />
     <ClCompile Include="Scenes\DefaultScene.cpp" />
     <ClCompile Include="Scenes\EndLevelScene.cpp" />
     <ClCompile Include="Scenes\MainMenuScene.cpp" />
+    <ClCompile Include="Scenes\PauseScene.cpp" />
     <ClCompile Include="Scenes\SelectCapacityScene.cpp" />
     <ClCompile Include="Scenes\OptionsScene.cpp" />
   </ItemGroup>
@@ -179,11 +181,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scenes\CreditsScene.h" />
+    <ClInclude Include="Scenes\DeathScene.h" />
     <ClInclude Include="Scenes\DefaultScene.h" />
     <ClInclude Include="Scenes\EndLevelScene.h" />
     <ClInclude Include="Scenes\OptionsScene.h" />
     <ClInclude Include="Scenes\LaunchFunction.h" />
     <ClInclude Include="Scenes\MainMenuScene.h" />
+    <ClInclude Include="Scenes\PauseScene.h" />
     <ClInclude Include="Scenes\SelectCapacityScene.h" />
   </ItemGroup>
   <ItemGroup>

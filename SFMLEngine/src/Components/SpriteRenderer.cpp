@@ -10,7 +10,6 @@ SpriteRenderer::SpriteRenderer()
 SpriteRenderer::~SpriteRenderer()
 {
 	delete sprite;
-	delete texture;
 	sprite = nullptr;
 	texture = nullptr;
 }

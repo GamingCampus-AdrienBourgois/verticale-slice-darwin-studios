@@ -2,8 +2,10 @@
 
 #include "Engine.h"
 #include "LaunchFunction.h"
-#include "MainMenuScene.h"
 #include "WindowModule.h"
+
+#include "DefaultScene.h"
+#include "MainMenuScene.h"
 
 SelectCapacityScene::SelectCapacityScene() : Scene("SelectCapacityScene")
 {

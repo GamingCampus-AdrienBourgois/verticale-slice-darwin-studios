@@ -4,9 +4,13 @@
 
 #include "Engine.h"
 #include "LaunchFunction.h"
-#include "MainMenuScene.h"
+
 #include "SceneModule.h"
 #include "WindowModule.h"
+
+
+
+#include "MainMenuScene.h"
 
 CreditsScene::CreditsScene() : Scene("CreditsScene")
 {
