@@ -29,6 +29,7 @@ public:
 
 	void SetPauseEscape(std::function<void()> _function) { pauseEscape = _function; }
 	void SetDeathCallback(std::function<void()> _function) { deathCallback = _function; }
+	void SetCheckpointCallback(std::function<void()> _function) { checkpintCallback = _function; }
 
 	int GetHp() { return hp; }
 	int GetSpeed() { return speed; }
@@ -105,4 +106,5 @@ private:
 
 	std::function<void()> pauseEscape;
 	std::function<void()> deathCallback;
+	std::function<void()> checkpintCallback;
 };

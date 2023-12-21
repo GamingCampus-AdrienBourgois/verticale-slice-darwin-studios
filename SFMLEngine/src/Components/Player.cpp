@@ -412,7 +412,9 @@ void Player::ReturnCheckpoint(Scene* scene, std::unordered_map<sf::Keyboard::Key
 				*(*gameObjects)[i] = *gameObjectsCheckpoint[i];
 			}
 		}
-		
+
+		checkpintCallback();
+
 		is_check = false;
 	}
 }
