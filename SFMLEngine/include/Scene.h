@@ -17,7 +17,7 @@ class Scene
 {
 public:
 	explicit Scene(const std::string& _name);
-	virtual ~Scene() = default;
+	~Scene();
 
 	std::unordered_map<std::string, sf::Texture>* GetTexture() {return &texture; }
 	sf::Texture* GetTextureByName(std::string _name);
