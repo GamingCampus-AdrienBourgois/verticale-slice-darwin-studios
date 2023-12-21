@@ -1,6 +1,7 @@
 #pragma once
 
 #include "DefaultScene.h"
+#include "MapScene.h"
 
 template<typename Scene>
 void LaunchFunction::LaunchScene() {

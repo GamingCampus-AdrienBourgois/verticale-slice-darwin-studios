@@ -33,6 +33,6 @@ SelectCapacityScene::SelectCapacityScene() : Scene("SelectCapacityScene")
 		launch_game_button->GetComponent<SpriteRenderer>()->SetNextSpriteRect(3);
 	}
 
-	GameObject* map_button = CreateSpriteButton_forMainMenu(ButtonType, "map_button", Maths::Vector2f(window_size.x / 50, window_size.y / 50), Maths::Vector2f(window_size.x / 20, ((((window_size.x / 20) * 161) / 144))), [] {}, nullptr, "texture_map_button", Maths::Vector2f(144, 161), Maths::Vector2f(0, 15));
+	GameObject* map_button = CreateSpriteButton_forMainMenu(ButtonType, "map_button", Maths::Vector2f(window_size.x / 50, window_size.y / 50), Maths::Vector2f(window_size.x / 20, ((((window_size.x / 20) * 161) / 144))), [this] {LaunchFunction::LaunchScene<MapScene>(); }, nullptr, "texture_map_button", Maths::Vector2f(144, 161), Maths::Vector2f(0, 15));
 	GameObject* return_button = CreateSpriteButton_forMainMenu(ButtonType, "return_button", Maths::Vector2f(window_size.x / 50, window_size.y - window_size.y / 50 - 144), Maths::Vector2f(window_size.x / 20, ((((window_size.x / 20) * 161) / 144))), [this] {LaunchFunction::LaunchScene<MainMenuScene>(); }, nullptr, "texture_return_button", Maths::Vector2f(144, 161), Maths::Vector2f(0, 15));
 }
