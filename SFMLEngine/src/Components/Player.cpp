@@ -413,6 +413,25 @@ void Player::ReturnCheckpoint(Scene* scene, std::unordered_map<sf::Keyboard::Key
 			}
 		}
 		
+		if (capacity->GetName() == "InversionGravite")
+		{
+			InversionGravite* new_capacity = SetCapacity<InversionGravite>(); 
+			new_capacity->SetName("InversionGravite");
+			new_capacity->SetCapacityOwner(GetOwner());
+			capacity = new_capacity;
+
+			
+
+			SpriteRenderer* spriteRenderer_currentPower = nullptr;
+			for (GameObject* const& gameObject : *scene->GetGameObjects())
+			{
+				if (gameObject->GetName() == "pouvoir en cours")
+				{
+					spriteRenderer_currentPower = gameObject->GetComponent<SpriteRenderer>();
+				}
+			}
+			spriteRenderer_currentPower->SetNextSpriteRect(0);
+		}
 		is_check = false;
 	}
 }
@@ -455,7 +474,6 @@ bool Player::Dead(std::vector<GameObject*>* gameObjects)
 		}*/
 		deathCallback();
 		deathRespawn = true;
-		hp = 100;
 	}
 	else
 	{
@@ -495,6 +513,9 @@ void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Ke
 			}
 		}
 
+
+		hp = 100;
+		gravity = 100;
 		deathRespawn = false;
 	}
 	
