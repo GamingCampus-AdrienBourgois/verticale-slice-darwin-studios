@@ -22,6 +22,31 @@ void WindowModule::Start()
 	Module::Start();
 }
 
+//sf::Vector2i WindowModule::GetMousePosition() {
+//	sf::Event event;
+//	if (window->pollEvent(event)) {
+//		if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
+//			sf::Vector2i mousePos = sf::Mouse::getPosition(*window);
+//			float sizeX = (GetWindowSize().x / 100);
+//			float sizeY = (GetWindowSize().y / 100);
+//			return mousePos;
+//		}
+//	}
+//}
+sf::Vector2i WindowModule::GetMousePosition() {
+	sf::Vector2i mousePos(-1, -1); // Valeurs par défaut si aucun clic droit n'a été détecté
+
+	sf::Event event;
+	while (window->pollEvent(event)) {
+		if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Right) {
+			mousePos = sf::Mouse::getPosition(*window);
+			float sizeX = (GetWindowSize().x / 100);
+			float sizeY = (GetWindowSize().y / 100);
+		}
+	}
+
+	return mousePos;
+}
 void WindowModule::Update()
 {
 	Module::Update();

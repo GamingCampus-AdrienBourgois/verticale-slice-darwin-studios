@@ -13,7 +13,7 @@ public:
 	
 	std::unordered_map<sf::Keyboard::Key, bool>* GetPressed() { return &pressed; }
 	void ResetButton(GameObject* button, std::vector<std::string> _name);
-
+	sf::Vector2i GetMousePosition();
 	void Init() override;
 	void Start() override;
 	void Update() override;

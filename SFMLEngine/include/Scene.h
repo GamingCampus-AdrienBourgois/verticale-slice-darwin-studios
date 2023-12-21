@@ -44,7 +44,7 @@ public:
 	GameObject* FindGameObject(const std::string& _name) const;
 	void ReplaceListGameObject(std::vector<GameObject*> new_list) { gameObjects = new_list; }
 
-	GameObject* CreateButton(const ObjectType& _type, std::string _name, Maths::Vector2f _position, const sf::Color _color, sf::Color _outlineColor, sf::Color _hoverColor, sf::Color _clickColor, Maths::Vector2u size, std::function<void()> _callback, Capacity* _object);
+	GameObject* CreateSliderButton(const ObjectType& _type, std::string _name, Maths::Vector2f _position, Maths::Vector2f size, std::function<void()> _callback, Capacity* _object, std::string nom_texture, Maths::Vector2f _sprite_size, Maths::Vector2f sprite_space);
 	GameObject* CreateSpriteButton(const ObjectType& _type, std::string _name, Maths::Vector2f _position, const sf::Color _color, sf::Color _outlineColor, sf::Color _hoverColor, sf::Color _clickColor, Maths::Vector2f size, std::function<void()> _callback, Capacity* _object, std::string nom_texture);
 	GameObject* CreateSpriteButton_forMainMenu(const ObjectType& _type, std::string _name, Maths::Vector2f _position, Maths::Vector2f size, std::function<void()> _callback, Capacity* _object, std::string nom_texture, Maths::Vector2f _sprite_size, Maths::Vector2f sprite_space);
 	GameObject* CreateButtonWithText(const ObjectType& _type, std::string _name, Maths::Vector2f _position, const sf::Color _color, sf::Color _outlineColor, sf::Color _hoverColor, sf::Color _clickColor, Maths::Vector2u size, std::function<void()> _callback, Capacity* _object, std::string button_text, sf::Color text_color, int _caractere_size);

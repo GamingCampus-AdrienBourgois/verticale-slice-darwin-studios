@@ -7,8 +7,9 @@
 
 class MainMenuScene;
 
-class CreditsScene final : public Scene
+class OptionsScene final : public Scene
 {
 public:
-	CreditsScene();
+	OptionsScene();
+	std::vector<sf::Vector2i> mousePos;
 };
