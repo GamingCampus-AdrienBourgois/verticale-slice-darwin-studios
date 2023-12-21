@@ -21,7 +21,7 @@ void Force::DeplaceObject(const float _delta_time, GameObject* player, GameObjec
 
 	for (GameObject* const& gameObjectbis : *gameObjects)
 	{
-		if (gameObjectbis->GetType() != PlayerType && gameObject != gameObjectbis && gameObjectbis->GetType() != GameObjectType)
+		if (gameObjectbis->GetType() != PlayerType && gameObject != gameObjectbis && gameObjectbis->GetType() != GameObjectType && gameObjectbis->GetType() != ButtonType)
 		{
 			bool collisionRighttemp = gameObject->GetComponent<SquareCollider>()->CheckCollisionRight(*gameObject->GetComponent<SquareCollider>(), *gameObjectbis->GetComponent<SquareCollider>());
 			bool collisionLefttemp = gameObject->GetComponent<SquareCollider>()->CheckCollisionLeft(*gameObject->GetComponent<SquareCollider>(), *gameObjectbis->GetComponent<SquareCollider>());

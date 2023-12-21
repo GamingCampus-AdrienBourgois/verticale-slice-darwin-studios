@@ -385,7 +385,7 @@ GameObject* Scene::CreatePlayer(const ObjectType& _type, std::string _name, Math
 		capacity->SetName("Invincibilite");
 		capacity->SetCapacityOwner(game_object);
 	}
-	else if (GetBigCapacity()->GetName() == "DOUbLE-SaUT") {
+	else if (GetBigCapacity()->GetName() == "DOUbLE SaUT") {
 		DoubleJump* capacity = player->SetCapacity<DoubleJump>();
 		capacity->SetName("DoubleJump");
 		capacity->SetCapacityOwner(game_object);

@@ -170,6 +170,7 @@
     <ClCompile Include="Scenes\DefaultScene.cpp" />
     <ClCompile Include="Scenes\EndLevelScene.cpp" />
     <ClCompile Include="Scenes\MainMenuScene.cpp" />
+    <ClCompile Include="Scenes\MapScene.cpp" />
     <ClCompile Include="Scenes\PauseScene.cpp" />
     <ClCompile Include="Scenes\SelectCapacityScene.cpp" />
     <ClCompile Include="Scenes\TransitionScene.cpp" />
@@ -186,6 +187,7 @@
     <ClInclude Include="Scenes\EndLevelScene.h" />
     <ClInclude Include="Scenes\LaunchFunction.h" />
     <ClInclude Include="Scenes\MainMenuScene.h" />
+    <ClInclude Include="Scenes\MapScene.h" />
     <ClInclude Include="Scenes\PauseScene.h" />
     <ClInclude Include="Scenes\SelectCapacityScene.h" />
     <ClInclude Include="Scenes\TransitionScene.h" />

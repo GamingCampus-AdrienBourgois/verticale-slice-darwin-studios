@@ -223,7 +223,7 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 
 				spriteRenderer_currentPower->SetSpriteRect(scene->GetTextureByName("texture_invincibilite"), Maths::Vector2f(sizeWindow.x / 20, ((((sizeWindow.x / 20) * 144) / 144))), Maths::Vector2f(144, 144), Maths::Vector2f(0, 369), Maths::Vector2f(0, 32));
 			}
-			else if (capacity_for_mid_doll->GetName() == "DOUbLE-SaUT") {
+			else if (capacity_for_mid_doll->GetName() == "DOUbLE SaUT") {
 				DoubleJump* new_capacity = SetCapacity<DoubleJump>();
 				new_capacity->SetName("DoubleJump");
 				new_capacity->SetCapacityOwner(GetOwner());
@@ -300,7 +300,7 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 
 				spriteRenderer_currentPower->SetSpriteRect(scene->GetTextureByName("texture_invincibilite"), Maths::Vector2f(sizeWindow.x / 20, ((((sizeWindow.x / 20) * 144) / 144))), Maths::Vector2f(144, 144), Maths::Vector2f(0, 369), Maths::Vector2f(0, 32));
 			}
-			else if (capacity_for_small_doll->GetName() == "DOUbLE-SaUT") {
+			else if (capacity_for_small_doll->GetName() == "DOUbLE SaUT") {
 				DoubleJump* new_capacity = SetCapacity<DoubleJump>();
 				new_capacity->SetName("DoubleJump");
 				new_capacity->SetCapacityOwner(GetOwner());

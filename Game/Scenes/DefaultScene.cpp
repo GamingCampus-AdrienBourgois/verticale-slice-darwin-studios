@@ -23,7 +23,7 @@ DefaultScene::DefaultScene(std::vector<Capacity> params) : Scene("DefaultScene",
 	SetTexture("texture_return_button", "Assets/button/return_button.png");
 	GameObject* return_button = CreateSpriteButton_forMainMenu(ButtonType, "button_pause", Maths::Vector2f(window_size.x - window_size.x / 50 - 161, window_size.y / 50), Maths::Vector2f(window_size.x / 20, ((((window_size.x / 20) * 161) / 144))), [this] { LaunchFunction::LaunchSceneFalse<PauseScene>(); }, nullptr, "texture_return_button", Maths::Vector2f(144, 161), Maths::Vector2f(0, 15));
 
-	GameObject* player = CreatePlayer(PlayerType, "Player", Maths::Vector2f(300, 400/*window_size.x * 0.1, window_size.y * 0.68*/), Maths::Vector2f((window_size.x / 25), (((window_size.x / 25) * 654) / 420)), "texture_zarya", Maths::Vector2f(420, 654), Maths::Vector2f(0, 1));
+	GameObject* player = CreatePlayer(PlayerType, "Player", Maths::Vector2f(window_size.x * 0.1, window_size.y * 0.68), Maths::Vector2f((window_size.x / 25), (((window_size.x / 25) * 654) / 420)), "texture_zarya", Maths::Vector2f(420, 654), Maths::Vector2f(0, 1));
 	player->GetComponent<Player>()->SetPauseEscape([this] { LaunchFunction::LaunchSceneFalse<PauseScene>(); });
 	player->GetComponent<Player>()->SetDeathCallback([this] { LaunchFunction::LaunchSceneFalse<DeathScene>(); });
 
@@ -189,7 +189,7 @@ void DefaultScene::SpawnObjectLevel3(std::vector<Capacity> params) {
 	{
 		Pouvoir_en_cours->GetComponent<SpriteRenderer>()->SetSpriteRect(GetTextureByName("texture_invincibilite"), Maths::Vector2f(window_size.x / 20, ((((window_size.x / 20) * 144) / 144))), Maths::Vector2f(144, 144), Maths::Vector2f(0, 369), Maths::Vector2f(0, 32));
 	}
-	else if (namePower == "DOUbLE-SaUT")
+	else if (namePower == "DOUbLE SaUT")
 	{
 		Pouvoir_en_cours->GetComponent<SpriteRenderer>()->SetSpriteRect(GetTextureByName("texture_double_jump"), Maths::Vector2f(window_size.x / 20, ((((window_size.x / 20) * 144) / 144))), Maths::Vector2f(144, 144), Maths::Vector2f(0, 369), Maths::Vector2f(0, 32));
 	}
