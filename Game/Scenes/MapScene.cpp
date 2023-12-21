@@ -7,7 +7,7 @@ MapScene::MapScene() : Scene("MapScene")
 {
 	SetTexture("texture_return_button", "Assets/button/return_button.png");
 	SetTexture("texture_livre", "Assets/Object/livre.png");
-	SetTexture("background", "Assets/background/Level3.design_(1).png");
+	SetTexture("background", "Assets/background/Level3.map.png");
 	SetBackground("background");
 
 	sf::Vector2f window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize();
