@@ -3,7 +3,7 @@
 #include "LaunchFunction.h"
 #include "SelectCapacityScene.h"
 
-MapScene::MapScene() : Scene("MapScene")
+MapScene::MapScene() : Scene("MapScene", [] {})
 {
 	SetTexture("texture_return_button", "Assets/button/return_button.png");
 	SetTexture("background", "Assets/background/Level3.map.png");
