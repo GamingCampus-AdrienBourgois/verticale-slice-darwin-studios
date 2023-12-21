@@ -462,6 +462,7 @@ bool Player::Dead(std::vector<GameObject*>* gameObjects)
 				*(*gameObjects)[i] = *gameObjectsCheckpoint[i];
 			}
 		}
+		hp = 100;
 	}
 	else
 	{
