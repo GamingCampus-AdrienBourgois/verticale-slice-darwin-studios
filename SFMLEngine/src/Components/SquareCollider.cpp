@@ -41,7 +41,7 @@ bool SquareCollider::IsColliding(const SquareCollider& _collider_a, const Square
 				else
 				{
 					_collider_a.GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("up", false);
-					_collider_a.GetOwner()->GetComponent<Player>()->SetHp(_collider_a.GetOwner()->GetComponent<Player>()->GetHp() - (1 * _delta_time));
+					_collider_a.GetOwner()->GetComponent<Player>()->SetHp(_collider_a.GetOwner()->GetComponent<Player>()->GetHp() - (100));
 				}
 			}
 			// top collision
@@ -64,7 +64,7 @@ bool SquareCollider::IsColliding(const SquareCollider& _collider_a, const Square
 				else
 				{
 					_collider_a.GetOwner()->GetComponent<SquareCollider>()->SetCanMoving("down", false);
-					_collider_a.GetOwner()->GetComponent<Player>()->SetHp(_collider_a.GetOwner()->GetComponent<Player>()->GetHp() - (1 * _delta_time));
+					_collider_a.GetOwner()->GetComponent<Player>()->SetHp(_collider_a.GetOwner()->GetComponent<Player>()->GetHp() - (100));
 				}
 			}
 			// bottom collision

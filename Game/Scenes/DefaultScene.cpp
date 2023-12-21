@@ -23,7 +23,7 @@ DefaultScene::DefaultScene(std::vector<Capacity> params) : Scene("DefaultScene")
 
 	GameObject* player = CreatePlayer(PlayerType, "Player", Maths::Vector2f(300, 400/*window_size.x * 0.1, window_size.y * 0.68*/), Maths::Vector2f((window_size.x / 25), (((window_size.x / 25) * 654) / 420)), "texture_zarya", Maths::Vector2f(420, 654), Maths::Vector2f(0, 1));
 	player->GetComponent<Player>()->SetPauseEscape([this] { LaunchFunction::LaunchSceneFalse<PauseScene>(); });
-	player->GetComponent<Player>()->SetDeathCallback([this] { LaunchFunction::LaunchSceneFalse<DeathScene>(); });
+	player->GetComponent<Player>()->SetDeathCallback([this] { LaunchFunction::LaunchSceneFalseParams<DeathScene>(""); });
 }
 
 GameObject* CreateColliderObject(Scene* scene, const ObjectType& _type, std::string _name, Maths::Vector2f _position, Maths::Vector2f _size) {
