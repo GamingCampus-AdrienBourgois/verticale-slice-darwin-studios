@@ -63,19 +63,10 @@ void Engine::SetMusicState(bool _state) {
 	}
 	else if (!_state && music.getStatus() == sf::SoundSource::Playing)
 	{
-		const float fadeDuration = 2.0f; // Durée de la diminution du volume en secondes
-		const float initialVolume = music.getVolume();
-		const float volumeStep = initialVolume / (fadeDuration * 60.0f); // Ajustez le pas selon vos besoins
-
-		sf::Clock fadeClock;
-		while (fadeClock.getElapsedTime().asSeconds() < fadeDuration) {
-			music.setVolume(std::max(0.f, music.getVolume() - volumeStep));
-			sf::sleep(sf::seconds(1.0f / 60.0f)); // Attendez 1/60e de seconde (60 FPS)
-		}
-
-		// Mettez en pause après la diminution progressive du volume
+		//Faire une descente progressive du son ?
 		music.pause();
-		music.setVolume(initialVolume); // Assurez-vous que le volume est rétabli à sa valeur initiale
+		//au lieu de mettre ne pause on peut mettre une autre musique maybe ? / Faire une fonction à appeler dans TransitionScene ou Default
+		music.setVolume(100.f);
 	}
 	
 }
