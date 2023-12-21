@@ -4,11 +4,14 @@
 #include "LaunchFunction.h"
 
 #include "PauseScene.h"
+#include "TransitionScene.h"
 #include "DeathScene.h"
 
 
 DefaultScene::DefaultScene(std::vector<Capacity> params) : Scene("DefaultScene")
 {
+	//LaunchFunction::LaunchSceneFalse<TransitionScene>();
+
 	SetTexture("texture_zarya", "Assets/Dolls/Zarya-sheet.png");
 	SetTexture("texture_zvezda", "Assets/Dolls/Zvezda-sheet.png");
 	SetTexture("texture_zwezda", "Assets/Dolls/Zwezda-sheet.png");
@@ -23,7 +26,8 @@ DefaultScene::DefaultScene(std::vector<Capacity> params) : Scene("DefaultScene")
 
 	GameObject* player = CreatePlayer(PlayerType, "Player", Maths::Vector2f(300, 400/*window_size.x * 0.1, window_size.y * 0.68*/), Maths::Vector2f((window_size.x / 25), (((window_size.x / 25) * 654) / 420)), "texture_zarya", Maths::Vector2f(420, 654), Maths::Vector2f(0, 1));
 	player->GetComponent<Player>()->SetPauseEscape([this] { LaunchFunction::LaunchSceneFalse<PauseScene>(); });
-	player->GetComponent<Player>()->SetDeathCallback([this] { LaunchFunction::LaunchSceneFalseParams<DeathScene>(""); });
+	std::string params_str = "";
+	player->GetComponent<Player>()->SetDeathCallback([this, params_str] { LaunchFunction::LaunchSceneParamsFalse<DeathScene>(params_str); });
 }
 
 GameObject* CreateColliderObject(Scene* scene, const ObjectType& _type, std::string _name, Maths::Vector2f _position, Maths::Vector2f _size) {

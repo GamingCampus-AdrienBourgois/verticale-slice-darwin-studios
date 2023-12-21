@@ -80,8 +80,8 @@ Scene* SceneModule::SetSceneWithParams(const bool _replace_scenes, std::vector<U
 	Scene* scene = static_cast<Scene*>(new T(params));
 	scenes.push_back(scene);
 
-	if (_replace_scenes)
-		mainScene = scene;
+	//if (_replace_scenes)
+	mainScene = scene;
 
 	return scene;
 }

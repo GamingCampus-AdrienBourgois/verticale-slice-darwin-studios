@@ -14,6 +14,15 @@ void LaunchFunction::LaunchSceneFalse() {
 	scene_module->SetNextScene([scene_module] { scene_module->SetScene<Scene>(false); });
 }
 
+template<typename Scene, typename U>
+void LaunchFunction::LaunchSceneParamsFalse(U tempParams) {
+	SceneModule* scene_module = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>();
+
+	std::vector<U> params;
+	params.push_back(tempParams);
+	scene_module->SetNextScene([scene_module, params] { scene_module->SetSceneWithParams<Scene>(false, params); });
+}
+
 inline void LaunchFunction::LauchGame() {
 	Scene* scene = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetMainScene();
 	std::vector<Capacity> params;

@@ -9,8 +9,8 @@ public:
 	template<typename Scene>
 	static void LaunchSceneFalse();
 
-	template<typename Scene>
-	static void LaunchSceneParams(std::string params);
+	template<typename Scene, typename U>
+	static void LaunchSceneParamsFalse(U params);
 
 	static void LauchGame();
 

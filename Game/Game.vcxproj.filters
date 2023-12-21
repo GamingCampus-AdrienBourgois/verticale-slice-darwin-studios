@@ -9,6 +9,7 @@
     <ClCompile Include="Scenes\SelectCapacityScene.cpp" />
     <ClCompile Include="Scenes\DeathScene.cpp" />
     <ClCompile Include="Scenes\PauseScene.cpp" />
+    <ClCompile Include="Scenes\TransitionScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scenes\CreditsScene.h" />
@@ -19,6 +20,7 @@
     <ClInclude Include="Scenes\MainMenuScene.h" />
     <ClInclude Include="Scenes\PauseScene.h" />
     <ClInclude Include="Scenes\SelectCapacityScene.h" />
+    <ClInclude Include="Scenes\TransitionScene.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="imgui.ini" />

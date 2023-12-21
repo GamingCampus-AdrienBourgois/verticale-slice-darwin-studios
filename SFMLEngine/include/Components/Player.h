@@ -30,6 +30,9 @@ public:
 	void SetPauseEscape(std::function<void()> _function) { pauseEscape = _function; }
 	void SetDeathCallback(std::function<void()> _function) { deathCallback = _function; }
 
+	void setDeathBy(std::string item) { deathBy = item; }
+	std::string GetDeathBy() { return deathBy; }
+
 	int GetHp() { return hp; }
 	int GetSpeed() { return speed; }
 	int GetGravity() { return gravity; }
@@ -53,6 +56,8 @@ private:
 	// // Variables
 	int hp = 100;
 	bool deathRespawn = false;
+	std::string deathBy;
+
 	int speed = sizeWindow.x / 9;
 	int gravity = 100;
 	float sizePlayer = sizeWindow.y / 22;
