@@ -18,8 +18,6 @@ public:
 	static void LaunchGame(std::vector<Capacity> vector_powers);
 
 	static void resumeGame();
-
-	
 };
 
 #include "LaunchFunction.inl"

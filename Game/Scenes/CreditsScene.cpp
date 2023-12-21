@@ -14,6 +14,7 @@
 
 CreditsScene::CreditsScene() : Scene("CreditsScene", [] {})
 {
+	Engine::SetMusicState(true);
 	SetTexture("background", "Assets/background/main_menu_background.png");
 	SetTexture("texture_return_button", "Assets/button/return_button.png");
 	SetBackground("background");

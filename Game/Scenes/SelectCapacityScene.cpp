@@ -12,13 +12,14 @@
 
 SelectCapacityScene::SelectCapacityScene() : Scene("SelectCapacityScene", [] {})
 {
-	if (!music.openFromFile("Assets/Sons/musique_level_3.ogg")) {
+	Engine::SetMusicState(true);
+	/*if (!music.openFromFile("Assets/Sons/musique_level_3.ogg")) {
 		std::cout << "La musique ne charge pas" << std::endl;
 	}
 
 	music.setLoop(true);
 	music.setVolume(100.f);
-	music.play();
+	music.play();*/
 
 	SetTexture("background", "Assets/background/capacity_background.png");
 	SetBackground("background");

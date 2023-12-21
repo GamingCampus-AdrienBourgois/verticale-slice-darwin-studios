@@ -5,6 +5,7 @@
 #include "MainMenuScene.h"
 
 DeathScene::DeathScene() : Scene("DeathScene", [] {}) {
+	Engine::SetMusicState(false);
 	SetFont("Font/UkrainianPrincess.ttf");
 	SetTexture("texture_button", "Assets/button/button.png");
 

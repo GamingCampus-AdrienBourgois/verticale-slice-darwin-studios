@@ -13,15 +13,15 @@
 
 DefaultScene::DefaultScene(std::vector<Capacity> params) : Scene("DefaultScene", [] {})
 {
-
+	Engine::SetMusicState(false);
 	
-	if (!music.openFromFile("Assets/Sons/musique_level_3.ogg")) {
+	/*if (!music.openFromFile("Assets/Sons/musique_level_3.ogg")) {
 		std::cout << "La musique ne charge pas" << std::endl;
 	}
 
 	music.setLoop(true);
 	music.setVolume(50.f);
-	music.play();
+	music.play();*/
 
 	SetTexture("texture_zarya", "Assets/Dolls/Zarya-sheet.png");
 	SetTexture("texture_zvezda", "Assets/Dolls/Zvezda-sheet.png");
