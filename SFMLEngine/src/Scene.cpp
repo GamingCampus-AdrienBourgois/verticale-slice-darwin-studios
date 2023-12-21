@@ -5,6 +5,7 @@
 
 #include <unordered_map>
 #include <SFML/Window/Event.hpp>
+#include <iostream>
 #include "Modules/WindowModule.h"
 
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -58,6 +59,8 @@ void Scene::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key
 		gameObjects[i]->Update(_delta_time, pressed_input);
 	}
 }
+
+
 
 void Scene::Render(sf::RenderWindow* _window) const	
 {

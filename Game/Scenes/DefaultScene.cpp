@@ -1,11 +1,23 @@
 #include "DefaultScene.h"
 #include "EndLevelScene.h"
+#include <iostream>
 
 
 
 
 DefaultScene::DefaultScene(std::vector<Capacity> params) : Scene("DefaultScene")
 {
+	
+	if (!music.openFromFile("Assets/Sons/musique_level_3.ogg")) {
+		std::cout << "La musique ne charge pas" << std::endl;
+	}
+
+	music.setLoop(true);
+	music.setVolume(50.f);
+	music.play();
+
+	
+
 	SetTexture("texture_zarya", "Assets/Dolls/Zarya-sheet.png");
 	SetTexture("texture_zvezda", "Assets/Dolls/Zvezda-sheet.png");
 	SetTexture("texture_zwezda", "Assets/Dolls/Zwezda-sheet.png");
@@ -17,6 +29,7 @@ DefaultScene::DefaultScene(std::vector<Capacity> params) : Scene("DefaultScene")
 }
 
 GameObject* DefaultScene::CreateColliderObject(Scene* scene, const ObjectType& _type, std::string _name, Maths::Vector2f _position, Maths::Vector2f _size) {
+
 	GameObject* game_object = scene->CreateGameObject(_type, _name);
 	game_object->SetPosition(_position);
 
@@ -34,6 +47,9 @@ GameObject* DefaultScene::CreateColliderObject(Scene* scene, const ObjectType& _
 }
 
 void DefaultScene::SpawnObjectLevel3(std::vector<Capacity> params) {
+	
+	
+
 	sf::Vector2f window_size = sf::Vector2f(Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize().x, Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize().y);
 
 
@@ -131,6 +147,11 @@ void DefaultScene::SpawnObjectLevel3(std::vector<Capacity> params) {
 	SceneModule* scene_module = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>();
 
 	hole->SetCallback([hole, scene_module] { scene_module->SetNextScene([scene_module] { scene_module->SetScene<EndLevelScene>(false); }); });
+
+	if (!hole)
+	{
+		music.stop();
+	}
 
 	//Interrupteur
 	GameObject* interrupteur = CreateInteractiveObject(this, InteractiveType, "Interrupteur", Maths::Vector2f(sizeX * 36.5104, sizeY * 61.2037), Maths::Vector2f(sizeX * 1.8958, ((sizeX * 1.8958) * 147) / 94.5), "texture_interrupteur", Maths::Vector2f(189, 294), Maths::Vector2f(0, 13), lampe);
