@@ -9,6 +9,7 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <Components/Player.h>
+#include <Components/Interactive.h>
 
 
 class Capacity;

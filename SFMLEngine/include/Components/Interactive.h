@@ -18,12 +18,14 @@ public:
 
 	void Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) override;
 
-	void SwitchStateLamp();
+	void SwitchStateLamp(Scene* scene);
 private:
 	bool is_activated = false;
 	bool can_be_activated = false;
 	sf::Clock can_activate_clock;
 
 	GameObject* object;
+	GameObject* lampe_Bottom;
+	GameObject* lampe_Top;
 	std::function<void()> callback;
 };

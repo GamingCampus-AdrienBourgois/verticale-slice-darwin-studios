@@ -1,5 +1,4 @@
 #include "Components/Interactive.h"
-#include <iostream>
 
 void Interactive::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) {
 	if (can_be_activated) {
@@ -28,7 +27,7 @@ void Interactive::Update(const float _delta_time, std::unordered_map<sf::Keyboar
 	}
 }
 
-void Interactive::SwitchStateLamp() {
+void Interactive::SwitchStateLamp(Scene* scene) {
 	if (is_activated) {
 		GetOwner()->GetComponent<SpriteRenderer>()->SetNextSpriteRect(1);
 		object->GetComponent<SpriteRenderer>()->SetNextSpriteRect(0);
@@ -38,5 +37,9 @@ void Interactive::SwitchStateLamp() {
 		GetOwner()->GetComponent<SpriteRenderer>()->SetNextSpriteRect(0);
 		object->GetComponent<SpriteRenderer>()->SetNextSpriteRect(1);
 		is_activated = true;
+		lampe_Bottom = scene->FindGameObject("Lampe_Bottom");
+		lampe_Top = scene->FindGameObject("Lampe_Top");
+		lampe_Bottom->SetType(ColliderType);
+		lampe_Top->SetType(ColliderType);
 	}
 }

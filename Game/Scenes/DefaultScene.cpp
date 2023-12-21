@@ -6,6 +6,8 @@
 #include "PauseScene.h"
 #include "TransitionScene.h"
 #include "DeathScene.h"
+#include <iostream>
+#include <Interactive.h>
 
 
 DefaultScene::DefaultScene(std::vector<Capacity> params) : Scene("DefaultScene", [] {})
@@ -178,13 +180,7 @@ void DefaultScene::SpawnObjectLevel3(std::vector<Capacity> params) {
 	//Interrupteur
 	GameObject* interrupteur = CreateInteractiveObject(this, InteractiveType, "Interrupteur", Maths::Vector2f(sizeX * 36.5104, sizeY * 61.2037), Maths::Vector2f(sizeX * 1.8958, ((sizeX * 1.8958) * 147) / 94.5), "texture_interrupteur", Maths::Vector2f(189, 294), Maths::Vector2f(0, 13), lampe);
 	interrupteur->GetComponent<SpriteRenderer>()->SetNextSpriteRect(1);
-	interrupteur->GetComponent<Interactive>()->SetCallback([interrupteur] {interrupteur->GetComponent<Interactive>()->SwitchStateLamp(); });
-	if (!interrupteur->GetComponent<Interactive>()->GetOn())
-	{
-		lampe_Bottom->SetType(ColliderType);
-		lampe_Top->SetType(ColliderType);
-	}
-
+	interrupteur->GetComponent<Interactive>()->SetCallback([interrupteur, this] {interrupteur->GetComponent<Interactive>()->SwitchStateLamp(this); });
 
 	//Affichage du pouvoir en cours
 	GameObject* Pouvoir_en_cours = CreateOnlySprite(this, GameObjectType, "pouvoir en cours", Maths::Vector2f(window_size.x / 50, window_size.y - window_size.y / 50 - 144), Maths::Vector2f(window_size.x / 20, ((((window_size.x / 20) * 144) / 144))), "texture_placeholder", Maths::Vector2f(144, 144), Maths::Vector2f(0, 15));
