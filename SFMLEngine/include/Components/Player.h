@@ -52,6 +52,7 @@ private:
 
 	// // Variables
 	int hp = 100;
+	bool deathRespawn = false;
 	int speed = sizeWindow.x / 9;
 	int gravity = 100;
 	float sizePlayer = sizeWindow.y / 22;

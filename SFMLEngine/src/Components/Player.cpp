@@ -447,21 +447,7 @@ bool Player::Dead(std::vector<GameObject*>* gameObjects)
 			}
 		}*/
 		deathCallback();
-
-		Scene* scene = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetMainScene();
-		std::vector<GameObject*>* gameObjects = scene->GetGameObjects();
-
-		for (int i = 0; i < gameObjects->size(); i++)
-		{
-			if (i >= gameObjectsCheckpoint.size())
-			{
-				scene->DestroyGameObject((*gameObjects)[i]);
-			}
-			else
-			{
-				*(*gameObjects)[i] = *gameObjectsCheckpoint[i];
-			}
-		}
+		deathRespawn = true;
 		hp = 100;
 	}
 	else
@@ -483,6 +469,26 @@ void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Ke
 		}
 
 		copiedSpawn = true;
+	}
+
+	if (deathRespawn)
+	{
+		Scene* scene = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetMainScene();
+		std::vector<GameObject*>* gameObjects = scene->GetGameObjects();
+
+		for (int i = 0; i < gameObjects->size(); i++)
+		{
+			if (i >= gameObjectsCheckpoint.size())
+			{
+				scene->DestroyGameObject((*gameObjects)[i]);
+			}
+			else
+			{
+				*(*gameObjects)[i] = *gameObjectsCheckpoint[i];
+			}
+		}
+
+		deathRespawn = false;
 	}
 	
 

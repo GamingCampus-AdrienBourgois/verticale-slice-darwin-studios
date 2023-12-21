@@ -165,7 +165,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Scenes\Level3.cpp" />
+    <ClCompile Include="Scenes\CreditsScene.cpp" />
+    <ClCompile Include="Scenes\DeathScene.cpp" />
+    <ClCompile Include="Scenes\DefaultScene.cpp" />
+    <ClCompile Include="Scenes\EndLevelScene.cpp" />
+    <ClCompile Include="Scenes\MainMenuScene.cpp" />
+    <ClCompile Include="Scenes\PauseScene.cpp" />
+    <ClCompile Include="Scenes\SelectCapacityScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SFMLEngine\SFMLEngine.vcxproj">
@@ -177,12 +183,14 @@
     <ClInclude Include="Scenes\DeathScene.h" />
     <ClInclude Include="Scenes\DefaultScene.h" />
     <ClInclude Include="Scenes\EndLevelScene.h" />
+    <ClInclude Include="Scenes\LaunchFunction.h" />
     <ClInclude Include="Scenes\MainMenuScene.h" />
     <ClInclude Include="Scenes\PauseScene.h" />
     <ClInclude Include="Scenes\SelectCapacityScene.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="imgui.ini" />
+    <None Include="Scenes\LaunchFunction.inl" />
     <None Include="x64\Debug\Game.exe.recipe" />
     <None Include="x64\Debug\Game.tlog\CL.command.1.tlog" />
     <None Include="x64\Debug\Game.tlog\Game.lastbuildstate" />

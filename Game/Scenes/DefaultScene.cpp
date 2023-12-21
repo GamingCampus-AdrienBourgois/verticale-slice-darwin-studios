@@ -1,17 +1,76 @@
 #include "DefaultScene.h"
 #include "EndLevelScene.h"
 
+#include "LaunchFunction.h"
+
+#include "PauseScene.h"
+#include "DeathScene.h"
+
+
+DefaultScene::DefaultScene(std::vector<Capacity> params) : Scene("DefaultScene")
+{
+	SetTexture("texture_zarya", "Assets/Dolls/Zarya-sheet.png");
+	SetTexture("texture_zvezda", "Assets/Dolls/Zvezda-sheet.png");
+	SetTexture("texture_zwezda", "Assets/Dolls/Zwezda-sheet.png");
+
+	GetBigCapacity()->SetName(params[0].GetName());
+	GetMidCapacity()->SetName(params[1].GetName());
+	GetSmallCapacity()->SetName(params[2].GetName());
+
+	SpawnObjectLevel3(params);
+	SetTexture("texture_return_button", "Assets/button/return_button.png");
+	GameObject* return_button = CreateSpriteButton_forMainMenu(ButtonType, "button_pause", Maths::Vector2f(window_size.x - window_size.x / 50 - 161, window_size.y / 50), Maths::Vector2f(window_size.x / 20, ((((window_size.x / 20) * 161) / 144))), [this] { LaunchFunction::LaunchSceneFalse<PauseScene>(); }, nullptr, "texture_return_button", Maths::Vector2f(144, 161), Maths::Vector2f(0, 15));
+
+	GameObject* player = CreatePlayer(PlayerType, "Player", Maths::Vector2f(300, 400/*window_size.x * 0.1, window_size.y * 0.68*/), Maths::Vector2f((window_size.x / 25), (((window_size.x / 25) * 654) / 420)), "texture_zarya", Maths::Vector2f(420, 654), Maths::Vector2f(0, 1));
+	player->GetComponent<Player>()->SetPauseEscape([this] { LaunchFunction::LaunchSceneFalse<PauseScene>(); });
+	player->GetComponent<Player>()->SetDeathCallback([this] { LaunchFunction::LaunchSceneFalse<DeathScene>(); });
+}
+
+GameObject* CreateColliderObject(Scene* scene, const ObjectType& _type, std::string _name, Maths::Vector2f _position, Maths::Vector2f _size) {
+	GameObject* game_object = scene->CreateGameObject(_type, _name);
+	game_object->SetPosition(_position);
+
+	sf::Vector2f window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize();
+
+	SquareCollider* squareCollider = game_object->CreateComponent<SquareCollider>();
+	squareCollider->SetWidth(_size.x);
+	squareCollider->SetHeight(_size.y);
+
+	RectangleShapeRenderer* shapeRenderer = game_object->CreateComponent<RectangleShapeRenderer>();
+	shapeRenderer->SetColor(sf::Color{ 255,0,0,50 }); // Couleur du mur
+	shapeRenderer->SetSize(Maths::Vector2f(_size.x, _size.y)); // Taille du mur
+
+	return game_object;
+}
+
+GameObject* DefaultScene::CreateColliderObject(Scene* scene, const ObjectType& _type, std::string _name, Maths::Vector2f _position, Maths::Vector2f _size) {
+	GameObject* game_object = scene->CreateGameObject(_type, _name);
+	game_object->SetPosition(_position);
+
+	sf::Vector2f window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize();
+
+	SquareCollider* squareCollider = game_object->CreateComponent<SquareCollider>();
+	squareCollider->SetWidth(_size.x);
+	squareCollider->SetHeight(_size.y);
+
+	RectangleShapeRenderer* shapeRenderer = game_object->CreateComponent<RectangleShapeRenderer>();
+	shapeRenderer->SetColor(sf::Color{ 255,0,0,50 }); // Couleur du mur
+	shapeRenderer->SetSize(Maths::Vector2f(_size.x, _size.y)); // Taille du mur
+
+	return game_object;
+}
+
 void DefaultScene::SpawnObjectLevel3(std::vector<Capacity> params) {
 	sf::Vector2f window_size = sf::Vector2f(Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize().x, Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize().y);
 
 
-    SetTexture("background", "Assets/background/Level3.design_(1).png");
-    SetBackground("background");
+	SetTexture("background", "Assets/background/Level3.design_(1).png");
+	SetBackground("background");
 	SetTexture("texture_livre", "Assets/Object/livre.png");
 	SetTexture("texture_interrupteur", "Assets/Object/interrupteur.png");
 	SetTexture("texture_fan", "Assets/Object/fan_gif.png");
 	SetTexture("texture_lampe", "Assets/Object/lamp.png");
-	
+
 	SetTexture("texture_placeholder", "Assets/button/Placeholder.png");
 	SetTexture("texture_dash", "Assets/button/dash_button.png");
 	SetTexture("texture_double_jump", "Assets/button/double_jump_button.png");
@@ -29,7 +88,7 @@ void DefaultScene::SpawnObjectLevel3(std::vector<Capacity> params) {
 	//Toit
 	CreateColliderObject(this, ColliderType, "Toit", Maths::Vector2f(0, 0), Maths::Vector2f(sizeX * 100, sizeY * 0.462963));
 
-	//EtagÃ¨re + livres
+	//Etagère + livres
 	CreateColliderObject(this, ColliderType, "Etagere", Maths::Vector2f(sizeX * 6.45833, sizeY * 44.9167), Maths::Vector2f(sizeX * 15.8854, sizeY * 1.66667));
 	CreateColliderObject(this, ColliderType, "Livre1", Maths::Vector2f(sizeX * 15.7292, sizeY * 34), Maths::Vector2f(sizeX * 1.82292, sizeY * 10.6667));
 	CreateColliderObject(this, ColliderType, "Livre2", Maths::Vector2f(sizeX * 17.7083, sizeY * 29.8333), Maths::Vector2f(sizeX * 2.60417, sizeY * 14.75));
@@ -46,36 +105,36 @@ void DefaultScene::SpawnObjectLevel3(std::vector<Capacity> params) {
 	//Ours
 	CreateColliderObject(this, ColliderType, "Ours", Maths::Vector2f(sizeX * 25.8333, sizeY * 55.1852), Maths::Vector2f(sizeX * 2.70833, sizeY * 5.09259));
 	CreateColliderObject(this, ColliderType, "Ours", Maths::Vector2f(sizeX * 32.5, sizeY * 55.0926), Maths::Vector2f(sizeX * 3.17708, sizeY * 5.83333));
-											  
+
 	CreateColliderObject(this, ColliderType, "Ours", Maths::Vector2f(sizeX * 27.0833, sizeY * 56.0185), Maths::Vector2f(sizeX * 5.67708, sizeY * 12.8704));
-											  
+
 	CreateColliderObject(this, ColliderType, "Ours", Maths::Vector2f(sizeX * 26.875, sizeY * 68.9815), Maths::Vector2f(sizeX * 7.44792, sizeY * 6.66667));
 	CreateColliderObject(this, ColliderType, "Ours", Maths::Vector2f(sizeX * 24.8958, sizeY * 73.3333), Maths::Vector2f(sizeX * 11.6146, sizeY * 5.46296));
 
 	CreateColliderObject(this, ColliderType, "Ours", Maths::Vector2f(sizeX * 26.4062, sizeY * 60.1852), Maths::Vector2f(sizeX * 8.38542, sizeY * 8.05556));
 
-	//FenÃªtre
+	//Fenêtre
 	CreateColliderObject(this, ColliderType, "Fenetre", Maths::Vector2f(sizeX * 22.7083, sizeY * 51.6667), Maths::Vector2f(sizeX * 19.7396, sizeY * 1.5));
 	//Livre mouvable
-	CreateSpriteObject(this, MoveType, "LivreMove", Maths::Vector2f(sizeX * 39.7412, sizeY * 40.9), Maths::Vector2f(sizeX * 1.73684, sizeY * 13.7), "texture_livre", Maths::Vector2f(0,0), Maths::Vector2f(0,0));
+	CreateSpriteObject(this, MoveType, "LivreMove", Maths::Vector2f(sizeX * 39.7412, sizeY * 40.9), Maths::Vector2f(sizeX * 1.73684, sizeY * 13.7), "texture_livre", Maths::Vector2f(0, 0), Maths::Vector2f(0, 0));
 
 	//Lampe
 	GameObject* lampe = CreateOnlySprite(this, GameObjectType, "Lampe", Maths::Vector2f(sizeX * 50.3125, sizeY * 53.1667), Maths::Vector2f(sizeX * 6.875, sizeY * 35.8333), "texture_lampe", Maths::Vector2f(122, 341), Maths::Vector2f(6, 0));
 
 	CreateColliderObject(this, DeathType, "Lampe_Bottom", Maths::Vector2f(sizeX * 50.3646, sizeY * 56.75), Maths::Vector2f(sizeX * 6.875, sizeY * 4.62963));
 	CreateColliderObject(this, DeathType, "Lampe_Top", Maths::Vector2f(sizeX * 51.3542, sizeY * 53.4167), Maths::Vector2f(sizeX * 4.89583, sizeY * 3.25));
-	
-	
+
+
 	//Carton
 	CreateColliderObject(this, ColliderType, "Carton_Bed", Maths::Vector2f(sizeX * 42.9688, sizeY * 80.9167), Maths::Vector2f(sizeX * 7.34375, sizeY * 12.3333));
 	CreateColliderObject(this, ColliderType, "Carton_BedLittle", Maths::Vector2f(sizeX * 50.3125, sizeY * 86.75), Maths::Vector2f(sizeX * 1.5625, sizeY * 6.41667));
 	CreateColliderObject(this, ColliderType, "Carton_Desk", Maths::Vector2f(sizeX * 57.0312, sizeY * 63.6667), Maths::Vector2f(sizeX * 5.52083, sizeY * 9.91667));
-	   
+
 
 	//Cadre_du_haut
 	CreateColliderObject(this, ColliderType, "Cadre_du_haut", Maths::Vector2f(sizeX * 69.7917, sizeY * 20.5), Maths::Vector2f(sizeX * 11.5104, sizeY * 12.8704));
 
-	//EtagÃ¨re du bureau
+	//Etagère du bureau
 	CreateColliderObject(this, ColliderType, "Etagere_Desk", Maths::Vector2f(sizeX * 61.4583, sizeY * 47.8333), Maths::Vector2f(sizeX * 15.8854, sizeY * 1.66667));
 	CreateColliderObject(this, ColliderType, "Livre1_Desk", Maths::Vector2f(sizeX * 66.7188, sizeY * 43.1667), Maths::Vector2f(sizeX * 8.69792, sizeY * 4.66667));
 	CreateColliderObject(this, ColliderType, "Livre2_Desk", Maths::Vector2f(sizeX * 69.0625, sizeY * 39.6667), Maths::Vector2f(sizeX * 6.25, sizeY * 3.16667));
@@ -109,7 +168,7 @@ void DefaultScene::SpawnObjectLevel3(std::vector<Capacity> params) {
 
 	//Affichage du pouvoir en cours
 	GameObject* Pouvoir_en_cours = CreateOnlySprite(this, GameObjectType, "pouvoir en cours", Maths::Vector2f(window_size.x / 50, window_size.y - window_size.y / 50 - 144), Maths::Vector2f(window_size.x / 20, ((((window_size.x / 20) * 144) / 144))), "texture_placeholder", Maths::Vector2f(144, 144), Maths::Vector2f(0, 15));
-	
+
 	std::string namePower = params[0].GetName();
 	if (namePower == "INVERSION DE LA GRaVITE")
 	{
@@ -132,6 +191,3 @@ void DefaultScene::SpawnObjectLevel3(std::vector<Capacity> params) {
 		Pouvoir_en_cours->GetComponent<SpriteRenderer>()->SetSpriteRect(GetTextureByName("texture_force"), Maths::Vector2f(window_size.x / 20, ((((window_size.x / 20) * 144) / 144))), Maths::Vector2f(144, 144), Maths::Vector2f(0, 369), Maths::Vector2f(0, 32));
 	}
 }
-
-
-
