@@ -1,5 +1,6 @@
 #include "DefaultScene.h"
 #include "EndLevelScene.h"
+#include <iostream>
 
 #include "LaunchFunction.h"
 
@@ -10,6 +11,15 @@
 
 DefaultScene::DefaultScene(std::vector<Capacity> params) : Scene("DefaultScene", [] {})
 {
+
+	
+	if (!music.openFromFile("Assets/Sons/musique_level_3.ogg")) {
+		std::cout << "La musique ne charge pas" << std::endl;
+	}
+
+	music.setLoop(true);
+	music.setVolume(50.f);
+	music.play();
 
 	SetTexture("texture_zarya", "Assets/Dolls/Zarya-sheet.png");
 	SetTexture("texture_zvezda", "Assets/Dolls/Zvezda-sheet.png");
@@ -59,6 +69,7 @@ GameObject* CreateColliderObject(Scene* scene, const ObjectType& _type, std::str
 }
 
 GameObject* DefaultScene::CreateColliderObject(Scene* scene, const ObjectType& _type, std::string _name, Maths::Vector2f _position, Maths::Vector2f _size) {
+
 	GameObject* game_object = scene->CreateGameObject(_type, _name);
 	game_object->SetPosition(_position);
 
@@ -76,6 +87,9 @@ GameObject* DefaultScene::CreateColliderObject(Scene* scene, const ObjectType& _
 }
 
 void DefaultScene::SpawnObjectLevel3(std::vector<Capacity> params) {
+	
+	
+
 	sf::Vector2f window_size = sf::Vector2f(Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize().x, Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize().y);
 
 
@@ -103,7 +117,7 @@ void DefaultScene::SpawnObjectLevel3(std::vector<Capacity> params) {
 	//Toit
 	CreateColliderObject(this, ColliderType, "Toit", Maths::Vector2f(0, 0), Maths::Vector2f(sizeX * 100, sizeY * 0.462963));
 
-	//Etagère + livres
+	//EtagÃ¨re + livres
 	CreateColliderObject(this, ColliderType, "Etagere", Maths::Vector2f(sizeX * 6.45833, sizeY * 44.9167), Maths::Vector2f(sizeX * 15.8854, sizeY * 1.66667));
 	CreateColliderObject(this, ColliderType, "Livre1", Maths::Vector2f(sizeX * 15.7292, sizeY * 34), Maths::Vector2f(sizeX * 1.82292, sizeY * 10.6667));
 	CreateColliderObject(this, ColliderType, "Livre2", Maths::Vector2f(sizeX * 17.7083, sizeY * 29.8333), Maths::Vector2f(sizeX * 2.60417, sizeY * 14.75));
@@ -128,7 +142,7 @@ void DefaultScene::SpawnObjectLevel3(std::vector<Capacity> params) {
 
 	CreateColliderObject(this, ColliderType, "Ours", Maths::Vector2f(sizeX * 26.4062, sizeY * 60.1852), Maths::Vector2f(sizeX * 8.38542, sizeY * 8.05556));
 
-	//Fenêtre
+	//FenÃªtre
 	CreateColliderObject(this, ColliderType, "Fenetre", Maths::Vector2f(sizeX * 22.7083, sizeY * 51.6667), Maths::Vector2f(sizeX * 19.7396, sizeY * 1.5));
 	//Livre mouvable
 	CreateSpriteObject(this, MoveType, "LivreMove", Maths::Vector2f(sizeX * 39.7412, sizeY * 40.9), Maths::Vector2f(sizeX * 1.73684, sizeY * 13.7), "texture_livre", Maths::Vector2f(0, 0), Maths::Vector2f(0, 0));
@@ -149,7 +163,7 @@ void DefaultScene::SpawnObjectLevel3(std::vector<Capacity> params) {
 	//Cadre_du_haut
 	CreateColliderObject(this, ColliderType, "Cadre_du_haut", Maths::Vector2f(sizeX * 69.7917, sizeY * 20.5), Maths::Vector2f(sizeX * 11.5104, sizeY * 12.8704));
 
-	//Etagère du bureau
+	//EtagÃ¨re du bureau
 	CreateColliderObject(this, ColliderType, "Etagere_Desk", Maths::Vector2f(sizeX * 61.4583, sizeY * 47.8333), Maths::Vector2f(sizeX * 15.8854, sizeY * 1.66667));
 	CreateColliderObject(this, ColliderType, "Livre1_Desk", Maths::Vector2f(sizeX * 66.7188, sizeY * 43.1667), Maths::Vector2f(sizeX * 8.69792, sizeY * 4.66667));
 	CreateColliderObject(this, ColliderType, "Livre2_Desk", Maths::Vector2f(sizeX * 69.0625, sizeY * 39.6667), Maths::Vector2f(sizeX * 6.25, sizeY * 3.16667));
@@ -174,6 +188,11 @@ void DefaultScene::SpawnObjectLevel3(std::vector<Capacity> params) {
 	SceneModule* scene_module = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>();
 
 	hole->SetCallback([hole, scene_module] { scene_module->SetNextScene([scene_module] { scene_module->SetScene<EndLevelScene>(false); }); });
+
+	if (!hole)
+	{
+		music.stop();
+	}
 
 	//Interrupteur
 	GameObject* interrupteur = CreateInteractiveObject(this, InteractiveType, "Interrupteur", Maths::Vector2f(sizeX * 36.5104, sizeY * 61.2037), Maths::Vector2f(sizeX * 1.8958, ((sizeX * 1.8958) * 147) / 94.5), "texture_interrupteur", Maths::Vector2f(189, 294), Maths::Vector2f(0, 13), lampe);

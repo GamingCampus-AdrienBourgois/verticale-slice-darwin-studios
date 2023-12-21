@@ -3,6 +3,7 @@
 #include "Engine.h"
 #include "LaunchFunction.h"
 #include "WindowModule.h"
+#include <iostream>
 
 #include "DefaultScene.h"
 #include "MainMenuScene.h"
@@ -11,6 +12,14 @@
 
 SelectCapacityScene::SelectCapacityScene() : Scene("SelectCapacityScene", [] {})
 {
+	if (!music.openFromFile("Assets/Sons/musique_level_3.ogg")) {
+		std::cout << "La musique ne charge pas" << std::endl;
+	}
+
+	music.setLoop(true);
+	music.setVolume(100.f);
+	music.play();
+
 	SetTexture("background", "Assets/background/capacity_background.png");
 	SetBackground("background");
 	SetFont("Font/UkrainianPrincess.ttf");
@@ -31,7 +40,8 @@ SelectCapacityScene::SelectCapacityScene() : Scene("SelectCapacityScene", [] {})
 	doll_button3->GetComponent<Button>()->SetCallback(std::bind(&Button::DollSelectCapacity, doll_button3->GetComponent<Button>()));
 
 
-	GameObject* launch_game_button = CreateSpriteButton_forMainMenu(ButtonType, "launch_game_button", Maths::Vector2f((window_size.x / 2) - (window_size.x / 15), (window_size.y - window_size.y / 100 * 15)), Maths::Vector2f(window_size.x / 15 * 2, ((((window_size.x / 15 * 2) * 168) / 448))), [this] {callbackPlayButton();}, nullptr, "texture_launch_capacity_button", Maths::Vector2f(448, 168), Maths::Vector2f(0, 24));
+	GameObject* launch_game_button = CreateSpriteButton_forMainMenu(ButtonType, "launch_game_button", Maths::Vector2f((window_size.x / 2) - (window_size.x / 15), (window_size.y - window_size.y / 100 * 15)), Maths::Vector2f(window_size.x / 15 * 2, ((((window_size.x / 15 * 2) * 168) / 448))), [this] {LaunchFunction::LauchGame(); music.stop(); }, nullptr, "texture_launch_capacity_button", Maths::Vector2f(448, 168), Maths::Vector2f(0, 24));
+
 	launch_game_button->GetComponent<RectangleShapeRenderer>()->SetColor(launch_game_button->GetComponent<RectangleShapeRenderer>()->GetDisabledColor());
 	launch_game_button->GetComponent<Button>()->is_disabled = true;
 	if (launch_game_button->GetComponent<SpriteRenderer>() != nullptr) {
@@ -40,6 +50,11 @@ SelectCapacityScene::SelectCapacityScene() : Scene("SelectCapacityScene", [] {})
 
 	GameObject* map_button = CreateSpriteButton_forMainMenu(ButtonType, "map_button", Maths::Vector2f(window_size.x / 50, window_size.y / 50), Maths::Vector2f(window_size.x / 20, ((((window_size.x / 20) * 161) / 144))), [this] {LaunchFunction::LaunchScene<MapScene>(); }, nullptr, "texture_map_button", Maths::Vector2f(144, 161), Maths::Vector2f(0, 15));
 	GameObject* return_button = CreateSpriteButton_forMainMenu(ButtonType, "return_button", Maths::Vector2f(window_size.x / 50, window_size.y - window_size.y / 50 - 144), Maths::Vector2f(window_size.x / 20, ((((window_size.x / 20) * 161) / 144))), [this] {LaunchFunction::LaunchScene<MainMenuScene>(); }, nullptr, "texture_return_button", Maths::Vector2f(144, 161), Maths::Vector2f(0, 15));
+
+  if (!map_button || !return_button)
+	{
+		music.stop();
+	}
 }
 
 void SelectCapacityScene::callbackPlayButton() {

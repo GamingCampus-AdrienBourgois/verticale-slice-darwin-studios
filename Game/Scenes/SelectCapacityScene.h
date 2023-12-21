@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Scene.h"
+#include <SFML/Audio.hpp>
 
 
 
@@ -14,4 +15,7 @@ public:
 
 private:
 	void callbackPlayButton();
+
+	sf::Music music;
+
 };

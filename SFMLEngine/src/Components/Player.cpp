@@ -14,16 +14,77 @@
 #include "Capacity/Dash.h"
 
 
+//Sound
+Player::Player() {
+	soundBufferJump = new sf::SoundBuffer;
+	if (!soundBufferJump->loadFromFile("Assets/Sons/Saut.wav")) {
+		std::cout << "erreur de chargement du fichier" << std::endl;
+	}
+	soundJump = new sf::Sound;
+
+	soundBufferWalk = new sf::SoundBuffer;
+	if (!soundBufferWalk->loadFromFile("Assets/Sons/deplacement.wav")) {
+		std::cout << "erreur de chargement du fichier" << std::endl;
+	}
+	soundWalk = new sf::Sound;
+
+	soundBufferSwitchDoll = new sf::SoundBuffer;
+	if (!soundBufferSwitchDoll->loadFromFile("Assets/Sons/changement_poupee.wav")) {
+		std::cout << "erreur de chargement du fichier" << std::endl;
+	}
+	soundSwitchDoll = new sf::Sound;
+}
+
+Player::~Player() {
+	delete soundBufferJump;
+	delete soundJump;
+	delete soundBufferWalk;
+	delete soundWalk;
+	delete soundBufferSwitchDoll;
+	delete soundSwitchDoll;
+}
+
+void Player::PlaySound() {
+	soundJump->setBuffer(*soundBufferJump);
+	soundJump->play();
+	soundWalk->setBuffer(*soundBufferWalk);
+	soundWalk->play();
+	soundSwitchDoll->setBuffer(*soundBufferSwitchDoll);
+	soundSwitchDoll->play();
+}
+
+void Player::StopSound() {
+	soundJump->stop();
+	soundWalk->stop();
+	soundSwitchDoll->stop();
+}
+
 void Player::Move(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, std::vector<GameObject*>* gameObjects){
 	Maths::Vector2f start_position = GetOwner()->GetPosition();
-	for (const auto& input : *pressed_input) {
-		if (input.first == 3 && input.second == true && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["right"]) {
-			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX() + (speed * _delta_time), GetOwner()->GetPosition().GetY()));
-		}else if (input.first == 16 && input.second == true && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["left"]) {
-			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX() - (speed * _delta_time), GetOwner()->GetPosition().GetY()));
+	if (!isWalking)
+	{
+		for (const auto& input : *pressed_input) {
+			if (input.first == 3 && input.second == true && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["right"]) {
+				GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX() + (speed * _delta_time), GetOwner()->GetPosition().GetY()));
+				isWalking = true; // Activation du son si D est enfoncée
+			}
+			else if (input.first == 16 && input.second == true && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["left"]) {
+				GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX() - (speed * _delta_time), GetOwner()->GetPosition().GetY()));
+				isWalking = true; // Activation du son si Q est enfoncée
+			}
+			if (isWalking) {
+				// Son Déplacement en boucle
+				soundWalk->setBuffer(*soundBufferWalk);
+				soundWalk->setLoop(true); // Jouer en boucle
+				soundWalk->setVolume(50);
+				soundWalk->play();
+				/*std::cout << "son de marche" << std::endl;*/
+			}
 		}
+		soundWalk->stop();
 	}
-
+	
+	
 	if (start_position != GetOwner()->GetPosition()) {
 		if (start_position.x < GetOwner()->GetPosition().x) {
 			GetOwner()->GetComponent<SpriteRenderer>()->SetSpriteFirstPosition(Maths::Vector2f(GetOwner()->GetComponent<SpriteRenderer>()->GetSpriteSize().x * 2 + 1, 0));
@@ -113,6 +174,12 @@ void Player::Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key,
 			GetOwner()->GetComponent<SpriteRenderer>()->SetSpriteFirstPosition(Maths::Vector2f(0, 0));
 
 		}
+		if (jumping_time.getElapsedTime().asSeconds() <= 0.01) {
+			//Son Jump
+			soundJump->setBuffer(*soundBufferJump);
+			soundJump->setVolume(50);
+			soundJump->play();
+		}
 		if (jumping_time.getElapsedTime().asSeconds() <= 0.4) {
 		GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() - (sizeWindow.y * 0.3 * _delta_time)));
 		}
@@ -165,6 +232,11 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 				is_switching = true;
 				// Effacer l'élément du vecteur
 				it = pressed_input->erase(it);
+
+				//Son changement de poupée
+				soundSwitchDoll->setBuffer(*soundBufferSwitchDoll);
+				soundSwitchDoll->setVolume(100);
+				soundSwitchDoll->play();
 			}
 			else {
 				++it;
@@ -484,6 +556,7 @@ bool Player::Dead(std::vector<GameObject*>* gameObjects)
 
 void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) {
 	Scene* scene = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetMainScene();
+	isWalking = false;
 
 	if (!copiedSpawn)
 	{

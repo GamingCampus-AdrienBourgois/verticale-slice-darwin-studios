@@ -6,6 +6,7 @@
 #include "Components/Button.h"
 #include <functional>
 
+
 #include "Components/RectangleShapeRenderer.h"
 #include "Components/TextRenderer.h"
 #include "Components/SquareCollider.h"
@@ -25,7 +26,10 @@ public:
 	Capacity* GetMidCapacity() { return capacity_for_mid_doll; }
 	Capacity* GetSmallCapacity() { return capacity_for_small_doll; }
 
+
 	void Update(float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input);
+
+
 
 	void Render(sf::RenderWindow* _window) const;
 
@@ -76,4 +80,5 @@ private:
 	std::function<void()> callBack;
 	bool gameLoaded = false;
 	void SetGameLoaded(bool _new) { gameLoaded = _new; };
+
 };
