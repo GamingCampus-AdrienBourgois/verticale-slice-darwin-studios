@@ -9,7 +9,7 @@
 #include "WindowModule.h"
 #include "InputModule.h"
 
-OptionsScene::OptionsScene() : Scene("OptionsScene")
+OptionsScene::OptionsScene() : Scene("OptionsScene", [] {})
 {
 	SetTexture("background", "Assets/background/main_menu_background.png");
 	SetTexture("texture_return_button", "Assets/button/return_button.png");

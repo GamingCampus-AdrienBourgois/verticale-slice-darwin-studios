@@ -3,10 +3,17 @@
 #include "Capacity.h"
 #include <SFML/System/Clock.hpp>
 #include "GameObject.h"
+#include <SFML/Audio.hpp>
 
 class Dash : public Capacity {
 public:
+    Dash();
+    ~Dash();
+
     void Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) override;
+
+    void PlaySound();
+    void StopSound();
 
 private:
     sf::Clock StartClockCooldownDash;
@@ -15,6 +22,10 @@ private:
     int speed_dash = 0;
     int timeDash = 50;
 
+    sf::SoundBuffer* soundBufferDash;
+    sf::Sound* soundDash;
+
+    bool soundPlayed = false;
     bool is_dashing = false;
 
     void IsDashing(const float _delta_time, std::vector<GameObject*>* gameObjects);

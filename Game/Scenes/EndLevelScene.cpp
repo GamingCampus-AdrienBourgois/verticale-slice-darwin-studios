@@ -3,8 +3,9 @@
 #include "LaunchFunction.h"
 #include "MainMenuScene.h"
 
-EndLevelScene::EndLevelScene() : Scene("EndLevelScene")
+EndLevelScene::EndLevelScene() : Scene("EndLevelScene", [] {})
 {
+	Engine::SetMusicState(false);
 	SetFont("Font/UkrainianPrincess.ttf");
 	SetTexture("texture_button", "Assets/button/button.png");
 

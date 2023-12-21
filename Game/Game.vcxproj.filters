@@ -9,6 +9,9 @@
     <ClCompile Include="Scenes\SelectCapacityScene.cpp" />
     <ClCompile Include="Scenes\DeathScene.cpp" />
     <ClCompile Include="Scenes\PauseScene.cpp" />
+    <ClCompile Include="Scenes\TransitionScene.cpp" />
+    <ClCompile Include="Scenes\MapScene.cpp" />
+    <ClCompile Include="Scenes\OptionsScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -29,38 +32,30 @@
     <ClCompile Include="Scenes\SelectCapacityScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\OptionsScene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Scenes\DefaultScene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\SelectCapacityScene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\MainMenuScene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\EndLevelScene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\CreditsScene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\LaunchFunction.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\OptionsScene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <ClInclude Include="Scenes\CreditsScene.h" />
+    <ClInclude Include="Scenes\DefaultScene.h" />
+    <ClInclude Include="Scenes\EndLevelScene.h" />
+    <ClInclude Include="Scenes\OptionsScene.h" />
+    <ClInclude Include="Scenes\LaunchFunction.h" />
+    <ClInclude Include="Scenes\MainMenuScene.h" />
+    <ClInclude Include="Scenes\SelectCapacityScene.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="imgui.ini" />
-    <None Include="Scenes\LaunchFunction.inl">
-      <Filter>Header Files</Filter>
-    </None>
+    <ClInclude Include="Scenes\CreditsScene.h" />
+    <ClInclude Include="Scenes\DeathScene.h" />
+    <ClInclude Include="Scenes\DefaultScene.h" />
+    <ClInclude Include="Scenes\EndLevelScene.h" />
+    <ClInclude Include="Scenes\LaunchFunction.h" />
+    <ClInclude Include="Scenes\MainMenuScene.h" />
+    <ClInclude Include="Scenes\PauseScene.h" />
+    <ClInclude Include="Scenes\SelectCapacityScene.h" />
+    <ClInclude Include="Scenes\TransitionScene.h" />
+    <ClInclude Include="Scenes\MapScene.h" />
+    <None Include="Scenes\LaunchFunction.inl" />
+    <None Include="x64\Debug\Game.ilk" />
   </ItemGroup>
   <ItemGroup>
     <None Include="imgui.ini" />
@@ -76,5 +71,18 @@
     <Text Include="x64\Debug\Game.Build.CppClean.log" />
     <Text Include="x64\Debug\Game.log" />
     <Text Include="x64\Debug\Game.vcxproj.FileListAbsolute.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="x64\Debug\CreditsScene.obj" />
+    <Object Include="x64\Debug\DeathScene.obj" />
+    <Object Include="x64\Debug\DefaultScene.obj" />
+    <Object Include="x64\Debug\EndLevelScene.obj" />
+    <Object Include="x64\Debug\main.obj" />
+    <Object Include="x64\Debug\MainMenuScene.obj" />
+    <Object Include="x64\Debug\MapScene.obj" />
+    <Object Include="x64\Debug\OptionsScene.obj" />
+    <Object Include="x64\Debug\PauseScene.obj" />
+    <Object Include="x64\Debug\SelectCapacityScene.obj" />
+    <Object Include="x64\Debug\TransitionScene.obj" />
   </ItemGroup>
 </Project>

@@ -107,7 +107,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)lib\Debug;$(SolutionDir)lib;$(ProjectDir)lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-graphics-s-d.lib;sfml-window-s-d.lib;sfml-system-s-d.lib;opengl32.lib;freetype.lib;winmm.lib;gdi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-graphics-s-d.lib;sfml-window-s-d.lib;sfml-system-s-d.lib;opengl32.lib;freetype.lib;winmm.lib;gdi32.lib;sfml-audio-s-d.lib;openal32.lib;flac.lib;vorbisenc.lib;vorbisfile.lib;vorbis.lib;ogg.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -126,7 +126,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)lib\Debug;$(SolutionDir)lib;$(ProjectDir)lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-graphics-s.lib;sfml-window-s.lib;sfml-system-s.lib;opengl32.lib;freetype.lib;winmm.lib;gdi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-graphics-s.lib;sfml-window-s.lib;sfml-system-s.lib;opengl32.lib;freetype.lib;winmm.lib;gdi32.lib;openal32.lib;flac.lib;vorbisenc.lib;vorbisfile.lib;vorbis.lib;ogg.lib;sfml-audio-s.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -141,7 +141,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)lib\Debug;$(SolutionDir)lib;$(ProjectDir)lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-graphics-s-d.lib;sfml-window-s-d.lib;sfml-system-s-d.lib;opengl32.lib;freetype.lib;winmm.lib;gdi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-graphics-s-d.lib;sfml-window-s-d.lib;sfml-system-s-d.lib;opengl32.lib;freetype.lib;winmm.lib;gdi32.lib;sfml-audio-s-d.lib;openal32.lib;flac.lib;vorbisenc.lib;vorbisfile.lib;vorbis.lib;ogg.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -160,7 +160,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)lib\Debug;$(SolutionDir)lib;$(ProjectDir)lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-graphics-s.lib;sfml-window-s.lib;sfml-system-s.lib;opengl32.lib;freetype.lib;winmm.lib;gdi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-graphics-s.lib;sfml-window-s.lib;sfml-system-s.lib;opengl32.lib;freetype.lib;winmm.lib;gdi32.lib;openal32.lib;flac.lib;vorbisenc.lib;vorbisfile.lib;vorbis.lib;ogg.lib;sfml-audio-s.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -170,8 +170,10 @@
     <ClCompile Include="Scenes\DefaultScene.cpp" />
     <ClCompile Include="Scenes\EndLevelScene.cpp" />
     <ClCompile Include="Scenes\MainMenuScene.cpp" />
+    <ClCompile Include="Scenes\MapScene.cpp" />
     <ClCompile Include="Scenes\PauseScene.cpp" />
     <ClCompile Include="Scenes\SelectCapacityScene.cpp" />
+    <ClCompile Include="Scenes\TransitionScene.cpp" />
     <ClCompile Include="Scenes\OptionsScene.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -187,13 +189,16 @@
     <ClInclude Include="Scenes\OptionsScene.h" />
     <ClInclude Include="Scenes\LaunchFunction.h" />
     <ClInclude Include="Scenes\MainMenuScene.h" />
+    <ClInclude Include="Scenes\MapScene.h" />
     <ClInclude Include="Scenes\PauseScene.h" />
     <ClInclude Include="Scenes\SelectCapacityScene.h" />
+    <ClInclude Include="Scenes\TransitionScene.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="imgui.ini" />
     <None Include="Scenes\LaunchFunction.inl" />
     <None Include="x64\Debug\Game.exe.recipe" />
+    <None Include="x64\Debug\Game.ilk" />
     <None Include="x64\Debug\Game.tlog\CL.command.1.tlog" />
     <None Include="x64\Debug\Game.tlog\Game.lastbuildstate" />
     <None Include="x64\Debug\Game.tlog\unsuccessfulbuild" />
@@ -204,6 +209,19 @@
     <Text Include="x64\Debug\Game.Build.CppClean.log" />
     <Text Include="x64\Debug\Game.log" />
     <Text Include="x64\Debug\Game.vcxproj.FileListAbsolute.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="x64\Debug\CreditsScene.obj" />
+    <Object Include="x64\Debug\DeathScene.obj" />
+    <Object Include="x64\Debug\DefaultScene.obj" />
+    <Object Include="x64\Debug\EndLevelScene.obj" />
+    <Object Include="x64\Debug\main.obj" />
+    <Object Include="x64\Debug\MainMenuScene.obj" />
+    <Object Include="x64\Debug\MapScene.obj" />
+    <Object Include="x64\Debug\OptionsScene.obj" />
+    <Object Include="x64\Debug\PauseScene.obj" />
+    <Object Include="x64\Debug\SelectCapacityScene.obj" />
+    <Object Include="x64\Debug\TransitionScene.obj" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

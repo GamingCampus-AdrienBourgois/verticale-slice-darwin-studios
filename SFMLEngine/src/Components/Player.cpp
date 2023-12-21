@@ -14,16 +14,77 @@
 #include "Capacity/Dash.h"
 
 
+//Sound
+Player::Player() {
+	soundBufferJump = new sf::SoundBuffer;
+	if (!soundBufferJump->loadFromFile("Assets/Sons/Saut.wav")) {
+		std::cout << "erreur de chargement du fichier" << std::endl;
+	}
+	soundJump = new sf::Sound;
+
+	soundBufferWalk = new sf::SoundBuffer;
+	if (!soundBufferWalk->loadFromFile("Assets/Sons/deplacement.wav")) {
+		std::cout << "erreur de chargement du fichier" << std::endl;
+	}
+	soundWalk = new sf::Sound;
+
+	soundBufferSwitchDoll = new sf::SoundBuffer;
+	if (!soundBufferSwitchDoll->loadFromFile("Assets/Sons/changement_poupee.wav")) {
+		std::cout << "erreur de chargement du fichier" << std::endl;
+	}
+	soundSwitchDoll = new sf::Sound;
+}
+
+Player::~Player() {
+	delete soundBufferJump;
+	delete soundJump;
+	delete soundBufferWalk;
+	delete soundWalk;
+	delete soundBufferSwitchDoll;
+	delete soundSwitchDoll;
+}
+
+void Player::PlaySound() {
+	soundJump->setBuffer(*soundBufferJump);
+	soundJump->play();
+	soundWalk->setBuffer(*soundBufferWalk);
+	soundWalk->play();
+	soundSwitchDoll->setBuffer(*soundBufferSwitchDoll);
+	soundSwitchDoll->play();
+}
+
+void Player::StopSound() {
+	soundJump->stop();
+	soundWalk->stop();
+	soundSwitchDoll->stop();
+}
+
 void Player::Move(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, std::vector<GameObject*>* gameObjects){
 	Maths::Vector2f start_position = GetOwner()->GetPosition();
-	for (const auto& input : *pressed_input) {
-		if (input.first == 3 && input.second == true && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["right"]) {
-			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX() + (speed * _delta_time), GetOwner()->GetPosition().GetY()));
-		}else if (input.first == 16 && input.second == true && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["left"]) {
-			GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX() - (speed * _delta_time), GetOwner()->GetPosition().GetY()));
+	if (!isWalking)
+	{
+		for (const auto& input : *pressed_input) {
+			if (input.first == 3 && input.second == true && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["right"]) {
+				GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX() + (speed * _delta_time), GetOwner()->GetPosition().GetY()));
+				isWalking = true; // Activation du son si D est enfoncée
+			}
+			else if (input.first == 16 && input.second == true && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["left"]) {
+				GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX() - (speed * _delta_time), GetOwner()->GetPosition().GetY()));
+				isWalking = true; // Activation du son si Q est enfoncée
+			}
+			if (isWalking) {
+				// Son Déplacement en boucle
+				soundWalk->setBuffer(*soundBufferWalk);
+				soundWalk->setLoop(true); // Jouer en boucle
+				soundWalk->setVolume(50);
+				soundWalk->play();
+				/*std::cout << "son de marche" << std::endl;*/
+			}
 		}
+		soundWalk->stop();
 	}
-
+	
+	
 	if (start_position != GetOwner()->GetPosition()) {
 		if (start_position.x < GetOwner()->GetPosition().x) {
 			GetOwner()->GetComponent<SpriteRenderer>()->SetSpriteFirstPosition(Maths::Vector2f(GetOwner()->GetComponent<SpriteRenderer>()->GetSpriteSize().x * 2 + 1, 0));
@@ -113,6 +174,12 @@ void Player::Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key,
 			GetOwner()->GetComponent<SpriteRenderer>()->SetSpriteFirstPosition(Maths::Vector2f(0, 0));
 
 		}
+		if (jumping_time.getElapsedTime().asSeconds() <= 0.01) {
+			//Son Jump
+			soundJump->setBuffer(*soundBufferJump);
+			soundJump->setVolume(50);
+			soundJump->play();
+		}
 		if (jumping_time.getElapsedTime().asSeconds() <= 0.4) {
 		GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX(), GetOwner()->GetPosition().GetY() - (sizeWindow.y * 0.3 * _delta_time)));
 		}
@@ -144,7 +211,7 @@ GameObject* Player::CreateDollOff(const ObjectType& _type, std::string _name, Ma
 	square_collider->SetSpecialPosition(_collider_special_position);
 
 	SpriteRenderer* sprite = game_object->CreateComponent<SpriteRenderer>();
-	sprite->SetSpriteRect(texture, _size, _size_sprite, Maths::Vector2f(0, 0), Maths::Vector2f(0, 1));
+	sprite->SetSprite(texture, _size);
 	//sprite->SetSprite(texture, _size);
 
 	DollOff* dollOff = game_object->CreateComponent<DollOff>();
@@ -165,6 +232,11 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 				is_switching = true;
 				// Effacer l'élément du vecteur
 				it = pressed_input->erase(it);
+
+				//Son changement de poupée
+				soundSwitchDoll->setBuffer(*soundBufferSwitchDoll);
+				soundSwitchDoll->setVolume(100);
+				soundSwitchDoll->play();
 			}
 			else {
 				++it;
@@ -197,7 +269,7 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 			Maths::Vector2f collider_size = Maths::Vector2f(GetOwner()->GetComponent<SquareCollider>()->GetWidth(), GetOwner()->GetComponent<SquareCollider>()->GetHeight());
 			Maths::Vector2f collider_special_position = GetOwner()->GetComponent<SquareCollider>()->GetSpecialPosition();
 
-			big_dollOff = CreateDollOff(DollOffType, "big_doll_off", position, scene->GetTextureByName("texture_zarya"), size, Maths::Vector2f(420, 654), collider_size, collider_special_position);
+			big_dollOff = CreateDollOff(DollOffType, "big_doll_off", position, scene->GetTextureByName("texture_zarya_gris"), size, Maths::Vector2f(420, 654), collider_size, collider_special_position);
 			GetOwner()->SetPosition(Maths::Vector2f(position.GetX(), position.GetY() - sizePlayer * 1.5));
 			GetOwner()->GetComponent<SpriteRenderer>()->SetSpriteRect(scene->GetTextureByName("texture_zvezda"), Maths::Vector2f((sizeWindow.x / 33), (((sizeWindow.x / 33) * 554) / 345)), Maths::Vector2f(345, 554), Maths::Vector2f(0,0), Maths::Vector2f(0, 1));
 			GetOwner()->GetComponent<SquareCollider>()->SetWidth(sizeWindow.x / 33 * 0.75);
@@ -223,7 +295,7 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 
 				spriteRenderer_currentPower->SetSpriteRect(scene->GetTextureByName("texture_invincibilite"), Maths::Vector2f(sizeWindow.x / 20, ((((sizeWindow.x / 20) * 144) / 144))), Maths::Vector2f(144, 144), Maths::Vector2f(0, 369), Maths::Vector2f(0, 32));
 			}
-			else if (capacity_for_mid_doll->GetName() == "DOUbLE-SaUT") {
+			else if (capacity_for_mid_doll->GetName() == "DOUbLE SaUT") {
 				DoubleJump* new_capacity = SetCapacity<DoubleJump>();
 				new_capacity->SetName("DoubleJump");
 				new_capacity->SetCapacityOwner(GetOwner());
@@ -273,7 +345,7 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 			Maths::Vector2f collider_size = Maths::Vector2f(GetOwner()->GetComponent<SquareCollider>()->GetWidth(), GetOwner()->GetComponent<SquareCollider>()->GetHeight());
 			Maths::Vector2f collider_special_position = GetOwner()->GetComponent<SquareCollider>()->GetSpecialPosition();
 
-			mid_dollOff = CreateDollOff(DollOffType, "mid_doll_off", position, scene->GetTextureByName("texture_zvezda"), size, Maths::Vector2f(345, 554), collider_size, collider_special_position);
+			mid_dollOff = CreateDollOff(DollOffType, "mid_doll_off", position, scene->GetTextureByName("texture_zvezda_gris"), size, Maths::Vector2f(345, 554), collider_size, collider_special_position);
 			GetOwner()->SetPosition(Maths::Vector2f(position.GetX(), position.GetY() - sizePlayer * 1.5));
 			GetOwner()->GetComponent<SpriteRenderer>()->SetSpriteRect(scene->GetTextureByName("texture_zwezda"), Maths::Vector2f((sizeWindow.x / 40), (((sizeWindow.x / 40) * 411) / 274)), Maths::Vector2f(274, 411), Maths::Vector2f(0, 0), Maths::Vector2f(0, 1));
 			GetOwner()->GetComponent<SquareCollider>()->SetWidth(sizeWindow.x / 40 * 0.76);
@@ -300,7 +372,7 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 
 				spriteRenderer_currentPower->SetSpriteRect(scene->GetTextureByName("texture_invincibilite"), Maths::Vector2f(sizeWindow.x / 20, ((((sizeWindow.x / 20) * 144) / 144))), Maths::Vector2f(144, 144), Maths::Vector2f(0, 369), Maths::Vector2f(0, 32));
 			}
-			else if (capacity_for_small_doll->GetName() == "DOUbLE-SaUT") {
+			else if (capacity_for_small_doll->GetName() == "DOUbLE SaUT") {
 				DoubleJump* new_capacity = SetCapacity<DoubleJump>();
 				new_capacity->SetName("DoubleJump");
 				new_capacity->SetCapacityOwner(GetOwner());
@@ -412,6 +484,26 @@ void Player::ReturnCheckpoint(Scene* scene, std::unordered_map<sf::Keyboard::Key
 				*(*gameObjects)[i] = *gameObjectsCheckpoint[i];
 			}
 		}
+		
+		if (capacity->GetName() == "InversionGravite")
+		{
+			InversionGravite* new_capacity = SetCapacity<InversionGravite>(); 
+			new_capacity->SetName("InversionGravite");
+			new_capacity->SetCapacityOwner(GetOwner());
+			capacity = new_capacity;
+
+			
+
+			SpriteRenderer* spriteRenderer_currentPower = nullptr;
+			for (GameObject* const& gameObject : *scene->GetGameObjects())
+			{
+				if (gameObject->GetName() == "pouvoir en cours")
+				{
+					spriteRenderer_currentPower = gameObject->GetComponent<SpriteRenderer>();
+				}
+			}
+			spriteRenderer_currentPower->SetNextSpriteRect(0);
+		}
 
 		checkpintCallback();
 
@@ -457,7 +549,6 @@ bool Player::Dead(std::vector<GameObject*>* gameObjects)
 		}*/
 		deathCallback();
 		deathRespawn = true;
-		hp = 100;
 	}
 	else
 	{
@@ -468,6 +559,7 @@ bool Player::Dead(std::vector<GameObject*>* gameObjects)
 
 void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) {
 	Scene* scene = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetMainScene();
+	isWalking = false;
 
 	if (!copiedSpawn)
 	{
@@ -497,6 +589,9 @@ void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Ke
 			}
 		}
 
+
+		hp = 100;
+		gravity = 100;
 		deathRespawn = false;
 	}
 	

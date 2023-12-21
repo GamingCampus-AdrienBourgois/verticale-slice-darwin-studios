@@ -5,6 +5,28 @@
 #include <Modules/SceneModule.h>
 #include <iostream>
 
+Force::Force() {
+	soundBufferForce = new sf::SoundBuffer;
+	if (!soundBufferForce->loadFromFile("Assets/Sons/frottement_court.wav")) {
+		std::cout << "erreur de chargement du fichier" << std::endl;
+	}
+	soundForce = new sf::Sound;
+}
+
+Force::~Force() {
+	delete soundBufferForce;
+	delete soundForce;
+}
+
+void Force::PlaySound() {
+	soundForce->setBuffer(*soundBufferForce);
+	soundForce->play();
+}
+
+void Force::StopSound() {
+	soundForce->stop();
+}
+
 void Force::DeplaceObject(const float _delta_time, GameObject* player, GameObject* gameObject, std::vector<GameObject*>* gameObjects)
 {
 	gameObject->GetComponent<SquareCollider>()->SetCanMoving("up", false);
@@ -21,7 +43,7 @@ void Force::DeplaceObject(const float _delta_time, GameObject* player, GameObjec
 
 	for (GameObject* const& gameObjectbis : *gameObjects)
 	{
-		if (gameObjectbis->GetType() != PlayerType && gameObject != gameObjectbis && gameObjectbis->GetType() != GameObjectType)
+		if (gameObjectbis->GetType() != PlayerType && gameObject != gameObjectbis && gameObjectbis->GetType() != GameObjectType && gameObjectbis->GetType() != ButtonType)
 		{
 			bool collisionRighttemp = gameObject->GetComponent<SquareCollider>()->CheckCollisionRight(*gameObject->GetComponent<SquareCollider>(), *gameObjectbis->GetComponent<SquareCollider>());
 			bool collisionLefttemp = gameObject->GetComponent<SquareCollider>()->CheckCollisionLeft(*gameObject->GetComponent<SquareCollider>(), *gameObjectbis->GetComponent<SquareCollider>());
@@ -66,8 +88,17 @@ void Force::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key
 				if (player->GetComponent<SquareCollider>()->IsColliding(*player->GetComponent<SquareCollider>(), *gameObject->GetComponent<SquareCollider>(), _delta_time))
 				{
 					DeplaceObject(_delta_time, player, gameObject, scene->GetGameObjects());
+					PlaySound();
+					soundForce->setVolume(100);
+					soundForce->setLoop(true);
+					soundPlayed = true; // Marquer que le son a été joué
 				}
+				
 			}
+			else
+				{
+					soundForce->stop();
+				}
 		}
 	}
 	
