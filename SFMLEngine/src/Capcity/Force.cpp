@@ -7,7 +7,7 @@
 
 Force::Force() {
 	soundBufferForce = new sf::SoundBuffer;
-	if (!soundBufferForce->loadFromFile("Assets/Sons/dash.wav")) {
+	if (!soundBufferForce->loadFromFile("Assets/Sons/frottement_court.wav")) {
 		std::cout << "erreur de chargement du fichier" << std::endl;
 	}
 	soundForce = new sf::Sound;
@@ -60,11 +60,6 @@ void Force::DeplaceObject(const float _delta_time, GameObject* player, GameObjec
 		if (gameObject->GetComponent<SquareCollider>()->GetCanMoving()["right"] && !collisionbottom && !collisionRight)
 		{
 			gameObject->SetPosition(Maths::Vector2f(gameObjectX + (player->GetComponent<Player>()->GetSpeed() * _delta_time), gameObjectY));
-			if (!soundPlayed) {
-				PlaySound();
-				soundForce->setVolume(25);
-				soundPlayed = true; // Marquer que le son a été joué
-			}
 		}
 	}
 	else if ((playerX > gameObjectX))
@@ -72,11 +67,6 @@ void Force::DeplaceObject(const float _delta_time, GameObject* player, GameObjec
 		if (gameObject->GetComponent<SquareCollider>()->GetCanMoving()["left"] && !collisionbottom && !collisionLeft)
 		{
 			gameObject->SetPosition(Maths::Vector2f(gameObjectX - (player->GetComponent<Player>()->GetSpeed() * _delta_time), gameObjectY));
-			if (!soundPlayed) {
-				PlaySound();
-				soundForce->setVolume(25);
-				soundPlayed = true; // Marquer que le son a été joué
-			}
 		}
 	}
 }
@@ -98,7 +88,15 @@ void Force::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key
 				if (player->GetComponent<SquareCollider>()->IsColliding(*player->GetComponent<SquareCollider>(), *gameObject->GetComponent<SquareCollider>(), _delta_time))
 				{
 					DeplaceObject(_delta_time, player, gameObject, scene->GetGameObjects());
+					PlaySound();
+					soundForce->setVolume(100);
+					soundForce->setLoop(true);
+					soundPlayed = true; // Marquer que le son a été joué
 				}
+			}
+			else
+			{
+				soundForce->stop();
 			}
 		}
 	}

@@ -28,7 +28,7 @@ public:
 		GetMidCapacity()->SetName(params[1].GetName());
 		GetSmallCapacity()->SetName(params[2].GetName());
 		SpawnObjectLevel3();
-		GameObject* player = CreatePlayer(PlayerType, "Player", Maths::Vector2f(window_size.x*0.1, window_size.y*0.68), sf::Color::Red);
+		GameObject* player = CreatePlayer(PlayerType, "Player", Maths::Vector2f(200*0.1, 400*0.68), sf::Color::Red);
 	}
 
 	GameObject* CreateColliderObject(Scene* scene, const ObjectType& _type, std::string _name, Maths::Vector2f _position, Maths::Vector2f _size) {
