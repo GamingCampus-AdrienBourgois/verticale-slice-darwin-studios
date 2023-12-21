@@ -136,8 +136,8 @@ void DefaultScene::SpawnObjectLevel3(std::vector<Capacity> params) {
 	//Lampe
 	GameObject* lampe = CreateOnlySprite(this, GameObjectType, "Lampe", Maths::Vector2f(sizeX * 50.3125, sizeY * 53.1667), Maths::Vector2f(sizeX * 6.875, sizeY * 35.8333), "texture_lampe", Maths::Vector2f(122, 341), Maths::Vector2f(6, 0));
 
-	CreateColliderObject(this, DeathType, "Lampe_Bottom", Maths::Vector2f(sizeX * 50.3646, sizeY * 56.75), Maths::Vector2f(sizeX * 6.875, sizeY * 4.62963));
-	CreateColliderObject(this, DeathType, "Lampe_Top", Maths::Vector2f(sizeX * 51.3542, sizeY * 53.4167), Maths::Vector2f(sizeX * 4.89583, sizeY * 3.25));
+	GameObject* lampe_Bottom = CreateColliderObject(this, DeathType, "Lampe_Bottom", Maths::Vector2f(sizeX * 50.3646, sizeY * 56.75), Maths::Vector2f(sizeX * 6.875, sizeY * 4.62963));
+	GameObject* lampe_Top = CreateColliderObject(this, DeathType, "Lampe_Top", Maths::Vector2f(sizeX * 51.3542, sizeY * 53.4167), Maths::Vector2f(sizeX * 4.89583, sizeY * 3.25));
 
 
 	//Carton
@@ -179,6 +179,11 @@ void DefaultScene::SpawnObjectLevel3(std::vector<Capacity> params) {
 	GameObject* interrupteur = CreateInteractiveObject(this, InteractiveType, "Interrupteur", Maths::Vector2f(sizeX * 36.5104, sizeY * 61.2037), Maths::Vector2f(sizeX * 1.8958, ((sizeX * 1.8958) * 147) / 94.5), "texture_interrupteur", Maths::Vector2f(189, 294), Maths::Vector2f(0, 13), lampe);
 	interrupteur->GetComponent<SpriteRenderer>()->SetNextSpriteRect(1);
 	interrupteur->GetComponent<Interactive>()->SetCallback([interrupteur] {interrupteur->GetComponent<Interactive>()->SwitchStateLamp(); });
+	if (!interrupteur->GetComponent<Interactive>()->GetOn())
+	{
+		lampe_Bottom->SetType(ColliderType);
+		lampe_Top->SetType(ColliderType);
+	}
 
 
 	//Affichage du pouvoir en cours
