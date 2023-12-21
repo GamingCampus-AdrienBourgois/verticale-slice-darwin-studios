@@ -11,6 +11,7 @@
     <ClCompile Include="Scenes\PauseScene.cpp" />
     <ClCompile Include="Scenes\TransitionScene.cpp" />
     <ClCompile Include="Scenes\MapScene.cpp" />
+    <ClCompile Include="Scenes\IntroScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scenes\CreditsScene.h" />
@@ -23,6 +24,7 @@
     <ClInclude Include="Scenes\SelectCapacityScene.h" />
     <ClInclude Include="Scenes\TransitionScene.h" />
     <ClInclude Include="Scenes\MapScene.h" />
+    <ClInclude Include="Scenes\IntroScene.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="imgui.ini" />

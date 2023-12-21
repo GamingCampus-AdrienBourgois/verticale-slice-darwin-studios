@@ -5,6 +5,7 @@
 #include "Scenes/MainMenuScene.h"
 #include "Scenes/CreditsScene.h"
 #include "Scenes/EndLevelScene.h"
+#include "Scenes/IntroScene.h"
 
 
 int main()
@@ -14,7 +15,7 @@ int main()
 	engine->Init();
 
 	SceneModule* scene_module = engine->GetModuleManager()->GetModule<SceneModule>();
-	scene_module->SetScene<MainMenuScene>();
+	scene_module->SetScene<IntroScene>();
 	engine->Run();
 
 
