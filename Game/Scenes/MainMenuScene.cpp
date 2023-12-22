@@ -17,7 +17,7 @@ MainMenuScene::MainMenuScene() : Scene("MainMenuScene", [] {})
 	}
 
 	music.setLoop(true);
-	music.setVolume(100.f);
+	music.setVolume(Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetSoundVolume());
 	music.play();*/
 
 

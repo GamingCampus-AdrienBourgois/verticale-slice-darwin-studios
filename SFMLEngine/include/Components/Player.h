@@ -30,10 +30,11 @@ public:
 	void SetGravity(int _gravity) { gravity = _gravity; }
 	void SetSize(int _size) { sizePlayer = _size; }
 	void SetCanDoubleJump(bool _can_double_jump) { can_double_jump = _can_double_jump; }
+	void SetCapacity(Capacity* _capacity) { capacity = _capacity; }
 
 	void SetPauseEscape(std::function<void()> _function) { pauseEscape = _function; }
 	void SetDeathCallback(std::function<void()> _function) { deathCallback = _function; }
-	void SetCheckpointCallback(std::function<void()> _function) { checkpintCallback = _function; }
+	void SetCheckpointCallback(std::function<void()> _function) { checkpointCallback = _function; }
 
 	void setDeathBy(std::string item) { deathBy = item; }
 	std::string GetDeathBy() { return deathBy; }
@@ -50,7 +51,7 @@ public:
 	void StopSound();
 
 	bool Dead(std::vector<GameObject*>* gameObjects);
-	void Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) override;
+	void Update(const float _delta_time, std::unordered_map<sf::Keyboard::Scancode, bool>* pressed_input) override;
 
 private:
 	// Get modules
@@ -118,17 +119,17 @@ private:
 
 
 	// Functions
-	void Move(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, std::vector<GameObject*>* gameObjects );
-	void Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, std::vector<GameObject*>* gameObjects, Scene* scene);
+	void Move(const float _delta_time, std::unordered_map<sf::Keyboard::Scancode, bool>* pressed_input, std::vector<GameObject*>* gameObjects );
+	void Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Scancode, bool>* pressed_input, std::vector<GameObject*>* gameObjects, Scene* scene);
 
-	GameObject* CreateDollOff(const ObjectType& _type, std::string _name, Maths::Vector2f _position, sf::Texture* new_texture, Maths::Vector2f _size, Maths::Vector2f _size_sprite, Maths::Vector2f _collider_size, Maths::Vector2f _collider_special_position);
-	void SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, Scene* scene);
-	void ReturnCheckpoint(Scene* scene, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input);
-	void TPFinDuLevel(Scene* scene, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input);
+	GameObject* CreateDollOff(const ObjectType& _type, std::string _name, Maths::Vector2f _position, sf::Texture* new_texture, Maths::Vector2f _size, Maths::Vector2f _size_sprite);
+	void SwitchDoll(std::unordered_map<sf::Keyboard::Scancode, bool>* pressed_input, Scene* scene);
+	void ReturnCheckpoint(Scene* scene, std::unordered_map<sf::Keyboard::Scancode, bool>* pressed_input);
+	void TPFinDuLevel(Scene* scene, std::unordered_map<sf::Keyboard::Scancode, bool>* pressed_input);
 
-	void PauseMenu(std::unordered_map<sf::Keyboard::Key, bool>* pressed_input);
+	void PauseMenu(std::unordered_map<sf::Keyboard::Scancode, bool>* pressed_input);
 
 	std::function<void()> pauseEscape;
 	std::function<void()> deathCallback;
-	std::function<void()> checkpintCallback;
+	std::function<void()> checkpointCallback;
 };

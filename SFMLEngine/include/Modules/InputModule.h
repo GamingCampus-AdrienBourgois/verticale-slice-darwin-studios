@@ -9,7 +9,7 @@
 class Input
 {
 public:
-	Input();
+	Input() = default;
 	Input(std::string _name, sf::Keyboard::Scancode _key);
 	Input(std::string _name, sf::Mouse::Button _button);
 
@@ -23,6 +23,8 @@ public:
 	sf::Mouse::Button GetButton() { return button; }
 
 	int GetEntry();
+	bool EntryIsPressesd();
+
 
 private:
 	std::string name = "";

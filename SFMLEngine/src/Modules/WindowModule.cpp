@@ -102,10 +102,10 @@ void WindowModule::Update()
 				SetSettingsOnFile();
 			}
 			if (event.type == sf::Event::KeyPressed) {
-				pressed[event.key.code] = true;
+				pressed[event.key.scancode] = true;
 			}
 			if (event.type == sf::Event::KeyReleased) {
-				pressed[event.key.code] = false;
+				pressed[event.key.scancode] = false;
 			}
 
 			if (event.type == sf::Event::MouseButtonPressed)

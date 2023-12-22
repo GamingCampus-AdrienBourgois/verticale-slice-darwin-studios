@@ -5,7 +5,7 @@
 #include <chrono>
 #include "iostream"
 
-TransitionScene::TransitionScene(std::vector<Capacity> params) : Scene("TransitionScene", [this] { CallBack(); })
+TransitionScene::TransitionScene(std::vector<Capacity*>* params) : Scene("TransitionScene", [this] { CallBack(); })
 {
 	Engine::SetMusicState(false);
 
