@@ -73,7 +73,7 @@ void Engine::SetMusicState(bool _state) {
 
 void SetSettingsOnFile() {
 
-	const std::string nomFichier = "settings.csv";
+	const std::string nomFichier = "Game_files/settings.csv";
 	SceneModule* scene_module = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>();
 
 	std::ofstream fichierCSV(nomFichier);
