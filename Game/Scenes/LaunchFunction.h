@@ -13,9 +13,12 @@ public:
 	static void LaunchSceneBackFalse();
 
 	template<typename Scene, typename U>
-	static void LaunchSceneParams(std::vector<U> tempParams);
+	static void LaunchSceneParams(std::vector<U*>* tempParams); 
+	
+	template<typename Scene, typename U>
+	static void LaunchSceneFalseParams(std::vector<U*>* tempParams);
 
-	static void LaunchGame(std::vector<Capacity> vector_powers);
+	static void LaunchGame(std::vector<Capacity*>* vector_powers);
 
 	static void resumeGame();
 };

@@ -6,11 +6,11 @@
 class TransitionScene : public Scene {
 private:
 	sf::Vector2f window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize();
-	std::vector<Capacity> capacities;
+	std::vector<Capacity*>* capacities = new std::vector<Capacity*>;
 
 	void CallBack();
 	
 
 public:
-	TransitionScene(std::vector<Capacity> params);
+	TransitionScene(std::vector<Capacity*>* params);
 };

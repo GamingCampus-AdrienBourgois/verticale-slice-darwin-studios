@@ -1,7 +1,7 @@
 #include "TransitionScene.h"
 #include "LaunchFunction.h"
 
-TransitionScene::TransitionScene(std::vector<Capacity> params) : Scene("TransitionScene", [this] { CallBack(); })
+TransitionScene::TransitionScene(std::vector<Capacity*>* params) : Scene("TransitionScene", [this] { CallBack(); })
 {
 	Engine::SetMusicState(false);
 

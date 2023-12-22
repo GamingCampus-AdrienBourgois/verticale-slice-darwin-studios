@@ -260,9 +260,7 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Scancode, bool>* presse
 				spriteRenderer_currentPower = gameObject->GetComponent<SpriteRenderer>();
 			}
 		} 
-
-
-		
+	
 
 		if (actuall_doll_int == 0)
 		{
@@ -281,7 +279,7 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Scancode, bool>* presse
 			capacity = nullptr;
 			if (capacity_for_mid_doll->GetName() == "INVERSION DE LA GRaVITE") {
 				InversionGravite* new_capacity = SetCapacity<InversionGravite>();
-				new_capacity->SetName("InversionGravite");
+				new_capacity->SetName("INVERSION DE LA GRaVITE");
 				new_capacity->SetCapacityOwner(GetOwner());
 				capacity = new_capacity;
 
@@ -289,7 +287,7 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Scancode, bool>* presse
 			}
 			else if (capacity_for_mid_doll->GetName() == "INVINCIbILITE") {
 				Invincibilite* new_capacity = SetCapacity<Invincibilite>();
-				new_capacity->SetName("Invincibilite");
+				new_capacity->SetName("INVINCIbILITE");
 				new_capacity->SetCapacityOwner(GetOwner());
 				capacity = new_capacity;
 
@@ -297,7 +295,7 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Scancode, bool>* presse
 			}
 			else if (capacity_for_mid_doll->GetName() == "DOUbLE SaUT") {
 				DoubleJump* new_capacity = SetCapacity<DoubleJump>();
-				new_capacity->SetName("DoubleJump");
+				new_capacity->SetName("DOUbLE SaUT");
 				new_capacity->SetCapacityOwner(GetOwner());
 				new_capacity->SetDoubleJump(true);
 				capacity = new_capacity;
@@ -306,7 +304,7 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Scancode, bool>* presse
 			}
 			else if (capacity_for_mid_doll->GetName() == "DaSH") {
 				Dash* new_capacity = SetCapacity<Dash>();
-				new_capacity->SetName("Dash");
+				new_capacity->SetName("DaSH");
 				new_capacity->SetCapacityOwner(GetOwner());
 				capacity = new_capacity;
 
@@ -314,7 +312,7 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Scancode, bool>* presse
 			}
 			else if (capacity_for_mid_doll->GetName() == "fORCE") {
 				Force* new_capacity = SetCapacity<Force>();
-				new_capacity->SetName("Force");
+				new_capacity->SetName("fORCE");
 				new_capacity->SetCapacityOwner(GetOwner());
 				capacity = new_capacity;
 
@@ -356,7 +354,7 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Scancode, bool>* presse
 
 			if (capacity_for_small_doll->GetName() == "INVERSION DE LA GRaVITE") {
 				InversionGravite* new_capacity = SetCapacity<InversionGravite>();
-				new_capacity->SetName("InversionGravite");
+				new_capacity->SetName("INVERSION DE LA GRaVITE");
 				new_capacity->SetCapacityOwner(GetOwner());
 				capacity = new_capacity;
 
@@ -364,7 +362,7 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Scancode, bool>* presse
 			}
 			else if (capacity_for_small_doll->GetName() == "INVINCIbILITE") {
 				Invincibilite* new_capacity = SetCapacity<Invincibilite>();
-				new_capacity->SetName("Invincibilite");
+				new_capacity->SetName("INVINCIbILITE");
 				new_capacity->SetCapacityOwner(GetOwner());
 				capacity = new_capacity;
 
@@ -372,7 +370,7 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Scancode, bool>* presse
 			}
 			else if (capacity_for_small_doll->GetName() == "DOUbLE SaUT") {
 				DoubleJump* new_capacity = SetCapacity<DoubleJump>();
-				new_capacity->SetName("DoubleJump");
+				new_capacity->SetName("DOUbLE SaUT");
 				new_capacity->SetCapacityOwner(GetOwner());
 				new_capacity->SetDoubleJump(true);
 				capacity = new_capacity;
@@ -381,7 +379,7 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Scancode, bool>* presse
 			}
 			else if (capacity_for_small_doll->GetName() == "DaSH") {
 				Dash* new_capacity = SetCapacity<Dash>();
-				new_capacity->SetName("Dash");
+				new_capacity->SetName("DaSH");
 				new_capacity->SetCapacityOwner(GetOwner());
 				capacity = new_capacity;
 
@@ -389,7 +387,7 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Scancode, bool>* presse
 			}
 			else if (capacity_for_small_doll->GetName() == "fORCE") {
 				Force* new_capacity = SetCapacity<Force>();
-				new_capacity->SetName("Force");
+				new_capacity->SetName("fORCE");
 				new_capacity->SetCapacityOwner(GetOwner());
 				capacity = new_capacity;
 
@@ -504,6 +502,11 @@ void Player::ReturnCheckpoint(Scene* scene, std::unordered_map<sf::Keyboard::Sca
 			spriteRenderer_currentPower->SetNextSpriteRect(0);
 		}
 
+		checkpointCallback();
+		scene->GetParams()->clear();
+		scene->GetParams()->push_back((scene->GetBigCapacity()));
+		scene->GetParams()->push_back((scene->GetMidCapacity()));
+		scene->GetParams()->push_back((scene->GetSmallCapacity()));
 
 		is_check = false;
 	}

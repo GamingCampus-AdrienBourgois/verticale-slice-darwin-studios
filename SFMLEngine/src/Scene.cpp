@@ -387,28 +387,28 @@ GameObject* Scene::CreatePlayer(const ObjectType& _type, std::string _name, Math
 
 	if (GetBigCapacity()->GetName() == "INVERSION DE LA GRaVITE") {
 		InversionGravite* capacity = player->SetCapacity<InversionGravite>();
-		capacity->SetName("InversionGravite");
+		capacity->SetName("INVERSION DE LA GRaVITE");
 		capacity->SetCapacityOwner(game_object);
 	}
 	else if (GetBigCapacity()->GetName() == "INVINCIbILITE") {
 		Invincibilite* capacity = player->SetCapacity<Invincibilite>();
-		capacity->SetName("Invincibilite");
+		capacity->SetName("INVINCIbILITE");
 		capacity->SetCapacityOwner(game_object);
 	}
 	else if (GetBigCapacity()->GetName() == "DOUbLE SaUT") {
 		DoubleJump* capacity = player->SetCapacity<DoubleJump>();
-		capacity->SetName("DoubleJump");
+		capacity->SetName("DOUbLE SaUT");
 		capacity->SetCapacityOwner(game_object);
 		capacity->SetDoubleJump(true);
 	}
 	else if (GetBigCapacity()->GetName() == "DaSH") {
 		Dash* capacity = player->SetCapacity<Dash>();
-		capacity->SetName("Dash");
+		capacity->SetName("DaSH");
 		capacity->SetCapacityOwner(game_object);
 	}
 	else if (GetBigCapacity()->GetName() == "fORCE") {
 		Force* capacity = player->SetCapacity<Force>();
-		capacity->SetName("Force");
+		capacity->SetName("fORCE");
 		capacity->SetCapacityOwner(game_object);
 	}
 

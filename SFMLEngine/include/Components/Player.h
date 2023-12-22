@@ -30,10 +30,11 @@ public:
 	void SetGravity(int _gravity) { gravity = _gravity; }
 	void SetSize(int _size) { sizePlayer = _size; }
 	void SetCanDoubleJump(bool _can_double_jump) { can_double_jump = _can_double_jump; }
+	void SetCapacity(Capacity* _capacity) { capacity = _capacity; }
 
 	void SetPauseEscape(std::function<void()> _function) { pauseEscape = _function; }
 	void SetDeathCallback(std::function<void()> _function) { deathCallback = _function; }
-	void SetCheckpointCallback(std::function<void()> _function) { checkpintCallback = _function; }
+	void SetCheckpointCallback(std::function<void()> _function) { checkpointCallback = _function; }
 
 	void setDeathBy(std::string item) { deathBy = item; }
 	std::string GetDeathBy() { return deathBy; }
@@ -130,5 +131,5 @@ private:
 
 	std::function<void()> pauseEscape;
 	std::function<void()> deathCallback;
-	std::function<void()> checkpintCallback;
+	std::function<void()> checkpointCallback;
 };

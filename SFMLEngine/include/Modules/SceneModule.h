@@ -27,9 +27,9 @@ public:
 	Scene* SetSceneBack(bool _replace_scenes = true);
 
 	template<typename T, typename U>
-	Scene* SetSceneWithParams(const bool _replace_scenes, std::vector<U> params);
+	Scene* SetSceneWithParams(const bool _replace_scenes, std::vector<U*>* params);
 	template<typename T, typename U>
-	Scene* SetSceneWithParamsBack(const bool _replace_scenes, std::vector<U> params);
+	Scene* SetSceneWithParamsBack(const bool _replace_scenes, std::vector<U*>* params);
 
 	Scene* GetMainScene() const { return mainScene; }
 	Scene* GetScene(const std::string& _scene_name) const;
@@ -73,7 +73,7 @@ Scene* SceneModule::SetSceneBack(const bool _replace_scenes)
 }
 
 template<typename T, typename U>
-Scene* SceneModule::SetSceneWithParamsBack(const bool _replace_scenes, std::vector<U> params)
+Scene* SceneModule::SetSceneWithParamsBack(const bool _replace_scenes, std::vector<U*>* params)
 {
 	if (_replace_scenes)
 	{
@@ -115,7 +115,7 @@ Scene* SceneModule::SetScene(const bool _replace_scenes)
 }
 
 template<typename T, typename U>
-Scene* SceneModule::SetSceneWithParams(const bool _replace_scenes, std::vector<U> params)
+Scene* SceneModule::SetSceneWithParams(const bool _replace_scenes, std::vector<U*>* params)
 {
 	if (_replace_scenes)
 	{
