@@ -21,7 +21,7 @@ SelectCapacityScene::SelectCapacityScene() : Scene("SelectCapacityScene", [] {})
 	}
 
 	music.setLoop(true);
-	music.setVolume(100.f);
+	music.setVolume(Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetSoundVolume());
 	music.play();*/
 
 	SetTexture("background", "Assets/background/capacity_background.png");

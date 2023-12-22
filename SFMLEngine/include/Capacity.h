@@ -20,7 +20,7 @@ public:
 	GameObject* GetCapacityOwner() { return capacity_owner; }
 	void SetCapacityOwner(GameObject* _owner) { capacity_owner = _owner; }
 
-	virtual void Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input){}
+	virtual void Update(const float _delta_time, std::unordered_map<sf::Keyboard::Scancode, bool>* pressed_input){}
 
 private:
 	std::string name;

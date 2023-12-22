@@ -15,7 +15,7 @@ public:
 	explicit Component(GameObject* _owner);
 	virtual ~Component() = default;
 
-	virtual void Update(float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input);
+	virtual void Update(float _delta_time, std::unordered_map<sf::Keyboard::Scancode, bool>* pressed_input);
 	virtual void Render(sf::RenderWindow* _window);
 
 	GameObject* GetOwner() const { return owner; }

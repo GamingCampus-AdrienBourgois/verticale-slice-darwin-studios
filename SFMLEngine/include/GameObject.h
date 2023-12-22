@@ -55,7 +55,7 @@ public:
 	void AddComponent(Component* _component);
 	void RemoveComponent(Component* _component);
 
-	void Update(float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) const;
+	void Update(float _delta_time, std::unordered_map<sf::Keyboard::Scancode, bool>* pressed_input) const;
 	void Render(sf::RenderWindow* _window) const;
 	sf::FloatRect getBounds(sf::RectangleShape object) const;
 

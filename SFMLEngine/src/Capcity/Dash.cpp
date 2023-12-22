@@ -72,27 +72,27 @@ void Dash::IsDashing(const float _delta_time, std::vector<GameObject*>* gameObje
             spriteRenderer_currentPower->SetNextSpriteRect(0);
 
 
- 
-            if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+            InputModule* input_module = Engine::GetInstance()->GetModuleManager()->GetModule<InputModule>();
+            if (input_module->GetControls()->at("ActivER capacitE")->EntryIsPressesd()) {
 
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && player->GetComponent<SquareCollider>()->GetCanMoving()["right"]) {
+                if (input_module->GetControls()->at("DRoitE")->EntryIsPressesd() && player->GetComponent<SquareCollider>()->GetCanMoving()["right"]) {
                     speed_dash = 3;
                     is_dashing = true;
                     StartClockDurationDash.restart(); // Redémarre le temps du dash
                     StartClockDurationDash.restart(); // Redémarre le temps du dash
                     if (!soundPlayed) {
                         PlaySound();
-                        soundDash->setVolume(100);
+                        soundDash->setVolume(Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetSoundVolume());
                         soundPlayed = true; // Marquer que le son a été joué
                     }
                 }
-                else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && player->GetComponent<SquareCollider>()->GetCanMoving()["left"]) {
+                else if (input_module->GetControls()->at("GauchE")->EntryIsPressesd() && player->GetComponent<SquareCollider>()->GetCanMoving()["left"]) {
                     speed_dash = -3;
                     is_dashing = true;
                     StartClockDurationDash.restart(); // Redémarre le temps du dash
                     if (!soundPlayed) {
                         PlaySound();
-                        soundDash->setVolume(100);
+                        soundDash->setVolume(Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetSoundVolume());
                         soundPlayed = true; // Marquer que le son a été joué
                     }
                 }
@@ -116,7 +116,7 @@ void Dash::IsDashing(const float _delta_time, std::vector<GameObject*>* gameObje
     }
 }
 
-void Dash::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) {
+void Dash::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Scancode, bool>* pressed_input) {
     soundPlayed = false;
     std::vector<GameObject*>* gameObjects = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetMainScene()->GetGameObjects();
     IsDashing(_delta_time, gameObjects);

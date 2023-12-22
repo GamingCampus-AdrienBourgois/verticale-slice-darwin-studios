@@ -36,7 +36,8 @@ void InversionGravite::GraviteInversion(GameObject* player, const float _delta_t
 
 	if (count == 0)
 	{
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
+		InputModule* input_module = Engine::GetInstance()->GetModuleManager()->GetModule<InputModule>();
+		if (input_module->GetControls()->at("ActivER capacitE")->EntryIsPressesd())
 		{
 			if (!player->GetComponent<SquareCollider>()->GetCanMoving()["down"])
 			{
@@ -58,7 +59,7 @@ void InversionGravite::GraviteInversion(GameObject* player, const float _delta_t
 
 			if (!soundPlayed) {
 				PlaySound();
-				soundInversionGravite->setVolume(100);
+				soundInversionGravite->setVolume(Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetSoundVolume());
 				soundPlayed = true; // Marquer que le son a été joué
 			}
 		}
@@ -85,7 +86,7 @@ void InversionGravite::GraviteInversion(GameObject* player, const float _delta_t
 	}
 }
 
-void InversionGravite::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input)
+void InversionGravite::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Scancode, bool>* pressed_input)
 {
 	soundPlayed = false;
 

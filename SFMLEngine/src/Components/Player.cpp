@@ -59,16 +59,17 @@ void Player::StopSound() {
 	soundSwitchDoll->stop();
 }
 
-void Player::Move(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, std::vector<GameObject*>* gameObjects){
+void Player::Move(const float _delta_time, std::unordered_map<sf::Keyboard::Scancode, bool>* pressed_input, std::vector<GameObject*>* gameObjects){
 	Maths::Vector2f start_position = GetOwner()->GetPosition();
 	if (!isWalking)
 	{
+		InputModule* input_module = Engine::GetInstance()->GetModuleManager()->GetModule<InputModule>();
 		for (const auto& input : *pressed_input) {
-			if (input.first == 3 && input.second == true && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["right"]) {
+			if (input.first == input_module->GetControls()->at("DRoitE")->GetEntry() && input.second == true && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["right"]) {
 				GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX() + (speed * _delta_time), GetOwner()->GetPosition().GetY()));
 				isWalking = true; // Activation du son si D est enfoncée
 			}
-			else if (input.first == 16 && input.second == true && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["left"]) {
+			else if (input.first == input_module->GetControls()->at("GauchE")->GetEntry() && input.second == true && GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["left"]) {
 				GetOwner()->SetPosition(Maths::Vector2f(GetOwner()->GetPosition().GetX() - (speed * _delta_time), GetOwner()->GetPosition().GetY()));
 				isWalking = true; // Activation du son si Q est enfoncée
 			}
@@ -76,7 +77,7 @@ void Player::Move(const float _delta_time, std::unordered_map<sf::Keyboard::Key,
 				// Son Déplacement en boucle
 				soundWalk->setBuffer(*soundBufferWalk);
 				soundWalk->setLoop(true); // Jouer en boucle
-				soundWalk->setVolume(50);
+				soundWalk->setVolume(Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetSoundVolume());
 				soundWalk->play();
 				/*std::cout << "son de marche" << std::endl;*/
 			}
@@ -101,7 +102,7 @@ void Player::Move(const float _delta_time, std::unordered_map<sf::Keyboard::Key,
 	}
 }
 
-void Player::Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, std::vector<GameObject*>* gameObjects, Scene* scene) {
+void Player::Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Scancode, bool>* pressed_input, std::vector<GameObject*>* gameObjects, Scene* scene) {
 	if (!GetOwner()->GetComponent<SquareCollider>()->GetCanMoving()["down"] && is_jumping) {
 		is_jumping = false;
 		is_double_jumping = false;
@@ -122,8 +123,9 @@ void Player::Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key,
 		}
 	}
 	if (is_jumping && can_double_jump && !is_double_jumping) {
+		InputModule* input_module = Engine::GetInstance()->GetModuleManager()->GetModule<InputModule>();
 		for (const auto& input : *pressed_input) {
-			if (input.first == 57 && input.second == true) {
+			if (input.first == input_module->GetControls()->at("SautER")->GetEntry() && input.second == true) {
 				is_jumping = true;
 				is_double_jumping = true;
 				jumping_time.restart();
@@ -147,8 +149,9 @@ void Player::Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key,
 		}
 	}
 	if (can_jump && !is_jumping) {
+		InputModule* input_module = Engine::GetInstance()->GetModuleManager()->GetModule<InputModule>();
 		for (auto& input : *pressed_input) {
-			if (input.first == 57 && input.second == true) {
+			if (input.first == input_module->GetControls()->at("SautER")->GetEntry() && input.second == true) {
 				is_jumping = true;
 				jumping_time.restart();
 
@@ -177,7 +180,7 @@ void Player::Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key,
 		if (jumping_time.getElapsedTime().asSeconds() <= 0.01) {
 			//Son Jump
 			soundJump->setBuffer(*soundBufferJump);
-			soundJump->setVolume(50);
+			soundJump->setVolume(Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetSoundVolume());
 			soundJump->play();
 		}
 		if (jumping_time.getElapsedTime().asSeconds() <= 0.4) {
@@ -198,7 +201,7 @@ void Player::Jump(const float _delta_time, std::unordered_map<sf::Keyboard::Key,
 
 }
 
-GameObject* Player::CreateDollOff(const ObjectType& _type, std::string _name, Maths::Vector2f _position, sf::Texture* texture, Maths::Vector2f _size, Maths::Vector2f _size_sprite, Maths::Vector2f _collider_size, Maths::Vector2f _collider_special_position) {
+GameObject* Player::CreateDollOff(const ObjectType& _type, std::string _name, Maths::Vector2f _position, sf::Texture* texture, Maths::Vector2f _size, Maths::Vector2f _size_sprite) {
 	Scene* scene = sceneModule->GetScene("DefaultScene");
 
 	GameObject* game_object = scene->CreateGameObject(_type, _name);
@@ -206,13 +209,11 @@ GameObject* Player::CreateDollOff(const ObjectType& _type, std::string _name, Ma
 
 
 	SquareCollider* square_collider = game_object->CreateComponent<SquareCollider>();
-	square_collider->SetWidth(_collider_size.x);
-	square_collider->SetHeight(_collider_size.y);
-	square_collider->SetSpecialPosition(_collider_special_position);
+	square_collider->SetWidth(_size.x);
+	square_collider->SetHeight(_size.y);
 
 	SpriteRenderer* sprite = game_object->CreateComponent<SpriteRenderer>();
 	sprite->SetSprite(texture, _size);
-	//sprite->SetSprite(texture, _size);
 
 	DollOff* dollOff = game_object->CreateComponent<DollOff>();
 	dollOff->setPosition(_position);
@@ -220,22 +221,23 @@ GameObject* Player::CreateDollOff(const ObjectType& _type, std::string _name, Ma
 	return game_object;
 }
 
-void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_input, Scene* scene) {
+void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Scancode, bool>* pressed_input, Scene* scene) {
 	if (can_switch && !is_switching)
 	{
 		auto it = pressed_input->begin();
+		InputModule* input_module = Engine::GetInstance()->GetModuleManager()->GetModule<InputModule>();
 
 		while (it != pressed_input->end()) {
 			const auto& input = *it;
 
-			if (input.first == 0 && input.second == true) {
+			if (input.first == input_module->GetControls()->at("PassER a la pRochainE poupEE")->GetEntry() && input.second == true) {
 				is_switching = true;
 				// Effacer l'élément du vecteur
 				it = pressed_input->erase(it);
 
 				//Son changement de poupée
 				soundSwitchDoll->setBuffer(*soundBufferSwitchDoll);
-				soundSwitchDoll->setVolume(100);
+				soundSwitchDoll->setVolume(Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetSoundVolume());
 				soundSwitchDoll->play();
 			}
 			else {
@@ -265,11 +267,9 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 		if (actuall_doll_int == 0)
 		{
 			Maths::Vector2f position = GetOwner()->GetPosition();
-			Maths::Vector2f size = Maths::Vector2f(GetOwner()->GetComponent<SpriteRenderer>()->GetWidth(), GetOwner()->GetComponent<SpriteRenderer>()->GetHeight());
-			Maths::Vector2f collider_size = Maths::Vector2f(GetOwner()->GetComponent<SquareCollider>()->GetWidth(), GetOwner()->GetComponent<SquareCollider>()->GetHeight());
-			Maths::Vector2f collider_special_position = GetOwner()->GetComponent<SquareCollider>()->GetSpecialPosition();
+			Maths::Vector2f size = Maths::Vector2f(GetOwner()->GetComponent<SquareCollider>()->GetWidth(), GetOwner()->GetComponent<SquareCollider>()->GetHeight());
 
-			big_dollOff = CreateDollOff(DollOffType, "big_doll_off", position, scene->GetTextureByName("texture_zarya_gris"), size, Maths::Vector2f(420, 654), collider_size, collider_special_position);
+			big_dollOff = CreateDollOff(DollOffType, "big_doll_off", position, scene->GetTextureByName("texture_zarya_gris"), size, Maths::Vector2f(420, 654));
 			GetOwner()->SetPosition(Maths::Vector2f(position.GetX(), position.GetY() - sizePlayer * 1.5));
 			GetOwner()->GetComponent<SpriteRenderer>()->SetSpriteRect(scene->GetTextureByName("texture_zvezda"), Maths::Vector2f((sizeWindow.x / 33), (((sizeWindow.x / 33) * 554) / 345)), Maths::Vector2f(345, 554), Maths::Vector2f(0,0), Maths::Vector2f(0, 1));
 			GetOwner()->GetComponent<SquareCollider>()->SetWidth(sizeWindow.x / 33 * 0.75);
@@ -341,11 +341,9 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 		else if (actuall_doll_int == 1)
 		{
 			Maths::Vector2f position = GetOwner()->GetPosition();
-			Maths::Vector2f size = Maths::Vector2f(GetOwner()->GetComponent<SpriteRenderer>()->GetWidth(), GetOwner()->GetComponent<SpriteRenderer>()->GetHeight());
-			Maths::Vector2f collider_size = Maths::Vector2f(GetOwner()->GetComponent<SquareCollider>()->GetWidth(), GetOwner()->GetComponent<SquareCollider>()->GetHeight());
-			Maths::Vector2f collider_special_position = GetOwner()->GetComponent<SquareCollider>()->GetSpecialPosition();
+			Maths::Vector2f size = Maths::Vector2f(GetOwner()->GetComponent<SquareCollider>()->GetWidth(), GetOwner()->GetComponent<SquareCollider>()->GetHeight());
 
-			mid_dollOff = CreateDollOff(DollOffType, "mid_doll_off", position, scene->GetTextureByName("texture_zvezda_gris"), size, Maths::Vector2f(345, 554), collider_size, collider_special_position);
+			mid_dollOff = CreateDollOff(DollOffType, "mid_doll_off", position, scene->GetTextureByName("texture_zvezda_gris"), size, Maths::Vector2f(345, 554));
 			GetOwner()->SetPosition(Maths::Vector2f(position.GetX(), position.GetY() - sizePlayer * 1.5));
 			GetOwner()->GetComponent<SpriteRenderer>()->SetSpriteRect(scene->GetTextureByName("texture_zwezda"), Maths::Vector2f((sizeWindow.x / 40), (((sizeWindow.x / 40) * 411) / 274)), Maths::Vector2f(274, 411), Maths::Vector2f(0, 0), Maths::Vector2f(0, 1));
 			GetOwner()->GetComponent<SquareCollider>()->SetWidth(sizeWindow.x / 40 * 0.76);
@@ -416,7 +414,7 @@ void Player::SwitchDoll(std::unordered_map<sf::Keyboard::Key, bool>* pressed_inp
 	}
 }
 
-void Player::TPFinDuLevel(Scene* scene, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) {
+void Player::TPFinDuLevel(Scene* scene, std::unordered_map<sf::Keyboard::Scancode, bool>* pressed_input) {
 	auto it = pressed_input->begin();
 
 	while (it != pressed_input->end()) {
@@ -442,15 +440,16 @@ void Player::TPFinDuLevel(Scene* scene, std::unordered_map<sf::Keyboard::Key, bo
 	}
 }
 
-void Player::ReturnCheckpoint(Scene* scene, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) {
+void Player::ReturnCheckpoint(Scene* scene, std::unordered_map<sf::Keyboard::Scancode, bool>* pressed_input) {
 	if (can_check && !is_check)
 	{
+		InputModule* input_module = Engine::GetInstance()->GetModuleManager()->GetModule<InputModule>();
 		auto it = pressed_input->begin();
 
 		while (it != pressed_input->end()) {
 			const auto& input = *it;
 
-			if (input.first == 59 && input.second == true) {
+			if (input.first == input_module->GetControls()->at("REvEniR au chEcKpoint")->GetEntry() && input.second == true) {
 				is_check = true;
 				// Effacer l'élément du vecteur
 				it = pressed_input->erase(it);
@@ -505,13 +504,12 @@ void Player::ReturnCheckpoint(Scene* scene, std::unordered_map<sf::Keyboard::Key
 			spriteRenderer_currentPower->SetNextSpriteRect(0);
 		}
 
-		checkpintCallback();
 
 		is_check = false;
 	}
 }
 
-void Player::PauseMenu(std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) {
+void Player::PauseMenu(std::unordered_map<sf::Keyboard::Scancode, bool>* pressed_input) {
 
 	auto it = pressed_input->begin();
 
@@ -557,7 +555,7 @@ bool Player::Dead(std::vector<GameObject*>* gameObjects)
 }
 
 
-void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) {
+void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Scancode, bool>* pressed_input) {
 	Scene* scene = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetMainScene();
 	isWalking = false;
 

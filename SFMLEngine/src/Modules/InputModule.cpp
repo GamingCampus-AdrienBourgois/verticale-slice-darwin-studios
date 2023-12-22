@@ -8,10 +8,6 @@
 #include <SFML/Window.hpp>
 
 
-Input::Input() {
-	
-}
-
 Input::Input(std::string _name, sf::Keyboard::Scancode _key) {
 	name = _name;
 	key = _key;
@@ -29,6 +25,15 @@ int Input::GetEntry() {
 	}
 	else {
 		return button;
+	}
+}
+
+bool Input::EntryIsPressesd() {
+	if (name != "MB1" && name != "MB2" && name != "MB3" && name != "MB4" && name != "MB5") {
+		return sf::Keyboard::isKeyPressed(key);
+	}
+	else {
+		return sf::Mouse::isButtonPressed(button);
 	}
 }
 

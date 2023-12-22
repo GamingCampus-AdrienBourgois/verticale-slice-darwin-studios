@@ -64,7 +64,7 @@ void SpriteRenderer::Render(sf::RenderWindow* _window)
 	_window->draw(*sprite);
 }
 
-void SpriteRenderer::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) {
+void SpriteRenderer::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Scancode, bool>* pressed_input) {
 	if (GetOwner()->GetIsAnimated()) {
 		if (animationCooldown.getElapsedTime().asSeconds() >= 0.1) {
 			if (GetOwner()->GetReverseAnimation()) {

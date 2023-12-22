@@ -20,7 +20,7 @@ DefaultScene::DefaultScene(std::vector<Capacity> params) : Scene("DefaultScene",
 	}
 
 	music.setLoop(true);
-	music.setVolume(50.f);
+	music.setVolume(Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetSoundVolume());
 	music.play();*/
 
 	SetTexture("texture_zarya", "Assets/Dolls/Zarya-sheet.png");

@@ -7,7 +7,7 @@
 
 Force::Force() {
 	soundBufferForce = new sf::SoundBuffer;
-	if (!soundBufferForce->loadFromFile("Assets/Sons/frottement_court.wav")) {
+	if (!soundBufferForce->loadFromFile("Assets/Sons/frottement.wav")) {
 		std::cout << "erreur de chargement du fichier" << std::endl;
 	}
 	soundForce = new sf::Sound;
@@ -71,7 +71,7 @@ void Force::DeplaceObject(const float _delta_time, GameObject* player, GameObjec
 	}
 }
 
-void Force::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input)
+void Force::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Scancode, bool>* pressed_input)
 {
 	Scene* scene = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetMainScene();
 	GameObject* player = scene->FindGameObject("Player");
@@ -89,7 +89,7 @@ void Force::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key
 				{
 					DeplaceObject(_delta_time, player, gameObject, scene->GetGameObjects());
 					PlaySound();
-					soundForce->setVolume(100);
+					soundForce->setVolume(Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetSoundVolume());
 					soundForce->setLoop(true);
 					soundPlayed = true; // Marquer que le son a été joué
 				}

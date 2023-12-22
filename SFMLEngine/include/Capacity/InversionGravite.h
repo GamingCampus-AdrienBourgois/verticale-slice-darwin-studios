@@ -10,7 +10,7 @@ public:
 	~InversionGravite();
 
 	void GraviteInversion(GameObject* player, const float _delta_time, Scene* scene);
-	void Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) override;
+	void Update(const float _delta_time, std::unordered_map<sf::Keyboard::Scancode, bool>* pressed_input) override;
 	void SetCount(int _new_count) { count = _new_count; }
 
 	void PlaySound();
