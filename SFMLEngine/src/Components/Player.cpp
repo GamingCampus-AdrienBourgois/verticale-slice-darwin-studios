@@ -504,6 +504,9 @@ void Player::ReturnCheckpoint(Scene* scene, std::unordered_map<sf::Keyboard::Key
 			}
 			spriteRenderer_currentPower->SetNextSpriteRect(0);
 		}
+
+		checkpintCallback();
+
 		is_check = false;
 	}
 }

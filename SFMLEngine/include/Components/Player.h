@@ -33,6 +33,7 @@ public:
 
 	void SetPauseEscape(std::function<void()> _function) { pauseEscape = _function; }
 	void SetDeathCallback(std::function<void()> _function) { deathCallback = _function; }
+	void SetCheckpointCallback(std::function<void()> _function) { checkpintCallback = _function; }
 
 	void setDeathBy(std::string item) { deathBy = item; }
 	std::string GetDeathBy() { return deathBy; }
@@ -129,4 +130,5 @@ private:
 
 	std::function<void()> pauseEscape;
 	std::function<void()> deathCallback;
+	std::function<void()> checkpintCallback;
 };

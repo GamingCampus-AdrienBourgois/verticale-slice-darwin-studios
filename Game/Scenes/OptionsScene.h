@@ -4,11 +4,12 @@
 #include "WindowModule.h"
 #include <functional>
 #include "Components/TextRenderer.h"
-#include "Scene.h"
 
+class MainMenuScene;
 
-class CreditsScene final : public Scene
+class OptionsScene final : public Scene
 {
 public:
-	CreditsScene();
+	OptionsScene();
+
 };

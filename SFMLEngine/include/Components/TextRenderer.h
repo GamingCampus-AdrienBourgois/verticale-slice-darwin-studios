@@ -17,6 +17,7 @@ public:
 	void SetSpecialPosition(Maths::Vector2f _special_position) { special_position = _special_position; }
 
 	sf::Text* GetText() { return text; }
+	std::string GetString() { return string; }
 
 	void Render(sf::RenderWindow* _window) override;
 

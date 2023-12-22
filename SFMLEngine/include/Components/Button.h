@@ -12,8 +12,10 @@ public:
 
 	void SetObject(Capacity* _object) { object = _object; }
 	void SetCallback(std::function<void()> _callback) { callback = _callback; }
+	void SetTextObject(GameObject* _text_object) { text_object = _text_object; }
 
 	Capacity* GetObject() { return object; }
+	GameObject* GetTextObject() { return text_object; }
 
 	void CheckHover();
 
@@ -21,7 +23,11 @@ public:
 	void Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input);
 
 	void DollSelectCapacity();
+	void SoundMenu();
+	void ControlsMenu();
 	void SelectCapacity();
+	void SliderMove();
+	void ChangeEntry();
 
 	bool is_clicked = false;
 	bool is_disabled = false;
@@ -33,4 +39,5 @@ private:
 
 	std::function<void()> callback;
 	Capacity* object = nullptr;
+	GameObject* text_object = nullptr;
 };
