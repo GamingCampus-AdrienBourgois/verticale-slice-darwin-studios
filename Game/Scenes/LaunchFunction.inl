@@ -55,6 +55,7 @@ void LaunchFunction::LaunchSceneFalseParams(std::vector<U*>* Params) {
 
 inline void LaunchFunction::resumeGame() {
 	SceneModule* scene_module = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>();
+	Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetPressed()->clear();
 
 	std::vector<Scene*>* scenes = scene_module->GetScenesVector();
 	scene_module->SetMainScene((*scenes)[scenes->size() - 2]);
