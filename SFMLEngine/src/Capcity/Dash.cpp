@@ -76,7 +76,7 @@ void Dash::IsDashing(const float _delta_time, std::vector<GameObject*>* gameObje
             if (input_module->GetControls()->at("ActivER capacitE")->EntryIsPressesd()) {
 
                 if (input_module->GetControls()->at("DRoitE")->EntryIsPressesd() && player->GetComponent<SquareCollider>()->GetCanMoving()["right"]) {
-                    speed_dash = 3;
+                    speed_dash = window_size.x/100* 100;
                     is_dashing = true;
                     StartClockDurationDash.restart(); // Redémarre le temps du dash
                     StartClockDurationDash.restart(); // Redémarre le temps du dash
@@ -87,7 +87,7 @@ void Dash::IsDashing(const float _delta_time, std::vector<GameObject*>* gameObje
                     }
                 }
                 else if (input_module->GetControls()->at("GauchE")->EntryIsPressesd() && player->GetComponent<SquareCollider>()->GetCanMoving()["left"]) {
-                    speed_dash = -3;
+                    speed_dash = -window_size.x / 100 * 100;
                     is_dashing = true;
                     StartClockDurationDash.restart(); // Redémarre le temps du dash
                     if (!soundPlayed) {
@@ -111,7 +111,7 @@ void Dash::IsDashing(const float _delta_time, std::vector<GameObject*>* gameObje
 
         // Si le dash est en cours et le cooldown dépasse 5 secondes
         if (is_dashing) {
-            player->SetPosition(Maths::Vector2f(player->GetPosition().GetX() + speed_dash, player->GetPosition().GetY()));
+            player->SetPosition(Maths::Vector2f(player->GetPosition().GetX() + (speed_dash * _delta_time), player->GetPosition().GetY()));
         }
     }
 }

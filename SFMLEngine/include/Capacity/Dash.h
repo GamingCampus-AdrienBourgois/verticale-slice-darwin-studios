@@ -5,6 +5,9 @@
 #include "GameObject.h"
 #include <SFML/Audio.hpp>
 
+#include "Engine.h"
+#include "Modules/WindowModule.h"
+
 class Dash : public Capacity {
 public:
     Dash();
@@ -29,4 +32,6 @@ private:
     bool is_dashing = false;
 
     void IsDashing(const float _delta_time, std::vector<GameObject*>* gameObjects);
+
+    sf::Vector2f window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize();
 };
