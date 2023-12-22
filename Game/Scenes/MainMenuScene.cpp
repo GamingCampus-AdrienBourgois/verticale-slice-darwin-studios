@@ -12,7 +12,7 @@
 MainMenuScene::MainMenuScene() : Scene("MainMenuScene", [] {})
 {
 	Engine::SetMusicState(true);
-	/*if (!music.openFromFile("Assets/Sons/musique_level_3.ogg")) {
+	/*if (!music.openFromFile("Game_files/Assets/Sons/musique_level_3.ogg")) {
 		std::cout << "La musique ne charge pas" << std::endl;
 	}
 
@@ -21,13 +21,13 @@ MainMenuScene::MainMenuScene() : Scene("MainMenuScene", [] {})
 	music.play();*/
 
 
-	SetTexture("background", "Assets/background/main_menu_background.png");
+	SetTexture("background", "Game_files/Assets/background/main_menu_background.png");
 	SetBackground("background");
 
-	SetTexture("texture_button_Play", "Assets/button/buttonPlay.png");
-	SetTexture("texture_button_Options", "Assets/button/buttonOptions.png");
-	SetTexture("texture_button_Credits", "Assets/button/buttonCredits.png");
-	SetTexture("texture_button_Quit", "Assets/button/buttonQuit.png");
+	SetTexture("texture_button_Play", "Game_files/Assets/button/buttonPlay.png");
+	SetTexture("texture_button_Options", "Game_files/Assets/button/buttonOptions.png");
+	SetTexture("texture_button_Credits", "Game_files/Assets/button/buttonCredits.png");
+	SetTexture("texture_button_Quit", "Game_files/Assets/button/buttonQuit.png");
 
 	sf::Vector2u window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindow()->getSize();
 

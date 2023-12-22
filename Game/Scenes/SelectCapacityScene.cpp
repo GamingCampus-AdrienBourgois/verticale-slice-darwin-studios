@@ -13,7 +13,7 @@
 SelectCapacityScene::SelectCapacityScene() : Scene("SelectCapacityScene", [] {})
 {
 	Engine::SetMusicState(true);
-	/*if (!music.openFromFile("Assets/Sons/musique_level_3.ogg")) {
+	/*if (!music.openFromFile("Game_files/Assets/Sons/musique_level_3.ogg")) {
 		std::cout << "La musique ne charge pas" << std::endl;
 	}
 
@@ -21,15 +21,15 @@ SelectCapacityScene::SelectCapacityScene() : Scene("SelectCapacityScene", [] {})
 	music.setVolume(100.f);
 	music.play();*/
 
-	SetTexture("background", "Assets/background/capacity_background.png");
+	SetTexture("background", "Game_files/Assets/background/capacity_background.png");
 	SetBackground("background");
-	SetFont("Font/UkrainianPrincess.ttf");
-	SetTexture("texture_launch_capacity_button", "Assets/button/capacity_launch_button.png");
-	SetTexture("texture_zarya_button", "Assets/button/zarya_button.png");
-	SetTexture("texture_zvezda_button", "Assets/button/zvezda_button.png");
-	SetTexture("texture_zwezda_button", "Assets/button/zwezda_button.png");
-	SetTexture("texture_map_button", "Assets/button/map_button.png");
-	SetTexture("texture_return_button", "Assets/button/return_button.png");
+	SetFont("Game_files/Font/UkrainianPrincess.ttf");
+	SetTexture("texture_launch_capacity_button", "Game_files/Assets/button/capacity_launch_button.png");
+	SetTexture("texture_zarya_button", "Game_files/Assets/button/zarya_button.png");
+	SetTexture("texture_zvezda_button", "Game_files/Assets/button/zvezda_button.png");
+	SetTexture("texture_zwezda_button", "Game_files/Assets/button/zwezda_button.png");
+	SetTexture("texture_map_button", "Game_files/Assets/button/map_button.png");
+	SetTexture("texture_return_button", "Game_files/Assets/button/return_button.png");
 
 	sf::Vector2f window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize();
 

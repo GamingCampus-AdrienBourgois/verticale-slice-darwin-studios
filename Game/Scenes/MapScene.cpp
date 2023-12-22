@@ -7,8 +7,8 @@ MapScene::MapScene() : Scene("MapScene", [] {})
 {
 	Engine::SetMusicState(true);
 
-	SetTexture("texture_return_button", "Assets/button/return_button.png");
-	SetTexture("background", "Assets/background/Level3.map.png");
+	SetTexture("texture_return_button", "Game_files/Assets/button/return_button.png");
+	SetTexture("background", "Game_files/Assets/background/Level3.designMap.png");
 	SetBackground("background");
 
 	sf::Vector2f window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize();

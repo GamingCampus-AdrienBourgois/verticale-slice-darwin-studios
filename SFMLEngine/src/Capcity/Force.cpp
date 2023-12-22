@@ -7,7 +7,7 @@
 
 Force::Force() {
 	soundBufferForce = new sf::SoundBuffer;
-	if (!soundBufferForce->loadFromFile("Assets/Sons/frottement_court.wav")) {
+	if (!soundBufferForce->loadFromFile("Game_files/Assets/Sons/frottement_court.wav")) {
 		std::cout << "erreur de chargement du fichier" << std::endl;
 	}
 	soundForce = new sf::Sound;

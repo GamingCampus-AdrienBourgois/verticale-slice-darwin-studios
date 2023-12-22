@@ -17,19 +17,19 @@
 //Sound
 Player::Player() {
 	soundBufferJump = new sf::SoundBuffer;
-	if (!soundBufferJump->loadFromFile("Assets/Sons/Saut.wav")) {
+	if (!soundBufferJump->loadFromFile("Game_files/Assets/Sons/Saut.wav")) {
 		std::cout << "erreur de chargement du fichier" << std::endl;
 	}
 	soundJump = new sf::Sound;
 
 	soundBufferWalk = new sf::SoundBuffer;
-	if (!soundBufferWalk->loadFromFile("Assets/Sons/deplacement.wav")) {
+	if (!soundBufferWalk->loadFromFile("Game_files/Assets/Sons/deplacement.wav")) {
 		std::cout << "erreur de chargement du fichier" << std::endl;
 	}
 	soundWalk = new sf::Sound;
 
 	soundBufferSwitchDoll = new sf::SoundBuffer;
-	if (!soundBufferSwitchDoll->loadFromFile("Assets/Sons/changement_poupee.wav")) {
+	if (!soundBufferSwitchDoll->loadFromFile("Game_files/Assets/Sons/changement_poupee.wav")) {
 		std::cout << "erreur de chargement du fichier" << std::endl;
 	}
 	soundSwitchDoll = new sf::Sound;

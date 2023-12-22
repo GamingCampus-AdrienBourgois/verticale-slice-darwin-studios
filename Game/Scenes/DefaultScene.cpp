@@ -15,7 +15,7 @@ DefaultScene::DefaultScene(std::vector<Capacity> params) : Scene("DefaultScene",
 {
 	Engine::SetMusicState(false);
 	
-	/*if (!music.openFromFile("Assets/Sons/musique_level_3.ogg")) {
+	/*if (!music.openFromFile("Game_files/Assets/Sons/musique_level_3.ogg")) {
 		std::cout << "La musique ne charge pas" << std::endl;
 	}
 
@@ -23,11 +23,11 @@ DefaultScene::DefaultScene(std::vector<Capacity> params) : Scene("DefaultScene",
 	music.setVolume(50.f);
 	music.play();*/
 
-	SetTexture("texture_zarya", "Assets/Dolls/Zarya-sheet.png");
-	SetTexture("texture_zvezda", "Assets/Dolls/Zvezda-sheet.png");
-	SetTexture("texture_zwezda", "Assets/Dolls/Zwezda-sheet.png");
-	SetTexture("texture_zarya_gris", "Assets/Dolls/texture_zarya_gris.png");
-	SetTexture("texture_zvezda_gris", "Assets/Dolls/texture_zvezda_gris.png");
+	SetTexture("texture_zarya", "Game_files/Assets/Dolls/Zarya-sheet.png");
+	SetTexture("texture_zvezda", "Game_files/Assets/Dolls/Zvezda-sheet.png");
+	SetTexture("texture_zwezda", "Game_files/Assets/Dolls/Zwezda-sheet.png");
+	SetTexture("texture_zarya_gris", "Game_files/Assets/Dolls/texture_zarya_gris.png");
+	SetTexture("texture_zvezda_gris", "Game_files/Assets/Dolls/texture_zvezda_gris.png");
 
 
 	GetBigCapacity()->SetName(params[0].GetName());
@@ -35,8 +35,8 @@ DefaultScene::DefaultScene(std::vector<Capacity> params) : Scene("DefaultScene",
 	GetSmallCapacity()->SetName(params[2].GetName());
 
 	SpawnObjectLevel3(params);
-	SetTexture("texture_return_button", "Assets/button/return_button.png");
-	SetTexture("texture_pause_button", "Assets/button/pause_button.png");
+	SetTexture("texture_return_button", "Game_files/Assets/button/return_button.png");
+	SetTexture("texture_pause_button", "Game_files/Assets/button/pause_button.png");
 	GameObject* return_button = CreateSpriteButton_forMainMenu(ButtonType, "button_pause", Maths::Vector2f(window_size.x - window_size.x / 50 - 161, window_size.y / 50), Maths::Vector2f(window_size.x / 20, ((((window_size.x / 20) * 161) / 144))), [this] { LaunchFunction::LaunchSceneFalse<PauseScene>(); }, nullptr, "texture_pause_button", Maths::Vector2f(144, 161), Maths::Vector2f(0, 15));
 
 	GameObject* player = CreatePlayer(PlayerType, "Player", Maths::Vector2f(window_size.x / 100 * 6.61458, window_size.y / 100 * 67.1667), Maths::Vector2f((window_size.x / 25), (((window_size.x / 25) * 654) / 420)), "texture_zarya", Maths::Vector2f(420, 654), Maths::Vector2f(0, 1));
@@ -95,19 +95,19 @@ void DefaultScene::SpawnObjectLevel3(std::vector<Capacity> params) {
 	sf::Vector2f window_size = sf::Vector2f(Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize().x, Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize().y);
 
 
-	SetTexture("background", "Assets/background/Level3.design_(1).png");
+	SetTexture("background", "Game_files/Assets/background/Level3.design.png");
 	SetBackground("background");
-	SetTexture("texture_livre", "Assets/Object/livre.png");
-	SetTexture("texture_interrupteur", "Assets/Object/interrupteur.png");
-	SetTexture("texture_fan", "Assets/Object/fan_gif.png");
-	SetTexture("texture_lampe", "Assets/Object/lamp.png");
+	SetTexture("texture_livre", "Game_files/Assets/Object/livre.png");
+	SetTexture("texture_interrupteur", "Game_files/Assets/Object/interrupteur.png");
+	SetTexture("texture_fan", "Game_files/Assets/Object/fan_gif.png");
+	SetTexture("texture_lampe", "Game_files/Assets/Object/lamp.png");
 
-	SetTexture("texture_placeholder", "Assets/button/Placeholder.png");
-	SetTexture("texture_dash", "Assets/button/dash_button.png");
-	SetTexture("texture_double_jump", "Assets/button/double_jump_button.png");
-	SetTexture("texture_force", "Assets/button/force_button.png");
-	SetTexture("texture_gravity", "Assets/button/gravity_button.png");
-	SetTexture("texture_invincibilite", "Assets/button/invincibility_button.png");
+	SetTexture("texture_placeholder", "Game_files/Assets/button/Placeholder.png");
+	SetTexture("texture_dash", "Game_files/Assets/button/dash_button.png");
+	SetTexture("texture_double_jump", "Game_files/Assets/button/double_jump_button.png");
+	SetTexture("texture_force", "Game_files/Assets/button/force_button.png");
+	SetTexture("texture_gravity", "Game_files/Assets/button/gravity_button.png");
+	SetTexture("texture_invincibilite", "Game_files/Assets/button/invincibility_button.png");
 
 
 	float sizeX = window_size.x / 100;
@@ -128,7 +128,7 @@ void DefaultScene::SpawnObjectLevel3(std::vector<Capacity> params) {
 	CreateColliderObject(this, ColliderType, "Table_de_chevet", Maths::Vector2f(sizeX * 1.66667, sizeY * 72.8333), Maths::Vector2f(sizeX * 10.3125, sizeY * 20.0833));
 
 	//Ceiling fan
-	GameObject* fan = CreateSpriteObject(this, DeathType, "Fan", Maths::Vector2f(sizeX * 3.59375, sizeY * 1.57407), Maths::Vector2f(sizeX * 16.875, sizeY * 6.48148), "texture_fan", Maths::Vector2f(523, 185), Maths::Vector2f(0, 1));
+	GameObject* fan = CreateSpriteObject(this, DeathType, "faN", Maths::Vector2f(sizeX * 3.59375, sizeY * 1.57407), Maths::Vector2f(sizeX * 16.875, sizeY * 6.48148), "texture_fan", Maths::Vector2f(523, 185), Maths::Vector2f(0, 1));
 	fan->SetIsAnimated(true);
 	fan->SetNbAnimationSprite(10);
 	fan->SetAnimatedLoop(true);
@@ -146,6 +146,7 @@ void DefaultScene::SpawnObjectLevel3(std::vector<Capacity> params) {
 
 	//Fenêtre
 	CreateColliderObject(this, ColliderType, "Fenetre", Maths::Vector2f(sizeX * 22.7083, sizeY * 51.6667), Maths::Vector2f(sizeX * 19.7396, sizeY * 1.5));
+	
 	//Livre mouvable
 	CreateSpriteObject(this, MoveType, "LivreMove", Maths::Vector2f(sizeX * 39.7412, sizeY * 40.9), Maths::Vector2f(sizeX * 1.73684, sizeY * 13.7), "texture_livre", Maths::Vector2f(0, 0), Maths::Vector2f(0, 0));
 
@@ -183,7 +184,8 @@ void DefaultScene::SpawnObjectLevel3(std::vector<Capacity> params) {
 	CreateColliderObject(this, ColliderType, "Bureau", Maths::Vector2f(sizeX * 62.6562, sizeY * 69.75), Maths::Vector2f(sizeX * 20.2083, sizeY * 1.75));
 
 	//Tabouret
-	CreateColliderObject(this, ColliderType, "Tabouret", Maths::Vector2f(sizeX * 69.6354, sizeY * 81.9167), Maths::Vector2f(sizeX * 7.23958, sizeY * 2));
+	CreateColliderObject(this, ColliderType, "Tabouret", Maths::Vector2f(sizeX * 72.1354, sizeY * 83.1667), Maths::Vector2f(sizeX * 4.6875, sizeY * 3));
+	CreateColliderObject(this, ColliderType, "Tabouret_dossier", Maths::Vector2f(sizeX * 75.4688, sizeY * 76.8333), Maths::Vector2f(sizeX * 1.51042, sizeY * 8.33333));
 
 	//Trou de souris
 	GameObject* hole = CreateColliderObject(this, ColliderType, "Trou_de_souris", Maths::Vector2f(sizeX * 96.5104, sizeY * 87.3333), Maths::Vector2f(sizeX * 2.96875, sizeY * 0.25));

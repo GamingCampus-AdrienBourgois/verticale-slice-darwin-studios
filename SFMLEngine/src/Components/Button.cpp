@@ -56,7 +56,7 @@ void Button::DollSelectCapacity() {
 	if (!have_capacity_button) {
 		sf::Vector2u window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindow()->getSize();
 
-		std::ifstream file("capacity.csv");
+		std::ifstream file("Game_files/capacity.csv");
 
 		if (!file.is_open()) {
 			std::cerr << "Error opening file." << std::endl;
@@ -85,7 +85,7 @@ void Button::DollSelectCapacity() {
 			Capacity* capacity = new Capacity();
 			capacity->SetName(row[0]);
 			capacity->SetDescription(row[1]);
-			scene->SetTexture("texture_capacity_button_" + std::to_string(num_capacity), "Assets/button/" + row[2]);
+			scene->SetTexture("texture_capacity_button_" + std::to_string(num_capacity), "Game_files/Assets/button/" + row[2]);
 			GameObject* button = scene->CreateSpriteButton_forMainMenu(ButtonType, "capacity_button", Maths::Vector2f((window_size.x / 2) - (window_size.x / 15 / 2 * (nb_ligne % 2)) - (window_size.x / 15 * (nb_ligne / 2)) - (((window_size.x / 15) / 2) * (nb_ligne - 1) / 2) + (window_size.x / 15 * (num_capacity - 1)) + ((window_size.x / 15) / 2 * (num_capacity - 1)), (window_size.y / 100 * 10)),
 				Maths::Vector2f(window_size.x / 15, window_size.x / 15), [] {}, capacity, "texture_capacity_button_" + std::to_string(num_capacity), Maths::Vector2f(144,161), Maths::Vector2f(0,15));
 			button->GetComponent<Button>()->SetCallback(std::bind(&Button::SelectCapacity, button->GetComponent<Button>()));
