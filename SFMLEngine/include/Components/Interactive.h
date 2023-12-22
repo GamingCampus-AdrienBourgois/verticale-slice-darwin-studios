@@ -16,7 +16,7 @@ public:
 	void SetObject(GameObject* _object) { object = _object; }
 	void SetCallback(std::function<void()> _callback) { callback = _callback; }
 
-	void Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) override;
+	void Update(const float _delta_time, std::unordered_map<sf::Keyboard::Scancode, bool>* pressed_input) override;
 
 	void SwitchStateLamp(Scene* scene);
 private:

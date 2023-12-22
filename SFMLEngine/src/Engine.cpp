@@ -30,7 +30,7 @@ void Engine::Init() const
 		std::cout << "La musique ne charge pas" << std::endl;
 	}
 	music.setLoop(true);
-	music.setVolume(100.f);
+	music.setVolume(Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetSoundVolume());
 }
  
 void Engine::Run() const 
@@ -65,7 +65,7 @@ void Engine::SetMusicState(bool _state) {
 		//Faire une descente progressive du son ?
 		music.pause();
 		//au lieu de mettre ne pause on peut mettre une autre musique maybe ? / Faire une fonction à appeler dans TransitionScene ou Default
-		music.setVolume(100.f);
+		music.setVolume(Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetSoundVolume());
 	}
 	
 }

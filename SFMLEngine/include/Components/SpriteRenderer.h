@@ -29,7 +29,7 @@ public:
 
 
 	void Render(sf::RenderWindow* _window) override;
-	void Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) override;
+	void Update(const float _delta_time, std::unordered_map<sf::Keyboard::Scancode, bool>* pressed_input) override;
 
 private:
 	sf::Sprite* sprite = nullptr;

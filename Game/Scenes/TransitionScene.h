@@ -9,7 +9,7 @@ class TransitionScene : public Scene {
 private:
 	sf::Vector2f window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize();
 	std::mt19937 gen; // Mersenne Twister 19937 comme générateur pseudo-aléatoire
-	std::vector<Capacity> capacities;
+	std::vector<Capacity*>* capacities = new std::vector<Capacity*>;
 
 
 	std::string fileName = "Game_files/transition_tips.csv";
@@ -22,5 +22,5 @@ private:
 	
 
 public:
-	TransitionScene(std::vector<Capacity> params);
+	TransitionScene(std::vector<Capacity*>* params);
 };

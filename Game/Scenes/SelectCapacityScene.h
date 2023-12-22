@@ -12,10 +12,11 @@ class SelectCapacityScene final : public Scene
 {
 public:
 	SelectCapacityScene();
-	SelectCapacityScene(int num_poupee, std::vector<Capacity> _capacitys);
+	SelectCapacityScene(std::vector<Capacity*>* _capacitys);
 
 private:
 	void callbackPlayButton();
+	void SetNewCapacitys(std::string _player_capacity);
 
 	sf::Music music;
 

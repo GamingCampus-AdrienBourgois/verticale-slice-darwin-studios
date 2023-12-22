@@ -11,7 +11,7 @@
 #include "SelectCapacityScene.h"
 
 
-DefaultScene::DefaultScene(std::vector<Capacity> params) : Scene("DefaultScene", [] {})
+DefaultScene::DefaultScene(std::vector<Capacity*>* params) : Scene("DefaultScene", [] {})
 {
 	Engine::SetMusicState(false);
 	
@@ -20,7 +20,7 @@ DefaultScene::DefaultScene(std::vector<Capacity> params) : Scene("DefaultScene",
 	}
 
 	music.setLoop(true);
-	music.setVolume(50.f);
+	music.setVolume(Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetSoundVolume());
 	music.play();*/
 
 	SetTexture("texture_zarya", "Game_files/Assets/Dolls/Zarya-sheet.png");
@@ -29,10 +29,14 @@ DefaultScene::DefaultScene(std::vector<Capacity> params) : Scene("DefaultScene",
 	SetTexture("texture_zarya_gris", "Game_files/Assets/Dolls/texture_zarya_gris.png");
 	SetTexture("texture_zvezda_gris", "Game_files/Assets/Dolls/texture_zvezda_gris.png");
 
+	GetBigCapacity()->SetName((*params)[0]->GetName());
+	GetMidCapacity()->SetName((*params)[1]->GetName());
+	GetSmallCapacity()->SetName((*params)[2]->GetName());
 
-	GetBigCapacity()->SetName(params[0].GetName());
-	GetMidCapacity()->SetName(params[1].GetName());
-	GetSmallCapacity()->SetName(params[2].GetName());
+
+	GetParams()->push_back(GetBigCapacity());
+	GetParams()->push_back(GetMidCapacity());
+	GetParams()->push_back(GetSmallCapacity());
 
 	SpawnObjectLevel3(params);
 	SetTexture("texture_return_button", "Game_files/Assets/button/return_button.png");
@@ -50,25 +54,13 @@ DefaultScene::DefaultScene(std::vector<Capacity> params) : Scene("DefaultScene",
 
 	SceneModule* scene_module = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>();
 	Scene* transitionScene = scene_module->GetMainScene();
-	transitionScene->CreateSpriteButtonWithText(ButtonType, "resume_button", Maths::Vector2f(((window_size.x / 2) - (button_size_x / 2)), window_size.y * 3 / 6), Maths::Vector2f(button_size_x, button_size_y), [transitionScene] {LaunchFunction::resumeGame(); }, nullptr, "texture_button", Maths::Vector2f(448, 168), Maths::Vector2f(0, 24), "LaNCER LE JEU", sf::Color::Black, 30);
-	//player->GetComponent<Player>()->SetCheckpointCallback([this] {LaunchFunction::LaunchSceneFalse<SelectCapacityScene>(); });
+	transitionScene->CreateSpriteButtonWithText(ButtonType, "resume_button", Maths::Vector2f(((window_size.x / 2) - (button_size_x / 2)), window_size.y * 3 / 6), Maths::Vector2f(button_size_x, button_size_y), [transitionScene] {LaunchFunction::resumeGame(); }, nullptr, "texture_button", Maths::Vector2f(448, 168), Maths::Vector2f(0, 24), "ERTOUR aU JEU", sf::Color::Black, 30);
+	player->GetComponent<Player>()->SetCheckpointCallback([this] {FctForCheckpointMenu(); });
 }
 
-GameObject* CreateColliderObject(Scene* scene, const ObjectType& _type, std::string _name, Maths::Vector2f _position, Maths::Vector2f _size) {
-	GameObject* game_object = scene->CreateGameObject(_type, _name);
-	game_object->SetPosition(_position);
-
-	sf::Vector2f window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize();
-
-	SquareCollider* squareCollider = game_object->CreateComponent<SquareCollider>();
-	squareCollider->SetWidth(_size.x);
-	squareCollider->SetHeight(_size.y);
-
-	RectangleShapeRenderer* shapeRenderer = game_object->CreateComponent<RectangleShapeRenderer>();
-	shapeRenderer->SetColor(sf::Color{ 255,0,0,50 }); // Couleur du mur
-	shapeRenderer->SetSize(Maths::Vector2f(_size.x, _size.y)); // Taille du mur
-
-	return game_object;
+void DefaultScene::FctForCheckpointMenu() {
+	std::vector<Capacity*>* _params = GetParams();
+	LaunchFunction::LaunchSceneFalseParams<SelectCapacityScene>(_params);
 }
 
 GameObject* DefaultScene::CreateColliderObject(Scene* scene, const ObjectType& _type, std::string _name, Maths::Vector2f _position, Maths::Vector2f _size) {
@@ -89,7 +81,7 @@ GameObject* DefaultScene::CreateColliderObject(Scene* scene, const ObjectType& _
 	return game_object;
 }
 
-void DefaultScene::SpawnObjectLevel3(std::vector<Capacity> params) {
+void DefaultScene::SpawnObjectLevel3(std::vector<Capacity*>* params) {
 	
 	
 
@@ -207,7 +199,7 @@ void DefaultScene::SpawnObjectLevel3(std::vector<Capacity> params) {
 	//Affichage du pouvoir en cours
 	GameObject* Pouvoir_en_cours = CreateOnlySprite(this, GameObjectType, "pouvoir en cours", Maths::Vector2f(window_size.x / 50, window_size.y - window_size.y / 50 - 144), Maths::Vector2f(window_size.x / 20, ((((window_size.x / 20) * 144) / 144))), "texture_placeholder", Maths::Vector2f(144, 144), Maths::Vector2f(0, 15));
 
-	std::string namePower = params[0].GetName();
+	std::string namePower = (*params)[0]->GetName();
 	if (namePower == "INVERSION DE LA GRaVITE")
 	{
 		Pouvoir_en_cours->GetComponent<SpriteRenderer>()->SetSpriteRect(GetTextureByName("texture_gravity"), Maths::Vector2f(window_size.x / 20, ((((window_size.x / 20) * 144) / 144))), Maths::Vector2f(144, 144), Maths::Vector2f(0, 369), Maths::Vector2f(0, 32));

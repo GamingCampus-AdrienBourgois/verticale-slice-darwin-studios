@@ -11,7 +11,7 @@ class WindowModule final : public Module
 {
 public:
 	
-	std::unordered_map<sf::Keyboard::Key, bool>* GetPressed() { return &pressed; }
+	std::unordered_map<sf::Keyboard::Scancode, bool>* GetPressed() { return &pressed; }
 	void ResetButton(GameObject* button, std::vector<std::string> _name);
 	sf::Vector2i GetMousePosition();
 	void Init() override;
@@ -28,6 +28,6 @@ public:
 
 private:
 	sf::RenderWindow* window = nullptr;
-	std::unordered_map<sf::Keyboard::Key, bool> pressed;
+	std::unordered_map<sf::Keyboard::Scancode, bool> pressed;
 
 };

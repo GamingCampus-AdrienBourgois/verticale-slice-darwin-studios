@@ -25,9 +25,15 @@ public:
 	Capacity* GetBigCapacity() { return capacity_for_big_doll; }
 	Capacity* GetMidCapacity() { return capacity_for_mid_doll; }
 	Capacity* GetSmallCapacity() { return capacity_for_small_doll; }
+	std::vector<Capacity*>* GetParams() { return params; }
+
+	void SetBigCapacity(Capacity* _capacity) { capacity_for_big_doll = _capacity; }
+	void SetMidCapacity(Capacity* _capacity) { capacity_for_mid_doll = _capacity; }
+	void SetSmallCapacity(Capacity* _capacity) { capacity_for_small_doll = _capacity; }
+	void SetParams(Capacity* _capacity, int i) { (*params)[i] = _capacity; }
 
 
-	void Update(float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input);
+	void Update(float _delta_time, std::unordered_map<sf::Keyboard::Scancode, bool>* pressed_input);
 
 
 
@@ -69,6 +75,7 @@ private:
 	Capacity* capacity_for_big_doll = new Capacity();
 	Capacity* capacity_for_mid_doll = new Capacity();
 	Capacity* capacity_for_small_doll = new Capacity();
+	std::vector<Capacity*>* params = new std::vector<Capacity*>;
 
 	std::string name;
 	std::unordered_map<std::string, sf::Texture> texture;

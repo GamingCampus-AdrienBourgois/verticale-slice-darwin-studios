@@ -1,6 +1,8 @@
 #include "Components/Interactive.h"
+#include "Engine.h"
+#include "Modules/InputModule.h"
 
-void Interactive::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) {
+void Interactive::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Scancode, bool>* pressed_input) {
 	if (can_be_activated) {
 		TextRenderer* text_renderer = GetOwner()->CreateComponent<TextRenderer>();
 		text_renderer->SetTextName("interagir");
@@ -9,7 +11,8 @@ void Interactive::Update(const float _delta_time, std::unordered_map<sf::Keyboar
 		text_renderer->SetSize(Maths::Vector2f(120, 20));
 		text_renderer->SetCaracterSize(20);
 		text_renderer->SetString("E pour interagir");
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::E)) {
+		InputModule* input_module = Engine::GetInstance()->GetModuleManager()->GetModule<InputModule>();
+		if (input_module->GetControls()->at("IntERagiR")->EntryIsPressesd()) {
 			if (can_activate_clock.getElapsedTime().asSeconds() >= 0.1) {
 				callback();
 				can_activate_clock.restart();
