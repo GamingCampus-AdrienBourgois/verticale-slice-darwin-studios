@@ -169,6 +169,7 @@
     <ClCompile Include="Scenes\DeathScene.cpp" />
     <ClCompile Include="Scenes\DefaultScene.cpp" />
     <ClCompile Include="Scenes\EndLevelScene.cpp" />
+    <ClCompile Include="Scenes\IntroScene.cpp" />
     <ClCompile Include="Scenes\MainMenuScene.cpp" />
     <ClCompile Include="Scenes\MapScene.cpp" />
     <ClCompile Include="Scenes\PauseScene.cpp" />
@@ -186,6 +187,7 @@
     <ClInclude Include="Scenes\DeathScene.h" />
     <ClInclude Include="Scenes\DefaultScene.h" />
     <ClInclude Include="Scenes\EndLevelScene.h" />
+    <ClInclude Include="Scenes\IntroScene.h" />
     <ClInclude Include="Scenes\OptionsScene.h" />
     <ClInclude Include="Scenes\LaunchFunction.h" />
     <ClInclude Include="Scenes\MainMenuScene.h" />

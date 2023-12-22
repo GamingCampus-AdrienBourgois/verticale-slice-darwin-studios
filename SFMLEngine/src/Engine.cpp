@@ -31,7 +31,6 @@ void Engine::Init() const
 	}
 	music.setLoop(true);
 	music.setVolume(100.f);
-	music.play();
 }
  
 void Engine::Run() const 

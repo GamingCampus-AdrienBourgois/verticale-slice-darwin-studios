@@ -12,6 +12,7 @@
     <ClCompile Include="Scenes\TransitionScene.cpp" />
     <ClCompile Include="Scenes\MapScene.cpp" />
     <ClCompile Include="Scenes\OptionsScene.cpp" />
+    <ClCompile Include="Scenes\IntroScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -41,6 +42,7 @@
     <ClInclude Include="Scenes\LaunchFunction.h" />
     <ClInclude Include="Scenes\MainMenuScene.h" />
     <ClInclude Include="Scenes\SelectCapacityScene.h" />
+    <ClInclude Include="Scenes\IntroScene.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="imgui.ini" />

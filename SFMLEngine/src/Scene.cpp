@@ -37,6 +37,11 @@ Scene::~Scene() {
 
 void Scene::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Key, bool>* pressed_input) 
 {
+	if (name == "IntroScene")
+	{
+		callBack();
+	}
+
 	if (name == "TransitionScene" && !gameLoaded)
 	{
 		SetGameLoaded(true);
