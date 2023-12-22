@@ -9,12 +9,12 @@
 
 SceneModule::SceneModule(): Module()
 {
-	font.loadFromFile("Font/arial.ttf");
+	font.loadFromFile("Game_files/Font/arial.ttf");
 
-	std::ifstream file("settings.csv");
+	std::ifstream file("Game_files/settings.csv");
 
 	if (!file.is_open()) {
-		std::cerr << "Error opening file." << std::endl;
+		std::cerr << "Error opening fileaaaaaaaa." << std::endl;
 	}
 
 	std::string line;

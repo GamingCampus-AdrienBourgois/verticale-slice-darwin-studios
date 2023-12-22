@@ -18,7 +18,7 @@ public:
 	float button_size_x = window_size.x / 15 * 3;
 	float button_size_y = (((window_size.x / 15) * 3) * 168 / 448);
 
-	std::string deathMessage = "Vous etes mort";
+	std::string deathMessage = "VOUS ETES MORT";
 
 
 	DeathScene();

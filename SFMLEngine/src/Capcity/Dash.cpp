@@ -5,7 +5,7 @@
 //Sound
 Dash::Dash() {
     soundBufferDash = new sf::SoundBuffer;
-    if (!soundBufferDash->loadFromFile("Assets/Sons/dash.wav")) {
+    if (!soundBufferDash->loadFromFile("Game_files/Assets/Sons/dash.wav")) {
         std::cout << "erreur de chargement du fichier" << std::endl;
     }
     soundDash = new sf::Sound;

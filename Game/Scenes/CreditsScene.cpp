@@ -14,16 +14,15 @@
 
 CreditsScene::CreditsScene() : Scene("CreditsScene", [] {})
 {
-	Engine::SetMusicState(true);
-	SetTexture("background", "Assets/background/main_menu_background.png");
-	SetTexture("texture_return_button", "Assets/button/return_button.png");
+	SetTexture("background", "Game_files/Assets/background/main_menu_background.png");
+	SetTexture("texture_return_button", "Game_files/Assets/button/return_button.png");
 	SetBackground("background");
 
-	SetFont("Font/UkrainianPrincess.ttf");
+	SetFont("Game_files/Font/UkrainianPrincess.ttf");
 
 	sf::Vector2u window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindow()->getSize();
 
-	std::ifstream file("credits.csv");
+	std::ifstream file("Game_files/credits.csv");
 
 	int nb_ligne = 0;
 	std::string line;

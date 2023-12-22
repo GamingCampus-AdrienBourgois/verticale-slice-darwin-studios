@@ -15,8 +15,7 @@
 
 SelectCapacityScene::SelectCapacityScene() : Scene("SelectCapacityScene", [] {})
 {
-	Engine::SetMusicState(true);
-	/*if (!music.openFromFile("Assets/Sons/musique_level_3.ogg")) {
+	/*if (!music.openFromFile("Game_files/Assets/Sons/musique_level_3.ogg")) {
 		std::cout << "La musique ne charge pas" << std::endl;
 	}
 
@@ -24,15 +23,15 @@ SelectCapacityScene::SelectCapacityScene() : Scene("SelectCapacityScene", [] {})
 	music.setVolume(Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>()->GetSoundVolume());
 	music.play();*/
 
-	SetTexture("background", "Assets/background/capacity_background.png");
+	SetTexture("background", "Game_files/Assets/background/capacity_background.png");
 	SetBackground("background");
-	SetFont("Font/UkrainianPrincess.ttf");
-	SetTexture("texture_launch_capacity_button", "Assets/button/capacity_launch_button.png");
-	SetTexture("texture_zarya_button", "Assets/button/zarya_button.png");
-	SetTexture("texture_zvezda_button", "Assets/button/zvezda_button.png");
-	SetTexture("texture_zwezda_button", "Assets/button/zwezda_button.png");
-	SetTexture("texture_map_button", "Assets/button/map_button.png");
-	SetTexture("texture_return_button", "Assets/button/return_button.png");
+	SetFont("Game_files/Font/UkrainianPrincess.ttf");
+	SetTexture("texture_launch_capacity_button", "Game_files/Assets/button/capacity_launch_button.png");
+	SetTexture("texture_zarya_button", "Game_files/Assets/button/zarya_button.png");
+	SetTexture("texture_zvezda_button", "Game_files/Assets/button/zvezda_button.png");
+	SetTexture("texture_zwezda_button", "Game_files/Assets/button/zwezda_button.png");
+	SetTexture("texture_map_button", "Game_files/Assets/button/map_button.png");
+	SetTexture("texture_return_button", "Game_files/Assets/button/return_button.png");
 
 	sf::Vector2f window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize();
 
@@ -75,15 +74,15 @@ void SelectCapacityScene::callbackPlayButton() {
 
 SelectCapacityScene::SelectCapacityScene(std::vector<Capacity*>* _capacitys) : Scene("SelectCapacityScene", [] {})
 {
-	SetTexture("background", "Assets/background/capacity_background.png");
+	SetTexture("background", "Game_files/Assets/background/capacity_background.png");
 	SetBackground("background");
-	SetFont("Font/UkrainianPrincess.ttf");
-	SetTexture("texture_launch_capacity_button", "Assets/button/capacity_launch_button.png");
-	SetTexture("texture_zarya_button", "Assets/button/zarya_button.png");
-	SetTexture("texture_zvezda_button", "Assets/button/zvezda_button.png");
-	SetTexture("texture_zwezda_button", "Assets/button/zwezda_button.png");
-	SetTexture("texture_map_button", "Assets/button/map_button.png");
-	SetTexture("texture_return_button", "Assets/button/return_button.png");
+	SetFont("Game_files/Font/UkrainianPrincess.ttf");
+	SetTexture("texture_launch_capacity_button", "Game_files/Assets/button/capacity_launch_button.png");
+	SetTexture("texture_zarya_button", "Game_files/Assets/button/zarya_button.png");
+	SetTexture("texture_zvezda_button", "Game_files/Assets/button/zvezda_button.png");
+	SetTexture("texture_zwezda_button", "Game_files/Assets/button/zwezda_button.png");
+	SetTexture("texture_map_button", "Game_files/Assets/button/map_button.png");
+	SetTexture("texture_return_button", "Game_files/Assets/button/return_button.png");
 
 	sf::Vector2u window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindow()->getSize();
 
@@ -96,7 +95,7 @@ SelectCapacityScene::SelectCapacityScene(std::vector<Capacity*>* _capacitys) : S
 
 	GameObject* launch_game_button = CreateSpriteButton_forMainMenu(ButtonType, "launch_game_button", Maths::Vector2f((window_size.x / 2) - (window_size.x / 15), (window_size.y - window_size.y / 100 * 15)), Maths::Vector2f(window_size.x / 15 * 2, ((((window_size.x / 15 * 2) * 168) / 448))), [] {}, nullptr, "texture_launch_capacity_button", Maths::Vector2f(448, 168), Maths::Vector2f(0, 24));
 
-	std::ifstream file("capacity.csv");
+	std::ifstream file("Game_files/capacity.csv");
 
 	if (!file.is_open()) {
 		std::cerr << "Error opening file." << std::endl;
@@ -125,7 +124,7 @@ SelectCapacityScene::SelectCapacityScene(std::vector<Capacity*>* _capacitys) : S
 		Capacity* capacity = new Capacity();
 		capacity->SetName(row[0]);
 		capacity->SetDescription(row[1]);
-		SetTexture("texture_capacity_button_" + std::to_string(num_capacity), "Assets/button/" + row[2]);
+		SetTexture("texture_capacity_button_" + std::to_string(num_capacity), "Game_files/Assets/button/" + row[2]);
 		GameObject* button = CreateSpriteButton_forMainMenu(ButtonType, "capacity_button", Maths::Vector2f((window_size.x / 2) - (window_size.x / 15 / 2 * (nb_ligne % 2)) - (window_size.x / 15 * (nb_ligne / 2)) - (((window_size.x / 15) / 2) * (nb_ligne - 1) / 2) + (window_size.x / 15 * (num_capacity - 1)) + ((window_size.x / 15) / 2 * (num_capacity - 1)), (window_size.y / 100 * 10)),
 			Maths::Vector2f(window_size.x / 15, window_size.x / 15), [] {}, capacity, "texture_capacity_button_" + std::to_string(num_capacity), Maths::Vector2f(144, 161), Maths::Vector2f(0, 15));
 		button->GetComponent<Button>()->SetCallback(std::bind(&Button::SelectCapacity, button->GetComponent<Button>()));

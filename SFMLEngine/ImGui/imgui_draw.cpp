@@ -1618,7 +1618,7 @@ void ImDrawList::AddText(const ImFont* font, float font_size, const ImVec2& pos,
     if (text_begin == text_end)
         return;
 
-    // Pull default font/size from the shared ImDrawListSharedData instance
+    // Pull default Game_files/Font/size from the shared ImDrawListSharedData instance
     if (font == NULL)
         font = _Data->Font;
     if (font_size == 0.0f)

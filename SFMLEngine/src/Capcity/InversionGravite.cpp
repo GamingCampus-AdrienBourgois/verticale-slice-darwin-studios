@@ -7,7 +7,7 @@
 //Sound
 InversionGravite::InversionGravite() {
 	soundBufferInversionGravite = new sf::SoundBuffer;
-	if (!soundBufferInversionGravite->loadFromFile("Assets/Sons/inversion_gravite.wav")) {
+	if (!soundBufferInversionGravite->loadFromFile("Game_files/Assets/Sons/inversion_gravite.wav")) {
 		std::cout << "erreur de chargement du fichier" << std::endl;
 	}
 	soundInversionGravite = new sf::Sound;

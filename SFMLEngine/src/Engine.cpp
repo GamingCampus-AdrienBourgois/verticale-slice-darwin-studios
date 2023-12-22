@@ -26,7 +26,7 @@ void Engine::Init() const
 
 
 
-	if (!music.openFromFile("Assets/Sons/musique_level_3.ogg")) {
+	if (!music.openFromFile("Game_files/Assets/Sons/musique_level_3.ogg")) {
 		std::cout << "La musique ne charge pas" << std::endl;
 	}
 	music.setLoop(true);
@@ -73,7 +73,7 @@ void Engine::SetMusicState(bool _state) {
 
 void SetSettingsOnFile() {
 
-	const std::string nomFichier = "settings.csv";
+	const std::string nomFichier = "Game_files/settings.csv";
 	SceneModule* scene_module = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>();
 
 	std::ofstream fichierCSV(nomFichier);

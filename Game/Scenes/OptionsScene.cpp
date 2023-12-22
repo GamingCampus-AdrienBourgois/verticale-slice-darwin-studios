@@ -11,15 +11,15 @@
 
 OptionsScene::OptionsScene() : Scene("OptionsScene", [] {})
 {
-	SetTexture("background", "Assets/background/main_menu_background.png");
-	SetTexture("texture_return_button", "Assets/button/return_button.png");
+	SetTexture("background", "Game_files/Assets/background/main_menu_background.png");
+	SetTexture("texture_return_button", "Game_files/Assets/button/return_button.png");
 	SetBackground("background");
-	SetFont("Font/UkrainianPrincess.ttf");
-	SetTexture("texture_sound_button", "Assets/button/buttonSon.png");
-	SetTexture("texture_controls_button", "Assets/button/buttonControles.png");
-	SetTexture("texture_jauge_slider", "Assets/button/jauge_slider.png");
-	SetTexture("texture_button_slider", "Assets/button/buttonSlider.png");
-	SetTexture("texture_entry_button", "Assets/button/entry_button.png");
+	SetFont("Game_files/Font/UkrainianPrincess.ttf");
+	SetTexture("texture_sound_button", "Game_files/Assets/button/buttonSon.png");
+	SetTexture("texture_controls_button", "Game_files/Assets/button/buttonControles.png");
+	SetTexture("texture_jauge_slider", "Game_files/Assets/button/jauge_slider.png");
+	SetTexture("texture_button_slider", "Game_files/Assets/button/buttonSlider.png");
+	SetTexture("texture_entry_button", "Game_files/Assets/button/entry_button.png");
 
 	sf::Vector2u window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindow()->getSize();
 
