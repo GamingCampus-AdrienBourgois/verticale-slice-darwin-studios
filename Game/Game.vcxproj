@@ -199,31 +199,11 @@
   <ItemGroup>
     <None Include="imgui.ini" />
     <None Include="Scenes\LaunchFunction.inl" />
-    <None Include="x64\Debug\Game.exe.recipe" />
-    <None Include="x64\Debug\Game.ilk" />
-    <None Include="x64\Debug\Game.tlog\CL.command.1.tlog" />
-    <None Include="x64\Debug\Game.tlog\Game.lastbuildstate" />
     <None Include="x64\Debug\Game.tlog\unsuccessfulbuild" />
-    <None Include="x64\Debug\vc143.idb" />
-    <None Include="x64\Debug\vc143.pdb" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="x64\Debug\Game.Build.CppClean.log" />
-    <Text Include="x64\Debug\Game.log" />
     <Text Include="x64\Debug\Game.vcxproj.FileListAbsolute.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Object Include="x64\Debug\CreditsScene.obj" />
-    <Object Include="x64\Debug\DeathScene.obj" />
-    <Object Include="x64\Debug\DefaultScene.obj" />
-    <Object Include="x64\Debug\EndLevelScene.obj" />
-    <Object Include="x64\Debug\main.obj" />
-    <Object Include="x64\Debug\MainMenuScene.obj" />
-    <Object Include="x64\Debug\MapScene.obj" />
-    <Object Include="x64\Debug\OptionsScene.obj" />
-    <Object Include="x64\Debug\PauseScene.obj" />
-    <Object Include="x64\Debug\SelectCapacityScene.obj" />
-    <Object Include="x64\Debug\TransitionScene.obj" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

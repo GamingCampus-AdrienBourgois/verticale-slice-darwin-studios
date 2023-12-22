@@ -13,27 +13,16 @@ IntroScene::IntroScene() : Scene("IntroScene", [this] {introCallback(); }) {
 
 	text_intro = CreateText(TextType, "text_intro", Maths::Vector2f(window_size.x / 2 - window_size.x / 4, (window_size.y / 100 * 25)), sf::Color::White, Maths::Vector2u(window_size.x / 4 * 2, (window_size.y / 100 * 10)), 40);
 	logo = CreateOnlySprite(this, GameObjectType, "logoDarwins", Maths::Vector2f(window_size.x / 2 - window_size.y / 3 / 2, window_size.y * 2 / 5), Maths::Vector2f(window_size.y / 3, window_size.y / 3), "texture_logo_darwins", Maths::Vector2f(500, 500), Maths::Vector2f());
-    text_intro->GetComponent<TextRenderer>()->SetString("PRESENTE PaR");
+	text_intro->GetComponent<TextRenderer>()->SetString("PRESENTE PaR");
 
 }
 
 void IntroScene::introCallback() {
-	switch (etape)
-	{
-	case 0:
-		etape++;
-		break;
-	case 1:
-	case 3:
-		sf::sleep(sf::seconds(3.0f));
-		etape++;
-		break;
-	case 2:
+	if (clock.getElapsedTime().asSeconds() > 6.0) {
+		LaunchFunction::LaunchScene<MainMenuScene>();
+	}
+	else if (clock.getElapsedTime().asSeconds() > 3.0) {
 		logo->GetComponent<SpriteRenderer>()->SetSprite(GetTextureByName("texture_logo_jeu"), Maths::Vector2f(window_size.y / 3, window_size.y / 3));
 		text_intro->GetComponent<TextRenderer>()->SetString("ZORYa SISTERS");
-		etape++;
-		break;
-	case 4:
-		LaunchFunction::LaunchScene<MainMenuScene>();
 	}
 }

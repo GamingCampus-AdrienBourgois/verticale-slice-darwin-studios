@@ -8,7 +8,7 @@ class IntroScene : public Scene {
 private:
 	sf::Vector2f window_size = Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindowSize();
 
-	int etape = 0;
+	sf::Clock clock;
 
 	GameObject* logo = nullptr;
 	GameObject* text_intro = nullptr;
