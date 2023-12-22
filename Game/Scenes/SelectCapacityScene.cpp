@@ -15,7 +15,6 @@
 
 SelectCapacityScene::SelectCapacityScene() : Scene("SelectCapacityScene", [] {})
 {
-	Engine::SetMusicState(true);
 	/*if (!music.openFromFile("Game_files/Assets/Sons/musique_level_3.ogg")) {
 		std::cout << "La musique ne charge pas" << std::endl;
 	}
@@ -101,7 +100,7 @@ void SelectCapacityScene::callbackPlayButton() {
 //		launch_game_button->GetComponent<SpriteRenderer>()->SetNextSpriteRect(3);
 //	}
 //
-//	std::ifstream file("capacity.csv");
+//	std::ifstream file("Game_files/capacity.csv");
 //
 //	if (!file.is_open()) {
 //		std::cerr << "Error opening file." << std::endl;

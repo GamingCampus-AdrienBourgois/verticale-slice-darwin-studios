@@ -67,7 +67,7 @@ void Button::DollSelectCapacity() {
 		std::ifstream file("Game_files/capacity.csv");
 
 		if (!file.is_open()) {
-			std::cerr << "Error opening file." << std::endl;
+			std::cerr << "Error opening filebb." << std::endl;
 		}
 
 		int nb_ligne = 0;

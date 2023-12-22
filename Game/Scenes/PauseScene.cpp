@@ -5,7 +5,6 @@
 #include "MainMenuScene.h"
 
 PauseScene::PauseScene() : Scene("PauseScene", [] {}) {
-	Engine::SetMusicState(false);
 
 	SetFont("Game_files/Font/UkrainianPrincess.ttf");
 	SetTexture("texture_button", "Game_files/Assets/button/button.png");

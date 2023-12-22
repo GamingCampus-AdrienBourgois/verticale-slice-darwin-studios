@@ -38,7 +38,7 @@ void InputModule::Start()
 
 	window = moduleManager->GetModule<WindowModule>()->GetWindow();
 
-	std::ifstream file("settings.csv");
+	std::ifstream file("Game_files/settings.csv");
 
 	if (!file.is_open()) {
 		std::cerr << "Error opening file." << std::endl;

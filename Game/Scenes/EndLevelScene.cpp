@@ -5,7 +5,6 @@
 
 EndLevelScene::EndLevelScene() : Scene("EndLevelScene", [] {})
 {
-	Engine::SetMusicState(false);
 	SetFont("Game_files/Font/UkrainianPrincess.ttf");
 	SetTexture("texture_button", "Game_files/Assets/button/button.png");
 
