@@ -594,6 +594,12 @@ void Player::Update(const float _delta_time, std::unordered_map<sf::Keyboard::Sc
 		hp = 100;
 		gravity = 100;
 		deathRespawn = false;
+
+		checkpointCallback();
+		scene->GetParams()->clear();
+		scene->GetParams()->push_back((scene->GetBigCapacity()));
+		scene->GetParams()->push_back((scene->GetMidCapacity()));
+		scene->GetParams()->push_back((scene->GetSmallCapacity()));
 	}
 	
 
