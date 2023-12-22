@@ -11,7 +11,10 @@ private:
 	std::mt19937 gen; // Mersenne Twister 19937 comme générateur pseudo-aléatoire
 	std::vector<Capacity> capacities;
 
+
+	std::string fileName = "Game_files/transition_tips.csv";
 	int tipLine;
+	int nbrTipLines = 0;
 	std::string tip;
 
 	void CallBack();

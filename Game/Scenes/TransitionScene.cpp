@@ -19,8 +19,16 @@ TransitionScene::TransitionScene(std::vector<Capacity> params) : Scene("Transiti
 	GameObject * text_tips = CreateText(TextType, "text_tips", Maths::Vector2f(window_size.x / 2 - window_size.x / 4, (window_size.y / 100 * 85)), sf::Color::White, Maths::Vector2u(window_size.x / 4 * 2, (window_size.y / 100 * 10)), 40);
 
 
-	std::ifstream file("Game_files/transition_tips.csv");
-	tipLine = randomNumber(1, 4);
+	std::ifstream file(fileName);
+
+
+	while (std::getline(file, tip)) {
+		++nbrTipLines;
+	}
+	file.close();
+	file.open(fileName);
+
+	tipLine = randomNumber(1, nbrTipLines); // Nombre de lignes dans le csv, à automati
 	for (int i = 0; i < tipLine; i++)
 	{
 		std::getline(file, tip);
